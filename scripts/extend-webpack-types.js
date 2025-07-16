@@ -1,11 +1,14 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const fs = require("graceful-fs");
 
+/**
+ * @returns {Promise<void>}
+ */
 async function extendTypes() {
   const typesPath = path.resolve(__dirname, "../types/lib/Server.d.ts");
-  const content = await fs.promises.readFile(typesPath, "utf-8");
+  const content = await fs.promises.readFile(typesPath, "utf8");
   const newContent = `${content}
 // DO NOT REMOVE THIS!
 type DevServerConfiguration = Configuration;
@@ -23,4 +26,10 @@ declare module "webpack" {
   await fs.promises.writeFile(typesPath, newContent);
 }
 
-extendTypes();
+// eslint-disable-next-line unicorn/prefer-top-level-await
+Promise.resolve().then(
+  () => extendTypes(),
+  (error) => {
+    throw error;
+  },
+);

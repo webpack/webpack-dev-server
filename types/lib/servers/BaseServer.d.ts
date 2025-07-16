@@ -1,7 +1,7 @@
 export = BaseServer;
 declare class BaseServer {
   /**
-   * @param {import("../Server")} server
+   * @param {import("../Server")} server server
    */
   constructor(server: import("../Server"));
   /** @type {import("../Server")} */

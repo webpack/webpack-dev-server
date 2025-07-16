@@ -1,6 +1,5 @@
 "use strict";
 
-// eslint-disable-next-line import/order
 const createButton = require("./create-button");
 
 /**

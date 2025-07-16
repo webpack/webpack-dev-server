@@ -1,10 +1,10 @@
 "use strict";
 
-const os = require("os");
-const path = require("path");
+const os = require("node:os");
+const path = require("node:path");
 const execa = require("execa");
-const stripAnsi = require("strip-ansi-v6");
 const { Writable } = require("readable-stream");
+const stripAnsi = require("strip-ansi-v6");
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -123,27 +123,27 @@ const ipV6 = `
 (?::(?:(?::${ipV6Seg}){0,5}:${ipV4}|(?::${ipV6Seg}){1,7}|:))               // ::2:3:4:5:6:7:8  ::2:3:4:5:6:7:8  ::8             ::1.2.3.4
 )(?:%[0-9a-zA-Z]{1,})?                                                     // %eth0            %1
 `
-  .replace(/\s*\/\/.*$/gm, "")
-  .replace(/\n/g, "")
+  .replaceAll(/\s*\/\/.*$/gm, "")
+  .replaceAll("\n", "")
   .trim();
 
 const normalizeStderr = (stderr, options = {}) => {
   let normalizedStderr = stripAnsi(stderr);
 
   normalizedStderr = normalizedStderr
-    .replace(/\\/g, "/")
-    .replace(new RegExp(process.cwd().replace(/\\/g, "/"), "g"), "<cwd>")
-    .replace(new RegExp(os.tmpdir().replace(/\\/g, "/"), "g"), "<tmp>")
-    .replace(new RegExp("\\\\.\\pipe".replace(/\\/g, "/"), "g"), "<tmp>")
-    .replace(new RegExp(ipV4, "g"), "<ip-v4>")
-    .replace(new RegExp(ipV6, "g"), "<ip-v6>");
+    .replaceAll("\\", "/")
+    .replaceAll(new RegExp(process.cwd().replaceAll("\\", "/"), "g"), "<cwd>")
+    .replaceAll(new RegExp(os.tmpdir().replaceAll("\\", "/"), "g"), "<tmp>")
+    .replaceAll(new RegExp("\\\\.\\pipe".replaceAll("\\", "/"), "g"), "<tmp>")
+    .replaceAll(new RegExp(ipV4, "g"), "<ip-v4>")
+    .replaceAll(new RegExp(ipV6, "g"), "<ip-v6>");
 
   // normalize node warnings
-  normalizedStderr = normalizedStderr.replace(
+  normalizedStderr = normalizedStderr.replaceAll(
     /.*DeprecationWarning.*(\n)*/gm,
     "",
   );
-  normalizedStderr = normalizedStderr.replace(
+  normalizedStderr = normalizedStderr.replaceAll(
     /.*Use `node --trace-deprecation ...` to show where the warning was created.*(\n)*/gm,
     "",
   );
@@ -153,7 +153,7 @@ const normalizeStderr = (stderr, options = {}) => {
     (item) => !/.+wait until bundle finished.*(\n)?/g.test(item),
   );
   normalizedStderr = normalizedStderr.join("\n");
-  normalizedStderr = normalizedStderr.replace(/:[0-9]+\//g, ":<port>/");
+  normalizedStderr = normalizedStderr.replaceAll(/:[0-9]+\//g, ":<port>/");
 
   if (options.https) {
     // We have deprecation warning on windows in some cases

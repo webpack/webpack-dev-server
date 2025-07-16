@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -72,7 +72,7 @@ describe("API", () => {
   });
 
   describe("latest async API", () => {
-    it(`should work with async API`, async () => {
+    it("should work with async API", async () => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -100,15 +100,13 @@ describe("API", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with callback API`, async () => {
+    it("should work with callback API", async () => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -140,8 +138,6 @@ describe("API", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -152,7 +148,7 @@ describe("API", () => {
       }
     });
 
-    it(`should catch errors within startCallback`, async () => {
+    it("should catch errors within startCallback", async () => {
       const compiler = webpack(config);
       const server = new Server(
         { port, static: "https://absolute-url.com/somewhere" },
@@ -161,7 +157,7 @@ describe("API", () => {
 
       await new Promise((resolve) => {
         server.startCallback((err) => {
-          expect(err.message).toEqual(
+          expect(err.message).toBe(
             "Using a URL as static.directory is not supported",
           );
           resolve();
@@ -175,7 +171,7 @@ describe("API", () => {
       });
     });
 
-    it(`should work when using configured manually`, async () => {
+    it("should work when using configured manually", async () => {
       const compiler = webpack({
         ...config,
         entry: [
@@ -213,15 +209,13 @@ describe("API", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work and allow to rerun dev server multiple times`, async () => {
+    it("should work and allow to rerun dev server multiple times", async () => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -249,8 +243,6 @@ describe("API", () => {
           firstConsoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(firstPageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await server.stop();
       }
@@ -279,8 +271,6 @@ describe("API", () => {
           secondConsoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(secondPageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
@@ -391,7 +381,7 @@ describe("API", () => {
       const basePort = process.env.WEBPACK_DEV_SERVER_TEST_BASE_PORT || 30000;
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = basePort;
 
-      return (Array.isArray(n) ? n : [...new Array(n)]).reduce(
+      return (Array.isArray(n) ? n : Array.from({ length: n })).reduce(
         (p, _, i) =>
           p.then(
             () =>
@@ -436,7 +426,7 @@ describe("API", () => {
 
       const freePort = await Server.getFreePort(9082);
 
-      expect(freePort).toEqual(9082);
+      expect(freePort).toBe(9082);
     });
 
     it("should return the port when the port is `null`", async () => {
@@ -445,7 +435,10 @@ describe("API", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
       try {
         await createDummyServers(retryCount);
-        const basePort = parseInt(process.env.WEBPACK_DEV_SERVER_BASE_PORT, 10);
+        const basePort = Number.parseInt(
+          process.env.WEBPACK_DEV_SERVER_BASE_PORT,
+          10,
+        );
         const freePort = await Server.getFreePort(null);
 
         expect(freePort).toEqual(basePort + retryCount);
@@ -485,7 +478,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -517,8 +510,11 @@ describe("API", () => {
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
       try {
         await createDummyServers(retryCount);
-        const basePort = parseInt(process.env.WEBPACK_DEV_SERVER_BASE_PORT, 10);
-        // eslint-disable-next-line no-undefined
+        const basePort = Number.parseInt(
+          process.env.WEBPACK_DEV_SERVER_BASE_PORT,
+          10,
+        );
+
         const freePort = await Server.getFreePort(undefined);
 
         expect(freePort).toEqual(basePort + retryCount);
@@ -558,7 +554,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -591,7 +587,10 @@ describe("API", () => {
 
       try {
         await createDummyServers(retryCount);
-        const basePort = parseInt(process.env.WEBPACK_DEV_SERVER_BASE_PORT, 10);
+        const basePort = Number.parseInt(
+          process.env.WEBPACK_DEV_SERVER_BASE_PORT,
+          10,
+        );
         const freePort = await Server.getFreePort();
 
         expect(freePort).toEqual(basePort + retryCount);
@@ -631,7 +630,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -665,7 +664,10 @@ describe("API", () => {
 
       try {
         await createDummyServers(retryCount);
-        const basePort = parseInt(process.env.WEBPACK_DEV_SERVER_BASE_PORT, 10);
+        const basePort = Number.parseInt(
+          process.env.WEBPACK_DEV_SERVER_BASE_PORT,
+          10,
+        );
         const freePort = await Server.getFreePort();
 
         expect(freePort).toEqual(basePort + retryCount);
@@ -705,7 +707,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -733,7 +735,7 @@ describe("API", () => {
     });
 
     it("should retry finding the port when serial ports are busy", async () => {
-      const basePort = parseInt(
+      const basePort = Number.parseInt(
         process.env.WEBPACK_DEV_SERVER_TEST_BASE_PORT || 30000,
         10,
       );
@@ -784,7 +786,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -804,7 +806,7 @@ describe("API", () => {
           const retryKey = `retry_${expect.getState().currentTestName}`;
 
           // Get current retry count or initialize to 0
-          global[retryKey] = global[retryKey] || 0;
+          global[retryKey] ||= 0;
           global[retryKey] += 1;
 
           if (global[retryKey] < maxRetries) {
@@ -857,13 +859,17 @@ describe("API", () => {
       const compiler = webpack(config);
       const server = new Server(options, compiler);
 
-      tests.forEach((test) => {
+      let isValidHost = true;
+
+      for (const test of tests) {
         const headers = { host: test };
 
         if (!server.isValidHost(headers, "host")) {
-          throw new Error("Validation didn't pass");
+          isValidHost = false;
         }
-      });
+      }
+
+      expect(isValidHost).toBe(true);
     });
 
     it('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async () => {
@@ -954,7 +960,7 @@ describe("API", () => {
             const retryKey = `retry_${expect.getState().currentTestName}`;
 
             // Get current retry count or initialize to 0
-            global[retryKey] = global[retryKey] || 0;
+            global[retryKey] ||= 0;
             global[retryKey] += 1;
 
             if (global[retryKey] < maxRetries) {
@@ -974,7 +980,7 @@ describe("API", () => {
           const retryKey = `retry_${expect.getState().currentTestName}`;
 
           // Get current retry count or initialize to 0
-          global[retryKey] = global[retryKey] || 0;
+          global[retryKey] ||= 0;
           global[retryKey] += 1;
 
           if (global[retryKey] < maxRetries) {

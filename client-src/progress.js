@@ -1,7 +1,15 @@
+/**
+ * @returns {boolean} true when custom elements supported, otherwise false
+ */
 export function isProgressSupported() {
-  return "customElements" in self && !!HTMLElement.prototype.attachShadow;
+  return (
+    "customElements" in self && Boolean(HTMLElement.prototype.attachShadow)
+  );
 }
 
+/**
+ * @returns {void}
+ */
 export function defineProgressElement() {
   if (customElements.get("wds-progress")) {
     return;
@@ -28,7 +36,8 @@ export function defineProgressElement() {
           : WebpackDevServerProgress.#linearTemplate();
       this.shadowRoot.innerHTML = innerHTML;
 
-      this.initialProgress = Number(this.getAttribute("progress")) ?? 0;
+      const progressValue = this.getAttribute("progress");
+      this.initialProgress = progressValue ? Number(progressValue) : 0;
 
       this.#update(this.initialProgress);
     }

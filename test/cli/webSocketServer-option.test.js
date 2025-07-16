@@ -12,7 +12,7 @@ describe('"webSocketServer" CLI option', () => {
       "ws",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--web-socket-server-type sockjs"', async () => {
@@ -23,7 +23,7 @@ describe('"webSocketServer" CLI option', () => {
       "sockjs",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-web-socket-server"', async () => {
@@ -33,6 +33,6 @@ describe('"webSocketServer" CLI option', () => {
       "--no-web-socket-server",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 });

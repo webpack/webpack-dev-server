@@ -1,12 +1,12 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const fs = require("graceful-fs");
-const webpack = require("webpack");
 const waitForExpect = require("wait-for-expect");
+const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/overlay-config/webpack.config");
 const trustedTypesConfig = require("../fixtures/overlay-config/trusted-types.webpack.config");
+const config = require("../fixtures/overlay-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").overlay;
 
@@ -63,7 +63,10 @@ class WarningPlugin {
   }
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 let prettier;
 let prettierHTML;
@@ -119,8 +122,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -168,8 +169,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -221,8 +220,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -272,8 +269,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -322,8 +317,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -349,7 +342,7 @@ describe("overlay", () => {
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -397,15 +390,13 @@ describe("overlay", () => {
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html after fix error");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -431,7 +422,7 @@ describe("overlay", () => {
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -505,15 +496,13 @@ describe("overlay", () => {
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html after fix error");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -539,7 +528,7 @@ describe("overlay", () => {
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -593,7 +582,7 @@ describe("overlay", () => {
       pageHtml = await page.evaluate(() => document.body.outerHTML);
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
@@ -602,8 +591,6 @@ describe("overlay", () => {
       ).toMatchSnapshot("page html after close");
 
       fs.writeFileSync(pathToFile, originalCode);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -652,8 +639,6 @@ describe("overlay", () => {
       });
 
       fs.writeFileSync(pathToFile, originalCode);
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -688,15 +673,13 @@ describe("overlay", () => {
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -733,15 +716,13 @@ describe("overlay", () => {
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -783,9 +764,7 @@ describe("overlay", () => {
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
-    } catch (error) {
-      throw error;
+      expect(overlayHandle).toBeNull();
     } finally {
       await browser.close();
       await server.stop();
@@ -840,8 +819,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -892,8 +869,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -946,8 +921,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1000,8 +973,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1036,15 +1007,13 @@ describe("overlay", () => {
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1081,15 +1050,13 @@ describe("overlay", () => {
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1132,9 +1099,7 @@ describe("overlay", () => {
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
-    } catch (error) {
-      throw error;
+      expect(overlayHandle).toBeNull();
     } finally {
       await browser.close();
       await server.stop();
@@ -1189,8 +1154,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1241,8 +1204,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1306,8 +1267,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1381,8 +1340,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1418,15 +1375,13 @@ describe("overlay", () => {
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
-      expect(overlayHandle).toBe(null);
+      expect(overlayHandle).toBeNull();
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1479,8 +1434,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1533,8 +1486,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1609,8 +1560,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
     }
@@ -1671,8 +1620,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1734,8 +1681,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1782,8 +1727,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1825,9 +1768,7 @@ describe("overlay", () => {
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
-    } catch (error) {
-      throw error;
+      expect(overlayHandle).toBeNull();
     } finally {
       await browser.close();
       await server.stop();
@@ -1876,8 +1817,6 @@ describe("overlay", () => {
           plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();
@@ -1921,9 +1860,7 @@ describe("overlay", () => {
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
-    } catch (error) {
-      throw error;
+      expect(overlayHandle).toBeNull();
     } finally {
       await browser.close();
       await server.stop();
@@ -2036,8 +1973,6 @@ describe("overlay", () => {
           },
         ),
       ).toMatchSnapshot("overlay html");
-    } catch (error) {
-      throw error;
     } finally {
       await browser.close();
       await server.stop();

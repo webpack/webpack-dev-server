@@ -1,12 +1,10 @@
 "use strict";
 
-/* eslint-disable import/no-extraneous-dependencies */
-
-const path = require("path");
+const path = require("node:path");
 const fs = require("graceful-fs");
-const mime = require("mime");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { marked } = require("marked");
+const mime = require("mime");
 
 module.exports = {
   setup(config) {
@@ -18,9 +16,9 @@ module.exports = {
       } else if (Array.isArray(config.entry)) {
         config.entry = config.entry.map((entry) => path.resolve(entry));
       } else if (typeof config.entry === "object") {
-        Object.entries(config.entry).forEach(([key, value]) => {
+        for (const [key, value] of Object.entries(config.entry)) {
           config.entry[key] = path.resolve(value);
-        });
+        }
       }
     }
 
@@ -41,7 +39,7 @@ module.exports = {
       });
     };
     const renderer = new marked.Renderer();
-    const heading = renderer.heading;
+    const { heading } = renderer;
     const markedOptions = {
       gfm: true,
       tables: true,
@@ -58,7 +56,7 @@ module.exports = {
       renderer,
       xhtml: false,
     };
-    const readme = fs.readFileSync("README.md", "utf-8");
+    const readme = fs.readFileSync("README.md", "utf8");
 
     let exampleTitle = "";
 
@@ -99,11 +97,7 @@ module.exports = {
       path: path.dirname(module.parent.filename),
     };
 
-    if (result.output) {
-      result.output = { ...result.output, ...output };
-    } else {
-      result.output = output;
-    }
+    result.output = result.output ? { ...result.output, ...output } : output;
 
     return result;
   },

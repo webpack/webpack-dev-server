@@ -6,7 +6,7 @@ target.classList.add("pass");
 target.innerHTML = "Success!";
 
 // This results in a warning:
-if (!window) {
+if (!globalThis) {
   // eslint-disable-next-line
   require(`./${window}parseable.js`);
 }

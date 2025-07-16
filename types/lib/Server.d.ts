@@ -1,6 +1,6 @@
 export = Server;
 /**
- * @typedef {Object} BasicApplication
+ * @typedef {object} BasicApplication
  * @property {typeof useFn} use
  */
 /**
@@ -1123,62 +1123,64 @@ declare class Server<
     };
   };
   /**
-   * @param {string} URL
-   * @returns {boolean}
+   * @private
+   * @returns {StatsOptions} default stats options
+   */
+  private static get DEFAULT_STATS();
+  /**
+   * @param {string} URL url
+   * @returns {boolean} true when URL is absolute, otherwise false
    */
   static isAbsoluteURL(URL: string): boolean;
   /**
-   * @param {string} gatewayOrFamily or family
-   * @param {boolean} [isInternal] ip should be internal
-   * @returns {string | undefined}
+   * @param {string} gatewayOrFamily gateway or family
+   * @param {boolean=} isInternal ip should be internal
+   * @returns {string | undefined} resolved IP
    */
   static findIp(
     gatewayOrFamily: string,
-    isInternal?: boolean,
+    isInternal?: boolean | undefined,
   ): string | undefined;
   /**
-   * @param {"v4" | "v6"} family
-   * @returns {Promise<string | undefined>}
+   * @param {"v4" | "v6"} family family
+   * @returns {Promise<string | undefined>} internal API
    */
   static internalIP(family: "v4" | "v6"): Promise<string | undefined>;
   /**
-   * @param {"v4" | "v6"} family
-   * @returns {string | undefined}
+   * @param {"v4" | "v6"} family family
+   * @returns {string | undefined} internal IP
    */
   static internalIPSync(family: "v4" | "v6"): string | undefined;
   /**
-   * @param {Host} hostname
-   * @returns {Promise<string>}
+   * @param {Host} hostname hostname
+   * @returns {Promise<string>} resolved hostname
    */
   static getHostname(hostname: Host): Promise<string>;
   /**
-   * @param {Port} port
-   * @param {string} host
-   * @returns {Promise<number | string>}
+   * @param {Port} port port
+   * @param {string} host host
+   * @returns {Promise<number | string>} free port
    */
   static getFreePort(port: Port, host: string): Promise<number | string>;
   /**
-   * @returns {string}
+   * @returns {string} path to cache dir
    */
   static findCacheDir(): string;
   /**
    * @private
-   * @param {Compiler} compiler
-   * @returns bool
+   * @param {Compiler} compiler compiler
+   * @returns {boolean} true when target is `web`, otherwise false
    */
   private static isWebTarget;
   /**
-   * @param {Configuration<A, S>} options
-   * @param {Compiler | MultiCompiler} compiler
+   * @param {Configuration<A, S>} options options
+   * @param {Compiler | MultiCompiler} compiler compiler
    */
-  constructor(
-    options: Configuration<A, S> | undefined,
-    compiler: Compiler | MultiCompiler,
-  );
+  constructor(options: Configuration<A, S>, compiler: Compiler | MultiCompiler);
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
   /**
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
-   * */
+   */
   logger: ReturnType<Compiler["getInfrastructureLogger"]>;
   options: Configuration<A, S>;
   /**
@@ -1187,7 +1189,7 @@ declare class Server<
   staticWatchers: FSWatcher[];
   /**
    * @private
-   * @type {{ name: string | symbol, listener: (...args: any[]) => void}[] }}
+   * @type {{ name: string | symbol, listener: (...args: EXPECTED_ANY[]) => void}[] }}
    */
   private listeners;
   /**
@@ -1206,12 +1208,12 @@ declare class Server<
   private currentHash;
   /**
    * @private
-   * @param {Compiler} compiler
+   * @param {Compiler} compiler compiler
    */
   private addAdditionalEntries;
   /**
    * @private
-   * @returns {Compiler["options"]}
+   * @returns {Compiler["options"]} compiler options
    */
   private getCompilerOptions;
   /**
@@ -1221,13 +1223,13 @@ declare class Server<
   private normalizeOptions;
   /**
    * @private
-   * @returns {string}
+   * @returns {string} client transport
    */
   private getClientTransport;
   /**
    * @template T
    * @private
-   * @returns {T}
+   * @returns {T} server transport
    */
   private getServerTransport;
   /**
@@ -1235,7 +1237,7 @@ declare class Server<
    */
   getClientEntry(): string;
   /**
-   * @returns {string | void}
+   * @returns {string | void} client hot entry
    */
   getClientHotEntry(): string | void;
   /**
@@ -1253,12 +1255,12 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private setupApp;
-  /** @type {A | undefined}*/
+  /** @type {A | undefined} */
   app: A | undefined;
   /**
    * @private
-   * @param {Stats | MultiStats} statsObj
-   * @returns {StatsCompilation}
+   * @param {Stats | MultiStats} statsObj stats
+   * @returns {StatsCompilation} stats of compilation
    */
   private getStats;
   /**
@@ -1304,7 +1306,7 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private createServer;
-  /** @type {S | undefined}*/
+  /** @type {S | undefined} */
   server: S | undefined;
   isTlsServer: boolean | undefined;
   /**
@@ -1316,7 +1318,7 @@ declare class Server<
   webSocketServer: WebSocketServerImplementation | undefined | null;
   /**
    * @private
-   * @param {string} defaultOpenTarget
+   * @param {string} defaultOpenTarget default open target
    * @returns {Promise<void>}
    */
   private openBrowser;
@@ -1332,6 +1334,7 @@ declare class Server<
   private bonjour;
   /**
    * @private
+   * @param {() => void} callback callback
    * @returns {void}
    */
   private stopBonjour;
@@ -1342,79 +1345,83 @@ declare class Server<
   private logStatus;
   /**
    * @private
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
+   * @param {Request} req request
+   * @param {Response} res response
+   * @param {NextFunction} next next function
    */
   private setHeaders;
   /**
    * @private
-   * @param {string} value
-   * @returns {boolean}
+   * @param {string} value value
+   * @returns {boolean} true when host allowed, otherwise false
    */
   private isHostAllowed;
   /**
    * @private
-   * @param {{ [key: string]: string | undefined }} headers
-   * @param {string} headerToCheck
-   * @param {boolean} validateHost
-   * @returns {boolean}
+   * @param {{ [key: string]: string | undefined }} headers headers
+   * @param {string} headerToCheck header to check
+   * @param {boolean} validateHost need to validate host
+   * @returns {boolean} true when host is valid, otherwise false
    */
   private isValidHost;
   /**
    * @private
-   * @param {{ [key: string]: string | undefined }} headers
-   * @returns {boolean}
+   * @param {{ [key: string]: string | undefined }} headers headers
+   * @returns {boolean} true when is same origin, otherwise false
    */
   private isSameOrigin;
   /**
-   * @param {ClientConnection[]} clients
-   * @param {string} type
-   * @param {any} [data]
-   * @param {any} [params]
+   * @param {ClientConnection[]} clients clients
+   * @param {string} type type
+   * @param {EXPECTED_ANY=} data data
+   * @param {EXPECTED_ANY=} params params
    */
   sendMessage(
     clients: ClientConnection[],
     type: string,
-    data?: any,
-    params?: any,
+    data?: EXPECTED_ANY | undefined,
+    params?: EXPECTED_ANY | undefined,
   ): void;
   /**
    * @private
-   * @param {ClientConnection[]} clients
-   * @param {StatsCompilation} stats
-   * @param {boolean} [force]
+   * @param {ClientConnection[]} clients clients
+   * @param {StatsCompilation} stats stats
+   * @param {boolean=} force force
    */
   private sendStats;
   /**
-   * @param {string | string[]} watchPath
-   * @param {WatchOptions} [watchOptions]
+   * @param {string | string[]} watchPath watch path
+   * @param {WatchOptions=} watchOptions watch options
    */
-  watchFiles(watchPath: string | string[], watchOptions?: WatchOptions): void;
+  watchFiles(
+    watchPath: string | string[],
+    watchOptions?: WatchOptions | undefined,
+  ): void;
   /**
-   * @param {import("webpack-dev-middleware").Callback} [callback]
+   * @param {import("webpack-dev-middleware").Callback=} callback callback
    */
-  invalidate(callback?: import("webpack-dev-middleware").Callback): void;
+  invalidate(
+    callback?: import("webpack-dev-middleware").Callback | undefined,
+  ): void;
   /**
    * @returns {Promise<void>}
    */
   start(): Promise<void>;
   /**
-   * @param {(err?: Error) => void} [callback]
+   * @param {((err?: Error) => void)=} callback callback
    */
-  startCallback(callback?: (err?: Error) => void): void;
+  startCallback(callback?: ((err?: Error) => void) | undefined): void;
   /**
    * @returns {Promise<void>}
    */
   stop(): Promise<void>;
   /**
-   * @param {(err?: Error) => void} [callback]
+   * @param {((err?: Error) => void)=} callback callback
    */
-  stopCallback(callback?: (err?: Error) => void): void;
+  stopCallback(callback?: ((err?: Error) => void) | undefined): void;
 }
 declare namespace Server {
   export {
-    DEFAULT_STATS,
     Schema,
     Compiler,
     MultiCompiler,
@@ -1446,6 +1453,7 @@ declare namespace Server {
     ExpressErrorRequestHandler,
     ExpressRequest,
     ExpressResponse,
+    EXPECTED_ANY,
     NextFunction,
     SimpleHandleFunction,
     NextHandleFunction,
@@ -1482,11 +1490,9 @@ declare namespace Server {
     Middleware,
     BasicServer,
     Configuration,
+    FunctionReturning,
     BasicApplication,
   };
-}
-declare class DEFAULT_STATS {
-  private constructor();
 }
 type Schema = import("schema-utils/declarations/validate").Schema;
 type Compiler = import("webpack").Compiler;
@@ -1520,7 +1526,8 @@ type ExpressRequestHandler = import("express").RequestHandler;
 type ExpressErrorRequestHandler = import("express").ErrorRequestHandler;
 type ExpressRequest = import("express").Request;
 type ExpressResponse = import("express").Response;
-type NextFunction = (err?: any) => void;
+type EXPECTED_ANY = any;
+type NextFunction = (err?: EXPECTED_ANY) => void;
 type SimpleHandleFunction = (req: IncomingMessage, res: ServerResponse) => void;
 type NextHandleFunction = (
   req: IncomingMessage,
@@ -1528,7 +1535,7 @@ type NextHandleFunction = (
   next: NextFunction,
 ) => void;
 type ErrorHandleFunction = (
-  err: any,
+  err: EXPECTED_ANY,
   req: IncomingMessage,
   res: ServerResponse,
   next: NextFunction,
@@ -1561,9 +1568,15 @@ type DevMiddlewareContext<
 type Host = "local-ip" | "local-ipv4" | "local-ipv6" | string;
 type Port = number | string | "auto";
 type WatchFiles = {
+  /**
+   * paths
+   */
   paths: string | string[];
+  /**
+   * options
+   */
   options?:
-    | (import("chokidar").WatchOptions & {
+    | (WatchOptions & {
         aggregateTimeout?: number;
         ignored?: WatchOptions["ignored"];
         poll?: number | boolean;
@@ -1571,21 +1584,34 @@ type WatchFiles = {
     | undefined;
 };
 type Static = {
+  /**
+   * directory
+   */
   directory?: string | undefined;
-  publicPath?: string | string[] | undefined;
-  serveIndex?: boolean | import("serve-index").Options | undefined;
-  staticOptions?:
-    | import("serve-static").ServeStaticOptions<
-        import("http").ServerResponse<import("http").IncomingMessage>
-      >
-    | undefined;
+  /**
+   * public path
+   */
+  publicPath?: (string | string[]) | undefined;
+  /**
+   * serve index
+   */
+  serveIndex?: (boolean | ServeIndexOptions) | undefined;
+  /**
+   * static options
+   */
+  staticOptions?: ServeStaticOptions | undefined;
+  /**
+   * watch and watch options
+   */
   watch?:
-    | boolean
-    | (import("chokidar").WatchOptions & {
-        aggregateTimeout?: number;
-        ignored?: WatchOptions["ignored"];
-        poll?: number | boolean;
-      })
+    | (
+        | boolean
+        | (WatchOptions & {
+            aggregateTimeout?: number;
+            ignored?: WatchOptions["ignored"];
+            poll?: number | boolean;
+          })
+      )
     | undefined;
 };
 type NormalizedStatic = {
@@ -1607,7 +1633,7 @@ type ServerType<
   | "spdy"
   | "http2"
   | string
-  | ((arg0: ServerOptions, arg1: A) => S);
+  | ((serverOptions: ServerOptions, application: A) => S);
 type ServerConfiguration<
   A extends BasicApplication = import("express").Application,
   S extends BasicServer = import("http").Server<
@@ -1615,12 +1641,26 @@ type ServerConfiguration<
     typeof import("http").ServerResponse
   >,
 > = {
+  /**
+   * type
+   */
   type?: ServerType<A, S> | undefined;
+  /**
+   * options
+   */
   options?: ServerOptions | undefined;
 };
 type WebSocketServerConfiguration = {
-  type?: string | Function | undefined;
-  options?: Record<string, any> | undefined;
+  /**
+   * type
+   */
+  type?:
+    | ("sockjs" | "ws" | string | (() => WebSocketServerConfiguration))
+    | undefined;
+  /**
+   * options
+   */
+  options?: Record<string, EXPECTED_ANY> | undefined;
 };
 type ClientConnection = (
   | import("ws").WebSocket
@@ -1665,36 +1705,79 @@ type OpenApp = {
   arguments?: string[] | undefined;
 };
 type Open = {
-  app?: string | string[] | OpenApp | undefined;
-  target?: string | string[] | undefined;
+  app?: (string | string[] | OpenApp) | undefined;
+  /**
+   * target
+   */
+  target?: (string | string[]) | undefined;
 };
 type NormalizedOpen = {
   target: string;
   options: import("open").Options;
 };
 type WebSocketURL = {
+  /**
+   * hostname
+   */
   hostname?: string | undefined;
+  /**
+   * password
+   */
   password?: string | undefined;
+  /**
+   * pathname
+   */
   pathname?: string | undefined;
-  port?: string | number | undefined;
+  /**
+   * port
+   */
+  port?: (number | string) | undefined;
+  /**
+   * protocol
+   */
   protocol?: string | undefined;
+  /**
+   * username
+   */
   username?: string | undefined;
 };
 type OverlayMessageOptions = boolean | ((error: Error) => void);
 type ClientConfiguration = {
-  logging?: "none" | "error" | "warn" | "info" | "log" | "verbose" | undefined;
-  overlay?:
-    | boolean
-    | {
-        warnings?: OverlayMessageOptions;
-        errors?: OverlayMessageOptions;
-        runtimeErrors?: OverlayMessageOptions;
-      }
+  /**
+   * logging
+   */
+  logging?:
+    | ("log" | "info" | "warn" | "error" | "none" | "verbose")
     | undefined;
+  /**
+   * overlay
+   */
+  overlay?:
+    | (
+        | boolean
+        | {
+            warnings?: OverlayMessageOptions;
+            errors?: OverlayMessageOptions;
+            runtimeErrors?: OverlayMessageOptions;
+          }
+      )
+    | undefined;
+  /**
+   * progress
+   */
   progress?: boolean | undefined;
-  reconnect?: number | boolean | undefined;
-  webSocketTransport?: string | undefined;
-  webSocketURL?: string | WebSocketURL | undefined;
+  /**
+   * reconnect
+   */
+  reconnect?: (boolean | number) | undefined;
+  /**
+   * web socket transport
+   */
+  webSocketTransport?: ("ws" | "sockjs" | string) | undefined;
+  /**
+   * web socket URL
+   */
+  webSocketURL?: (string | WebSocketURL) | undefined;
 };
 type Headers =
   | Array<{
@@ -1721,81 +1804,65 @@ type Configuration<
     typeof import("http").ServerResponse
   >,
 > = {
-  ipc?: string | boolean | undefined;
-  host?: string | undefined;
+  ipc?: (boolean | string) | undefined;
+  host?: Host | undefined;
   port?: Port | undefined;
-  hot?: boolean | "only" | undefined;
+  hot?: (boolean | "only") | undefined;
   liveReload?: boolean | undefined;
-  devMiddleware?:
-    | DevMiddlewareOptions<
-        import("express").Request<
-          import("express-serve-static-core").ParamsDictionary,
-          any,
-          any,
-          qs.ParsedQs,
-          Record<string, any>
-        >,
-        import("express").Response<any, Record<string, any>>
-      >
-    | undefined;
+  devMiddleware?: DevMiddlewareOptions<Request, Response> | undefined;
   compress?: boolean | undefined;
-  allowedHosts?: string | string[] | undefined;
-  historyApiFallback?:
-    | boolean
-    | import("connect-history-api-fallback").Options
-    | undefined;
-  bonjour?:
-    | boolean
-    | Record<string, never>
-    | import("bonjour-service").Service
-    | undefined;
+  allowedHosts?: ("auto" | "all" | string | string[]) | undefined;
+  historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
+  bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
   watchFiles?:
-    | string
-    | string[]
-    | WatchFiles
-    | (string | WatchFiles)[]
+    | (string | string[] | WatchFiles | Array<string | WatchFiles>)
     | undefined;
-  static?: string | boolean | Static | (string | Static)[] | undefined;
-  server?: ServerType<A, S> | ServerConfiguration<A, S> | undefined;
+  static?: (boolean | string | Static | Array<string | Static>) | undefined;
+  server?: (ServerType<A, S> | ServerConfiguration<A, S>) | undefined;
   app?: (() => Promise<A>) | undefined;
-  webSocketServer?: string | boolean | WebSocketServerConfiguration | undefined;
+  webSocketServer?:
+    | (boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration)
+    | undefined;
   proxy?: ProxyConfigArray | undefined;
-  open?: string | boolean | Open | (string | Open)[] | undefined;
+  open?: (boolean | string | Open | Array<string | Open>) | undefined;
   setupExitSignals?: boolean | undefined;
-  client?: boolean | ClientConfiguration | undefined;
+  client?: (boolean | ClientConfiguration) | undefined;
   headers?:
-    | Headers
-    | ((
-        req: Request,
-        res: Response,
-        context: DevMiddlewareContext<Request, Response> | undefined,
-      ) => Headers)
+    | (
+        | Headers
+        | ((
+            req: Request,
+            res: Response,
+            context: DevMiddlewareContext<Request, Response> | undefined,
+          ) => Headers)
+      )
     | undefined;
   onListening?: ((devServer: Server<A, S>) => void) | undefined;
   setupMiddlewares?:
     | ((middlewares: Middleware[], devServer: Server<A, S>) => Middleware[])
     | undefined;
 };
+type FunctionReturning<T> = () => T;
 type BasicApplication = {
   use: typeof useFn;
 };
 /**
  * @overload
- * @param {NextHandleFunction} fn
- * @returns {BasicApplication}
+ * @param {NextHandleFunction} fn function
+ * @returns {BasicApplication} application
  */
 declare function useFn(fn: NextHandleFunction): BasicApplication;
 /**
  * @overload
- * @param {HandleFunction} fn
- * @returns {BasicApplication}
+ * @param {HandleFunction} fn function
+ * @returns {BasicApplication} application
  */
 declare function useFn(fn: HandleFunction): BasicApplication;
 /**
  * @overload
- * @param {string} route
- * @param {NextHandleFunction} fn
- * @returns {BasicApplication}
+ * @param {string} route route
+ * @param {NextHandleFunction} fn function
+ * @returns {BasicApplication} application
  */
 declare function useFn(route: string, fn: NextHandleFunction): BasicApplication;
 

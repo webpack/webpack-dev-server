@@ -7,7 +7,7 @@ const defaultLevel = "info";
 
 // options new options, merge with old options
 /**
- * @param {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} level
+ * @param {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} level level
  * @returns {void}
  */
 function setLogLevel(level) {

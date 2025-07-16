@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = class ExitOnDonePlugin {
-  // eslint-disable-next-line class-methods-use-this
   apply(compiler) {
     compiler.hooks.afterDone.tap("webpack-dev-server", (stats) => {
       let exitCode = 0;
@@ -11,6 +10,7 @@ module.exports = class ExitOnDonePlugin {
       }
 
       setImmediate(() => {
+        // eslint-disable-next-line n/no-process-exit
         process.exit(exitCode);
       });
     });

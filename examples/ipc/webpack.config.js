@@ -1,6 +1,6 @@
 "use strict";
 
-const http = require("http");
+const http = require("node:http");
 const httpProxy = require("http-proxy");
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
