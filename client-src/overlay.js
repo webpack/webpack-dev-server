@@ -646,7 +646,9 @@ const createOverlay = (options) => {
      */
     const handleError = (error, fallbackMessage) => {
       const errorObject =
-        error instanceof Error ? error : new Error(error || fallbackMessage);
+        error instanceof Error
+          ? error
+          : new Error(error || fallbackMessage, { cause: error });
 
       const shouldDisplay =
         typeof options.catchRuntimeError === "function"
