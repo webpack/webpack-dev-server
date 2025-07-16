@@ -111,7 +111,7 @@
     "http-proxy": "^1.18.1",
     "husky": "^9.1.6",
     "jest": "^30.0.4",
-    "jest-environment-jsdom": "^30.0.4",
+    "jest-environment-jsdom": "^29.7.0",
     "klona": "^2.0.4",
     "less": "^4.1.1",
     "less-loader": "^12.1.0",
