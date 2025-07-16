@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom", "webworker", "es2022.error"],
+    "target": "ES2017",
+    "module": "commonjs",
+    "lib": ["es2017", "dom"],
     "allowJs": true,
     "checkJs": true,
-    "noEmit": true,
     "strict": true,
-    "skipDefaultLibCheck": true,
-    "esModuleInterop": true
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["./client-src/**/*"],
-  "exclude": ["./client-src/webpack.config.js"]
+  "include": ["./bin/**/*", "./lib/**/*"]
 }
