@@ -25,6 +25,7 @@
     "lint:prettier": "prettier --cache --list-different .",
     "lint:code": "eslint --cache .",
     "lint:types": "tsc --pretty --noEmit",
+    "lint:types-client": "tsc -p tsconfig.client.json",
     "lint:spelling": "cspell --cache --no-must-find-files --quiet \"**/*.*\"",
     "lint": "npm-run-all -l -p \"lint:**\"",
     "fix:code": "npm run lint:code -- --fix",

@@ -2,6 +2,9 @@ import { log } from "../utils/log.js";
 
 /** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
 
+/**
+ * @implements {CommunicationClient}
+ */
 export default class WebSocketClient {
   /**
    * @param {string} url url to connect

@@ -1905,9 +1905,7 @@ describe("overlay", () => {
 
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      expect(overlayHandle).toBe(null);
-    } catch (error) {
-      throw error;
+      expect(overlayHandle).toBeNull();
     } finally {
       await browser.close();
       await server.stop();
