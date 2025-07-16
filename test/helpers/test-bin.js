@@ -2,9 +2,9 @@
 
 const os = require("node:os");
 const path = require("node:path");
+const util = require("node:util");
 const execa = require("execa");
 const { Writable } = require("readable-stream");
-const stripAnsi = require("strip-ansi-v6");
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -67,7 +67,7 @@ const testBin = (testArgs = [], options = {}) => {
       new Writable({
         write(chunk, encoding, callback) {
           const str = chunk.toString();
-          const output = stripAnsi(str);
+          const output = util.stripVTControlCharacters(str);
 
           if (outputKillStr.test(output)) {
             processKill(subprocess);
@@ -82,7 +82,7 @@ const testBin = (testArgs = [], options = {}) => {
       new Writable({
         write(chunk, encoding, callback) {
           const str = chunk.toString();
-          const output = stripAnsi(str);
+          const output = util.stripVTControlCharacters(str);
 
           if (outputKillStr.test(output)) {
             processKill(subprocess);
@@ -128,7 +128,7 @@ const ipV6 = `
   .trim();
 
 const normalizeStderr = (stderr, options = {}) => {
-  let normalizedStderr = stripAnsi(stderr);
+  let normalizedStderr = util.stripVTControlCharacters(stderr);
 
   normalizedStderr = normalizedStderr
     .replaceAll("\\", "/")
