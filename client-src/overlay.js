@@ -548,8 +548,9 @@ const createOverlay = (options) => {
    */
   function ensureOverlayExists(callback, trustedTypesPolicyName) {
     if (containerElement) {
+      // @ts-expect-error https://github.com/microsoft/TypeScript/issues/30024
       containerElement.innerHTML = overlayTrustedTypesPolicy
-        ? overlayTrustedTypesPolicy.createHTML("").toString()
+        ? overlayTrustedTypesPolicy.createHTML("")
         : "";
       // Everything is ready, call the callback right away.
       callback(containerElement);
@@ -628,8 +629,9 @@ const createOverlay = (options) => {
         const messageTextNode = document.createElement("div");
         applyStyle(messageTextNode, msgTextStyle);
 
+        // @ts-expect-error https://github.com/microsoft/TypeScript/issues/30024
         messageTextNode.innerHTML = overlayTrustedTypesPolicy
-          ? overlayTrustedTypesPolicy.createHTML(text).toString()
+          ? overlayTrustedTypesPolicy.createHTML(text)
           : text;
 
         entryElement.appendChild(typeElement);
