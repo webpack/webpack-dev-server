@@ -23,7 +23,6 @@ export function defineProgressElement() {
       this.animationTimer = null;
     }
 
-    // @ts-expect-error
     #reset() {
       clearTimeout(this.animationTimer);
       this.animationTimer = null;
@@ -44,7 +43,6 @@ export function defineProgressElement() {
       this.#update(this.initialProgress);
     }
 
-    // @ts-expect-error
     static #circularTemplate() {
       return `
         <style>
@@ -111,7 +109,6 @@ export function defineProgressElement() {
       `;
     }
 
-    // @ts-expect-error
     static #linearTemplate() {
       return `
         <style>
@@ -173,7 +170,6 @@ export function defineProgressElement() {
     /**
      * @param {number} percent percent
      */
-    // @ts-expect-error
     #update(percent) {
       const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
       const element =
@@ -201,7 +197,6 @@ export function defineProgressElement() {
       }
     }
 
-    // @ts-expect-error
     #show() {
       const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
       const element =
@@ -210,7 +205,6 @@ export function defineProgressElement() {
       element.classList.remove("hidden");
     }
 
-    // @ts-expect-error
     #hide() {
       const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
       const element =

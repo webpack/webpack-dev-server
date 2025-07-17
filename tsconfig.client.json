@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": ["es5", "dom", "webworker", "es2022.error"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "allowJs": true,
     "checkJs": true,
     "noEmit": true,
     "strict": true,
+    "types": ["@types/trusted-types", "webpack/module"],
     "skipDefaultLibCheck": true,
     "esModuleInterop": true
   },
