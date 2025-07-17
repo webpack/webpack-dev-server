@@ -10,7 +10,8 @@ import ansiHTML from "ansi-html-community";
  */
 // @ts-expect-error
 const getCodePoint = String.prototype.codePointAt
-  ? (input, position) => input.codePointAt(position)
+  ? // @ts-expect-error
+    (input, position) => input.codePointAt(position)
   : (input, position) =>
       (input.charCodeAt(position) - 0xd800) * 0x400 +
       input.charCodeAt(position + 1) -

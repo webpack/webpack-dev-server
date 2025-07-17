@@ -1,6 +1,4 @@
 /* global __resourceQuery, __webpack_hash__ */
-/// <reference types="webpack/module" />
-
 // @ts-expect-error
 import hotEmitter from "webpack/hot/emitter.js";
 // @ts-expect-error
@@ -54,10 +52,12 @@ import sendMessage from "./utils/sendMessage.js";
  */
 const decodeOverlayOptions = (overlayOptions) => {
   if (typeof overlayOptions === "object") {
-    for (const property_ of ["warnings", "errors", "runtimeErrors"]) {
+    const requiredOptions = ["warnings", "errors", "runtimeErrors"];
+
+    for (let i = 0; i < requiredOptions.length; i++) {
       const property =
         /** @type {keyof Omit<RawOverlayOptions, "trustedTypesPolicyName">} */
-        (property_);
+        (requiredOptions[i]);
 
       if (typeof overlayOptions[property] === "string") {
         const overlayFilterFunctionString = decodeURIComponent(
