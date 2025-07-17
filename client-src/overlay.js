@@ -615,7 +615,7 @@ const createOverlay = (options) => {
         if (typeof message !== "string" && message.moduleIdentifier) {
           applyStyle(typeElement, { cursor: "pointer" });
           // element.dataset not supported in IE
-          typeElement.setAttribute("data-can-open", "");
+          typeElement.setAttribute("data-can-open", "true");
           typeElement.addEventListener("click", () => {
             fetch(
               `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`,
