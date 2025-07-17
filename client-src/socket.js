@@ -3,14 +3,22 @@
 import WebSocketClient from "./clients/WebSocketClient.js";
 import { log } from "./utils/log.js";
 
-/** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
+/** @typedef {import("./index.js").EXPECTED_ANY} EXPECTED_ANY */
+/** @typedef {import("./clients/SockJSClient")} SockJSClient */
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
+/** @type {CommunicationClientConstructor} */
 const Client =
   typeof __webpack_dev_server_client__ !== "undefined"
-    ? typeof __webpack_dev_server_client__.default !== "undefined"
-      ? __webpack_dev_server_client__.default
-      : __webpack_dev_server_client__
+    ? typeof (
+        /** @type {{ default: CommunicationClientConstructor }} */
+        (__webpack_dev_server_client__).default
+      ) !== "undefined"
+      ? /** @type {{ default: CommunicationClientConstructor }} */
+        (__webpack_dev_server_client__).default
+      : /** @type {CommunicationClientConstructor} */ (
+          __webpack_dev_server_client__
+        )
     : WebSocketClient;
 
 let retries = 0;
@@ -18,9 +26,11 @@ let maxRetries = 10;
 
 // Initialized client is exported so external consumers can utilize the same instance
 // It is mutable to enforce singleton
+/** @type {CommunicationClient | null} */
 // eslint-disable-next-line import/no-mutable-exports
 export let client = null;
 
+/** @type {ReturnType<typeof setTimeout> | undefined} */
 let timeout;
 
 /**

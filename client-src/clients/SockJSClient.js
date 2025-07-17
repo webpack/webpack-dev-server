@@ -3,6 +3,9 @@ import { log } from "../utils/log.js";
 
 /** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
 
+/**
+ * @implements {CommunicationClient}
+ */
 export default class SockJSClient {
   /**
    * @param {string} url url
@@ -12,13 +15,9 @@ export default class SockJSClient {
     this.sock = new SockJS(
       url.replace(/^ws:/i, "http:").replace(/^wss:/i, "https:"),
     );
-    this.sock.onerror =
-      /**
-       * @param {Error} error error
-       */
-      (error) => {
-        log.error(error);
-      };
+    this.sock.onerror = (error) => {
+      log.error(error);
+    };
   }
 
   /**
@@ -40,12 +39,8 @@ export default class SockJSClient {
    * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
   onMessage(fn) {
-    this.sock.onmessage =
-      /**
-       * @param {Error & { data: string }} err error
-       */
-      (err) => {
-        fn(err.data);
-      };
+    this.sock.onmessage = (err) => {
+      fn(err.data);
+    };
   }
 }

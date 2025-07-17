@@ -1,6 +1,9 @@
 /* global __resourceQuery, __webpack_hash__ */
 /// <reference types="webpack/module" />
+
+// @ts-expect-error
 import hotEmitter from "webpack/hot/emitter.js";
+// @ts-expect-error
 import webpackHotLog from "webpack/hot/log.js";
 import { createOverlay, formatProblem } from "./overlay.js";
 import { defineProgressElement, isProgressSupported } from "./progress.js";
@@ -12,12 +15,22 @@ import sendMessage from "./utils/sendMessage.js";
 /** @typedef {any} EXPECTED_ANY */
 
 /**
- * @typedef {object} OverlayOptions
- * @property {(boolean | (error: Error) => boolean)=} warnings warnings
- * @property {(boolean | (error: Error) => boolean)=} errors errors
- * @property {(boolean | (error: Error) => boolean)=} runtimeErrors runtime errors
+ * @typedef {object} RawOverlayOptions
+ * @property {string=} warnings warnings
+ * @property {string=} errors errors
+ * @property {string=} runtimeErrors runtime errors
  * @property {string=} trustedTypesPolicyName trusted types policy name
  */
+
+/**
+ * @typedef {object} OverlayOptions
+ * @property {(boolean | ((error: Error) => boolean))=} warnings warnings
+ * @property {(boolean | ((error: Error) => boolean))=} errors errors
+ * @property {(boolean | ((error: Error) => boolean))=} runtimeErrors runtime errors
+ * @property {string=} trustedTypesPolicyName trusted types policy name
+ */
+
+/** @typedef {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} LogLevel */
 
 /**
  * @typedef {object} Options
@@ -25,7 +38,7 @@ import sendMessage from "./utils/sendMessage.js";
  * @property {boolean} liveReload true when live reload enabled, otherwise false
  * @property {boolean} progress true when need to show progress, otherwise false
  * @property {boolean | OverlayOptions} overlay overlay options
- * @property {string=} logging logging level
+ * @property {LogLevel=} logging logging level
  * @property {number=} reconnect count of allowed reconnection
  */
 
@@ -37,21 +50,28 @@ import sendMessage from "./utils/sendMessage.js";
  */
 
 /**
- * @param {boolean | { warnings?: boolean | string, errors?: boolean | string, runtimeErrors?: boolean | string }} overlayOptions overlay options
+ * @param {boolean | RawOverlayOptions | OverlayOptions} overlayOptions overlay options
  */
 const decodeOverlayOptions = (overlayOptions) => {
   if (typeof overlayOptions === "object") {
-    for (const property of ["warnings", "errors", "runtimeErrors"]) {
+    for (const property_ of ["warnings", "errors", "runtimeErrors"]) {
+      const property =
+        /** @type {keyof Omit<RawOverlayOptions, "trustedTypesPolicyName">} */
+        (property_);
+
       if (typeof overlayOptions[property] === "string") {
         const overlayFilterFunctionString = decodeURIComponent(
           overlayOptions[property],
         );
 
-        // eslint-disable-next-line no-new-func
-        overlayOptions[property] = new Function(
-          "message",
-          `var callback = ${overlayFilterFunctionString}
+        /** @type {OverlayOptions} */
+        (overlayOptions)[property] = /** @type {(error: Error) => boolean} */ (
+          // eslint-disable-next-line no-new-func
+          new Function(
+            "message",
+            `var callback = ${overlayFilterFunctionString}
         return callback(message)`,
+          )
         );
       }
     }
@@ -73,7 +93,7 @@ const getCurrentScriptSource = () => {
   // `document.currentScript` is the most accurate way to find the current script,
   // but is not supported in all browsers.
   if (document.currentScript) {
-    return document.currentScript.getAttribute("src");
+    return /** @type {string} */ (document.currentScript.getAttribute("src"));
   }
 
   // Fallback to getting all scripts running in the document.
@@ -94,12 +114,15 @@ const getCurrentScriptSource = () => {
   throw new Error("[webpack-dev-server] Failed to get current script source.");
 };
 
+/** @typedef {{ hot?: string, ["live-reload"]?: string, progress?: string, reconnect?: string, logging?: LogLevel, overlay?: string, fromCurrentScript?: boolean }} AdditionalParsedURL */
+/** @typedef {Partial<URL> & AdditionalParsedURL} ParsedURL */
+
 /**
  * @param {string} resourceQuery resource query
- * @returns {{ [key: string]: string | boolean }} parsed URL
+ * @returns {ParsedURL} parsed URL
  */
 const parseURL = (resourceQuery) => {
-  /** @type {{ [key: string]: string }} */
+  /** @type {ParsedURL} */
   let result = {};
 
   if (typeof resourceQuery === "string" && resourceQuery !== "") {
@@ -108,7 +131,8 @@ const parseURL = (resourceQuery) => {
     for (let i = 0; i < searchParams.length; i++) {
       const pair = searchParams[i].split("=");
 
-      result[pair[0]] = decodeURIComponent(pair[1]);
+      /** @type {EXPECTED_ANY} */
+      (result)[pair[0]] = decodeURIComponent(pair[1]);
     }
   } else {
     // Else, get the url from the <script> this file was called with.
@@ -137,6 +161,9 @@ const parseURL = (resourceQuery) => {
 
 const parsedResourceQuery = parseURL(__resourceQuery);
 
+/** @typedef {{ ["Hot Module Replacement"]: boolean, ["Live Reloading"]: boolean, Progress: boolean, Overlay: boolean }} Features */
+
+/** @type {Features} */
 const enabledFeatures = {
   "Hot Module Replacement": false,
   "Live Reloading": false,
@@ -197,7 +224,7 @@ if (typeof parsedResourceQuery.reconnect !== "undefined") {
 }
 
 /**
- * @param {string} level level
+ * @param {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} level level
  */
 const setAllLogLevel = (level) => {
   // This is needed because the HMR logger operate separately from dev server logger
@@ -211,6 +238,9 @@ if (options.logging) {
   setAllLogLevel(options.logging);
 }
 
+/**
+ * @param {Features} features features
+ */
 const logEnabledFeatures = (features) => {
   const listEnabledFeatures = Object.keys(features);
   if (!features || listEnabledFeatures.length === 0) {
@@ -221,7 +251,7 @@ const logEnabledFeatures = (features) => {
 
   // Server started: Hot Module Replacement enabled, Live Reloading enabled, Overlay disabled.
   for (let i = 0; i < listEnabledFeatures.length; i++) {
-    const key = listEnabledFeatures[i];
+    const key = /** @type {keyof Features} */ (listEnabledFeatures[i]);
     logString += ` ${key} ${features[key] ? "enabled" : "disabled"},`;
   }
   // replace last comma with a period
@@ -297,6 +327,7 @@ const reloadApp = ({ hot, liveReload }, currentStatus) => {
   }
   // allow refreshing the page only if liveReload isn't disabled
   else if (liveReload && allowToLiveReload) {
+    /** @type {Window} */
     let rootWindow = self;
 
     // use parent window for reload (in case we're in an iframe with no valid src)
@@ -400,7 +431,7 @@ const onSocketMessage = {
     options.progress = value;
   },
   /**
-   * @param {{ pluginName?: string, percent: number, msg: string }} data date with progress
+   * @param {{ pluginName?: string, percent: string, msg: string }} data date with progress
    */
   "progress-update": function progressUpdate(data) {
     if (options.progress) {
@@ -625,7 +656,7 @@ const formatURL = (objURL) => {
 };
 
 /**
- * @param {URL & { fromCurrentScript?: boolean }} parsedURL parsed URL
+ * @param {ParsedURL} parsedURL parsed URL
  * @returns {string} socket URL
  */
 const createSocketURL = (parsedURL) => {

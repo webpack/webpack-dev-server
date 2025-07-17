@@ -6,8 +6,9 @@ import ansiHTML from "ansi-html-community";
 /** @typedef {import("./index").EXPECTED_ANY} EXPECTED_ANY */
 
 /**
- * @type {(input: string, position: number) => string}
+ * @type {(input: string, position: number) => number | undefined}
  */
+// @ts-expect-error
 const getCodePoint = String.prototype.codePointAt
   ? (input, position) => input.codePointAt(position)
   : (input, position) =>
@@ -65,7 +66,7 @@ function encode(text) {
   }
 
   return replaceUsingRegExp(text, /[<>'"&]/g, (input) => {
-    let result = references[input];
+    let result = references[/** @type {keyof typeof references} */ (input)];
     if (!result) {
       const code =
         input.length > 1 ? getCodePoint(input, 0) : input.charCodeAt(0);
@@ -76,24 +77,24 @@ function encode(text) {
 }
 
 /**
- * @typedef {object} StateDefinitions
- * @property {{ [event: string]: { target: string; actions?: Array<string> } }=} on event
+ * @typedef {object} Context
+ * @property {'warning' | 'error'} level level
+ * @property {(string  | Message)[]} messages messages
+ * @property {'build' | 'runtime'} messageSource message source
  */
-
-/** @typedef {Record<string, EXPECTED_ANY>} Context */
 
 /** @typedef {{ type: string } & Record<string, EXPECTED_ANY>} Event */
 
 /**
  * @typedef {object} Options
- * @property {{ [state: string]: StateDefinitions }} states states
+ * @property {{ [state: string]: { on: Record<string, { target: string; actions?: Array<string> }> } }} states states
  * @property {Context} context context
  * @property {string} initial initial
  */
 
 /**
  * @typedef {object} Implementation
- * @property {{ [actionName: string]: (ctx: Context, event: Event) => EXPECTED_ANY }} actions actions
+ * @property {{ [actionName: string]: (ctx: Context, event: Event) => Context | void }} actions actions
  */
 
 /**
@@ -148,7 +149,7 @@ function createMachine({ states, context, initial }, { actions }) {
 /**
  * @typedef {object} ShowOverlayData
  * @property {'warning' | 'error'} level level
- * @property {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages messages
+ * @property {(string  | Message)[]} messages messages
  * @property {'build' | 'runtime'} messageSource message source
  */
 
@@ -248,7 +249,7 @@ const createOverlayMachine = (options) => {
 
 /**
  * @param {Error} error error
- * @returns {string[]} stack
+ * @returns {undefined | string[]} stack
  */
 const parseErrorToStacks = (error) => {
   if (!error || !(error instanceof Error)) {
@@ -311,10 +312,10 @@ const msgStyles = {
 };
 const iframeStyle = {
   position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
+  top: "0px",
+  left: "0px",
+  right: "0px",
+  bottom: "0px",
   width: "100vw",
   height: "100vh",
   border: "none",
@@ -323,10 +324,10 @@ const iframeStyle = {
 const containerStyle = {
   position: "fixed",
   boxSizing: "border-box",
-  left: 0,
-  top: 0,
-  right: 0,
-  bottom: 0,
+  left: "0px",
+  top: "0px",
+  right: "0px",
+  bottom: "0px",
   width: "100vw",
   height: "100vh",
   fontSize: "large",
@@ -354,8 +355,8 @@ const dismissButtonStyle = {
   padding: "1rem",
   cursor: "pointer",
   position: "absolute",
-  right: 0,
-  top: 0,
+  right: "0px",
+  top: "0px",
   backgroundColor: "transparent",
   border: "none",
 };
@@ -388,9 +389,11 @@ const colors = {
 
 ansiHTML.setColors(colors);
 
+/** @typedef {Error & { file?: string, moduleName?: string, moduleIdentifier?: string, loc?: string, message?: string; stack?: string | string[] }} Message */
+
 /**
  * @param {string} type type
- * @param {string  | { file?: string, moduleName?: string, loc?: string, message?: string; stack?: string[] }} item item
+ * @param {string | Message} item item
  * @returns {{ header: string, body: string }} formatted problem
  */
 const formatProblem = (type, item) => {
@@ -418,7 +421,7 @@ const formatProblem = (type, item) => {
     body += item.message || "";
   }
 
-  if (Array.isArray(item.stack)) {
+  if (typeof item !== "string" && Array.isArray(item.stack)) {
     item.stack.forEach((stack) => {
       if (typeof stack === "string") {
         body += `\r\n${stack}`;
@@ -431,8 +434,8 @@ const formatProblem = (type, item) => {
 
 /**
  * @typedef {object} CreateOverlayOptions
- * @property {string | null} trustedTypesPolicyName trusted types policy name
- * @property {(boolean | (error: Error) => void)=} catchRuntimeError runtime error catcher
+ * @property {(false | string)=} trustedTypesPolicyName trusted types policy name
+ * @property {(boolean | ((error: Error) => void))=} catchRuntimeError runtime error catcher
  */
 
 /**
@@ -448,21 +451,25 @@ const createOverlay = (options) => {
   let headerElement;
   /** @type {Array<(element: HTMLDivElement) => void>} */
   let onLoadQueue = [];
-  /** @type {TrustedTypePolicy | undefined} */
+  /** @type {Omit<TrustedTypePolicy, "createScript" | "createScriptURL"> | undefined} */
   let overlayTrustedTypesPolicy;
+
+  /** @typedef {Extract<keyof CSSStyleDeclaration, "string">} CSSStyleDeclarationKeys */
 
   /**
    * @param {HTMLElement} element element
-   * @param {CSSStyleDeclaration} style style
+   * @param {Partial<CSSStyleDeclaration>} style style
    */
   function applyStyle(element, style) {
     Object.keys(style).forEach((prop) => {
-      element.style[prop] = style[prop];
+      element.style[/** @type {CSSStyleDeclarationKeys} */ (prop)] =
+        /** @type {string} */
+        (style[/** @type {CSSStyleDeclarationKeys} */ (prop)]);
     });
   }
 
   /**
-   * @param {string | null} trustedTypesPolicyName trusted types police name
+   * @param {string | false | undefined} trustedTypesPolicyName trusted types police name
    */
   function createContainer(trustedTypesPolicyName) {
     // Enable Trusted Types if they are available in the current browser.
@@ -537,10 +544,11 @@ const createOverlay = (options) => {
 
   /**
    * @param {(element: HTMLDivElement) => void} callback callback
-   * @param {string | null} trustedTypesPolicyName trusted types policy name
+   * @param {string | false | undefined} trustedTypesPolicyName trusted types policy name
    */
   function ensureOverlayExists(callback, trustedTypesPolicyName) {
     if (containerElement) {
+      // @ts-expect-error https://github.com/microsoft/TypeScript/issues/30024
       containerElement.innerHTML = overlayTrustedTypesPolicy
         ? overlayTrustedTypesPolicy.createHTML("")
         : "";
@@ -578,13 +586,14 @@ const createOverlay = (options) => {
   // Compilation with errors (e.g. syntax error or missing modules).
   /**
    * @param {string} type type
-   * @param {Array<string  | { moduleIdentifier?: string, moduleName?: string, loc?: string, message?: string }>} messages messages
-   * @param {string | null} trustedTypesPolicyName trusted types policy name
+   * @param {(string | Message)[]} messages messages
+   * @param {undefined | false | string} trustedTypesPolicyName trusted types policy name
    * @param {'build' | 'runtime'} messageSource message source
    */
   function show(type, messages, trustedTypesPolicyName, messageSource) {
     ensureOverlayExists(() => {
-      headerElement.innerText =
+      /** @type {HTMLDivElement} */
+      (headerElement).innerText =
         messageSource === "runtime"
           ? "Uncaught runtime errors:"
           : "Compiled with problems:";
@@ -604,10 +613,10 @@ const createOverlay = (options) => {
         typeElement.innerText = header;
         applyStyle(typeElement, msgTypeStyle);
 
-        if (message.moduleIdentifier) {
+        if (typeof message !== "string" && message.moduleIdentifier) {
           applyStyle(typeElement, { cursor: "pointer" });
           // element.dataset not supported in IE
-          typeElement.setAttribute("data-can-open", true);
+          typeElement.setAttribute("data-can-open", "true");
           typeElement.addEventListener("click", () => {
             fetch(
               `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`,
@@ -620,6 +629,7 @@ const createOverlay = (options) => {
         const messageTextNode = document.createElement("div");
         applyStyle(messageTextNode, msgTextStyle);
 
+        // @ts-expect-error https://github.com/microsoft/TypeScript/issues/30024
         messageTextNode.innerHTML = overlayTrustedTypesPolicy
           ? overlayTrustedTypesPolicy.createHTML(text)
           : text;

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom", "webworker", "es2022.error"],
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "strict": true,
+    "skipDefaultLibCheck": true,
+    "esModuleInterop": true
+  },
+  "include": ["./client-src/**/*"],
+  "exclude": ["./client-src/webpack.config.js"]
+}
