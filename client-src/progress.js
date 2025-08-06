@@ -52,6 +52,7 @@ export function defineProgressElement() {
             position: fixed;
             right: 5%;
             top: 5%;
+            pointer-events: none;
             transition: opacity .25s ease-in-out;
             z-index: 2147483645;
         }
@@ -116,6 +117,7 @@ export function defineProgressElement() {
             position: fixed;
             top: 0;
             left: 0;
+            pointer-events: none;
             height: 4px;
             width: 100vw;
             z-index: 2147483645;
