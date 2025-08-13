@@ -1147,6 +1147,86 @@ describe("allowed hosts", () => {
       await browser.close();
       await server.stop();
     });
+
+    it(`should disconnect web client with origin header containing an IP address with the "auto" value ("${webSocketServer}")`, async () => {
+      const devServerHost = "127.0.0.1";
+      const devServerPort = port1;
+      const proxyHost = devServerHost;
+      const proxyPort = port2;
+
+      const compiler = webpack(config);
+      const devServerOptions = {
+        client: {
+          webSocketURL: {
+            port: port2,
+          },
+        },
+        webSocketServer,
+        port: devServerPort,
+        host: devServerHost,
+        allowedHosts: "auto",
+      };
+      const server = new Server(devServerOptions, compiler);
+
+      await server.start();
+
+      function startProxy(callback) {
+        const app = express();
+
+        app.use(
+          "/",
+          createProxyMiddleware({
+            // Emulation
+            onProxyReqWs: (proxyReq) => {
+              proxyReq.setHeader("origin", "http://192.168.1.1/");
+            },
+            target: `http://${devServerHost}:${devServerPort}`,
+            ws: true,
+            changeOrigin: true,
+            logLevel: "warn",
+          })
+        );
+
+        return app.listen(proxyPort, proxyHost, callback);
+      }
+
+      const proxy = await new Promise((resolve) => {
+        const proxyCreated = startProxy(() => {
+          resolve(proxyCreated);
+        });
+      });
+
+      const { page, browser } = await runBrowser();
+
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
+
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        await page.goto(`http://${proxyHost}:${proxyPort}/`, {
+          waitUntil: "networkidle0",
+        });
+
+        expect(
+          consoleMessages.map((message) => message.text())
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } catch (error) {
+        throw error;
+      } finally {
+        proxy.close();
+
+        await browser.close();
+        await server.stop();
+      }
+    });
   }
 
   describe("check host headers", () => {
@@ -1196,7 +1276,7 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      if (!server.checkHeader(headers, "host")) {
+      if (!server.isValidHost(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
 
@@ -1237,7 +1317,7 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      if (!server.checkHeader(headers, "host")) {
+      if (!server.isValidHost(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
 
@@ -1280,7 +1360,7 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      if (!server.checkHeader(headers, "host")) {
+      if (!server.isValidHost(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
 
@@ -1324,7 +1404,7 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      if (!server.checkHeader(headers, "host")) {
+      if (!server.isValidHost(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
 
@@ -1364,7 +1444,7 @@ describe("allowed hosts", () => {
         waitUntil: "networkidle0",
       });
 
-      if (!server.checkHeader(headers, "host")) {
+      if (!server.isValidHost(headers, "host")) {
         throw new Error("Validation didn't fail");
       }
 
@@ -1405,7 +1485,7 @@ describe("allowed hosts", () => {
       tests.forEach((test) => {
         const headers = { host: test };
 
-        if (!server.checkHeader(headers, "host")) {
+        if (!server.isValidHost(headers, "host")) {
           throw new Error("Validation didn't fail");
         }
       });
@@ -1455,7 +1535,7 @@ describe("allowed hosts", () => {
       tests.forEach((test) => {
         const headers = { host: test };
 
-        if (!server.checkHeader(headers, "host")) {
+        if (!server.isValidHost(headers, "host")) {
           throw new Error("Validation didn't fail");
         }
       });
