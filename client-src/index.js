@@ -287,6 +287,7 @@ const overlay =
  */
 const reloadApp = ({ hot, liveReload }, currentStatus) => {
   if (currentStatus.isUnloading) {
+    log.info("Reload prevented.");
     return;
   }
 
