@@ -2,9 +2,7 @@
 
 const target = document.querySelector("#target");
 
-// Beforeunload event handler
 function beforeunloadHandler(event) {
-  console.log("[webpack-dev-server] beforeunload event triggered");
   event.preventDefault();
   event.returnValue = "";
   return "";
@@ -12,7 +10,6 @@ function beforeunloadHandler(event) {
 
 let isEventRegistered = false;
 
-// Create add event button
 const addEventButton = document.createElement("button");
 addEventButton.textContent = "Add Beforeunload Event";
 addEventButton.style.cssText =
@@ -26,31 +23,14 @@ addEventButton.addEventListener("click", function () {
   }
 });
 
-// Create remove event button
-const removeEventButton = document.createElement("button");
-removeEventButton.textContent = "Remove Beforeunload Event";
-removeEventButton.style.cssText =
-  "padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px;";
-removeEventButton.addEventListener("click", function () {
-  if (isEventRegistered) {
-    window.removeEventListener("beforeunload", beforeunloadHandler);
-    isEventRegistered = false;
-    updateStatus();
-    console.log("[webpack-dev-server] beforeunload event removed");
-  }
-});
-
-// Create reload button
 const reloadButton = document.createElement("button");
 reloadButton.textContent = "Reload Page";
 reloadButton.style.cssText =
   "padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px;";
 reloadButton.addEventListener("click", function () {
-  console.log("[webpack-dev-server] page reload triggered");
   window.location.reload();
 });
 
-// Create status display
 const statusDisplay = document.createElement("div");
 statusDisplay.style.cssText =
   "margin: 10px; padding: 10px; border: 2px solid #ccc; border-radius: 4px; font-weight: bold;";
@@ -72,8 +52,6 @@ target.appendChild(document.createElement("br"));
 target.appendChild(statusDisplay);
 target.appendChild(document.createElement("br"));
 target.appendChild(addEventButton);
-target.appendChild(removeEventButton);
 target.appendChild(reloadButton);
 
-// Initialize status
 updateStatus();
