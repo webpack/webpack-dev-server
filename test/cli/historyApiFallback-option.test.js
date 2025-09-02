@@ -1,10 +1,10 @@
 "use strict";
 
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-history-api-fallback"];
 
 describe('"historyApiFallback" CLI option', () => {
-  it.only('should work using "--history-api-fallback"', async () => {
+  it('should work using "--history-api-fallback"', async () => {
     const { exitCode, stderr } = await testBin(
       ["--port", port, "--history-api-fallback"],
       {
@@ -12,7 +12,7 @@ describe('"historyApiFallback" CLI option', () => {
       },
     );
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 
@@ -23,7 +23,7 @@ describe('"historyApiFallback" CLI option', () => {
       "--no-history-api-fallback",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 });

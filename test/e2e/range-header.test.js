@@ -43,7 +43,7 @@ describe("'Range' header", () => {
     expect(responseRange.headers["content-length"]).toBe("500");
     expect(responseRange.headers["content-range"]).toMatch(/^bytes 0-499\//);
     expect(responseRange.text).toBe(responseContent.slice(0, 500));
-    expect(responseRange.text.length).toBe(500);
+    expect(responseRange.text).toHaveLength(500);
   });
 
   it('should work with "Range" header using "HEAD" method', async () => {
@@ -106,6 +106,6 @@ describe("'Range' header", () => {
       "application/javascript; charset=utf-8",
     );
     expect(responseRange.text).toBe(responseContent);
-    expect(responseRange.text.length).toBe(responseContent.length);
+    expect(responseRange.text).toHaveLength(responseContent.length);
   });
 });

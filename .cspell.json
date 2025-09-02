@@ -71,7 +71,8 @@
     "eslintcache",
     "hono",
     "privkey",
-    "geomanist"
+    "geomanist",
+    "nodenext"
   ],
   "ignorePaths": [
     "CHANGELOG.md",

@@ -1,8 +1,8 @@
 "use strict";
 
-const webpack = require("webpack");
 const acorn = require("acorn");
 const request = require("supertest");
+const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map").bundle;

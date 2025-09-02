@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.2](https://github.com/webpack/webpack-dev-server/compare/v5.2.1...v5.2.2) (2025-06-03)
+
+
+### Bug Fixes
+
+* "Overlay enabled" false positive ([18e72ee](https://github.com/webpack/webpack-dev-server/commit/18e72ee3e57a6e7598a6c068c0ff7c7bb6a857f1))
+* do not crush when error is null for runtime errors ([#5447](https://github.com/webpack/webpack-dev-server/issues/5447)) ([309991f](https://github.com/webpack/webpack-dev-server/commit/309991f947baa0354140b9930a9654ac792e20c4))
+* remove unnecessary header `X_TEST` ([#5451](https://github.com/webpack/webpack-dev-server/issues/5451)) ([64a6124](https://github.com/webpack/webpack-dev-server/commit/64a6124bf1b4d158bb42a4341dd03121ae3759fa))
+* respect the `allowedHosts` option for cross-origin header check ([#5510](https://github.com/webpack/webpack-dev-server/issues/5510)) ([03d1214](https://github.com/webpack/webpack-dev-server/commit/03d12141bf7be09dfb14e91e5c834ee63bd9a9a2))
+
 ## [5.2.1](https://github.com/webpack/webpack-dev-server/compare/v5.2.0...v6.0.0) (2025-03-26)
 
 ### Security
@@ -565,9 +575,9 @@ module.exports = {
   module.exports = {
     entry: {
       entry: [
-        'whatwg-fetch', 
-        'core-js/features/promise', 
-        './entry.js'
+        "whatwg-fetch", 
+        "core-js/features/promise", 
+        "./entry.js"
       ],
     },
   };
@@ -579,13 +589,13 @@ module.exports = {
   module.exports = {
     entry: {
       entry: [
-        'whatwg-fetch', 
-        'core-js/features/promise', 
-        './entry.js'
+        "whatwg-fetch", 
+        "core-js/features/promise", 
+        "./entry.js"
       ],
     },
     devServer: {
-      transportMode: 'sockjs',
+      transportMode: "sockjs",
     },
   };
   ```
@@ -683,15 +693,15 @@ module.exports = {
     // static: false
     static: [
       // Simple example
-      path.resolve(__dirname, 'static'),
+      path.resolve(__dirname, "static"),
       // Complex example
       {
-        directory: path.resolve(__dirname, 'static'),
+        directory: path.resolve(__dirname, "static"),
         staticOptions: {},
         // Don't be confused with `dev.publicPath`, it is `publicPath` for static directory
         // Can be:
         // publicPath: ['/static-public-path-one/', '/static-public-path-two/'],
-        publicPath: '/static-public-path/',
+        publicPath: "/static-public-path/",
         // Can be:
         // serveIndex: {} (options for the `serveIndex` option you can find https://github.com/expressjs/serve-index)
         serveIndex: true,
@@ -711,7 +721,7 @@ module.exports = {
   // ...
   devServer: {
     dev: {
-      publicPath: '/publicPathForDevServe',
+      publicPath: "/publicPathForDevServe",
     },
   },
 };
@@ -741,7 +751,7 @@ module.exports = {
     // Only warnings and errors
     // level: 'none' disable logging
     // Please read https://webpack.js.org/configuration/other-options/#infrastructurelogginglevel
-    level: 'warn',
+    level: "warn",
   },
 };
 ```

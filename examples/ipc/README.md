@@ -30,7 +30,7 @@ You can also listen to a different socket with:
 **webpack.config.js**
 
 ```js
-const path = require("path");
+const path = require("node:path");
 
 module.exports = {
   // ...

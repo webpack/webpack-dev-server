@@ -23,23 +23,23 @@ describe("'log' function", () => {
     logMock.configureDefaultLogger.mockClear();
   });
 
-  test("should set info as the default level and create logger", () => {
-    const getLogger = logMock.getLogger;
-    const configureDefaultLogger = logMock.configureDefaultLogger;
+  it("should set info as the default level and create logger", () => {
+    const { getLogger } = logMock;
+    const { configureDefaultLogger } = logMock;
 
-    expect(configureDefaultLogger).toBeCalled();
+    expect(configureDefaultLogger).toHaveBeenCalled();
     expect(configureDefaultLogger.mock.calls[0][0]).toEqual({
       level: "info",
     });
 
-    expect(getLogger).toBeCalled();
-    expect(getLogger.mock.calls[0][0]).toEqual("webpack-dev-server");
+    expect(getLogger).toHaveBeenCalled();
+    expect(getLogger.mock.calls[0][0]).toBe("webpack-dev-server");
   });
 
-  test("should set log level via setLogLevel", () => {
-    ["none", "error", "warn", "info", "log", "verbose"].forEach((level) => {
+  it("should set log level via setLogLevel", () => {
+    for (const level of ["none", "error", "warn", "info", "log", "verbose"]) {
       setLogLevel(level);
-    });
+    }
 
     expect(logMock.configureDefaultLogger.mock.calls).toMatchSnapshot();
   });

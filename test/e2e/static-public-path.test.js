@@ -1,11 +1,11 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
-const port = require("../ports-map")["static-public-path-option"];
 const runBrowser = require("../helpers/run-browser");
+const port = require("../ports-map")["static-public-path-option"];
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");

@@ -191,20 +191,7 @@ exports[`server option as object ca, pfx, key and cert are array of strings shou
 
 exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): console messages 1`] = `[]`;
 
-exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): console messages 2`] = `[]`;
-
 exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): https options 1`] = `
-{
-  "ca": "<Buffer>",
-  "cert": "<Buffer>",
-  "key": "<Buffer>",
-  "passphrase": "webpack-dev-server",
-  "pfx": "<Buffer>",
-  "requestCert": false,
-}
-`;
-
-exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): https options 2`] = `
 {
   "ca": "<Buffer>",
   "cert": "<Buffer>",
@@ -217,18 +204,9 @@ exports[`server option as object ca, pfx, key and cert are buffer should handle 
 
 exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): page errors 1`] = `[]`;
 
-exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): page errors 2`] = `[]`;
-
 exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): response status 1`] = `200`;
 
-exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): response status 2`] = `200`;
-
 exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): response text 1`] = `
-"Heyo.
-"
-`;
-
-exports[`server option as object ca, pfx, key and cert are buffer should handle GET request to index route (/): response text 2`] = `
 "Heyo.
 "
 `;

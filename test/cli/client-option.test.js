@@ -12,7 +12,7 @@ describe('"client" CLI option', () => {
       "sockjs",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-web-socket-transport ws"', async () => {
@@ -23,19 +23,19 @@ describe('"client" CLI option', () => {
       "ws",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-overlay"', async () => {
     const { exitCode } = await testBin(["--port", port, "--client-overlay"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-client-overlay"', async () => {
     const { exitCode } = await testBin(["--port", port, "--no-client-overlay"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-overlay-errors"', async () => {
@@ -45,7 +45,7 @@ describe('"client" CLI option', () => {
       "--client-overlay-errors",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-client-overlay-errors"', async () => {
@@ -55,7 +55,7 @@ describe('"client" CLI option', () => {
       "--no-client-overlay-errors",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-overlay-warnings"', async () => {
@@ -65,7 +65,7 @@ describe('"client" CLI option', () => {
       "--client-overlay-warnings",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-client-overlay-warnings"', async () => {
@@ -75,7 +75,7 @@ describe('"client" CLI option', () => {
       "--no-client-overlay-warnings",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-logging"', async () => {
@@ -86,13 +86,13 @@ describe('"client" CLI option', () => {
       "verbose",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-progress"', async () => {
     const { exitCode } = await testBin(["--port", port, "--client-progress"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-client-progress"', async () => {
@@ -102,13 +102,13 @@ describe('"client" CLI option', () => {
       "--no-client-progress",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-reconnect"', async () => {
     const { exitCode } = await testBin(["--port", port, "--client-reconnect"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-reconnect <value>"', async () => {
@@ -119,7 +119,7 @@ describe('"client" CLI option', () => {
       5,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-client-reconnect"', async () => {
@@ -129,7 +129,7 @@ describe('"client" CLI option', () => {
       "--no-client-reconnect",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-web-socket-url"', async () => {
@@ -140,7 +140,7 @@ describe('"client" CLI option', () => {
       "ws://myhost.com:8080/foo/test",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-web-socket-url-protocol"', async () => {
@@ -151,7 +151,7 @@ describe('"client" CLI option', () => {
       "ws:",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-web-socket-url-hostname"', async () => {
@@ -162,7 +162,7 @@ describe('"client" CLI option', () => {
       "0.0.0.0",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-web-socket-url-pathname"', async () => {
@@ -173,7 +173,7 @@ describe('"client" CLI option', () => {
       "/ws",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--client-web-socket-url-port"', async () => {
@@ -184,6 +184,6 @@ describe('"client" CLI option', () => {
       8080,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 });

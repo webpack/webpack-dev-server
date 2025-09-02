@@ -1,6 +1,6 @@
 "use strict";
 
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-colors"];
 
 const colorsDefaultStats = require.resolve(
@@ -22,25 +22,25 @@ describe("colors", () => {
       colorsDefaultStats,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stderr).toContain("\x1b[");
+    expect(stderr).toContain("\u001B[");
   });
 
   it('should work use colors using "--color"', async () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--color"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stderr).toContain("\x1b[");
+    expect(stderr).toContain("\u001B[");
   });
 
   it('should work do not use colors using "--no-color"', async () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--no-color"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stderr).not.toContain("\x1b[");
+    expect(stderr).not.toContain("\u001B[");
   });
 
   it("should work use colors using configuration with enabled colors", async () => {
@@ -51,9 +51,9 @@ describe("colors", () => {
       colorsEnabled,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stderr).toContain("\x1b[");
+    expect(stderr).toContain("\u001B[");
   });
 
   it("should work and do not use colors using configuration with disabled colors", async () => {
@@ -64,8 +64,8 @@ describe("colors", () => {
       colorsDisabled,
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
-    expect(stderr).not.toContain("\x1b[");
+    expect(stderr).not.toContain("\u001B[");
   });
 });

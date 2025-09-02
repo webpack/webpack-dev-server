@@ -589,7 +589,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 
 exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "auto:" value ("ws"): page errors 1`] = `[]`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("sockjs"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("sockjs"): console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -597,9 +597,9 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("sockjs"): page errors 1`] = `[]`;
+exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("sockjs"): page errors 1`] = `[]`;
 
-exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("ws"): console messages 1`] = `
+exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("ws"): console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -607,7 +607,7 @@ exports[`web socket server URL should work with the "client.webSocketURL.protoco
 ]
 `;
 
-exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and covert to "ws:" ("ws"): page errors 1`] = `[]`;
+exports[`web socket server URL should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("ws"): page errors 1`] = `[]`;
 
 exports[`web socket server URL should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("sockjs"): console messages 1`] = `
 [

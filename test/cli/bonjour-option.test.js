@@ -1,8 +1,8 @@
 "use strict";
 
-const fs = require("fs");
+const fs = require("node:fs");
 const Server = require("../../lib/Server");
-const { testBin, normalizeStderr } = require("../helpers/test-bin");
+const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-bonjour"];
 
 const defaultCertificateDir = Server.findCacheDir();
@@ -17,7 +17,7 @@ describe('"bonjour" CLI option', () => {
       outputKillStr: /Broadcasting/,
     });
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 
@@ -29,7 +29,7 @@ describe('"bonjour" CLI option', () => {
       },
     );
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(
       normalizeStderr(stderr, { ipv6: true, https: true }),
     ).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe('"bonjour" CLI option', () => {
       "--no-bonjour",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
   });
 });

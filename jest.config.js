@@ -28,6 +28,7 @@ module.exports = {
     //
     // FIXME: this uuid moduleNameMapper workaround can be removed after sockjs > uuid@v9 release
     // https://github.com/uuidjs/uuid/pull/616#issuecomment-1206283882
+    // eslint-disable-next-line n/no-extraneous-require
     "^uuid$": require.resolve("uuid"),
   },
 };

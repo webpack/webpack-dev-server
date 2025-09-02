@@ -1,12 +1,12 @@
 "use strict";
 
-const path = require("path");
-const util = require("util");
-const request = require("supertest");
-const express = require("express");
+const path = require("node:path");
+const util = require("node:util");
 const bodyParser = require("body-parser");
-const WebSocket = require("ws");
+const express = require("express");
+const request = require("supertest");
 const webpack = require("webpack");
+const WebSocket = require("ws");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/proxy-config/webpack.config");
 const [port1, port2, port3, port4] = require("../ports-map")["proxy-option"];
@@ -79,10 +79,9 @@ let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: `http://localhost:${port1}` },
   function proxy(req, res, next) {
-    if (req != null) {
-      const socket = req.socket != null ? req.socket : req.connection;
-      // @ts-ignore
-      const server = socket != null ? socket.server : null;
+    if (req) {
+      const socket = req.socket || req.connection;
+      const server = socket ? socket.server : null;
       if (server) {
         maxServerListeners = Math.max(
           maxServerListeners,
@@ -218,7 +217,7 @@ describe("proxy option", () => {
       it("respects a proxy option when a request path is matched", async () => {
         const response = await req.get("/proxy1");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("from proxy1");
       });
     });
@@ -227,7 +226,7 @@ describe("proxy option", () => {
       it("respects a pathRewrite option", async () => {
         const response = await req.get("/api/proxy2");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("from proxy2");
       });
     });
@@ -238,15 +237,15 @@ describe("proxy option", () => {
 
         const response = await req.get("/foo/bar.html");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
 
         const lastCall = utilSpy.mock.calls[utilSpy.mock.calls.length - 1];
 
-        expect(lastCall[1]).toEqual(
+        expect(lastCall[1]).toBe(
           "Using the 'bypass' option is deprecated. Please use the 'router' or 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
         );
-        expect(lastCall[2]).toEqual(
+        expect(lastCall[2]).toBe(
           "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT",
         );
 
@@ -256,47 +255,47 @@ describe("proxy option", () => {
       it("can rewrite a request path", async () => {
         const response = await req.get("/foo/bar.html");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
       it("can rewrite a request path regardless of the target defined a bypass option", async () => {
         const response = await req.get("/baz/hoge.html");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
       it("should pass through a proxy when a bypass function returns null", async () => {
         const response = await req.get("/foo.js");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("Hey");
       });
 
       it("should not pass through a proxy when a bypass function returns false", async () => {
         const response = await req.get("/proxyfalse");
 
-        expect(response.status).toEqual(404);
+        expect(response.status).toBe(404);
       });
 
       it("should wait if bypass returns promise", async () => {
         const response = await req.get("/proxy/async");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("proxy async response");
       });
 
       it("should work with the 'target' option", async () => {
         const response = await req.get("/bypass-with-target/foo.js");
 
-        expect(response.status).toEqual(404);
+        expect(response.status).toBe(404);
       });
 
       it("should work with the 'target' option #2", async () => {
         const response = await req.get("/bypass-with-target/index.html");
 
-        expect(response.status).toEqual(200);
+        expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
     });
@@ -332,7 +331,7 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
   });
@@ -367,7 +366,7 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
   });
@@ -402,7 +401,7 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
   });
@@ -437,7 +436,7 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
   });
@@ -472,22 +471,22 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
 
     it("respects a proxy option of function", async () => {
       const response = await req.get("/api/proxy2");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy2");
     });
 
     it("should allow req, res, and next", async () => {
       const response = await req.get("/api/proxy2?foo=true");
 
-      expect(response.statusCode).toEqual(200);
-      expect(response.text).toEqual("foo+next+function");
+      expect(response.statusCode).toBe(200);
+      expect(response.text).toBe("foo+next+function");
     });
 
     it("should not exist multiple close events registered", async () => {
@@ -525,7 +524,7 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
   });
@@ -580,14 +579,14 @@ describe("proxy option", () => {
     it("respects proxy1 option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy");
     });
 
     it("respects proxy2 option", async () => {
       const response = await req.get("/proxy2");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy");
     });
   });
@@ -600,7 +599,8 @@ describe("proxy option", () => {
 
     const webSocketServerTypes = ["sockjs", "ws"];
 
-    webSocketServerTypes.forEach((webSocketServerType) => {
+    for (const webSocketServerType of webSocketServerTypes) {
+      // eslint-disable-next-line no-loop-func
       describe(`with webSocketServerType: ${webSocketServerType}`, () => {
         beforeAll(async () => {
           const compiler = webpack(config);
@@ -643,10 +643,6 @@ describe("proxy option", () => {
           });
         });
 
-        it("Should receive response", () => {
-          expect(responseMessage).toEqual("foo");
-        });
-
         afterAll(async () => {
           webSocketServer.close();
 
@@ -656,8 +652,12 @@ describe("proxy option", () => {
 
           await server.stop();
         });
+
+        it("should receive response", () => {
+          expect(responseMessage).toBe("foo");
+        });
       });
-    });
+    }
   });
 
   describe("should supports http methods", () => {
@@ -713,13 +713,13 @@ describe("proxy option", () => {
       });
 
       proxy.post("/post-x-www-form-urlencoded", (proxyReq, res) => {
-        const id = proxyReq.body.id;
+        const { id } = proxyReq.body;
 
         res.status(200).send(`POST method from proxy (id: ${id})`);
       });
 
       proxy.post("/post-application-json", (proxyReq, res) => {
-        const id = proxyReq.body.id;
+        const { id } = proxyReq.body;
 
         res.status(200).send({ answer: `POST method from proxy (id: ${id})` });
       });
@@ -745,49 +745,49 @@ describe("proxy option", () => {
     it("errors", async () => {
       const response = await req.get("/%");
 
-      expect(response.status).toEqual(500);
+      expect(response.status).toBe(500);
       expect(response.text).toContain("error from proxy");
     });
 
-    it("GET method", async () => {
+    it("gET method", async () => {
       const response = await req.get("/get");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("GET method from proxy");
     });
 
-    it("HEAD method", async () => {
+    it("hEAD method", async () => {
       const response = await req.head("/head");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
     });
 
-    it("POST method (application/x-www-form-urlencoded)", async () => {
+    it("pOST method (application/x-www-form-urlencoded)", async () => {
       const response = await req
         .post("/post-x-www-form-urlencoded")
         .send("id=1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("POST method from proxy (id: 1)");
     });
 
-    it("POST method (application/json)", async () => {
+    it("pOST method (application/json)", async () => {
       const response = await req
         .post("/post-application-json")
         .send({ id: "1" })
         .set("Accept", "application/json");
 
-      expect(response.status).toEqual(200);
-      expect(response.headers["content-type"]).toEqual(
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toBe(
         "application/json; charset=utf-8",
       );
       expect(response.text).toContain("POST method from proxy (id: 1)");
     });
 
-    it("DELETE method", async () => {
+    it("dELETE method", async () => {
       const response = await req.delete("/delete");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("DELETE method from proxy");
     });
   });
@@ -827,7 +827,7 @@ describe("proxy option", () => {
     it("respects a proxy option", async () => {
       const response = await req.get("/proxy1");
 
-      expect(response.status).toEqual(200);
+      expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy1");
     });
   });

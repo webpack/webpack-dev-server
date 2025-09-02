@@ -12,7 +12,7 @@ describe('"hot" CLI option', () => {
       },
     );
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(stdout).toContain("webpack/hot/dev-server.js");
   });
 
@@ -24,7 +24,7 @@ describe('"hot" CLI option', () => {
       },
     );
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(stdout).not.toContain("webpack/hot/dev-server.js");
   });
 
@@ -36,7 +36,7 @@ describe('"hot" CLI option', () => {
       },
     );
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
     expect(stdout).toContain("/hot/only-dev-server.js");
   });
 });

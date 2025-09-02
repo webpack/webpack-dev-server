@@ -13,8 +13,10 @@ module.exports = {
 // Replace it with following and save the file:
 //
 
-/** /
-module.exports = {
-  target: 'http://reqres.in/'
-};
-/**/
+/**
+ * /
+ * module.exports = {
+ * target: 'http://reqres.in/'
+ * };
+ * /*
+ */

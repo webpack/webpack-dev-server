@@ -112,7 +112,7 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).not.toEqual("text/html");
+      expect(response.headers()["content-type"]).not.toBe("text/html");
 
       expect(response.status()).toMatchSnapshot("response status");
 

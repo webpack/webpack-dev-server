@@ -7,27 +7,23 @@
 const { createOverlay } = require("../../client-src/overlay");
 
 describe("createOverlay", () => {
-  const originalDocument = global.document;
-  const originalWindow = global.window;
+  const originalDocument = globalThis.document;
+  const originalWindow = globalThis.window;
 
   beforeEach(() => {
-    global.document = {
-      createElement: jest.fn(() => {
-        return {
-          style: {},
-          appendChild: jest.fn(),
-          addEventListener: jest.fn(),
-          contentDocument: {
-            createElement: jest.fn(() => {
-              return { style: {}, appendChild: jest.fn() };
-            }),
-            body: { appendChild: jest.fn() },
-          },
-        };
-      }),
+    globalThis.document = {
+      createElement: jest.fn(() => ({
+        style: {},
+        appendChild: jest.fn(),
+        addEventListener: jest.fn(),
+        contentDocument: {
+          createElement: jest.fn(() => ({ style: {}, appendChild: jest.fn() })),
+          body: { appendChild: jest.fn() },
+        },
+      })),
       body: { appendChild: jest.fn(), removeChild: jest.fn() },
     };
-    global.window = {
+    globalThis.window = {
       // Keep addEventListener mocked for other potential uses
       addEventListener: jest.fn(),
       removeEventListener: jest.fn(),
@@ -40,8 +36,8 @@ describe("createOverlay", () => {
   });
 
   afterEach(() => {
-    global.document = originalDocument;
-    global.window = originalWindow;
+    globalThis.document = originalDocument;
+    globalThis.window = originalWindow;
     jest.useRealTimers();
     jest.clearAllMocks();
   });
@@ -70,7 +66,7 @@ describe("createOverlay", () => {
       error: reactError,
       message: reactError.message,
     });
-    window.dispatchEvent(errorEvent);
+    globalThis.dispatchEvent(errorEvent);
 
     expect(showOverlayMock).not.toHaveBeenCalled();
     showOverlayMock.mockRestore();
@@ -94,7 +90,7 @@ describe("createOverlay", () => {
       error: regularError,
       message: "Regular test error message",
     });
-    window.dispatchEvent(errorEvent);
+    globalThis.dispatchEvent(errorEvent);
 
     expect(showOverlayMock).toHaveBeenCalledWith({
       type: "RUNTIME_ERROR",
@@ -117,7 +113,7 @@ describe("createOverlay", () => {
       error: null,
       message: "error",
     });
-    window.dispatchEvent(errorEvent);
+    globalThis.dispatchEvent(errorEvent);
 
     expect(showOverlayMock).toHaveBeenCalledWith({
       type: "RUNTIME_ERROR",
@@ -144,7 +140,7 @@ describe("createOverlay", () => {
       error: regularError,
       message: "Regular test error message",
     });
-    window.dispatchEvent(errorEvent);
+    globalThis.dispatchEvent(errorEvent);
 
     expect(showOverlayMock).toHaveBeenCalledWith({
       type: "RUNTIME_ERROR",
@@ -171,7 +167,7 @@ describe("createOverlay", () => {
       error: regularError,
       message: "Regular test error message",
     });
-    window.dispatchEvent(errorEvent);
+    globalThis.dispatchEvent(errorEvent);
 
     expect(showOverlayMock).not.toHaveBeenCalled();
     showOverlayMock.mockRestore();
@@ -188,7 +184,7 @@ describe("createOverlay", () => {
       error: reactInternalError,
       message: "React internal error",
     });
-    window.dispatchEvent(errorEvent);
+    globalThis.dispatchEvent(errorEvent);
 
     expect(showOverlayMock).not.toHaveBeenCalled();
     showOverlayMock.mockRestore();
@@ -203,7 +199,7 @@ describe("createOverlay", () => {
     const rejectionEvent = new Event("unhandledrejection");
     rejectionEvent.reason = rejectionReason;
 
-    window.dispatchEvent(rejectionEvent);
+    globalThis.dispatchEvent(rejectionEvent);
 
     expect(showOverlayMock).toHaveBeenCalledWith({
       type: "RUNTIME_ERROR",
@@ -223,7 +219,7 @@ describe("createOverlay", () => {
     const showOverlayMock = jest.spyOn(overlay, "send");
     const rejectionEvent = new Event("unhandledrejection");
     rejectionEvent.reason = "some reason";
-    window.dispatchEvent(rejectionEvent);
+    globalThis.dispatchEvent(rejectionEvent);
 
     expect(showOverlayMock).toHaveBeenCalledWith({
       type: "RUNTIME_ERROR",

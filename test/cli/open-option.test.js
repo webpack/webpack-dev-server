@@ -7,7 +7,7 @@ describe('"open" CLI option', () => {
   it('should work using "--open"', async () => {
     const { exitCode } = await testBin(["--port", port, "--open"]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open /index.html"', async () => {
@@ -18,7 +18,7 @@ describe('"open" CLI option', () => {
       "/index.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open /first.html second.html"', async () => {
@@ -30,13 +30,13 @@ describe('"open" CLI option', () => {
       "second.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--no-open"', async () => {
     const { exitCode } = await testBin(["--no-open", "--port", port]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-reset --open /third.html"', async () => {
@@ -48,7 +48,7 @@ describe('"open" CLI option', () => {
       "/third.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-reset --open-target <url>"', async () => {
@@ -60,7 +60,7 @@ describe('"open" CLI option', () => {
       "<url>",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-reset --open-target /third.html"', async () => {
@@ -72,7 +72,7 @@ describe('"open" CLI option', () => {
       "/third.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-app-name google-chrome"', async () => {
@@ -83,7 +83,7 @@ describe('"open" CLI option', () => {
       "google-chrome",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-app-name-reset --open-app-name firefox"', async () => {
@@ -95,7 +95,7 @@ describe('"open" CLI option', () => {
       "firefox",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-target index.html"', async () => {
@@ -106,7 +106,7 @@ describe('"open" CLI option', () => {
       "index.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-target-reset --open-target first.html"', async () => {
@@ -118,7 +118,7 @@ describe('"open" CLI option', () => {
       "first.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-target /first.html second.html"', async () => {
@@ -130,7 +130,7 @@ describe('"open" CLI option', () => {
       "second.html",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--open-target /index.html --open-app-name google-chrome"', async () => {
@@ -143,6 +143,6 @@ describe('"open" CLI option', () => {
       "google-chrome",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 });

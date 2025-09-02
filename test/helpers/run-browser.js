@@ -3,52 +3,24 @@
 const puppeteer = require("puppeteer");
 const { puppeteerArgs } = require("./puppeteer-constants");
 
+/** @typedef {import('puppeteer').Browser} Browser */
+/** @typedef {import('puppeteer').Page} Page */
+/** @typedef {import('puppeteer').Device} Device */
+
 /**
- * @typedef {Object} RunBrowserResult
- * @property {import('puppeteer').Page} page
- * @property {import('puppeteer').Browser} browser
+ * @typedef {object} RunBrowserResult
+ * @property {Page} page page
+ * @property {Browser} browser browser
  */
 
 /**
- * @param {Parameters<import('puppeteer').Page['emulate']>[0]} config
- * @returns {Promise<RunBrowserResult>}
+ * @param {Browser} browser browser
+ * @param {Device} device config
+ * @returns {Promise<Page>} page
  */
-function runBrowser(config) {
-  return new Promise((resolve, reject) => {
-    /**
-     * @type {import('puppeteer').Page}
-     */
-    let page;
-    /**
-     * @type {import('puppeteer').Browser}
-     */
-    let browser;
-
-    puppeteer
-      .launch({
-        headless: "new",
-        // because of invalid localhost certificate
-        acceptInsecureCerts: true,
-        // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
-        args: puppeteerArgs,
-      })
-      .then((launchedBrowser) => {
-        browser = launchedBrowser;
-
-        return runPage(launchedBrowser, config);
-      })
-      .then((newPage) => {
-        page = newPage;
-
-        resolve({ page, browser });
-      })
-      .catch(reject);
-  });
-}
-
-function runPage(browser, config) {
+function runPage(browser, device) {
   /**
-   * @type {import('puppeteer').Page}
+   * @type {Page}
    */
   let page;
 
@@ -58,7 +30,7 @@ function runPage(browser, config) {
       height: 500,
     },
     userAgent: "",
-    ...config,
+    ...device,
   };
 
   return Promise.resolve()
@@ -88,6 +60,43 @@ function runPage(browser, config) {
 
       return page;
     });
+}
+
+/**
+ * @param {Device} device device
+ * @returns {Promise<RunBrowserResult>} browser result
+ */
+function runBrowser(device) {
+  return new Promise((resolve, reject) => {
+    /**
+     * @type {import('puppeteer').Page}
+     */
+    let page;
+    /**
+     * @type {import('puppeteer').Browser}
+     */
+    let browser;
+
+    puppeteer
+      .launch({
+        headless: "new",
+        // because of invalid localhost certificate
+        acceptInsecureCerts: true,
+        // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
+        args: puppeteerArgs,
+      })
+      .then((launchedBrowser) => {
+        browser = launchedBrowser;
+
+        return runPage(launchedBrowser, device);
+      })
+      .then((newPage) => {
+        page = newPage;
+
+        resolve({ page, browser });
+      })
+      .catch(reject);
+  });
 }
 
 module.exports = runBrowser;

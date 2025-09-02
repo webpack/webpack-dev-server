@@ -200,13 +200,12 @@ describe("client option", () => {
     let browser;
 
     class OverrideServer extends Server {
-      // eslint-disable-next-line class-methods-use-this
       getClientEntry() {
         return require.resolve(
           "../fixtures/custom-client/CustomClientEntry.js",
         );
       }
-      // eslint-disable-next-line class-methods-use-this
+
       getClientHotEntry() {
         return require.resolve(
           "../fixtures/custom-client/CustomClientHotEntry.js",
@@ -304,7 +303,7 @@ describe("client option", () => {
     ];
 
     describe("passed to server", () => {
-      clientModes.forEach((data) => {
+      for (const data of clientModes) {
         it(`${data.title} ${
           data.shouldThrow ? "should throw" : "should not throw"
         }`, async () => {
@@ -334,7 +333,7 @@ describe("client option", () => {
 
           await server.stop();
         });
-      });
+      }
     });
   });
 });

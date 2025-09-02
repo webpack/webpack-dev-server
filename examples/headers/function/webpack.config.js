@@ -8,8 +8,6 @@ module.exports = setup({
   context: __dirname,
   entry: "./app.js",
   devServer: {
-    headers: () => {
-      return { "X-Custom-Header": ["key1=value1", "key2=value2"] };
-    },
+    headers: () => ({ "X-Custom-Header": ["key1=value1", "key2=value2"] }),
   },
 });

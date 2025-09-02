@@ -4,12 +4,12 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").port;
+const { port } = require("../ports-map");
 
 describe("port", () => {
   const ports = [
     "<not-specified>",
-    // eslint-disable-next-line no-undefined
+
     undefined,
     "auto",
     port,
@@ -52,14 +52,10 @@ describe("port", () => {
       }
 
       if (testedPort === "-1" || testedPort === "99999") {
-        const errorMessageRegExp = new RegExp(
-          `options.port should be >= 0 and < 65536`,
-        );
+        const errorMessageRegExp = /options.port should be >= 0 and < 65536/;
 
         try {
           expect(errored.message).toMatch(errorMessageRegExp);
-        } catch (error) {
-          throw error;
         } finally {
           await server.stop();
         }
@@ -97,8 +93,6 @@ describe("port", () => {
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot("console messages");
         expect(pageErrors).toMatchSnapshot("page errors");
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();

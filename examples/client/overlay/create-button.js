@@ -1,7 +1,6 @@
 "use strict";
 
 /**
- *
  * @param {string} label
  * @param {() => void} onClick
  * @returns HTMLButtonElement

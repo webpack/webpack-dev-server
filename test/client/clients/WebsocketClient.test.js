@@ -5,7 +5,7 @@
 
 "use strict";
 
-const http = require("http");
+const http = require("node:http");
 const express = require("express");
 const ws = require("ws");
 const port = require("../../ports-map")["web-socket-client"];
@@ -65,7 +65,7 @@ describe("WebsocketClient", () => {
 
       client.client.onerror(testError);
 
-      expect(log.error.mock.calls.length).toEqual(1);
+      expect(log.error.mock.calls).toHaveLength(1);
       expect(log.error.mock.calls[0]).toEqual([testError]);
 
       setTimeout(() => {

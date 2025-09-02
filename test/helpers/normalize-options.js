@@ -1,9 +1,12 @@
 "use strict";
 
+/**
+ * @param {import("https").ServerOptions} options server options
+ * @returns {Record<string, string | string[] | boolean>} normalized server options
+ */
 function normalizeOptions(options) {
   const normalizedOptions = {};
 
-  // eslint-disable-next-line guard-for-in
   for (const propertyName in options) {
     let value = options[propertyName];
 

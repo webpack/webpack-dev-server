@@ -1,11 +1,11 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/historyapifallback-config/webpack.config");
 const config2 = require("../fixtures/historyapifallback-2-config/webpack.config");
 const config3 = require("../fixtures/historyapifallback-3-config/webpack.config");
+const config = require("../fixtures/historyapifallback-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["history-api-fallback-option"];
 
@@ -438,7 +438,7 @@ describe("historyApiFallback option", () => {
     let consoleSpy;
 
     beforeEach(async () => {
-      consoleSpy = jest.spyOn(global.console, "log");
+      consoleSpy = jest.spyOn(globalThis.console, "log");
 
       compiler = webpack(config);
 
@@ -514,7 +514,7 @@ describe("historyApiFallback option", () => {
     let consoleSpy;
 
     beforeEach(async () => {
-      consoleSpy = jest.spyOn(global.console, "log");
+      consoleSpy = jest.spyOn(globalThis.console, "log");
 
       compiler = webpack(config);
 

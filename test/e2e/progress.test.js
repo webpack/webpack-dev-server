@@ -1,6 +1,6 @@
 "use strict";
 
-const path = require("path");
+const path = require("node:path");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -66,8 +66,6 @@ describe("progress", () => {
             }
           }, 100);
         });
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
       }
@@ -78,9 +76,7 @@ describe("progress", () => {
         ),
       );
 
-      expect(progressConsoleMessage.length > 0).toBe(true);
-    } catch (error) {
-      throw error;
+      expect(progressConsoleMessage.length).toBeGreaterThan(0);
     } finally {
       fs.unlinkSync(cssFilePath);
 

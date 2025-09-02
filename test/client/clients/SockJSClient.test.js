@@ -4,7 +4,7 @@
 
 "use strict";
 
-const http = require("http");
+const http = require("node:http");
 const express = require("express");
 const sockjs = require("sockjs");
 const port = require("../../ports-map")["sockjs-client"];
@@ -19,6 +19,7 @@ describe("SockJSClient", () => {
   const SockJSClient =
     require("../../../client-src/clients/SockJSClient").default;
   const { log } = require("../../../client-src/utils/log");
+
   let consoleMock;
   let socketServer;
   let server;
@@ -39,8 +40,11 @@ describe("SockJSClient", () => {
     });
   });
 
-  afterAll(() => {
+  afterAll((done) => {
     consoleMock.mockRestore();
+    server.close(() => {
+      done();
+    });
   });
 
   describe("client", () => {
@@ -70,7 +74,7 @@ describe("SockJSClient", () => {
 
       client.sock.onerror(testError);
 
-      expect(log.error.mock.calls.length).toEqual(1);
+      expect(log.error.mock.calls).toHaveLength(1);
       expect(log.error.mock.calls[0]).toEqual([testError]);
 
       setTimeout(() => {
@@ -78,12 +82,6 @@ describe("SockJSClient", () => {
 
         done();
       }, 3000);
-    });
-  });
-
-  afterAll((done) => {
-    server.close(() => {
-      done();
     });
   });
 });

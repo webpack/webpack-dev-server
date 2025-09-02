@@ -1,16 +1,16 @@
 "use strict";
 
-const https = require("https");
-const path = require("path");
+const https = require("node:https");
+const path = require("node:path");
 const fs = require("graceful-fs");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
 const { skipTestOnWindows } = require("../helpers/conditional-test");
 const customHTTP = require("../helpers/custom-http");
 const normalizeOptions = require("../helpers/normalize-options");
+const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["server-option"];
 
 const httpsCertificateDirectory = path.resolve(
@@ -80,7 +80,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).not.toEqual("h2");
+        expect(HTTPVersion).not.toBe("h2");
 
         expect(response.status()).toMatchSnapshot("response status");
 
@@ -140,7 +140,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).not.toEqual("h2");
+        expect(HTTPVersion).not.toBe("h2");
 
         expect(response.status()).toMatchSnapshot("response status");
 
@@ -200,7 +200,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).not.toEqual("h2");
+        expect(HTTPVersion).not.toBe("h2");
 
         expect(response.status()).toMatchSnapshot("response status");
 
@@ -260,7 +260,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).toEqual("h2");
+        expect(HTTPVersion).toBe("h2");
         expect(response.status()).toBe(200);
         expect((await response.text()).trim()).toBe("Heyo.");
         expect(consoleMessages).toHaveLength(0);
@@ -851,93 +851,10 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(response.status()).toEqual(200);
+        expect(response.status()).toBe(200);
         expect(await response.text()).toContain("Heyo");
         expect(consoleMessages.map((message) => message.text())).toEqual([]);
         expect(pageErrors).toEqual([]);
-      });
-    });
-
-    describe("ca, pfx, key and cert are buffer", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let page;
-      let browser;
-      let pageErrors;
-      let consoleMessages;
-
-      beforeEach(async () => {
-        compiler = webpack(config);
-
-        createServerSpy = jest.spyOn(https, "createServer");
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "https",
-              options: {
-                ca: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "ca.pem"),
-                ),
-                pfx: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.pfx"),
-                ),
-                key: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.key"),
-                ),
-                cert: fs.readFileSync(
-                  path.join(httpsCertificateDirectory, "server.crt"),
-                ),
-                passphrase: "webpack-dev-server",
-              },
-            },
-            port,
-          },
-          compiler,
-        );
-
-        await server.start();
-
-        ({ page, browser } = await runBrowser());
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      afterEach(async () => {
-        createServerSpy.mockRestore();
-
-        await browser.close();
-        await server.stop();
-      });
-
-      it("should handle GET request to index route (/)", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
       });
     });
 
@@ -1346,7 +1263,7 @@ describe("server option", () => {
 
         const options = normalizeOptions(createServerSpy.mock.calls[0][0]);
 
-        expect(HTTPVersion).toEqual("h2");
+        expect(HTTPVersion).toBe("h2");
         expect(options.spdy).toEqual({ protocols: ["h2", "http/1.1"] });
         expect(response.status()).toBe(200);
         expect((await response.text()).trim()).toBe("Heyo.");
@@ -1418,7 +1335,7 @@ describe("server option", () => {
           () => performance.getEntries()[0].nextHopProtocol,
         );
 
-        expect(HTTPVersion).toEqual("http/1.1");
+        expect(HTTPVersion).toBe("http/1.1");
         expect(
           normalizeOptions(createServerSpy.mock.calls[0][0]),
         ).toMatchSnapshot("http options");

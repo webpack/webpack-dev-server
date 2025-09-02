@@ -4,18 +4,18 @@
 
 "use strict";
 
-const path = require("path");
-const WebSocket = require("ws");
+const path = require("node:path");
+const fs = require("graceful-fs");
 const SockJS = require("sockjs-client");
 const webpack = require("webpack");
-const fs = require("graceful-fs");
+const WebSocket = require("ws");
 const Server = require("../../lib/Server");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const reloadConfig = require("../fixtures/reload-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["hot-and-live-reload"];
 const config = require("../fixtures/client-config/webpack.config");
 const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
+const reloadConfig = require("../fixtures/reload-config/webpack.config");
+const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
+const runBrowser = require("../helpers/run-browser");
+const port = require("../ports-map")["hot-and-live-reload"];
 
 const cssFilePath = path.resolve(
   __dirname,
@@ -326,12 +326,13 @@ describe("hot and live reload", () => {
     fs.unlinkSync(cssFilePath);
   });
 
-  modes.forEach((mode) => {
+  for (const mode of modes) {
     const webSocketServerTitle =
       mode.options && mode.options.webSocketServer
         ? mode.options.webSocketServer
         : "default";
 
+    // eslint-disable-next-line no-loop-func
     it(`${mode.title} (${webSocketServerTitle})`, async () => {
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
@@ -367,12 +368,8 @@ describe("hot and live reload", () => {
           let received = false;
           let errored = false;
 
-          ws.on("error", (error) => {
-            if (!webSocketServerLaunched && /404/.test(error)) {
-              errored = true;
-            } else {
-              errored = true;
-            }
+          ws.on("error", (_error) => {
+            errored = true;
 
             ws.close();
           });
@@ -439,7 +436,7 @@ describe("hot and live reload", () => {
 
       ({ browser } = launched);
 
-      const page = launched.page;
+      const { page } = launched;
 
       const consoleMessages = [];
       const pageErrors = [];
@@ -470,12 +467,12 @@ describe("hot and live reload", () => {
       });
 
       const backgroundColorBefore = await page.evaluate(() => {
-        const body = document.body;
+        const { body } = document;
 
         return getComputedStyle(body)["background-color"];
       });
 
-      expect(backgroundColorBefore).toEqual("rgb(0, 0, 255)");
+      expect(backgroundColorBefore).toBe("rgb(0, 0, 255)");
 
       fs.writeFileSync(
         cssFilePath,
@@ -555,21 +552,21 @@ describe("hot and live reload", () => {
       }
 
       const backgroundColorAfter = await page.evaluate(() => {
-        const body = document.body;
+        const { body } = document;
 
         return getComputedStyle(body)["background-color"];
       });
 
       if (!waitHot && !waitLiveReload) {
-        expect(backgroundColorAfter).toEqual("rgb(0, 0, 255)");
+        expect(backgroundColorAfter).toBe("rgb(0, 0, 255)");
       } else {
-        expect(backgroundColorAfter).toEqual("rgb(255, 0, 0)");
+        expect(backgroundColorAfter).toBe("rgb(255, 0, 0)");
       }
 
       expect(consoleMessages).toMatchSnapshot("console messages");
       expect(pageErrors).toMatchSnapshot("page errors");
     });
-  });
+  }
 });
 
 // the following cases check to make sure that the HMR
@@ -722,13 +719,11 @@ describe("simple config with already added HMR plugin", () => {
 
     getInfrastructureLoggerSpy = jest
       .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => {
-        return {
-          warn: loggerWarnSpy,
-          info: () => {},
-          log: () => {},
-        };
-      });
+      .mockImplementation(() => ({
+        warn: loggerWarnSpy,
+        info: () => {},
+        log: () => {},
+      }));
   });
 
   afterEach(() => {
@@ -742,31 +737,31 @@ describe("simple config with already added HMR plugin", () => {
     await server.start();
 
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
+      '"hot: true" automatically applies HMR plugin, you don\'t have to add it manually to your webpack configuration.',
     );
 
     await server.stop();
   });
 
-  it(`should show warning with "hot: true"`, async () => {
+  it('should show warning with "hot: true"', async () => {
     server = new Server({ port, hot: true }, compiler);
 
     await server.start();
 
     expect(loggerWarnSpy).toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
+      '"hot: true" automatically applies HMR plugin, you don\'t have to add it manually to your webpack configuration.',
     );
 
     await server.stop();
   });
 
-  it(`should not show warning with "hot: false"`, async () => {
+  it('should not show warning with "hot: false"', async () => {
     server = new Server({ port, hot: false }, compiler);
 
     await server.start();
 
     expect(loggerWarnSpy).not.toHaveBeenCalledWith(
-      `"hot: true" automatically applies HMR plugin, you don't have to add it manually to your webpack configuration.`,
+      '"hot: true" automatically applies HMR plugin, you don\'t have to add it manually to your webpack configuration.',
     );
 
     await server.stop();

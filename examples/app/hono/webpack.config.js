@@ -1,10 +1,10 @@
 "use strict";
 
-const wdm = require("webpack-dev-middleware");
-const { Hono } = require("hono");
 const { createAdaptorServer } = require("@hono/node-server");
-// eslint-disable-next-line import/extensions, import/no-unresolved
+// eslint-disable-next-line import/no-unresolved
 const { serveStatic } = require("@hono/node-server/serve-static");
+const { Hono } = require("hono");
+const wdm = require("webpack-dev-middleware");
 const { setup } = require("../../util");
 
 // our setup function adds behind-the-scenes bits to the config that all of our

@@ -7,7 +7,7 @@ const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").stats;
 
-global.console.log = jest.fn();
+jest.spyOn(globalThis.console, "log").mockImplementation();
 
 describe("stats", () => {
   const cases = [
@@ -24,7 +24,6 @@ describe("stats", () => {
     {
       title: 'should work using "undefined" value for the "stats" option',
       webpackOptions: {
-        // eslint-disable-next-line no-undefined
         stats: undefined,
       },
     },
@@ -55,7 +54,7 @@ describe("stats", () => {
       webpackOptions: {
         stats: {
           colors: {
-            green: "\u001b[32m",
+            green: "\u001B[32m",
           },
         },
       },
@@ -108,7 +107,7 @@ describe("stats", () => {
     });
   }
 
-  cases.forEach((testCase) => {
+  for (const testCase of cases) {
     it(testCase.title, async () => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
       const devServerOptions = {
@@ -134,12 +133,10 @@ describe("stats", () => {
         expect(
           consoleMessages.map((message) => message.text()),
         ).toMatchSnapshot();
-      } catch (error) {
-        throw error;
       } finally {
         await browser.close();
         await server.stop();
       }
     });
-  });
+  }
 });

@@ -23,5 +23,5 @@ export type CliOption = {
   /**
    * preprocessor
    */
-  preprocess: Function;
+  preprocess: () => void;
 };

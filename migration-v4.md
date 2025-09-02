@@ -44,8 +44,8 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    before: function (app, server, compiler) {
-      app.get("/some/path", function (req, res) {
+    before(app, server, compiler) {
+      app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -58,8 +58,8 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    onBeforeSetupMiddleware: function (devServer) {
-      devServer.app.get("/some/path", function (req, res) {
+    onBeforeSetupMiddleware(devServer) {
+      devServer.app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -74,8 +74,8 @@ v3:
 ```js
 module.exports = {
   devServer: {
-    after: function (app, server, compiler) {
-      app.get("/some/path", function (req, res) {
+    after(app, server, compiler) {
+      app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -88,8 +88,8 @@ v4:
 ```js
 module.exports = {
   devServer: {
-    onAfterSetupMiddleware: function (devServer) {
-      devServer.app.get("/some/path", function (req, res) {
+    onAfterSetupMiddleware(devServer) {
+      devServer.app.get("/some/path", (req, res) => {
         res.json({ custom: "response" });
       });
     },
@@ -328,7 +328,7 @@ Provide an array of objects in case you have multiple static folders:
 
 ```js
 module.exports = {
-  //...
+  // ...
   devServer: {
     static: [
       {
@@ -418,7 +418,7 @@ module.exports = {
 module.exports = {
   devServer: {
     open: {
-      target: ["first.html", `http://localhost:8080/second.html`],
+      target: ["first.html", "http://localhost:8080/second.html"],
       app: {
         name: "google-chrome",
         arguments: ["--incognito", "--new-window"],
@@ -474,8 +474,7 @@ module.exports = {
 - Many CLI options were renamed in favor of the above change, please use `webpack serve --help` to get a list of them.
 - The `stdin` option was removed in favor of `--watch-options-stdin`.
 - `injectClient` and `injectHot` were removed in favor of manual setup entries.
-
-  - `injectClient: false` was replaced with `client: false`:
+- `injectClient: false` was replaced with `client: false`:
 
   v3:
 
@@ -547,11 +546,9 @@ module.exports = {
   // `hot` and `client` options are disabled because we added them manually
   const server = new DevServer({ hot: false, client: false }, compiler);
 
-  (async () => {
-    await server.start();
+  await server.start();
 
-    console.log("Running");
-  })();
+  console.log("Running");
   ```
 
 ### Deprecations
@@ -591,11 +588,9 @@ module.exports = {
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
   const devServer = new Server(devServerOptions, compiler);
 
-  (async () => {
-    await devServer.start();
+  await devServer.start();
 
-    console.log("Running");
-  })();
+  console.log("Running");
   ```
 
   ```js
@@ -630,15 +625,13 @@ module.exports = {
   const devServerOptions = { host: "127.0.0.1", port: 8080 };
   const devServer = new Server(devServerOptions, compiler);
 
-  (async () => {
-    await devServer.start();
+  await devServer.start();
 
-    console.log("Running");
+  console.log("Running");
 
-    await devServer.stop();
+  await devServer.stop();
 
-    console.log("Closed");
-  })();
+  console.log("Closed");
   ```
 
   ```js
@@ -690,7 +683,6 @@ There are a lot of other bug fixes.
 ### Notes
 
 - Compatibility with `IE11`/`IE10`/`IE9`:
-
   - For `IE11`/`IE10` you need polyfill `fetch()` and `Promise`, example:
 
   ```js
@@ -717,19 +709,25 @@ There are a lot of other bug fixes.
   IE8 is not supported, sorry
 
 - Change in **Node.js API**:
-
   - If you're using dev-server through the Node.js API, the options in devServer will be ignored. Pass the options as a first parameter instead:
 
   v3:
 
   ```js
-  new WebpackDevServer(compiler, {...})
+  new WebpackDevServer(compiler, {
+    /* Options */
+  });
   ```
 
   v4:
 
   ```js
-  new WebpackDevServer({...}, compiler)
+  new WebpackDevServer(
+    {
+      /* Options */
+    },
+    compiler,
+  );
   ```
 
   - [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.

@@ -54,7 +54,7 @@ document.addEventListener(
     table.appendChild(tbody);
     target.parentNode.appendChild(table);
 
-    tests.forEach((test) => {
+    for (const test of tests) {
       const tr = document.createElement("tr");
       tbody.appendChild(tr);
       check(test.url, test.re, (res) => {
@@ -62,11 +62,16 @@ document.addEventListener(
         tr.innerHTML += `<td><a href="${test.url}">${test.url}</a></td>`;
         tr.innerHTML += `<td class="${res}">${res}</td>`;
       });
-    });
+    }
   },
   true,
 );
 
+/**
+ * @param url
+ * @param re
+ * @param cb
+ */
 function check(url, re, cb) {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("load", () => {

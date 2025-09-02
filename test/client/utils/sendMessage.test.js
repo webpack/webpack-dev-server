@@ -11,12 +11,12 @@ describe("'sendMessage' function", () => {
     jest.resetAllMocks();
   });
 
-  test("should run self.postMessage", () => {
-    self.postMessage = jest.fn();
+  it("should run self.postMessage", () => {
+    jest.spyOn(globalThis, "postMessage").mockImplementation();
 
     sendMessage("foo", "bar");
 
-    expect(self.postMessage).toBeCalled();
+    expect(self.postMessage).toHaveBeenCalled();
     expect(self.postMessage.mock.calls[0]).toMatchSnapshot();
   });
 });

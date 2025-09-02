@@ -1,7 +1,15 @@
+/**
+ * @returns {boolean} true when custom elements supported, otherwise false
+ */
 export function isProgressSupported() {
-  return "customElements" in self && !!HTMLElement.prototype.attachShadow;
+  return (
+    "customElements" in self && Boolean(HTMLElement.prototype.attachShadow)
+  );
 }
 
+/**
+ * @returns {void}
+ */
 export function defineProgressElement() {
   if (customElements.get("wds-progress")) {
     return;
@@ -26,9 +34,11 @@ export function defineProgressElement() {
         this.type === "circular"
           ? WebpackDevServerProgress.#circularTemplate()
           : WebpackDevServerProgress.#linearTemplate();
-      this.shadowRoot.innerHTML = innerHTML;
+      /** @type {ShadowRoot} */
+      (this.shadowRoot).innerHTML = innerHTML;
 
-      this.initialProgress = Number(this.getAttribute("progress")) ?? 0;
+      const progressValue = this.getAttribute("progress");
+      this.initialProgress = progressValue ? Number(progressValue) : 0;
 
       this.#update(this.initialProgress);
     }
@@ -42,6 +52,7 @@ export function defineProgressElement() {
             position: fixed;
             right: 5%;
             top: 5%;
+            pointer-events: none;
             transition: opacity .25s ease-in-out;
             z-index: 2147483645;
         }
@@ -106,6 +117,7 @@ export function defineProgressElement() {
             position: fixed;
             top: 0;
             left: 0;
+            pointer-events: none;
             height: 4px;
             width: 100vw;
             z-index: 2147483645;
@@ -144,6 +156,11 @@ export function defineProgressElement() {
       return ["progress", "type"];
     }
 
+    /**
+     * @param {string} name name
+     * @param {string} oldValue old value
+     * @param {string} newValue new value
+     */
     attributeChangedCallback(name, oldValue, newValue) {
       if (name === "progress") {
         this.#update(Number(newValue));
@@ -152,15 +169,25 @@ export function defineProgressElement() {
       }
     }
 
+    /**
+     * @param {number} percent percent
+     */
     #update(percent) {
-      const element = this.shadowRoot.querySelector("#progress");
+      const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
+      const element =
+        /** @type {HTMLElement} */
+        (shadowRoot.querySelector("#progress"));
       if (this.type === "circular") {
-        const path = this.shadowRoot.querySelector("path");
-        const value = this.shadowRoot.querySelector("#percent-value");
+        const path =
+          /** @type {SVGPathElement} */
+          (shadowRoot.querySelector("path"));
+        const value =
+          /** @type {HTMLElement} */
+          (shadowRoot.querySelector("#percent-value"));
         const offset = ((100 - percent) / 100) * this.maxDashOffset;
 
-        path.style.strokeDashoffset = offset;
-        value.textContent = percent;
+        path.style.strokeDashoffset = String(offset);
+        value.textContent = String(percent);
       } else {
         element.style.width = `${percent}%`;
       }
@@ -173,12 +200,18 @@ export function defineProgressElement() {
     }
 
     #show() {
-      const element = this.shadowRoot.querySelector("#progress");
+      const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
+      const element =
+        /** @type {HTMLElement} */
+        (shadowRoot.querySelector("#progress"));
       element.classList.remove("hidden");
     }
 
     #hide() {
-      const element = this.shadowRoot.querySelector("#progress");
+      const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
+      const element =
+        /** @type {HTMLElement} */
+        (shadowRoot.querySelector("#progress"));
       if (this.type === "circular") {
         element.classList.add("disappear");
         element.addEventListener(

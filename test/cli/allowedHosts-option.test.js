@@ -12,7 +12,7 @@ describe('"allowedHosts" CLI option', () => {
       "auto",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--allowed-hosts all"', async () => {
@@ -23,7 +23,7 @@ describe('"allowedHosts" CLI option', () => {
       "all",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--allowed-hosts testhouse.com"', async () => {
@@ -34,7 +34,7 @@ describe('"allowedHosts" CLI option', () => {
       "testhouse.com",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 
   it('should work using "--allowed-hosts testhost.com --allowed-hosts testhost1.com"', async () => {
@@ -47,6 +47,6 @@ describe('"allowedHosts" CLI option', () => {
       "testhost1.com",
     ]);
 
-    expect(exitCode).toEqual(0);
+    expect(exitCode).toBe(0);
   });
 });
