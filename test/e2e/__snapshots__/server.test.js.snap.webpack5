@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`server option as object allow to pass more options should handle GET request to index route (/): console messages 1`] = `[]`;
 

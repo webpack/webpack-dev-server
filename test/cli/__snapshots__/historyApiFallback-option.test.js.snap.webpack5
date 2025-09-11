@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`"historyApiFallback" CLI option should work using "--history-api-fallback" 1`] = `
 "<i> [webpack-dev-server] Project is running at:

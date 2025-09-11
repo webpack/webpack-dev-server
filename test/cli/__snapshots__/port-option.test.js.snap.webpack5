@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`"port" CLI option should work using "--port <string>": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:

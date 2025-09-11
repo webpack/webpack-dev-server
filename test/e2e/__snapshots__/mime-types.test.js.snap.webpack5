@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`mimeTypes option as an object with a custom type should request file with different js mime type: console messages 1`] = `[]`;
 
