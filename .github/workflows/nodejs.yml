@@ -3,12 +3,12 @@ name: webpack-dev-server
 on:
   push:
     branches:
-      - master
+      - main
       - next
       - v4
   pull_request:
     branches:
-      - master
+      - main
       - next
       - v4
 

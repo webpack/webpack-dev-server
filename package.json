@@ -31,7 +31,7 @@
     "fix:code": "npm run lint:code -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
     "fix": "npm-run-all -l fix:code fix:prettier",
-    "commitlint": "commitlint --from=master",
+    "commitlint": "commitlint --from=main",
     "build:client": "rimraf -g ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "build:types": "rimraf -g ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && node ./scripts/extend-webpack-types.js && prettier \"types/**/*.ts\" --write && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",

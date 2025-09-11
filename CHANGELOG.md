@@ -88,7 +88,7 @@ The above changes may make the dev server not work if you relied on such behavio
 
 ## [5.0.0](https://github.com/webpack/webpack-dev-server/compare/v4.15.1...v5.0.0) (2024-02-12)
 
-[Migration Guide and Changes](https://github.com/webpack/webpack-dev-server/blob/master/migration-v5.md).
+[Migration Guide and Changes](https://github.com/webpack/webpack-dev-server/blob/main/migration-v5.md).
 
 ### [4.15.1](https://github.com/webpack/webpack-dev-server/compare/v4.15.0...v4.15.1) (2023-06-09)
 
@@ -324,7 +324,7 @@ The above changes may make the dev server not work if you relied on such behavio
 ### Features
 
 * add `--web-socket-server-type` option for CLI ([#4001](https://github.com/webpack/webpack-dev-server/issues/4001)) ([17c390a](https://github.com/webpack/webpack-dev-server/commit/17c390a04e474a675255eb25132b423e0614253f))
-* show deprecation warning for `https`/`http2` option, [migration guide for `https`](https://github.com/webpack/webpack-dev-server/tree/master/examples/server/https) and [migration guide for `http2`](https://github.com/webpack/webpack-dev-server/tree/master/examples/server/spdy) (because we use [`spdy`](https://github.com/spdy-http2/node-spdy) for http2 due `express` doesn't support http2) ([#4003](https://github.com/webpack/webpack-dev-server/issues/4003)) ([521cf85](https://github.com/webpack/webpack-dev-server/commit/521cf852a81c5913e17cf36c90140c566d4218e5))
+* show deprecation warning for `https`/`http2` option, [migration guide for `https`](https://github.com/webpack/webpack-dev-server/tree/main/examples/server/https) and [migration guide for `http2`](https://github.com/webpack/webpack-dev-server/tree/main/examples/server/spdy) (because we use [`spdy`](https://github.com/spdy-http2/node-spdy) for http2 due `express` doesn't support http2) ([#4003](https://github.com/webpack/webpack-dev-server/issues/4003)) ([521cf85](https://github.com/webpack/webpack-dev-server/commit/521cf852a81c5913e17cf36c90140c566d4218e5))
 
 
 ### Bug Fixes
@@ -441,7 +441,7 @@ module.exports = {
 
 ## Notes:
 
-- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/main/migration-v4.md)
 
 ### Bug Fixes
 
@@ -453,7 +453,7 @@ module.exports = {
 
 ## Notes:
 
-- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/main/migration-v4.md)
 
 ### Features
 
@@ -475,7 +475,7 @@ module.exports = {
 
 ## Notes:
 
-- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
+- migration guide from v3 to v4 can be found [here](https://github.com/webpack/webpack-dev-server/blob/main/migration-v4.md)
 
 ### ⚠ BREAKING CHANGES
 

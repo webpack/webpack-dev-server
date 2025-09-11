@@ -311,7 +311,7 @@ This project is heavily inspired by [peerigon/nof5](https://github.com/peerigon/
 [node-url]: https://nodejs.org
 [tests]: https://github.com/webpack/webpack-dev-server/workflows/webpack-dev-server/badge.svg
 [tests-url]: https://github.com/webpack/webpack-dev-server/actions?query=workflow%3Awebpack-dev-server
-[cover]: https://codecov.io/gh/webpack/webpack-dev-server/branch/master/graph/badge.svg
+[cover]: https://codecov.io/gh/webpack/webpack-dev-server/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack/webpack-dev-server
 [discussion]: https://img.shields.io/github/discussions/webpack/webpack
 [discussion-url]: https://github.com/webpack/webpack/discussions
