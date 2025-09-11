@@ -1,6 +1,6 @@
 [webpack-dev-server](https://github.com/webpack/webpack-dev-server) can be used to quickly develop an application. See the [development guide](/guides/development/) to get started.
 
-This page describes the options that affect the behavior of webpack-dev-server (short: dev-server) `v4.0.0+`. Migration guide from `v3` to `v4` can be found [here](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md).
+This page describes the options that affect the behavior of webpack-dev-server (short: dev-server) `v4.0.0+`. Migration guide from `v3` to `v4` can be found [here](https://github.com/webpack/webpack-dev-server/blob/main/migration-v4.md).
 
 > **Warning**
 >
@@ -41,7 +41,7 @@ When the server is started, there will be a message prior to the list of resolve
 
 that will give some background on where the server is located and what it's serving.
 
-If you're using dev-server through the Node.js API, the options in `devServer` will be ignored. Pass the options as the first parameter instead: `new WebpackDevServer({...}, compiler)`. [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use webpack-dev-server through the Node.js API.
+If you're using dev-server through the Node.js API, the options in `devServer` will be ignored. Pass the options as the first parameter instead: `new WebpackDevServer({...}, compiler)`. [See here](https://github.com/webpack/webpack-dev-server/tree/main/examples/api/simple) for an example of how to use webpack-dev-server through the Node.js API.
 
 > **Warning**
 >
@@ -71,7 +71,7 @@ You can invoke webpack-dev-server via CLI by:
 npx webpack serve
 ```
 
-A list of CLI options for `serve` is available [here](https://github.com/webpack/webpack-cli/blob/master/SERVE-OPTIONS-v4.md)
+A list of CLI options for `serve` is available [here](https://github.com/webpack/webpack-cli/blob/main/SERVE-OPTIONS-v4.md)
 
 ### Usage via API
 
@@ -457,7 +457,7 @@ npx webpack serve --client-web-socket-transport ws --web-socket-server ws
 >
 > When providing a custom client and server implementation make sure that they are compatible with one another to communicate successfully.
 
-To create a custom client implementation, create a class that extends [`BaseClient`](https://github.com/webpack/webpack-dev-server/blob/master/client-src/clients/BaseClient.js).
+To create a custom client implementation, create a class that extends [`BaseClient`](https://github.com/webpack/webpack-dev-server/blob/main/client-src/clients/BaseClient.js).
 
 Using path to `CustomClient.js`, a custom WebSocket client implementation, along with the compatible `'ws'` server:
 
@@ -1986,7 +1986,7 @@ module.exports = {
 };
 ```
 
-To create a custom server implementation, create a class that extends [`BaseServer`](https://github.com/webpack/webpack-dev-server/blob/master/lib/servers/BaseServer.js).
+To create a custom server implementation, create a class that extends [`BaseServer`](https://github.com/webpack/webpack-dev-server/blob/main/lib/servers/BaseServer.js).
 
 Using path to `CustomServer.js`, a custom WebSocket server implementation, along with the compatible `'ws'` client:
 

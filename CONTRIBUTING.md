@@ -21,7 +21,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 - It is advised to first create an issue (if there is not one already) before making a pull request. This way the maintainers can first discuss with you if they agree and it also helps with providing some context.
 
-- Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/master/examples) to see if all functionality still works. When introducing new functionality, also add an example. This helps the maintainers to understand it and check if it still works.
+- Run the relevant [examples](https://github.com/webpack/webpack-dev-server/tree/main/examples) to see if all functionality still works. When introducing new functionality, also add an example. This helps the maintainers to understand it and check if it still works.
 
 - Write tests.
 

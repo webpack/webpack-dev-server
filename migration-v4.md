@@ -730,4 +730,4 @@ There are a lot of other bug fixes.
   );
   ```
 
-  - [See here](https://github.com/webpack/webpack-dev-server/tree/master/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.
+  - [See here](https://github.com/webpack/webpack-dev-server/tree/main/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.
