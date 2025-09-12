@@ -46,7 +46,7 @@ exports[`Built in routes with simple config should handle GET request to invalid
 
 exports[`Built in routes with simple config should handle GET request to magic async chunk: console messages 1`] = `[]`;
 
-exports[`Built in routes with simple config should handle GET request to magic async chunk: response headers content-type 1`] = `"application/javascript; charset=utf-8"`;
+exports[`Built in routes with simple config should handle GET request to magic async chunk: response headers content-type 1`] = `"text/javascript; charset=utf-8"`;
 
 exports[`Built in routes with simple config should handle GET request to magic async chunk: response status 1`] = `200`;
 
@@ -62,7 +62,7 @@ exports[`Built in routes with simple config should handle HEAD request to direct
 
 exports[`Built in routes with simple config should handle HEAD request to magic async chunk: console messages 1`] = `[]`;
 
-exports[`Built in routes with simple config should handle HEAD request to magic async chunk: response headers content-type 1`] = `"application/javascript; charset=utf-8"`;
+exports[`Built in routes with simple config should handle HEAD request to magic async chunk: response headers content-type 1`] = `"text/javascript; charset=utf-8"`;
 
 exports[`Built in routes with simple config should handle HEAD request to magic async chunk: response status 1`] = `200`;
 

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`web socket server URL should not work and output disconnect wrong web socket URL ("sockjs"): console messages 1`] = `
 [
