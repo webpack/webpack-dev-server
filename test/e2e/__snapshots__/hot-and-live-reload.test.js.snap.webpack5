@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`hot and live reload should not refresh content when hot and no live reload disabled (default): console messages 1`] = `
 [

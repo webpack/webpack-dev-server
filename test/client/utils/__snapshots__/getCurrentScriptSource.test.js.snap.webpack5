@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`'getCurrentScriptSource' function should fail when 'document.currentScript' doesn't exist and no 'script' tags 1`] = `[Error: [webpack-dev-server] Failed to get current script source.]`;
 

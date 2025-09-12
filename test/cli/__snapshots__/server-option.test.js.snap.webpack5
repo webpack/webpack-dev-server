@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`"server" CLI options should work using "--no-server-options-request-cert" 1`] = `
 "<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem

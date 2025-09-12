@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`watchFiles option should not crash if file doesn't exist should reload when file content is changed: console messages 1`] = `
 [

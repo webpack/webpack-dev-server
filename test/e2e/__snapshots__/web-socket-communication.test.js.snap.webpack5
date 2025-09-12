@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`web socket communication should work and close web socket client connection when web socket server closed ("sockjs"): console messages 1`] = `
 [
