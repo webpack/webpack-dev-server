@@ -287,6 +287,7 @@ const overlay =
  */
 const reloadApp = ({ hot, liveReload }, currentStatus) => {
   if (currentStatus.isUnloading) {
+    log.warn("HMR blocked. Please refresh the page.");
     return;
   }
 

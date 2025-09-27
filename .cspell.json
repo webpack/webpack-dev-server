@@ -3,6 +3,7 @@
   "language": "en,en-gb",
   "words": [
     "apos",
+    "beforeunload",
     "camelcase",
     "tapable",
     "sockjs",
