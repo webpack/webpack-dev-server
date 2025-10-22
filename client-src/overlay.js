@@ -644,7 +644,12 @@ const createOverlay = (options) => {
     }, trustedTypesPolicyName);
   }
 
+  /** @type {(event: KeyboardEvent) => void} */
   let handleEscapeKey;
+
+  /**
+   * @returns {void}
+   */
 
   const hideOverlayWithEscCleanup = () => {
     window.removeEventListener("keydown", handleEscapeKey);
