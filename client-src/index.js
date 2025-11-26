@@ -318,7 +318,22 @@ const reloadApp = ({ hot, liveReload }, currentStatus) => {
   if (hot && allowToHot) {
     log.info("App hot update...");
 
-    hotEmitter.emit("webpackHotUpdate", currentStatus.currentHash);
+    if (
+      typeof EventTarget !== "undefined" &&
+      hotEmitter instanceof EventTarget
+    ) {
+      const event = new CustomEvent("webpackHotUpdate", {
+        detail: {
+          currentHash: currentStatus.currentHash,
+        },
+        bubbles: true,
+        cancelable: false,
+      });
+
+      hotEmitter.dispatchEvent(event);
+    } else {
+      hotEmitter.emit("webpackHotUpdate", currentStatus.currentHash);
+    }
 
     if (typeof self !== "undefined" && self.window) {
       // broadcast update to window
