@@ -232,4 +232,41 @@ describe("createOverlay", () => {
     });
     showOverlayMock.mockRestore();
   });
+  // ESC key test cases
+
+  it("should dismiss overlay when ESC key is pressed", () => {
+    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
+    const overlay = createOverlay(options);
+    const showOverlayMock = jest.spyOn(overlay, "send");
+
+    const escEvent = new KeyboardEvent("keydown", { key: "Escape" });
+    globalThis.window.dispatchEvent(escEvent);
+
+    expect(showOverlayMock).toHaveBeenCalledWith({ type: "DISMISS" });
+    showOverlayMock.mockRestore();
+  });
+
+  it("should dismiss overlay when 'Esc' key is pressed (older browsers)", () => {
+    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
+    const overlay = createOverlay(options);
+    const showOverlayMock = jest.spyOn(overlay, "send");
+
+    const escEvent = new KeyboardEvent("keydown", { key: "Esc" });
+    globalThis.window.dispatchEvent(escEvent);
+
+    expect(showOverlayMock).toHaveBeenCalledWith({ type: "DISMISS" });
+    showOverlayMock.mockRestore();
+  });
+
+  it("should not dismiss overlay for other keys", () => {
+    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
+    const overlay = createOverlay(options);
+    const showOverlayMock = jest.spyOn(overlay, "send");
+
+    const otherKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
+    globalThis.window.dispatchEvent(otherKeyEvent);
+
+    expect(showOverlayMock).not.toHaveBeenCalled();
+    showOverlayMock.mockRestore();
+  });
 });

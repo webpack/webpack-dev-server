@@ -644,11 +644,34 @@ const createOverlay = (options) => {
     }, trustedTypesPolicyName);
   }
 
+  /** @type {(event: KeyboardEvent) => void} */
+  let handleEscapeKey;
+
+  /**
+   * @returns {void}
+   */
+
+  const hideOverlayWithEscCleanup = () => {
+    window.removeEventListener("keydown", handleEscapeKey);
+    hide();
+  };
+
   const overlayService = createOverlayMachine({
     showOverlay: ({ level = "error", messages, messageSource }) =>
       show(level, messages, options.trustedTypesPolicyName, messageSource),
-    hideOverlay: hide,
+    hideOverlay: hideOverlayWithEscCleanup,
   });
+  /**
+   * ESC key press to dismiss the overlay.
+   * @param {KeyboardEvent} event Keydown event
+   */
+  handleEscapeKey = (event) => {
+    if (event.key === "Escape" || event.key === "Esc" || event.keyCode === 27) {
+      overlayService.send({ type: "DISMISS" });
+    }
+  };
+
+  window.addEventListener("keydown", handleEscapeKey);
 
   if (options.catchRuntimeError) {
     /**
