@@ -43,7 +43,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -115,7 +115,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -188,7 +188,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -262,7 +262,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -336,7 +336,7 @@ describe("allowed hosts", () => {
             target: `http://[${devServerHost}]:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -411,7 +411,7 @@ describe("allowed hosts", () => {
             target: `http://${IPv4}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -488,7 +488,7 @@ describe("allowed hosts", () => {
             },
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -565,7 +565,7 @@ describe("allowed hosts", () => {
             },
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -643,7 +643,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -721,7 +721,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -799,7 +799,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -877,7 +877,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -958,7 +958,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1036,7 +1036,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1114,7 +1114,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1192,7 +1192,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1273,7 +1273,7 @@ describe("allowed hosts", () => {
             secure: false,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1351,7 +1351,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1430,7 +1430,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
@@ -1511,7 +1511,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: "warn",
           }),
         );
 
