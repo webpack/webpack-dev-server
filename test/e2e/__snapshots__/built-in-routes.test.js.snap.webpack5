@@ -56,7 +56,7 @@ exports[`Built in routes with simple config should handle HEAD request to direct
 
 exports[`Built in routes with simple config should handle HEAD request to directory index: page errors 1`] = `[]`;
 
-exports[`Built in routes with simple config should handle HEAD request to directory index: response headers content-type 1`] = `text/javascript; charset=utf-8`;
+exports[`Built in routes with simple config should handle HEAD request to directory index: response headers content-type 1`] = `"text/html; charset=utf-8"`;
 
 exports[`Built in routes with simple config should handle HEAD request to directory index: response status 1`] = `200`;
 
