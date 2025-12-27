@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`"ipc" CLI option should work using "--ipc": stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at: "<tmp>/webpack-dev-server.sock"

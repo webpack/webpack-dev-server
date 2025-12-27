@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`socket should default to WebsocketClient when no __webpack_dev_server_client__ set 1`] = `
 [

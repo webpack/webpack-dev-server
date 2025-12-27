@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`API Invalidate callback should use the default \`noop\` callback when invalidate is called without any callback: console messages 1`] = `
 [

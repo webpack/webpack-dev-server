@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Built in routes with multi config should handle GET request to directory index and list all middleware directories: console messages 1`] = `[]`;
 

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`colors should work and do not use colors using configuration with disabled colors: stderr 1`] = `
 "<i> [webpack-dev-server] Project is running at:
