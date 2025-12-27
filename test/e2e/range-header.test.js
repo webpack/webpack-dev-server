@@ -26,7 +26,6 @@ describe("'Range' header", () => {
     const response = await request(server.app).get("/main.js");
 
     expect(response.status).toBe(200);
-    // TODO: why this content-type don't change?
     expect(response.headers["content-type"]).toBe(
       "text/javascript; charset=utf-8",
     );
