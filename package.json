@@ -66,7 +66,7 @@
     "open": "^10.0.3",
     "p-retry": "^6.2.0",
     "schema-utils": "^4.2.0",
-    "selfsigned": "^2.4.1",
+    "selfsigned": "^5.4.0",
     "serve-index": "^1.9.1",
     "sockjs": "^0.3.24",
     "spdy": "^4.0.2",
