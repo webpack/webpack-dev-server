@@ -2,7 +2,6 @@
 
 const path = require("node:path");
 const util = require("node:util");
-const bodyParser = require("body-parser");
 const express = require("express");
 const request = require("supertest");
 const webpack = require("webpack");
@@ -686,10 +685,10 @@ describe("proxy option", () => {
       const proxy = express();
 
       // Parse application/x-www-form-urlencoded
-      proxy.use(bodyParser.urlencoded({ extended: false }));
+      proxy.use(express.urlencoded({ extended: false }));
 
       // Parse application/json
-      proxy.use(bodyParser.json());
+      proxy.use(express.json());
 
       // This forces Express to try to decode URLs, which is needed for the test
       // associated with the middleware below.
