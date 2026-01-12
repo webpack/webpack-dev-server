@@ -1,6 +1,6 @@
 {
   "name": "webpack-dev-server",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "description": "Serves a webpack app. Updates the browser on changes.",
   "homepage": "https://github.com/webpack/webpack-dev-server#readme",
   "bugs": "https://github.com/webpack/webpack-dev-server/issues",

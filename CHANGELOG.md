@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.3](https://github.com/webpack/webpack-dev-server/compare/v5.2.2...v5.2.3) (2026-01-12)
+
+
+### Bug Fixes
+
+* add `cause` for `errorObject` ([#5518](https://github.com/webpack/webpack-dev-server/issues/5518)) ([37b033d](https://github.com/webpack/webpack-dev-server/commit/37b033da2c48335178495a1987c469a26ef3de60))
+* compatibility with event target and universal target and lazy compilation  ([574026c](https://github.com/webpack/webpack-dev-server/commit/574026c44b9c51f0bbd2f5a2836c54607289a071))
+* **overlay:** add ESC key to dismiss overlay ([#5598](https://github.com/webpack/webpack-dev-server/issues/5598)) ([f91baa8](https://github.com/webpack/webpack-dev-server/commit/f91baa8831e061e2998849966b8002b40b83fb07))
+* progress indicator styles ([#5557](https://github.com/webpack/webpack-dev-server/issues/5557)) ([41a53a1](https://github.com/webpack/webpack-dev-server/commit/41a53a1accdb0a90785d82cbe8a079794eeed3c8))
+* upgrade selfsigned to v5
+
 ### [5.2.2](https://github.com/webpack/webpack-dev-server/compare/v5.2.1...v5.2.2) (2025-06-03)
 
 
