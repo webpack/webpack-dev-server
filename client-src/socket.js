@@ -4,7 +4,7 @@ import WebSocketClient from "./clients/WebSocketClient.js";
 import { log } from "./utils/log.js";
 
 /** @typedef {import("./index.js").EXPECTED_ANY} EXPECTED_ANY */
-/** @typedef {import("./clients/SockJSClient")} SockJSClient */
+/** @typedef {import("./clients/WebSocketClient.js")} WebSocketClient */
 
 // this WebsocketClient is here as a default fallback, in case the client is not injected
 /** @type {CommunicationClientConstructor} */
