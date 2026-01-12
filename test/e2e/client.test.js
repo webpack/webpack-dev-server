@@ -21,9 +21,9 @@ describe("client option", () => {
       server = new Server(
         {
           client: {
-            webSocketTransport: "sockjs",
+            webSocketTransport: "ws",
           },
-          webSocketServer: "sockjs",
+          webSocketServer: "ws",
           port,
         },
         compiler,
@@ -82,10 +82,10 @@ describe("client option", () => {
       server = new Server(
         {
           client: {
-            webSocketTransport: "sockjs",
+            webSocketTransport: "ws",
           },
           webSocketServer: {
-            type: "sockjs",
+            type: "ws",
             options: {
               host: "localhost",
               port,
@@ -249,29 +249,11 @@ describe("client option", () => {
   describe("webSocketTransport", () => {
     const clientModes = [
       {
-        title: 'as a string ("sockjs")',
-        client: {
-          webSocketTransport: "sockjs",
-        },
-        webSocketServer: "sockjs",
-        shouldThrow: false,
-      },
-      {
         title: 'as a string ("ws")',
         client: {
           webSocketTransport: "ws",
         },
         webSocketServer: "ws",
-        shouldThrow: false,
-      },
-      {
-        title: 'as a path ("sockjs")',
-        client: {
-          webSocketTransport: require.resolve(
-            "../../client-src/clients/SockJSClient",
-          ),
-        },
-        webSocketServer: "sockjs",
         shouldThrow: false,
       },
       {
@@ -283,14 +265,6 @@ describe("client option", () => {
         },
         webSocketServer: "ws",
         shouldThrow: false,
-      },
-      {
-        title: "as a nonexistent path (sockjs)",
-        client: {
-          webSocketTransport: "/bad/path/to/implementation",
-        },
-        webSocketServer: "sockjs",
-        shouldThrow: true,
       },
       {
         title: "as a nonexistent path (ws)",

@@ -1654,29 +1654,22 @@ type WebSocketServerConfiguration = {
   /**
    * type
    */
-  type?:
-    | ("sockjs" | "ws" | string | (() => WebSocketServerConfiguration))
-    | undefined;
+  type?: ("ws" | string | (() => WebSocketServerConfiguration)) | undefined;
   /**
    * options
    */
   options?: Record<string, EXPECTED_ANY> | undefined;
 };
-type ClientConnection = (
-  | import("ws").WebSocket
-  | (import("sockjs").Connection & {
-      send: import("ws").WebSocket["send"];
-      terminate: import("ws").WebSocket["terminate"];
-      ping: import("ws").WebSocket["ping"];
-    })
-) & {
+type ClientConnection = (import("ws").WebSocket & {
+  send: import("ws").WebSocket["send"];
+  terminate: import("ws").WebSocket["terminate"];
+  ping: import("ws").WebSocket["ping"];
+}) & {
   isAlive?: boolean;
 };
-type WebSocketServer =
-  | import("ws").WebSocketServer
-  | (import("sockjs").Server & {
-      close: import("ws").WebSocketServer["close"];
-    });
+type WebSocketServer = import("ws").WebSocketServer & {
+  close: import("ws").WebSocketServer["close"];
+};
 type WebSocketServerImplementation = {
   implementation: WebSocketServer;
   clients: ClientConnection[];
@@ -1773,7 +1766,7 @@ type ClientConfiguration = {
   /**
    * web socket transport
    */
-  webSocketTransport?: ("ws" | "sockjs" | string) | undefined;
+  webSocketTransport?: ("ws" | string) | undefined;
   /**
    * web socket URL
    */
@@ -1821,7 +1814,7 @@ type Configuration<
   server?: (ServerType<A, S> | ServerConfiguration<A, S>) | undefined;
   app?: (() => Promise<A>) | undefined;
   webSocketServer?:
-    | (boolean | "sockjs" | "ws" | string | WebSocketServerConfiguration)
+    | (boolean | "ws" | string | WebSocketServerConfiguration)
     | undefined;
   proxy?: ProxyConfigArray | undefined;
   open?: (boolean | string | Open | Array<string | Open>) | undefined;

@@ -10,10 +10,7 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").logging;
 
 describe("logging", () => {
-  const webSocketServers = [
-    { webSocketServer: "ws" },
-    { webSocketServer: "sockjs" },
-  ];
+  const webSocketServers = [{ webSocketServer: "ws" }];
 
   const cases = [
     {

@@ -20,15 +20,6 @@ describe("normalize options", () => {
       },
     },
     {
-      title: "client.webSocketTransport sockjs string",
-      multiCompiler: false,
-      options: {
-        client: {
-          webSocketTransport: "sockjs",
-        },
-      },
-    },
-    {
       title: "client.webSocketTransport ws string",
       multiCompiler: false,
       options: {
