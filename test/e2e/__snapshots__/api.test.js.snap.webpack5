@@ -29,7 +29,7 @@ exports[`API Server.checkHostHeader should allow URLs with scheme for checking o
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "WebSocket connection to 'ws://test.host:8158/ws' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
+  "WebSocket connection to 'ws://test.host:8156/ws' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
   "[webpack-dev-server] JSHandle@object",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
@@ -40,7 +40,7 @@ exports[`API Server.checkHostHeader should allow URLs with scheme for checking o
 
 exports[`API Server.checkHostHeader should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object: response status 1`] = `200`;
 
-exports[`API Server.checkHostHeader should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object: web socket URL 1`] = `"ws://test.host:8158/ws"`;
+exports[`API Server.checkHostHeader should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object: web socket URL 1`] = `"ws://test.host:8156/ws"`;
 
 exports[`API Server.getFreePort should retry finding the port for up to defaultPortRetry times (number): console messages 1`] = `
 [
