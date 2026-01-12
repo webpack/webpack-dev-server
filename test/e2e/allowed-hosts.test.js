@@ -1657,7 +1657,7 @@ describe("allowed hosts", () => {
     });
 
     it("should always allow value from the `host` options if options.allowedHosts is auto", async () => {
-      const networkIP = Server.internalIPSync("v4");
+      const networkIP = Server.findIp("v4", false);
       const options = {
         host: networkIP,
         allowedHosts: "auto",

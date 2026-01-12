@@ -1,13 +1,13 @@
-# internalIP(family: "v4" | "v6")
+# findIp(family: "v4" | "v6")
 
-Returns the internal IP address asynchronously.
+Returns the internal IP address.
 
 ```js
 const WebpackDevServer = require("webpack-dev-server");
 
 const logInternalIPs = async () => {
-  const localIPv4 = await WebpackDevServer.internalIP("v4");
-  const localIPv6 = await WebpackDevServer.internalIP("v6");
+  const localIPv4 = WebpackDevServer.findIp("v4", false);
+  const localIPv6 = WebpackDevServer.findIp("v6", false);
 
   console.log("Local IPv4 address:", localIPv4);
   console.log("Local IPv6 address:", localIPv6);
