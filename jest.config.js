@@ -26,9 +26,5 @@ module.exports = {
     // https://jestjs.io/docs/upgrading-to-jest28#packagejson-exports
     // https://github.com/microsoft/accessibility-insights-web/pull/5421#issuecomment-1109168149
     //
-    // FIXME: this uuid moduleNameMapper workaround can be removed after sockjs > uuid@v9 release
-    // https://github.com/uuidjs/uuid/pull/616#issuecomment-1206283882
-    // eslint-disable-next-line n/no-extraneous-require
-    "^uuid$": require.resolve("uuid"),
   },
 };

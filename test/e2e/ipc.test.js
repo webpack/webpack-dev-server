@@ -12,11 +12,11 @@ const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port1 = require("../ports-map").ipc;
 
-const webSocketServers = ["ws", "sockjs"];
+const webSocketServers = ["ws"];
 
 describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
-    const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
+    const websocketURLProtocol = webSocketServer;
 
     it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
       const devServerHost = "localhost";
@@ -72,27 +72,19 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+        const session = await page.target().createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
-          await session.send("Target.setAutoAttach", {
-            autoAttach: true,
-            flatten: true,
-            waitForDebuggerOnStart: true,
-          });
+        await session.send("Target.setAutoAttach", {
+          autoAttach: true,
+          flatten: true,
+          waitForDebuggerOnStart: true,
+        });
 
-          sessionSubscribe(session);
-        } else {
-          page.on("request", (request) => {
-            if (/\/ws\//.test(request.url())) {
-              webSocketRequests.push({ url: request.url() });
-            }
-          });
-        }
+        sessionSubscribe(session);
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -174,27 +166,19 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+        const session = await page.target().createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
-          await session.send("Target.setAutoAttach", {
-            autoAttach: true,
-            flatten: true,
-            waitForDebuggerOnStart: true,
-          });
+        await session.send("Target.setAutoAttach", {
+          autoAttach: true,
+          flatten: true,
+          waitForDebuggerOnStart: true,
+        });
 
-          sessionSubscribe(session);
-        } else {
-          page.on("request", (request) => {
-            if (/\/ws\//.test(request.url())) {
-              webSocketRequests.push({ url: request.url() });
-            }
-          });
-        }
+        sessionSubscribe(session);
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -294,27 +278,19 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+        const session = await page.target().createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
-          await session.send("Target.setAutoAttach", {
-            autoAttach: true,
-            flatten: true,
-            waitForDebuggerOnStart: true,
-          });
+        await session.send("Target.setAutoAttach", {
+          autoAttach: true,
+          flatten: true,
+          waitForDebuggerOnStart: true,
+        });
 
-          sessionSubscribe(session);
-        } else {
-          page.on("request", (request) => {
-            if (/\/ws\//.test(request.url())) {
-              webSocketRequests.push({ url: request.url() });
-            }
-          });
-        }
+        sessionSubscribe(session);
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
