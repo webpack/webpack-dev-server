@@ -4,6 +4,7 @@ const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
+const { startServer } = require("../helpers/test-server");
 const [port1, port2] = require("../ports-map")["cross-origin-request"];
 
 describe("cross-origin requests", () => {
@@ -216,5 +217,26 @@ describe("cross-origin requests", () => {
       await server.stop();
       htmlServer.close();
     }
+  });
+
+  it("should allow localhost for no-cors cross-site requests", async () => {
+    const { page, server } = await startServer({
+      allowedHosts: "auto",
+      port: 0,
+    });
+    const { port } = server.options;
+    await page.goto("about:blank");
+    await page.evaluate((port) => {
+      const iframe = document.createElement("iframe");
+      const html = `
+      <script src="http://localhost:${port}/main.js"></script>
+    `;
+      const blob = new Blob([html], { type: "text/html" });
+      iframe.src = URL.createObjectURL(blob);
+      document.body.append(iframe);
+    }, port);
+    await page.waitForTimeout(2000);
+    const res = await page.goto(`http://localhost:${port}/main.js`);
+    expect(res.status()).toBe(200);
   });
 });
