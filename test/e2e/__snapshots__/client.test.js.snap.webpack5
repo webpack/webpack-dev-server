@@ -6,16 +6,38 @@ exports[`client option configure client entry should disable client entry: page 
 
 exports[`client option configure client entry should disable client entry: response status 1`] = `200`;
 
-exports[`client option default behaviour responds with a 200 status code for /ws path: console messages 1`] = `[]`;
+exports[`client option configure client entry should disable client entry: webSockets 1`] = `[]`;
 
-exports[`client option default behaviour responds with a 200 status code for /ws path: page errors 1`] = `[]`;
+exports[`client option default behaviour responds with a 200 status code for / path: console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+]
+`;
 
-exports[`client option default behaviour responds with a 200 status code for /ws path: response status 1`] = `200`;
+exports[`client option default behaviour responds with a 200 status code for / path: page errors 1`] = `[]`;
+
+exports[`client option default behaviour responds with a 200 status code for / path: response status 1`] = `200`;
+
+exports[`client option default behaviour responds with a 200 status code for / path: webSockets 1`] = `
+[
+  "ws://localhost:8104/ws",
+]
+`;
 
 exports[`client option override client entry should disable client entry: response status 1`] = `200`;
 
-exports[`client option should respect path option responds with a 200 status code for /foo/test/bar path: console messages 1`] = `[]`;
+exports[`client option should respect path option responds with a websocket with the /foo/test/bar path: console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+]
+`;
 
-exports[`client option should respect path option responds with a 200 status code for /foo/test/bar path: page errors 1`] = `[]`;
+exports[`client option should respect path option responds with a websocket with the /foo/test/bar path: page errors 1`] = `[]`;
 
-exports[`client option should respect path option responds with a 200 status code for /foo/test/bar path: response status 1`] = `200`;
+exports[`client option should respect path option responds with a websocket with the /foo/test/bar path: webSockets 1`] = `
+[
+  "ws://localhost:8104/foo/test/bar",
+]
+`;
