@@ -1,7 +1,5 @@
 "use strict";
 
-const SockJS = require("sockjs-client/dist/sockjs");
-
 module.exports = class WebSocketClient {
   constructor(url) {
     this.client = new WebSocket(url);
