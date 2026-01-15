@@ -5,7 +5,7 @@ const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
 const port = require("../ports-map")["open-option"];
 
-const internalIPv4 = Server.internalIPSync("v4");
+const internalIPv4 = Server.findIp("v4", false);
 
 let open;
 

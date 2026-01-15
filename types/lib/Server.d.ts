@@ -1142,16 +1142,6 @@ declare class Server<
     isInternal?: boolean | undefined,
   ): string | undefined;
   /**
-   * @param {"v4" | "v6"} family family
-   * @returns {Promise<string | undefined>} internal API
-   */
-  static internalIP(family: "v4" | "v6"): Promise<string | undefined>;
-  /**
-   * @param {"v4" | "v6"} family family
-   * @returns {string | undefined} internal IP
-   */
-  static internalIPSync(family: "v4" | "v6"): string | undefined;
-  /**
    * @param {Host} hostname hostname
    * @returns {Promise<string>} resolved hostname
    */
