@@ -53,7 +53,7 @@ describe("client option", () => {
         });
 
       const webSocketRequests = [];
-      const session = await page.target().createCDPSession();
+      const session = await page.createCDPSession();
 
       session.on("Network.webSocketCreated", (test) => {
         webSocketRequests.push(test);
@@ -140,7 +140,7 @@ describe("client option", () => {
         });
 
       const webSocketRequests = [];
-      const session = await page.target().createCDPSession();
+      const session = await page.createCDPSession();
 
       session.on("Network.webSocketCreated", (test) => {
         webSocketRequests.push(test);
@@ -212,7 +212,7 @@ describe("client option", () => {
         });
 
       const webSocketRequests = [];
-      const session = await page.target().createCDPSession();
+      const session = await page.createCDPSession();
 
       session.on("Network.webSocketCreated", (test) => {
         webSocketRequests.push(test);
