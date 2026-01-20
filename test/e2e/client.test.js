@@ -103,15 +103,17 @@ describe("client option", () => {
         {
           client: {
             webSocketTransport: "ws",
+            webSocketURL: {
+              pathname: "/foo/test/bar",
+            },
           },
           webSocketServer: {
             type: "ws",
             options: {
-              host: "localhost",
-              port,
               path: "/foo/test/bar",
             },
           },
+          host: "localhost",
           port,
         },
         compiler,
