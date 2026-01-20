@@ -7,34 +7,18 @@ const port = require("../ports-map")["open-option"];
 
 const internalIPv4 = Server.findIp("v4", false);
 
-let open;
-
-const needRequireMock =
-  process.version.startsWith("v18") || process.version.startsWith("v19");
-
-if (needRequireMock) {
-  open = require("open");
-
-  jest.mock("open");
-
-  open.mockImplementation(() => ({
-    catch: jest.fn(),
-  }));
-}
-
 describe('"open" option', () => {
   let compiler;
+  let open;
 
   beforeEach(async () => {
     compiler = webpack(config);
 
-    if (!needRequireMock) {
-      jest.unstable_mockModule("open", () => ({
-        default: jest.fn(() => Promise.resolve()),
-      }));
+    jest.unstable_mockModule("open", () => ({
+      default: jest.fn(() => Promise.resolve()),
+    }));
 
-      open = (await import("open")).default;
-    }
+    open = (await import("open")).default;
   });
 
   afterEach(async () => {
