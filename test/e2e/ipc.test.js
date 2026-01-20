@@ -72,11 +72,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -84,7 +80,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -166,11 +166,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -178,7 +174,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -278,11 +278,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -290,7 +286,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",

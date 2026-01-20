@@ -55,17 +55,17 @@ describe("client option", () => {
       const webSocketRequests = [];
       const session = await page.createCDPSession();
 
-      session.on("Network.webSocketCreated", (test) => {
-        webSocketRequests.push(test);
-      });
-
       await session.send("Target.setAutoAttach", {
         autoAttach: true,
         flatten: true,
         waitForDebuggerOnStart: true,
       });
 
-      sessionSubscribe(session);
+      await sessionSubscribe(session);
+
+      session.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
 
       const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
@@ -142,17 +142,17 @@ describe("client option", () => {
       const webSocketRequests = [];
       const session = await page.createCDPSession();
 
-      session.on("Network.webSocketCreated", (test) => {
-        webSocketRequests.push(test);
-      });
-
       await session.send("Target.setAutoAttach", {
         autoAttach: true,
         flatten: true,
         waitForDebuggerOnStart: true,
       });
 
-      sessionSubscribe(session);
+      await sessionSubscribe(session);
+
+      session.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
 
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
@@ -214,17 +214,17 @@ describe("client option", () => {
       const webSocketRequests = [];
       const session = await page.createCDPSession();
 
-      session.on("Network.webSocketCreated", (test) => {
-        webSocketRequests.push(test);
-      });
-
       await session.send("Target.setAutoAttach", {
         autoAttach: true,
         flatten: true,
         waitForDebuggerOnStart: true,
       });
 
-      sessionSubscribe(session);
+      await sessionSubscribe(session);
+
+      session.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
 
       const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",

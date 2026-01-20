@@ -69,11 +69,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -81,7 +77,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -156,11 +156,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -168,7 +164,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -249,11 +249,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -261,7 +257,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
         });
@@ -341,11 +341,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -353,7 +349,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -411,11 +411,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -423,7 +419,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://localhost:${port1}/`, {
           waitUntil: "networkidle0",
@@ -477,11 +477,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -489,7 +485,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://localhost:${port1}/`, {
           waitUntil: "networkidle0",
@@ -543,11 +543,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -555,7 +551,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://localhost:${port1}/`, {
           waitUntil: "networkidle0",
@@ -609,11 +609,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -621,7 +617,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -675,11 +675,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -687,7 +683,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
         });
@@ -740,11 +740,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -752,7 +748,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -806,11 +806,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -818,7 +814,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -878,11 +878,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -890,7 +886,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -944,11 +944,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -956,7 +952,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
         });
@@ -1009,18 +1009,18 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
-
+        const session = await page.createCDPSession();
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
           flatten: true,
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1069,11 +1069,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1081,7 +1077,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1135,11 +1135,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1147,7 +1143,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
         });
@@ -1201,11 +1201,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1213,7 +1209,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
         });
@@ -1267,11 +1267,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1279,7 +1275,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1333,11 +1333,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1345,7 +1341,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1400,11 +1400,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1412,7 +1408,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1471,11 +1471,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1483,7 +1479,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1542,11 +1542,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1554,7 +1550,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1613,11 +1613,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1625,7 +1621,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1685,11 +1685,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1697,7 +1693,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1754,11 +1754,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1766,7 +1762,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1815,11 +1815,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1827,7 +1823,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://${hostname}:${port1}/`, {
           waitUntil: "networkidle0",
         });
@@ -1875,11 +1875,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1887,7 +1883,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${hostname}:${port1}/`, {
           waitUntil: "networkidle0",
@@ -1936,11 +1936,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -1948,7 +1944,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
         await page.goto(`http://${hostname}:${port1}/`, {
           waitUntil: "networkidle0",
         });
@@ -1996,11 +1996,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -2008,7 +2004,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`https://${hostname}:${port1}/`, {
           waitUntil: "networkidle0",
@@ -2060,11 +2060,7 @@ describe("web socket server URL", () => {
 
           const webSocketRequests = [];
 
-          const session = await page.target().createCDPSession();
-
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+          const session = await page.createCDPSession();
 
           await session.send("Target.setAutoAttach", {
             autoAttach: true,
@@ -2072,7 +2068,11 @@ describe("web socket server URL", () => {
             waitForDebuggerOnStart: true,
           });
 
-          sessionSubscribe(session);
+          await sessionSubscribe(session);
+
+          session.on("Network.webSocketCreated", (test) => {
+            webSocketRequests.push(test);
+          });
 
           await page.goto(`https://${hostname}:${port1}/`, {
             waitUntil: "networkidle0",
@@ -2131,11 +2131,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -2143,7 +2139,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${resolvedFreePort}/`, {
           waitUntil: "networkidle0",
@@ -2202,11 +2202,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -2214,7 +2210,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
@@ -2266,11 +2266,7 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        const session = await page.target().createCDPSession();
-
-        session.on("Network.webSocketCreated", (test) => {
-          webSocketRequests.push(test);
-        });
+        const session = await page.createCDPSession();
 
         await session.send("Target.setAutoAttach", {
           autoAttach: true,
@@ -2278,7 +2274,11 @@ describe("web socket server URL", () => {
           waitForDebuggerOnStart: true,
         });
 
-        sessionSubscribe(session);
+        await sessionSubscribe(session);
+
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://127.0.0.1:${port1}/`, {
           waitUntil: "networkidle0",
