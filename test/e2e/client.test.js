@@ -2,7 +2,7 @@
 
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
-const config = require("../fixtures/provide-plugin-ws-config/webpack.config");
+const config = require("../fixtures/client-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map")["client-option"];
