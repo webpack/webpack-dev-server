@@ -2,6 +2,7 @@
 
 const path = require("node:path");
 const fs = require("graceful-fs");
+const prettier = require("prettier");
 const waitForExpect = require("wait-for-expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -68,19 +69,7 @@ const delay = (ms) =>
     setTimeout(resolve, ms);
   });
 
-let prettier;
-let prettierHTML;
-let prettierCSS;
-
 describe("overlay", () => {
-  beforeAll(async () => {
-    // Due problems with ESM modules for Node.js@18
-    // TODO replace it on import/require when Node.js@18 will be dropped
-    prettier = require("../../node_modules/prettier/standalone");
-    prettierHTML = require("../../node_modules/prettier/plugins/html");
-    prettierCSS = require("../../node_modules/prettier/plugins/postcss");
-  });
-
   it("should show a warning for initial compilation", async () => {
     const compiler = webpack(config);
 
@@ -113,13 +102,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -160,13 +147,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -211,13 +196,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -260,13 +243,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -308,13 +289,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -346,7 +325,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html initial");
 
@@ -371,13 +349,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html with error");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
 
@@ -394,7 +370,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html after fix error");
     } finally {
@@ -426,7 +401,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html initial");
 
@@ -451,13 +425,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html with error");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
 
@@ -477,13 +449,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html with other error");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
 
@@ -500,7 +470,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html after fix error");
     } finally {
@@ -532,7 +501,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html initial");
 
@@ -557,13 +525,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html with error");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
 
@@ -586,7 +552,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html after close");
 
@@ -677,7 +642,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
     } finally {
@@ -720,7 +684,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
     } finally {
@@ -810,13 +773,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -860,13 +821,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -912,13 +871,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -964,13 +921,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1011,7 +966,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
     } finally {
@@ -1054,7 +1008,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
     } finally {
@@ -1145,13 +1098,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1195,13 +1146,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1258,13 +1207,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1331,13 +1278,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1379,7 +1324,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
     } finally {
@@ -1425,13 +1369,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1477,13 +1419,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1528,13 +1468,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
 
@@ -1557,7 +1495,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtmlAfterClose, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
     } finally {
@@ -1611,13 +1548,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1672,13 +1607,11 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1724,7 +1657,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1814,7 +1746,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(overlayHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("overlay html");
     } finally {
@@ -1956,7 +1887,6 @@ describe("overlay", () => {
       expect(
         await prettier.format(pageHtml, {
           parser: "html",
-          plugins: [prettierHTML, prettierCSS],
         }),
       ).toMatchSnapshot("page html");
       expect(
@@ -1967,7 +1897,6 @@ describe("overlay", () => {
           ),
           {
             parser: "html",
-            plugins: [prettierHTML, prettierCSS],
           },
         ),
       ).toMatchSnapshot("overlay html");
