@@ -69,7 +69,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18.x, 20.x, 22.x, 24.x]
+        node-version: [20.x, 22.x, 24.x, 25.x]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
 
@@ -91,12 +91,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install dependencies for Node.js@18
-        run: |
-          npm i p-retry@^4.5.0 open@^8.0.9
-          node ./scripts/prepare-test-for-old-node.js
-        if: matrix.node-version == '18.x'
-
       - name: Setup firefox
         if: matrix.os != 'windows-latest'
         uses: browser-actions/setup-firefox@latest
@@ -112,12 +106,7 @@ jobs:
           cp -R tmp-client client
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
-        run: node_modules/.bin/jest --coverage --ci --shard=${{ matrix.shard }}
-        if: matrix.node-version == '18.x'
-
-      - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --ci --shard=${{ matrix.shard }}
-        if: matrix.node-version != '18.x'
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v5
