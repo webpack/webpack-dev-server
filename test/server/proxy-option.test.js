@@ -596,7 +596,7 @@ describe("proxy option", () => {
     let webSocketServer;
     let responseMessage;
 
-    const webSocketServerTypes = ["sockjs", "ws"];
+    const webSocketServerTypes = ["ws"];
 
     for (const webSocketServerType of webSocketServerTypes) {
       // eslint-disable-next-line no-loop-func

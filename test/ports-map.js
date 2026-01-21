@@ -7,7 +7,6 @@ const listOfTests = {
   "cli-port-option": 1,
   // e2e tests
   bundle: 1,
-  "sockjs-client": 1,
   "web-socket-client": 1,
   "hot-and-live-reload": 1,
   logging: 1,
@@ -43,7 +42,6 @@ const listOfTests = {
   "stats-option": 1,
   "watch-files-option": 1,
   "web-socket-server-option": 1,
-  "sockjs-server": 1,
   "web-socket-server": 1,
   routes: 1,
   "web-socket-communication": 1,
