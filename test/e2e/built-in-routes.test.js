@@ -33,69 +33,6 @@ describe("Built in routes", () => {
       await server.stop();
     });
 
-    it("should handles GET request to sockjs bundle", async () => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        });
-
-      const response = await page.goto(
-        `http://localhost:${port}/__webpack_dev_server__/sockjs.bundle.js`,
-        {
-          waitUntil: "networkidle0",
-        },
-      );
-
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
-    it("should handles HEAD request to sockjs bundle", async () => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
-        })
-        .on("request", (interceptedRequest) => {
-          if (interceptedRequest.isInterceptResolutionHandled()) return;
-
-          interceptedRequest.continue({ method: "HEAD" }, 10);
-        });
-
-      const response = await page.goto(
-        `http://localhost:${port}/__webpack_dev_server__/sockjs.bundle.js`,
-        {
-          waitUntil: "networkidle0",
-        },
-      );
-
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
-
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
-
     it("should handle GET request to invalidate endpoint", async () => {
       page
         .on("console", (message) => {

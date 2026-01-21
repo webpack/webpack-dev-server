@@ -214,7 +214,7 @@ module.exports = {
     configs: [
       {
         type: "enum",
-        values: ["sockjs", "ws"],
+        values: ["ws"],
         multiple: false,
         description:
           "Allows to set custom web socket transport to communicate with dev server.",
@@ -1253,7 +1253,7 @@ module.exports = {
         multiple: false,
         path: "webSocketServer",
         type: "enum",
-        values: ["sockjs", "ws"],
+        values: ["ws"],
       },
       {
         description:
@@ -1276,7 +1276,7 @@ module.exports = {
         multiple: false,
         path: "webSocketServer.type",
         type: "enum",
-        values: ["sockjs", "ws"],
+        values: ["ws"],
       },
       {
         description:

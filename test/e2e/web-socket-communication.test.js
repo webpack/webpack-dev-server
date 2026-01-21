@@ -9,7 +9,7 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["web-socket-communication"];
 
 describe("web socket communication", () => {
-  const webSocketServers = ["ws", "sockjs"];
+  const webSocketServers = ["ws"];
 
   for (const websocketServer of webSocketServers) {
     it(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async () => {

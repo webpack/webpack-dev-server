@@ -403,63 +403,6 @@ exports[`normalize options client path without leading/ending slashes 1`] = `
 }
 `;
 
-exports[`normalize options client.webSocketTransport sockjs string 1`] = `
-{
-  "allowedHosts": "auto",
-  "bonjour": false,
-  "client": {
-    "logging": "info",
-    "overlay": true,
-    "reconnect": 10,
-    "webSocketTransport": "sockjs",
-    "webSocketURL": {},
-  },
-  "compress": true,
-  "devMiddleware": {},
-  "historyApiFallback": false,
-  "host": undefined,
-  "hot": true,
-  "liveReload": true,
-  "open": [],
-  "port": "<auto>",
-  "server": {
-    "options": {},
-    "type": "http",
-  },
-  "setupExitSignals": true,
-  "static": [
-    {
-      "directory": "<cwd>/public",
-      "publicPath": [
-        "/",
-      ],
-      "serveIndex": {
-        "icons": true,
-      },
-      "staticOptions": {},
-      "watch": {
-        "alwaysStat": true,
-        "atomic": false,
-        "followSymlinks": false,
-        "ignoreInitial": true,
-        "ignorePermissionErrors": true,
-        "ignored": undefined,
-        "interval": undefined,
-        "persistent": true,
-        "usePolling": false,
-      },
-    },
-  ],
-  "watchFiles": [],
-  "webSocketServer": {
-    "options": {
-      "path": "/ws",
-    },
-    "type": "ws",
-  },
-}
-`;
-
 exports[`normalize options client.webSocketTransport ws string 1`] = `
 {
   "allowedHosts": "auto",
