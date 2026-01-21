@@ -68,10 +68,7 @@ const tests = {
         },
       },
       {
-        webSocketTransport: "sockjs",
-      },
-      {
-        webSocketTransport: require.resolve("../client/clients/SockJSClient"),
+        webSocketTransport: "ws",
       },
       {
         webSocketURL: "ws://localhost:8080",
@@ -502,7 +499,6 @@ const tests = {
     success: [
       false,
       "ws",
-      "sockjs",
       {
         type: "ws",
         options: {

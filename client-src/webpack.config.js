@@ -69,13 +69,4 @@ module.exports = [
       ),
     ],
   }),
-  merge(baseForModules, {
-    entry: path.join(__dirname, "modules/sockjs-client/index.js"),
-    output: {
-      filename: "sockjs-client/index.js",
-      library: "SockJS",
-      libraryTarget: "umd",
-      globalObject: "(typeof self !== 'undefined' ? self : this)",
-    },
-  }),
 ];
