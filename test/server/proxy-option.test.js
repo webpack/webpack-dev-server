@@ -877,7 +877,7 @@ describe("proxy option", () => {
       it("respects a proxy option when a request path is matched", async () => {
         await req.get("/my-path");
 
-        expect(customLogProvider.info).toHaveBeenCalledTimes(1);
+        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
       });
     });
   });
