@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`proxy option should work and respect \`logger\` option target respects a proxy option when a request path is matched 1`] = `"[HPM] Error occurred while proxying request %s to %s [%s] (%s)"`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option target respects a proxy option when a request path is matched 1`] = `
+"<e> [webpack-dev-server] [HPM] Error occurred while proxying request 127.0.0.1:<port>/my-path to http://unknown:1234/ [<DNS_ERROR>] (https://nodejs.org/api/errors.html#errors_common_system_errors)
+"
+`;
+
+exports[`proxy option should work and respect the \`infrastructureLogging.level\` option with \`none\` value target respects a proxy option when a request path is matched 1`] = `""`;

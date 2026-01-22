@@ -140,6 +140,23 @@ describe("proxy option", () => {
   let proxyServer1;
   let proxyServer2;
 
+  function getStderrOutput(stderrSpy) {
+    return stderrSpy.mock.calls
+      .map((call) => call[0])
+      .filter((output) => !output.includes("DeprecationWarning"))
+      .join("")
+      .replaceAll(/127\.0\.0\.1:\d+/g, "127.0.0.1:<port>")
+      .replaceAll(/\[ENOTFOUND\]|\[EAI_AGAIN\]/g, "[<DNS_ERROR>]");
+  }
+
+  function getConsoleErrorOutput(consoleSpy) {
+    return consoleSpy.mock.calls
+      .map((call) => call[0])
+      .join("\n")
+      .replaceAll(/127\.0\.0\.1:\d+/g, "127.0.0.1:<port>")
+      .replaceAll(/\[ENOTFOUND\]|\[EAI_AGAIN\]/g, "[<DNS_ERROR>]");
+  }
+
   async function listenProxyServers() {
     const proxyApp1 = express();
     const proxyApp2 = express();
@@ -834,16 +851,10 @@ describe("proxy option", () => {
   describe("should work and respect `logger` option", () => {
     let server;
     let req;
-    let customLogProvider;
+    let consoleSpy;
 
     beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
+      consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
       const compiler = webpack([config, config]);
 
@@ -853,7 +864,7 @@ describe("proxy option", () => {
             {
               context: "/my-path",
               target: "http://unknown:1234",
-              logger: customLogProvider,
+              logger: console,
             },
           ],
           port: port3,
@@ -869,6 +880,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
+      consoleSpy.mockRestore();
       await server.stop();
       await closeProxyServers();
     });
@@ -877,7 +889,7 @@ describe("proxy option", () => {
       it("respects a proxy option when a request path is matched", async () => {
         await req.get("/my-path");
 
-        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+        expect(getConsoleErrorOutput(consoleSpy)).toMatchSnapshot();
       });
     });
   });
@@ -885,20 +897,16 @@ describe("proxy option", () => {
   describe("should work and respect the `infrastructureLogging.level` option", () => {
     let server;
     let req;
-    let customLogProvider;
+    let stderrSpy;
 
     beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
+      stderrSpy = jest
+        .spyOn(process.stderr, "write")
+        .mockImplementation(() => true);
 
       const compiler = webpack({
         ...config,
-        infrastructureLogging: { level: "error" },
+        infrastructureLogging: { colors: false, level: "error" },
       });
 
       server = new Server(
@@ -907,7 +915,6 @@ describe("proxy option", () => {
             {
               context: "/my-path",
               target: "http://unknown:1234",
-              logger: customLogProvider,
             },
           ],
           port: port3,
@@ -923,6 +930,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
+      stderrSpy.mockRestore();
       await server.stop();
       await closeProxyServers();
     });
@@ -931,7 +939,7 @@ describe("proxy option", () => {
       it("respects a proxy option when a request path is matched", async () => {
         await req.get("/my-path");
 
-        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+        expect(getStderrOutput(stderrSpy)).toMatchSnapshot();
       });
     });
   });
@@ -939,16 +947,12 @@ describe("proxy option", () => {
   describe("should work and respect the `infrastructureLogging.level` option with `none` value", () => {
     let server;
     let req;
-    let customLogProvider;
+    let stderrSpy;
 
     beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
+      stderrSpy = jest
+        .spyOn(process.stderr, "write")
+        .mockImplementation(() => true);
 
       const compiler = webpack({
         ...config,
@@ -961,7 +965,6 @@ describe("proxy option", () => {
             {
               context: "/my-path",
               target: "http://unknown:1234",
-              logger: customLogProvider,
             },
           ],
           port: port3,
@@ -975,6 +978,7 @@ describe("proxy option", () => {
     });
 
     afterAll(async () => {
+      stderrSpy.mockRestore();
       await server.stop();
     });
 
@@ -982,7 +986,7 @@ describe("proxy option", () => {
       it("respects a proxy option when a request path is matched", async () => {
         await req.get("/my-path");
 
-        expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+        expect(getStderrOutput(stderrSpy)).toMatchSnapshot();
       });
     });
   });
