@@ -43,7 +43,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -115,7 +115,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -188,7 +188,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -262,7 +262,7 @@ describe("allowed hosts", () => {
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -336,7 +336,7 @@ describe("allowed hosts", () => {
             target: `http://[${devServerHost}]:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -411,7 +411,7 @@ describe("allowed hosts", () => {
             target: `http://${IPv4}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -483,12 +483,14 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             target: `http://${devServerHost}:${devServerPort}`,
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "file:///path/to/local/file.js");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "file:///path/to/local/file.js");
+              },
             },
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -560,12 +562,14 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             target: `http://${devServerHost}:${devServerPort}`,
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "chrome-extension:///abcdef");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "chrome-extension:///abcdef");
+              },
             },
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -637,13 +641,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -715,13 +721,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -793,13 +801,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -871,13 +881,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -949,16 +961,18 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader(
-                "origin",
-                "http://foo.bar.baz.my-test-origin.com/",
-              );
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader(
+                  "origin",
+                  "http://foo.bar.baz.my-test-origin.com/",
+                );
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1030,13 +1044,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1108,13 +1124,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://192.168.1.1/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://192.168.1.1");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1186,13 +1204,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("host", "my-test-host");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("host", "my-test-host");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1266,14 +1286,16 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("host", "my-test-host");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "my-test-host/");
+              },
             },
             target: `https://${devServerHost}:${devServerPort}`,
             secure: false,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1345,13 +1367,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://my-test-origin.com/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1423,14 +1447,16 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReq: (proxyReq, req, res) => {
-              proxyReq.setHeader("host", "unknown");
-              res.setHeader("host", devServerHost);
+            on: {
+              proxyReq: (proxyReq, req, res) => {
+                proxyReq.setHeader("host", "unknown");
+                res.setHeader("host", devServerHost);
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
@@ -1505,13 +1531,15 @@ describe("allowed hosts", () => {
           "/",
           createProxyMiddleware({
             // Emulation
-            onProxyReqWs: (proxyReq) => {
-              proxyReq.setHeader("origin", "http://192.168.0.1/");
+            on: {
+              proxyReqWs: (proxyReq) => {
+                proxyReq.setHeader("origin", "http://192.168.0.1");
+              },
             },
             target: `http://${devServerHost}:${devServerPort}`,
             ws: true,
             changeOrigin: true,
-            logLevel: "warn",
+            logger: server.logger,
           }),
         );
 
