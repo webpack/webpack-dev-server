@@ -4,7 +4,7 @@ exports[`static.publicPath option Content type should handle request to example.
 
 exports[`static.publicPath option Content type should handle request to example.txt: page errors 1`] = `[]`;
 
-exports[`static.publicPath option Content type should handle request to example.txt: response header content-type 1`] = `"text/plain; charset=UTF-8"`;
+exports[`static.publicPath option Content type should handle request to example.txt: response header content-type 1`] = `"text/plain; charset=utf-8"`;
 
 exports[`static.publicPath option Content type should handle request to example.txt: response status 1`] = `200`;
 
