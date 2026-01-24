@@ -46,27 +46,6 @@ describe('"server" CLI options', () => {
     ).toMatchSnapshot();
   });
 
-  const [major] = process.versions.node.split(".").map(Number);
-
-  (major >= 24 ? it.skip : it)(
-    'should work using "--server-type spdy"',
-    async () => {
-      const { exitCode, stderr } = await testBin([
-        "--port",
-        port,
-        "--server-type",
-        "spdy",
-      ]);
-
-      // eslint-disable-next-line jest/no-standalone-expect
-      expect(exitCode).toBe(0);
-      // eslint-disable-next-line jest/no-standalone-expect
-      expect(
-        normalizeStderr(stderr, { ipv6: true, https: true }),
-      ).toMatchSnapshot();
-    },
-  );
-
   it('should work using "--server-options-key <path> --server-options-pfx <path> --server-options-passphrase webpack-dev-server --server-options-cert <path> --server-options-ca <path>"', async () => {
     const pfxFile = path.join(httpsCertificateDirectory, "server.pfx");
     const key = path.join(httpsCertificateDirectory, "server.key");

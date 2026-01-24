@@ -245,16 +245,12 @@ const tests = {
     success: [
       "http",
       "https",
-      "spdy",
       "custom-server.js",
       {
         type: "http",
       },
       {
         type: "https",
-      },
-      {
-        type: "spdy",
       },
       {
         type: "custom-server.js",

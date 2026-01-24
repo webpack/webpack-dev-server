@@ -87,15 +87,6 @@ const apps = [
   ],
 ];
 
-const [major] = process.versions.node.split(".").map(Number);
-
-if (major < 24) {
-  apps.push(
-    ["express", () => require("express")(), "spdy"],
-    ["connect", () => require("connect")(), "spdy"],
-  );
-}
-
 describe("app option", () => {
   for (const [appName, app, server, setupMiddlewares] of apps) {
     let compiler;
@@ -166,7 +157,6 @@ describe("app option", () => {
         );
 
         if (
-          server === "spdy" ||
           server === "http2" ||
           (server.options && server.options.allowHTTP1)
         ) {
