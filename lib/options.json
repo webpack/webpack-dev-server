@@ -529,13 +529,13 @@
       "description": "Allows to set server and options (by default 'http')."
     },
     "ServerType": {
-      "enum": ["http", "https", "spdy", "http2"]
+      "enum": ["http", "https", "http2"]
     },
     "ServerFn": {
       "instanceof": "Function"
     },
     "ServerEnum": {
-      "enum": ["http", "https", "spdy", "http2"],
+      "enum": ["http", "https", "http2"],
       "cli": {
         "exclude": true
       }
