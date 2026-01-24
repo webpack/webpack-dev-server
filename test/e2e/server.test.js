@@ -23,8 +23,6 @@ const staticDirectory = path.resolve(
   "../fixtures/static-config/public",
 );
 
-const [major] = process.versions.node.split(".").map(Number);
-
 describe("server option", () => {
   describe("as string", () => {
     let compiler;
@@ -211,60 +209,6 @@ describe("server option", () => {
         ).toMatchSnapshot("console messages");
 
         expect(pageErrors).toMatchSnapshot("page errors");
-      });
-    });
-
-    (major >= 24 ? describe.skip : describe)("spdy", () => {
-      beforeEach(async () => {
-        compiler = webpack(config);
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: "spdy",
-            port,
-          },
-          compiler,
-        );
-
-        await server.start();
-
-        ({ page, browser } = await runBrowser());
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      afterEach(async () => {
-        await browser.close();
-        await server.stop();
-      });
-
-      it("should handle GET request to index route (/)", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol,
-        );
-
-        expect(HTTPVersion).toBe("h2");
-        expect(response.status()).toBe(200);
-        expect((await response.text()).trim()).toBe("Heyo.");
-        expect(consoleMessages).toHaveLength(0);
-        expect(pageErrors).toHaveLength(0);
       });
     });
   });
@@ -1190,85 +1134,6 @@ describe("server option", () => {
 
         expect(response.status).toMatchSnapshot("response status");
         expect(response.text).toMatchSnapshot("response text");
-      });
-    });
-
-    (major >= 24 ? describe.skip : describe)("spdy server with options", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let page;
-      let browser;
-      let pageErrors;
-      let consoleMessages;
-
-      beforeEach(async () => {
-        compiler = webpack(config);
-
-        createServerSpy = jest.spyOn(require("spdy"), "createServer");
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "spdy",
-              options: {
-                requestCert: false,
-                ca: [path.join(httpsCertificateDirectory, "ca.pem")],
-                pfx: [path.join(httpsCertificateDirectory, "server.pfx")],
-                key: [path.join(httpsCertificateDirectory, "server.key")],
-                cert: [path.join(httpsCertificateDirectory, "server.crt")],
-                passphrase: "webpack-dev-server",
-              },
-            },
-            port,
-          },
-          compiler,
-        );
-
-        await server.start();
-
-        ({ page, browser } = await runBrowser());
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      afterEach(async () => {
-        createServerSpy.mockRestore();
-
-        await browser.close();
-        await server.stop();
-      });
-
-      it("should handle GET request to index route (/)", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol,
-        );
-
-        const options = normalizeOptions(createServerSpy.mock.calls[0][0]);
-
-        expect(HTTPVersion).toBe("h2");
-        expect(options.spdy).toEqual({ protocols: ["h2", "http/1.1"] });
-        expect(response.status()).toBe(200);
-        expect((await response.text()).trim()).toBe("Heyo.");
-        expect(consoleMessages).toHaveLength(0);
-        expect(pageErrors).toHaveLength(0);
       });
     });
 
