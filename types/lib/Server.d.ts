@@ -1409,6 +1409,7 @@ declare class Server<
    * @param {((err?: Error) => void)=} callback callback
    */
   stopCallback(callback?: ((err?: Error) => void) | undefined): void;
+  #private;
 }
 declare namespace Server {
   export {

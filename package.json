@@ -54,7 +54,6 @@
     "ansi-html-community": "^0.0.8",
     "bonjour-service": "^1.2.1",
     "chokidar": "^3.6.0",
-    "colorette": "^2.0.10",
     "compression": "^1.8.1",
     "connect-history-api-fallback": "^2.0.0",
     "express": "^5.1.0",
@@ -127,12 +126,12 @@
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.36.0",
     "wait-for-expect": "^3.0.2",
-    "webpack": "^5.94.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
     "webpack-merge": "^6.0.1"
   },
   "peerDependencies": {
-    "webpack": "^5.0.0"
+    "webpack": "^5.101.0"
   },
   "peerDependenciesMeta": {
     "webpack-cli": {
