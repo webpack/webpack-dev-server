@@ -51,3 +51,36 @@ This document serves as a migration guide for `webpack-dev-server@6.0.0`.
   ```js
   const ip = Server.findIp("v4", true);
   ```
+
+- The bypass function in the proxy configuration was removed. Use the `pathFilter` and `router` for similar functionality. See the example below.
+
+  v4:
+
+  ```js
+  proxy: [
+    {
+      context: "/api",
+      bypass: function (req, res, proxyOptions) {
+        if (req.url.startsWith("/api/special")) {
+          return "/special.html";
+        }
+      },
+    }
+  ],
+  ```
+
+  v5:
+
+  ```js
+  proxy: [
+    {
+      pathFilter: "/api/special",
+      router: () => "http://localhost:3000",
+      pathRewrite: () => "/special.html",
+    },
+  ],
+  ```
+
+  When `bypass` was used and that function returned a boolean, it would automatically result in a `404` request. This can’t be achieved in a similar way now, or, if it returned a string, you can do what was done in the example above.
+
+  `bypass` also allowed sending data; this can no longer be done. If you really need to do it, you’d have to create a new route in the proxy that sends the same data, or alternatively create a new route on the main server and, following the example above, send the data you wanted.
