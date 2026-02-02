@@ -57,28 +57,38 @@ This document serves as a migration guide for `webpack-dev-server@6.0.0`.
   v4:
 
   ```js
-  proxy: [
-    {
-      context: "/api",
-      bypass: function (req, res, proxyOptions) {
-        if (req.url.startsWith("/api/special")) {
-          return "/special.html";
-        }
-      },
-    }
-  ],
+  module.exports = {
+    // ...
+    devServer: {
+      proxy: [
+        {
+          context: "/api",
+          bypass(req, res, proxyOptions) {
+            if (req.url.startsWith("/api/special")) {
+              return "/special.html";
+            }
+          },
+        },
+      ],
+    },
+  };
   ```
 
   v5:
 
   ```js
-  proxy: [
-    {
-      pathFilter: "/api/special",
-      router: () => "http://localhost:3000",
-      pathRewrite: () => "/special.html",
+  module.exports = {
+    // ...
+    devServer: {
+      proxy: [
+        {
+          pathFilter: "/api/special",
+          router: () => "http://localhost:3000",
+          pathRewrite: () => "/special.html",
+        },
+      ],
     },
-  ],
+  };
   ```
 
   When `bypass` was used and that function returned a boolean, it would automatically result in a `404` request. This can’t be achieved in a similar way now, or, if it returned a string, you can do what was done in the example above.
