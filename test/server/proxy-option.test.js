@@ -18,38 +18,14 @@ const proxyOptionPathsAsProperties = [
     target: `http://localhost:${port1}`,
   },
   {
-    context: "/api/proxy2",
+    path: "/api/proxy2",
     target: `http://localhost:${port2}`,
     pathRewrite: { "^/api": "" },
   },
   {
-    context: "/foo",
-    bypass(req) {
-      if (/\.html$/.test(req.path || req.url)) {
-        return "/index.html";
-      }
-
-      return null;
-    },
-  },
-  {
-    context: "proxyfalse",
-    bypass(req) {
-      if (/\/proxyfalse$/.test(req.path || req.url)) {
-        return false;
-      }
-    },
-  },
-  {
-    context: "/bypass-with-target",
+    pathFilter: "**/*.html",
     target: `http://localhost:${port1}`,
-    changeOrigin: true,
-    secure: false,
-    bypass(req) {
-      if (/\.(html)$/i.test(req.path || req.url)) {
-        return req.url;
-      }
-    },
+    pathRewrite: () => "/index.html",
   },
 ];
 
@@ -139,6 +115,9 @@ describe("proxy option", () => {
     });
     proxyApp1.get("/api", (req, res) => {
       res.send("api response from proxy1");
+    });
+    proxyApp1.get("/index.html", (req, res) => {
+      res.send("Hello");
     });
     proxyApp2.get("/proxy2", (req, res) => {
       res.send("from proxy2");
