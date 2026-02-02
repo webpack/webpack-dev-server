@@ -1466,7 +1466,6 @@ declare namespace Server {
     ClientConnection,
     WebSocketServer,
     WebSocketServerImplementation,
-    ByPass,
     ProxyConfigArrayItem,
     ProxyConfigArray,
     OpenApp,
@@ -1656,16 +1655,9 @@ type WebSocketServerImplementation = {
   implementation: WebSocketServer;
   clients: ClientConnection[];
 };
-type ByPass = (
-  req: Request,
-  res: Response,
-  proxyConfig: ProxyConfigArrayItem,
-) => any;
 type ProxyConfigArrayItem = {
   path?: HttpProxyMiddlewareOptionsFilter | undefined;
   context?: HttpProxyMiddlewareOptionsFilter | undefined;
-} & {
-  bypass?: ByPass;
 } & HttpProxyMiddlewareOptions;
 type ProxyConfigArray = (
   | ProxyConfigArrayItem

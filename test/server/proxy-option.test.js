@@ -23,9 +23,9 @@ const proxyOptionPathsAsProperties = [
     pathRewrite: { "^/api": "" },
   },
   {
-    pathFilter: "**/*.html",
-    target: `http://localhost:${port1}`,
+    pathFilter: ["/foo/*.html", "/bar/*.html", "/bypass-with-target/*.html"],
     pathRewrite: () => "/index.html",
+    router: () => `http://localhost:${port3}`,
   },
 ];
 
@@ -199,41 +199,48 @@ describe("proxy option", () => {
       });
     });
 
-    describe("bypass", () => {
-      it("can rewrite a request path", async () => {
+    describe("pathFilter and pathRewrite", () => {
+      it("should rewrite matching paths using pathFilter", async () => {
         const response = await req.get("/foo/bar.html");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
-      it("can rewrite a request path regardless of the target defined a bypass option", async () => {
+      it("should rewrite paths using pathRewrite function", async () => {
         const response = await req.get("/baz/hoge.html");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
-      it("should pass through a proxy when a bypass function returns null", async () => {
+      it("should proxy requests that don't match pathFilter", async () => {
         const response = await req.get("/foo.js");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hey");
       });
 
-      it("should not pass through a proxy when a bypass function returns false", async () => {
+      it("should serve static files when not matching proxy rules", async () => {
+        const response = await req.get("/index.html");
+
+        expect(response.status).toBe(200);
+        expect(response.text).toContain("Hello");
+      });
+
+      it("should return 404 for unmatched paths", async () => {
         const response = await req.get("/proxyfalse");
 
         expect(response.status).toBe(404);
       });
 
-      it("should work with the 'target' option", async () => {
+      it("should handle pathFilter with router option", async () => {
         const response = await req.get("/bypass-with-target/foo.js");
 
         expect(response.status).toBe(404);
       });
 
-      it("should work with the 'target' option #2", async () => {
+      it("should rewrite matching pathFilter patterns with router", async () => {
         const response = await req.get("/bypass-with-target/index.html");
 
         expect(response.status).toBe(200);
