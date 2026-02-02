@@ -64,7 +64,7 @@ const proxyOption = [
 let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: `http://localhost:${port1}` },
-  function proxy(req, res, next) {
+  function proxy(req) {
     if (req) {
       const socket = req.socket || req.connection;
       const server = socket ? socket.server : null;
@@ -79,19 +79,6 @@ const proxyOptionOfArray = [
       context: "/api/proxy2",
       target: `http://localhost:${port2}`,
       pathRewrite: { "^/api": "" },
-      bypass: () => {
-        if (req) {
-          const resolveUrl = new URL(req.url, `http://${req.headers.host}`);
-          const params = new URLSearchParams(resolveUrl.search);
-          const foo = params.get("foo");
-
-          if (foo) {
-            res.end(`foo+${next.name}+${typeof next}`);
-
-            return false;
-          }
-        }
-      },
     };
   },
 ];
@@ -476,13 +463,6 @@ describe("proxy option", () => {
 
       expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy2");
-    });
-
-    it("should allow req, res, and next", async () => {
-      const response = await req.get("/api/proxy2?foo=true");
-
-      expect(response.statusCode).toBe(200);
-      expect(response.text).toBe("foo+next+function");
     });
 
     it("should not exist multiple close events registered", async () => {
