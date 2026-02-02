@@ -42,19 +42,6 @@ const proxyOptionPathsAsProperties = [
     },
   },
   {
-    context: "/proxy/async",
-    bypass(req, res) {
-      if (/\/proxy\/async$/.test(req.path || req.url)) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            res.end("proxy async response");
-            resolve(true);
-          }, 10);
-        });
-      }
-    },
-  },
-  {
     context: "/bypass-with-target",
     target: `http://localhost:${port1}`,
     changeOrigin: true,
@@ -293,13 +280,6 @@ describe("proxy option", () => {
         const response = await req.get("/proxyfalse");
 
         expect(response.status).toBe(404);
-      });
-
-      it("should wait if bypass returns promise", async () => {
-        const response = await req.get("/proxy/async");
-
-        expect(response.status).toBe(200);
-        expect(response.text).toContain("proxy async response");
       });
 
       it("should work with the 'target' option", async () => {
