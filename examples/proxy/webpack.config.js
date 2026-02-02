@@ -29,10 +29,11 @@ module.exports = setup({
     onBeforeSetupMiddleware: async () => {
       await listenProxyServer();
     },
-    proxy: {
-      "/proxy": {
+    proxy: [
+      {
+        context: "/proxy",
         target: "http://localhost:5000",
       },
-    },
+    ],
   },
 });
