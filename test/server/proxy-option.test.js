@@ -23,7 +23,7 @@ const proxyOptionPathsAsProperties = [
     pathRewrite: { "^/api": "" },
   },
   {
-    pathFilter: ["/foo/*.html", "/bar/*.html", "/bypass-with-target/*.html"],
+    pathFilter: ["/foo/*.html", "/baz/*.html", "/bypass-with-target/*.html"],
     pathRewrite: () => "/index.html",
     router: () => `http://localhost:${port3}`,
   },
