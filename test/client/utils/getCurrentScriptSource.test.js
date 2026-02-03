@@ -75,7 +75,7 @@ describe("'getCurrentScriptSource' function", () => {
     expect(getCurrentScriptSource()).toBe("bar");
   });
 
-  it("should fail when no scripts with the 'scr' attribute", () => {
+  it("should fail when no scripts with the 'src' attribute", () => {
     const elements = ["foo", "bar"].map(() => document.createElement("script"));
 
     Object.defineProperty(document, "scripts", {
