@@ -8,19 +8,24 @@ module.exports = setup({
   context: __dirname,
   entry: "./app.js",
   devServer: {
-    proxy: {
-      "/api": {
+    port: 8080,
+    static: {
+      directory: ".",
+    },
+    proxy: [
+      {
+        context: "/api/nope",
+        router: () => "http://localhost:8080",
+        pathRewrite: () => "/bypass.html",
+      },
+      {
+        context: "/api",
         target: "http://jsonplaceholder.typicode.com/",
         changeOrigin: true,
         pathRewrite: {
           "^/api": "",
         },
-        bypass(req) {
-          if (req.url === "/api/nope") {
-            return "/bypass.html";
-          }
-        },
       },
-    },
+    ],
   },
 });

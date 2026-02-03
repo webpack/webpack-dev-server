@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("node:path");
-const util = require("node:util");
 const express = require("express");
 const request = require("supertest");
 const webpack = require("webpack");
@@ -19,51 +18,14 @@ const proxyOptionPathsAsProperties = [
     target: `http://localhost:${port1}`,
   },
   {
-    context: "/api/proxy2",
+    path: "/api/proxy2",
     target: `http://localhost:${port2}`,
     pathRewrite: { "^/api": "" },
   },
   {
-    context: "/foo",
-    bypass(req) {
-      if (/\.html$/.test(req.path || req.url)) {
-        return "/index.html";
-      }
-
-      return null;
-    },
-  },
-  {
-    context: "proxyfalse",
-    bypass(req) {
-      if (/\/proxyfalse$/.test(req.path || req.url)) {
-        return false;
-      }
-    },
-  },
-  {
-    context: "/proxy/async",
-    bypass(req, res) {
-      if (/\/proxy\/async$/.test(req.path || req.url)) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            res.end("proxy async response");
-            resolve(true);
-          }, 10);
-        });
-      }
-    },
-  },
-  {
-    context: "/bypass-with-target",
-    target: `http://localhost:${port1}`,
-    changeOrigin: true,
-    secure: false,
-    bypass(req) {
-      if (/\.(html)$/i.test(req.path || req.url)) {
-        return req.url;
-      }
-    },
+    pathFilter: ["/foo/*.html", "/baz/*.html", "/bypass-with-target/*.html"],
+    pathRewrite: () => "/index.html",
+    router: () => `http://localhost:${port3}`,
   },
 ];
 
@@ -77,7 +39,7 @@ const proxyOption = [
 let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: `http://localhost:${port1}` },
-  function proxy(req, res, next) {
+  function proxy(req) {
     if (req) {
       const socket = req.socket || req.connection;
       const server = socket ? socket.server : null;
@@ -92,19 +54,6 @@ const proxyOptionOfArray = [
       context: "/api/proxy2",
       target: `http://localhost:${port2}`,
       pathRewrite: { "^/api": "" },
-      bypass: () => {
-        if (req) {
-          const resolveUrl = new URL(req.url, `http://${req.headers.host}`);
-          const params = new URLSearchParams(resolveUrl.search);
-          const foo = params.get("foo");
-
-          if (foo) {
-            res.end(`foo+${next.name}+${typeof next}`);
-
-            return false;
-          }
-        }
-      },
     };
   },
 ];
@@ -166,6 +115,9 @@ describe("proxy option", () => {
     });
     proxyApp1.get("/api", (req, res) => {
       res.send("api response from proxy1");
+    });
+    proxyApp1.get("/index.html", (req, res) => {
+      res.send("Hello");
     });
     proxyApp2.get("/proxy2", (req, res) => {
       res.send("from proxy2");
@@ -247,68 +199,48 @@ describe("proxy option", () => {
       });
     });
 
-    describe("bypass", () => {
-      it("should log deprecation warning when bypass is used", async () => {
-        const utilSpy = jest.spyOn(util, "deprecate");
-
-        const response = await req.get("/foo/bar.html");
-
-        expect(response.status).toBe(200);
-        expect(response.text).toContain("Hello");
-
-        const lastCall = utilSpy.mock.calls[utilSpy.mock.calls.length - 1];
-
-        expect(lastCall[1]).toBe(
-          "Using the 'bypass' option is deprecated. Please use the 'router' or 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
-        );
-        expect(lastCall[2]).toBe(
-          "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT",
-        );
-
-        utilSpy.mockRestore();
-      });
-
-      it("can rewrite a request path", async () => {
+    describe("pathFilter and pathRewrite", () => {
+      it("should rewrite matching paths using pathFilter", async () => {
         const response = await req.get("/foo/bar.html");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
-      it("can rewrite a request path regardless of the target defined a bypass option", async () => {
+      it("should rewrite paths using pathRewrite function", async () => {
         const response = await req.get("/baz/hoge.html");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
-      it("should pass through a proxy when a bypass function returns null", async () => {
+      it("should proxy requests that don't match pathFilter", async () => {
         const response = await req.get("/foo.js");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hey");
       });
 
-      it("should not pass through a proxy when a bypass function returns false", async () => {
+      it("should serve static files when not matching proxy rules", async () => {
+        const response = await req.get("/index.html");
+
+        expect(response.status).toBe(200);
+        expect(response.text).toContain("Hello");
+      });
+
+      it("should return 404 for unmatched paths", async () => {
         const response = await req.get("/proxyfalse");
 
         expect(response.status).toBe(404);
       });
 
-      it("should wait if bypass returns promise", async () => {
-        const response = await req.get("/proxy/async");
-
-        expect(response.status).toBe(200);
-        expect(response.text).toContain("proxy async response");
-      });
-
-      it("should work with the 'target' option", async () => {
+      it("should handle pathFilter with router option", async () => {
         const response = await req.get("/bypass-with-target/foo.js");
 
         expect(response.status).toBe(404);
       });
 
-      it("should work with the 'target' option #2", async () => {
+      it("should rewrite matching pathFilter patterns with router", async () => {
         const response = await req.get("/bypass-with-target/index.html");
 
         expect(response.status).toBe(200);
@@ -496,13 +428,6 @@ describe("proxy option", () => {
 
       expect(response.status).toBe(200);
       expect(response.text).toContain("from proxy2");
-    });
-
-    it("should allow req, res, and next", async () => {
-      const response = await req.get("/api/proxy2?foo=true");
-
-      expect(response.statusCode).toBe(200);
-      expect(response.text).toBe("foo+next+function");
     });
 
     it("should not exist multiple close events registered", async () => {
