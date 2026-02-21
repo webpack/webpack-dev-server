@@ -14,6 +14,39 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.api;
 
 describe("API", () => {
+  it("should work with plugin API", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+
+    server.apply(compiler);
+    await compile(compiler);
+
+    const { page, browser } = await runBrowser();
+
+    const pageErrors = [];
+    const consoleMessages = [];
+
+    page
+      .on("console", (message) => {
+        consoleMessages.push(message);
+      })
+      .on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+    await page.goto(`http://127.0.0.1:${port}/`, {
+      waitUntil: "networkidle0",
+    });
+
+    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+      "console messages",
+    );
+    expect(pageErrors).toMatchSnapshot("page errors");
+
+    await browser.close();
+    compiler.watching.close();
+  });
+
   describe("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
     let server;
