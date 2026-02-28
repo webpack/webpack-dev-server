@@ -53,27 +53,7 @@ This document serves as a migration guide for `webpack-dev-server@6.0.0`.
   const ip = Server.findIp("v4", true);
   ```
 
-- The following CLI options were deprecated and have now been removed. Please use the recommended alternatives:
-  - http2 -> server
-  - https -> server
-  - https-ca -> server.options.ca
-  - https-ca-reset -> server.options.ca
-  - https-cacert -> server.options.ca
-  - https-cert -> server.options.cert
-  - https-cert-reset -> server.options.cert
-  - https-crl -> server.options.crl
-  - https-crl-reset -> server.options.crl
-  - https-key -> server.options.key
-  - https-key-reset -> server.options.key
-  - https-passphrase -> server.options.passphrase
-  - https-pfx -> server.options.pfx
-  - https-pfx-reset -> server.options.pfx
-  - https-request-cert -> server.options.requestCert
-  - open-app -> --open-app-name
-  - server-options-cacert -> server.options.ca
-  - server-options-cacert-reset -> server.options.ca
-  - web-socket-server -> web-socket-server-type
-
+- Support for webpack-dev-server using CLI flags has been removed. Please use the latest version of webpack-cli.
 - The bypass function in the proxy configuration was removed. Use the `pathFilter` and `router` for similar functionality. See the example below.
 
   v4:
