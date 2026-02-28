@@ -37,6 +37,10 @@ This document serves as a migration guide for `webpack-dev-server@6.0.0`.
   };
   ```
 
+- Now, webpack-dev-server adds WebSocket communication only when the `target` is set to a web-compatible environment. Previously, it also injected WebSocket communication if `resolve` contained a `conditionNames` entry with `browser` or if `externalsPresets.web` existed.
+
+- When retrieving the configuration in a multi-compiler setup, it will look for one that has a target compatible with a web environment. If it doesn’t find one, it will fall back to the first compiler found by webpack.
+
 ## Deprecations
 
 - The static methods `internalIP` and `internalIPSync` were removed. Use `findIp` instead.
