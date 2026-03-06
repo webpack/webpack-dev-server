@@ -57,6 +57,7 @@ This document serves as a migration guide for `webpack-dev-server@6.0.0`.
   const ip = Server.findIp("v4", true);
   ```
 
+- Support for webpack-dev-server using CLI flags has been removed. Please use the latest version of webpack-cli.
 - The bypass function in the proxy configuration was removed. Use the `pathFilter` and `router` for similar functionality. See the example below.
 
   v4:
