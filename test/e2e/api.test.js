@@ -14,12 +14,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.api;
 
 describe("API", () => {
-  it("should work with plugin API", async () => {
+  it("should work with plugin API", async (t) => {
     const compiler = webpack(config);
     const server = new Server({ port });
 
     server.apply(compiler);
-    await compile(compiler);
+
+    // Use compile helper which waits for the server to be ready
+    const { watching } = await compile(compiler, port);
 
     const { page, browser } = await runBrowser();
 
@@ -38,13 +40,12 @@ describe("API", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
+
+    t.assert.snapshot(pageErrors);
 
     await browser.close();
-    compiler.watching.close();
+    watching.close();
   });
 
   describe("WEBPACK_SERVE environment variable", () => {
