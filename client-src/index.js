@@ -45,6 +45,7 @@ import sendMessage from "./utils/sendMessage.js";
  * @property {boolean} isUnloading true when unloaded, otherwise false
  * @property {string} currentHash current hash
  * @property {string=} previousHash previous hash
+ * @property {boolean} hasRuntimeError true when a runtime error occurred
  */
 
 /**
