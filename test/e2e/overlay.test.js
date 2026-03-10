@@ -1976,4 +1976,40 @@ describe("overlay", () => {
       await server.stop();
     }
   });
+
+  it("should keep overlay visible for runtime error on initial load", async () => {
+    const compiler = webpack(config);
+
+    const server = new Server(
+      {
+        port,
+      },
+      compiler,
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      await page.addScriptTag({
+        content: `
+        throw new Error("Initial runtime error");
+      `,
+      });
+
+      await delay(1000);
+
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+
+      expect(overlayHandle).not.toBeNull();
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
 });
