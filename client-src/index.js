@@ -84,8 +84,15 @@ const decodeOverlayOptions = (overlayOptions) => {
 const status = {
   isUnloading: false,
   currentHash: __webpack_hash__,
+  hasRuntimeError: false,
 };
+window.addEventListener("error", () => {
+  status.hasRuntimeError = true;
+});
 
+window.addEventListener("unhandledrejection", () => {
+  status.hasRuntimeError = true;
+});
 /**
  * @returns {string} current script source
  */
@@ -403,8 +410,7 @@ const onSocketMessage = {
   invalid() {
     log.info("App updated. Recompiling...");
 
-    // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
-    if (options.overlay) {
+    if (options.overlay && !status.hasRuntimeError) {
       overlay.send({ type: "DISMISS" });
     }
 
@@ -473,7 +479,7 @@ const onSocketMessage = {
   "still-ok": function stillOk() {
     log.info("Nothing changed.");
 
-    if (options.overlay) {
+    if (options.overlay && !status.hasRuntimeError) {
       overlay.send({ type: "DISMISS" });
     }
 
@@ -481,6 +487,8 @@ const onSocketMessage = {
   },
   ok() {
     sendMessage("Ok");
+
+    status.hasRuntimeError = false;
 
     if (options.overlay) {
       overlay.send({ type: "DISMISS" });
