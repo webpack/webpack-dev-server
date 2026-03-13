@@ -87,12 +87,12 @@ const status = {
   currentHash: __webpack_hash__,
   hasRuntimeError: false,
 };
-if (typeof self !== "undefined" && self.addEventListener) {
-  self.addEventListener("error", () => {
+if (typeof window !== "undefined" && window.addEventListener) {
+  window.addEventListener("error", () => {
     status.hasRuntimeError = true;
   });
 
-  self.addEventListener("unhandledrejection", () => {
+  window.addEventListener("unhandledrejection", () => {
     status.hasRuntimeError = true;
   });
 }
