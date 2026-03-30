@@ -20,8 +20,7 @@ describe("API", () => {
 
     server.apply(compiler);
 
-    // Use compile helper which waits for the server to be ready
-    const { watching } = await compile(compiler, port);
+    await compile(compiler, port);
 
     const { page, browser } = await runBrowser();
 
@@ -45,7 +44,55 @@ describe("API", () => {
     t.assert.snapshot(pageErrors);
 
     await browser.close();
-    watching.close();
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should not start the server multiple times on recompilation", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    const startSpy = jest.spyOn(server, "start");
+
+    server.apply(compiler);
+
+    const { watching } = await compile(compiler, port);
+
+    // Trigger a recompilation by invalidating
+    await new Promise((resolve) => {
+      watching.invalidate(() => {
+        resolve();
+      });
+    });
+
+    // Wait for the recompilation to finish
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+
+    expect(startSpy).toHaveBeenCalledTimes(1);
+
+    startSpy.mockRestore();
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should stop the server cleanly via compiler.close()", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    const stopSpy = jest.spyOn(server, "stop");
+
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+
+    expect(stopSpy).toHaveBeenCalledTimes(1);
+    stopSpy.mockRestore();
   });
 
   describe("WEBPACK_SERVE environment variable", () => {
