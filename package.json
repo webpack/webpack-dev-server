@@ -127,7 +127,7 @@
     "typescript-eslint": "^8.36.0",
     "wait-for-expect": "^3.0.2",
     "webpack": "^5.105.4",
-    "webpack-cli": "^6.0.1",
+    "webpack-cli": "^7.0.2",
     "webpack-merge": "^6.0.1"
   },
   "peerDependencies": {
