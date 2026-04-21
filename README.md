@@ -99,7 +99,7 @@ Options:
   -o, --output-path <value>                           The output directory as **absolute path** (required).
   --stats [value]                                     Stats options object or preset name.
   --no-stats                                          Negative 'stats' option.
-  -t, --target <value...>                             Environment to build for. Environment to build for. An array of environments to build for all of them when possible.
+  -t, --target <value...>                             Specific environment, runtime, or syntax. Environment to build for. An array of environments to build for all of them when possible.
   --no-target                                         Negative 'target' option.
   --watch-options-stdin                               Stop watching when stdin stream has ended.
   --no-watch-options-stdin                            Negative 'watch-options-stdin' option.
