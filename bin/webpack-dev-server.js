@@ -2,17 +2,20 @@
 /* Based on webpack/bin/webpack.js */
 /* eslint-disable no-console */
 
-"use strict";
+import cp from "node:child_process";
+import nodeModule from "node:module";
+import path from "node:path";
+import readLine from "node:readline";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import fs from "graceful-fs";
 
 /**
  * @param {string} command process to run
  * @param {string[]} args command line arguments
  * @returns {Promise<void>} promise
  */
-const runCommand = (command, args) => {
-  const cp = require("node:child_process");
-
-  return new Promise((resolve, reject) => {
+const runCommand = (command, args) =>
+  new Promise((resolve, reject) => {
     const executedCommand = cp.spawn(command, args, {
       stdio: "inherit",
       shell: true,
@@ -30,7 +33,6 @@ const runCommand = (command, args) => {
       }
     });
   });
-};
 
 /**
  * @param {string} packageName name of the package
@@ -41,10 +43,7 @@ const isInstalled = (packageName) => {
     return true;
   }
 
-  const path = require("node:path");
-  const fs = require("graceful-fs");
-
-  let dir = __dirname;
+  let dir = path.dirname(fileURLToPath(import.meta.url));
 
   do {
     try {
@@ -58,9 +57,9 @@ const isInstalled = (packageName) => {
     }
   } while (dir !== (dir = path.dirname(dir)));
 
-  // https://github.com/nodejs/node/blob/v18.9.1/lib/internal/modules/cjs/loader.js#L1274
+  // https://github.com/nodejs/node/blob/v22.12.0/lib/internal/modules/cjs/loader.js#L1818
   // @ts-expect-error
-  for (const internalPath of require("node:module").globalPaths) {
+  for (const internalPath of nodeModule.globalPaths) {
     try {
       if (fs.statSync(path.join(internalPath, packageName)).isDirectory()) {
         return true;
@@ -75,29 +74,20 @@ const isInstalled = (packageName) => {
 
 /**
  * @param {CliOption} cli options
- * @returns {void}
+ * @returns {Promise<void>}
  */
-const runCli = (cli) => {
+const runCli = async (cli) => {
   if (cli.preprocess) {
     cli.preprocess();
   }
 
-  const path = require("node:path");
+  const pkgUrl = import.meta.resolve(`${cli.package}/package.json`);
+  const pkgPath = fileURLToPath(pkgUrl);
+  const pkg = (await import(pkgUrl, { with: { type: "json" } })).default;
 
-  const pkgPath = require.resolve(`${cli.package}/package.json`);
+  const binPath = path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName]);
 
-  const pkg = require(pkgPath);
-
-  if (pkg.type === "module" || /\.mjs/i.test(pkg.bin[cli.binName])) {
-    import(path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName])).catch(
-      (error) => {
-        console.error(error);
-        process.exitCode = 1;
-      },
-    );
-  } else {
-    require(path.resolve(path.dirname(pkgPath), pkg.bin[cli.binName]));
-  }
+  await import(pathToFileURL(binPath).href);
 };
 
 /**
@@ -123,10 +113,6 @@ const cli = {
 };
 
 if (!cli.installed) {
-  const path = require("node:path");
-  const fs = require("graceful-fs");
-  const readLine = require("node:readline");
-
   const notify = `CLI for webpack must be installed.\n  ${cli.name} (${cli.url})\n`;
 
   console.error(notify);
@@ -187,14 +173,17 @@ if (!cli.installed) {
     );
 
     runCommand(packageManager, [...installOptions, cli.package])
-      .then(() => {
-        runCli(cli);
-      })
+      .then(() => runCli(cli))
       .catch((error) => {
         console.error(error);
         process.exitCode = 1;
       });
   });
 } else {
-  runCli(cli);
+  try {
+    await runCli(cli);
+  } catch (error) {
+    console.error(error);
+    process.exitCode = 1;
+  }
 }

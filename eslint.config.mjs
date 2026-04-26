@@ -7,6 +7,11 @@ export default defineConfig([
   {
     extends: [config],
     ignores: ["client-src/**/*", "!client-src/webpack.config.js"],
+    languageOptions: {
+      // ES2025 needed for import attributes (`import(x, { with: ... })`).
+      // eslint-config-webpack pins ecmaVersion to 2024 for Node 22.
+      ecmaVersion: "latest",
+    },
     rules: {
       // TODO fix me
       "prefer-destructuring": "off",
