@@ -1493,7 +1493,7 @@ type StatsCompilation = import("webpack").StatsCompilation;
 type Stats = import("webpack").Stats;
 type MultiStats = import("webpack").MultiStats;
 type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
-type WatchOptions = import("chokidar").WatchOptions;
+type WatchOptions = import("chokidar").ChokidarOptions;
 type FSWatcher = import("chokidar").FSWatcher;
 type ConnectHistoryApiFallbackOptions =
   import("connect-history-api-fallback").Options;

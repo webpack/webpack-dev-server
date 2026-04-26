@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("node:path");
-const chokidar = require("chokidar");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -225,6 +224,420 @@ describe("watchFiles option", () => {
           resolve();
         });
       });
+    });
+  });
+
+  describe("should work with array of globs", () => {
+    const file = path.join(watchDir, "assets/example.txt");
+    const other = path.join(watchDir, "assets/other.txt");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: [`${watchDir}/**/*.txt`, `${watchDir}/**/*.js`],
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.truncateSync(file);
+      fs.truncateSync(other);
+    });
+
+    it("should reload when file content is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages",
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      // change file content
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
+    });
+  });
+
+  describe("should work with directory and ignored option to filter files", () => {
+    const file = path.join(watchDir, "assets/example.txt");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: {
+            paths: watchDir,
+            options: {
+              ignored: (filePath, stats) =>
+                stats?.isFile() && !filePath.endsWith(".txt"),
+            },
+          },
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.truncateSync(file);
+    });
+
+    it("should reload when file content is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages",
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      // change file content
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
+    });
+
+    it("should not reload when a non-matching file is changed", async () => {
+      const ignoredFile = path.join(watchDir, "assets/example.js");
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      // change ignored file content
+      fs.writeFileSync(ignoredFile, "// changed", "utf8");
+
+      // wait a bit to ensure no reload happens
+      await new Promise((resolve) => {
+        let changed = false;
+
+        server.staticWatchers[0].on("change", () => {
+          changed = true;
+        });
+
+        setTimeout(() => {
+          expect(changed).toBe(false);
+          resolve();
+        }, 2000);
+      });
+
+      // restore file
+      fs.writeFileSync(ignoredFile, "// test file\n", "utf8");
+    });
+  });
+
+  describe("should work with ignored option using glob string", () => {
+    const file = path.join(watchDir, "assets/example.txt");
+    const ignoredFile = path.join(watchDir, "assets/example.js");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: {
+            paths: watchDir,
+            options: {
+              ignored: `${watchDir}/**/*.js`,
+            },
+          },
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.truncateSync(file);
+    });
+
+    it("should reload when file content is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages",
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      // change file content
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
+    });
+
+    it("should not reload when an ignored glob file is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      // change ignored file content
+      fs.writeFileSync(ignoredFile, "// changed", "utf8");
+
+      // wait a bit to ensure no reload happens
+      await new Promise((resolve) => {
+        let changed = false;
+
+        server.staticWatchers[0].on("change", () => {
+          changed = true;
+        });
+
+        setTimeout(() => {
+          expect(changed).toBe(false);
+          resolve();
+        }, 2000);
+      });
+
+      // restore file
+      fs.writeFileSync(ignoredFile, "// test file\n", "utf8");
+    });
+  });
+
+  describe("should work with ignored option using glob array", () => {
+    const file = path.join(watchDir, "assets/example.txt");
+    const ignoredFile = path.join(watchDir, "assets/example.js");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let pageErrors;
+    let consoleMessages;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: {
+            paths: watchDir,
+            options: {
+              ignored: [`${watchDir}/**/*.js`],
+            },
+          },
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      pageErrors = [];
+      consoleMessages = [];
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.truncateSync(file);
+    });
+
+    it("should reload when file content is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
+        "console messages",
+      );
+
+      expect(pageErrors).toMatchSnapshot("page errors");
+
+      // change file content
+      fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
+
+      await new Promise((resolve) => {
+        server.staticWatchers[0].on("change", async (changedPath) => {
+          // page reload
+          await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+          expect(changedPath).toBe(file);
+
+          resolve();
+        });
+      });
+    });
+
+    it("should not reload when an ignored glob file is changed", async () => {
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      expect(response.status()).toMatchSnapshot("response status");
+
+      // change ignored file content
+      fs.writeFileSync(ignoredFile, "// changed", "utf8");
+
+      // wait a bit to ensure no reload happens
+      await new Promise((resolve) => {
+        let changed = false;
+
+        server.staticWatchers[0].on("change", () => {
+          changed = true;
+        });
+
+        setTimeout(() => {
+          expect(changed).toBe(false);
+          resolve();
+        }, 2000);
+      });
+
+      // restore file
+      fs.writeFileSync(ignoredFile, "// test file\n", "utf8");
     });
   });
 
@@ -556,9 +969,31 @@ describe("watchFiles option", () => {
   describe("should work with options", () => {
     const file = path.join(watchDir, "assets/example.txt");
 
-    const chokidarMock = jest.spyOn(chokidar, "watch");
-
     const optionCases = [
+      {
+        interval: undefined,
+      },
+      {
+        usePolling: undefined,
+      },
+      {
+        persistent: undefined,
+      },
+      {
+        followSymlinks: undefined,
+      },
+      {
+        atomic: undefined,
+      },
+      {
+        alwaysStat: undefined,
+      },
+      {
+        depth: undefined,
+      },
+      {
+        ignorePermissionErrors: undefined,
+      },
       {
         poll: true,
       },
@@ -609,8 +1044,6 @@ describe("watchFiles option", () => {
         let consoleMessages;
 
         beforeEach(async () => {
-          chokidarMock.mockClear();
-
           compiler = webpack(config);
 
           server = new Server(
@@ -652,7 +1085,7 @@ describe("watchFiles option", () => {
           });
 
           // should pass correct options to chokidar config
-          expect(chokidarMock.mock.calls[0][1]).toMatchSnapshot();
+          expect(server.staticWatchers[0].options).toMatchSnapshot();
 
           expect(response.status()).toMatchSnapshot("response status");
 
