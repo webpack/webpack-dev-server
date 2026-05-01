@@ -1,5 +1,7 @@
 "use strict";
 
+const os = require("node:os");
+const path = require("node:path");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -93,6 +95,42 @@ describe("API (plugin)", () => {
 
     expect(stopSpy).toHaveBeenCalledTimes(1);
     stopSpy.mockRestore();
+  });
+
+  it("should stay passive in build mode (compiler.run)", async () => {
+    // The shared fixture writes output to "/", which would be unwritable
+    // outside of webpack-dev-middleware's in-memory FS. Use a tmp dir so the
+    // real `compiler.run()` can flush its assets.
+    const compiler = webpack({
+      ...config,
+      output: {
+        ...config.output,
+        path: path.join(os.tmpdir(), `wds-build-mode-${Date.now()}`),
+      },
+    });
+    const server = new Server({ port });
+    const setupSpy = jest.spyOn(server, "setup");
+    const listenSpy = jest.spyOn(server, "listen");
+
+    server.apply(compiler);
+
+    // `compiler.run()` is a one-shot build (no watch). The plugin must stay
+    // passive so the build can finish and the process can exit normally.
+    await new Promise((resolve, reject) => {
+      compiler.run((error) => {
+        if (error) reject(error);
+        else resolve();
+      });
+    });
+
+    expect(setupSpy).not.toHaveBeenCalled();
+    expect(listenSpy).not.toHaveBeenCalled();
+
+    setupSpy.mockRestore();
+    listenSpy.mockRestore();
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
   });
 
   describe("plugin in webpack config", () => {
