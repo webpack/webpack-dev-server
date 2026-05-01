@@ -38,10 +38,9 @@ npx webpack --watch
 
 ## Notes
 
-- Use `webpack --watch`, not `webpack serve`. `webpack serve` creates its own
-  standalone dev server; if you also have a plugin instance in `plugins[]`,
-  the plugin detects the standalone server and stays passive to avoid binding
-  the same port twice.
-- A plain `webpack` build (no watch) will not start the server — the plugin
-  detects build mode and stays passive so the build can finish and the process
-  can exit normally.
+- The plugin works with both `webpack --watch` and `webpack serve`. With
+  `webpack serve`, `webpack-cli` already creates its own standalone dev server
+  for the same compiler, so you would end up with two servers running. If
+  that's intentional (e.g. different ports/hosts), make sure the plugin's
+  `port` does not clash with the one `webpack-cli` resolves from
+  `config.devServer` and CLI args. Otherwise prefer one or the other.
