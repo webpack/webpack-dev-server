@@ -62,7 +62,7 @@
     "ipaddr.js": "^2.3.0",
     "launch-editor": "^2.13.2",
     "open": "^11.0.0",
-    "p-retry": "^7.1.1",
+    "p-retry": "^8.0.0",
     "schema-utils": "^4.3.3",
     "selfsigned": "^5.5.0",
     "serve-index": "^1.9.2",
@@ -146,6 +146,6 @@
     }
   },
   "engines": {
-    "node": ">= 20.9.0"
+    "node": ">= 22.12.0"
   }
 }

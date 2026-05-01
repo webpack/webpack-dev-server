@@ -71,7 +71,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         # 24.15 is pinned on purpose: Node 24.16 is broken for Puppeteer. Do not bump to 24.x.
-        node-version: [20.x, 22.x, 24.15, 25.x]
+        node-version: [22.x, 24.15, 25.x]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
 
