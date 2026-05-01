@@ -3,6 +3,7 @@
 const os = require("node:os");
 const path = require("node:path");
 const webpack = require("webpack");
+const WebSocket = require("ws");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
 const multiCompilerConfig = require("../fixtures/multi-compiler-two-configurations/webpack.config");
@@ -128,6 +129,110 @@ describe("API (plugin)", () => {
 
     setupSpy.mockRestore();
     listenSpy.mockRestore();
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should send 'invalid' to WebSocket clients when recompilation is triggered", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    const { watching } = await compile(compiler, port);
+
+    const sawInvalid = await new Promise((resolve, reject) => {
+      let initialOkSeen = false;
+      const ws = new WebSocket(`ws://127.0.0.1:${port}/ws`, {
+        headers: {
+          host: `127.0.0.1:${port}`,
+          origin: `http://127.0.0.1:${port}`,
+        },
+      });
+
+      ws.on("error", reject);
+      ws.on("message", (raw) => {
+        const { type } = JSON.parse(raw.toString());
+        // Wait for the initial "ok" (sent right after the WS handshake),
+        // then trigger an invalidation. The server's `compiler.hooks.invalid`
+        // tap should push an "invalid" message before the next compile
+        // finishes.
+        if (!initialOkSeen && type === "ok") {
+          initialOkSeen = true;
+          watching.invalidate();
+          return;
+        }
+        if (type === "invalid") {
+          ws.close();
+          resolve(true);
+        }
+      });
+    });
+
+    expect(sawInvalid).toBe(true);
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should use constructor options instead of compiler.options.devServer", async () => {
+    // Plugin reads its options from its constructor argument; values on
+    // `compiler.options.devServer` are intentionally ignored. This protects
+    // the documented contract.
+    const compiler = webpack({
+      ...config,
+      // Pretend an unrelated `devServer` block exists in the user's config.
+      // The plugin must not pick `port: portB` from it.
+      devServer: { port: portB, host: "0.0.0.0" },
+    });
+    const server = new Server({ port: portA });
+    server.apply(compiler);
+
+    await compile(compiler, portA);
+
+    const responseA = await fetch(`http://127.0.0.1:${portA}/`);
+    expect(responseA.status).toBe(200);
+
+    let portBReachable = true;
+    try {
+      await fetch(`http://127.0.0.1:${portB}/`);
+    } catch {
+      portBReachable = false;
+    }
+    expect(portBReachable).toBe(false);
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should propagate setup errors via the watch callback", async () => {
+    const compiler = webpack(config);
+    // Using a URL as `static.directory` throws inside `normalizeOptions`
+    // during `setup()`. The rejection should bubble out through the
+    // `beforeCompile.tapPromise` handler and reach `compiler.watch()`'s
+    // user callback as an error.
+    const server = new Server({
+      port,
+      static: "https://absolute-url.example/some/path",
+    });
+    server.apply(compiler);
+
+    const error = await new Promise((resolve, reject) => {
+      compiler.watch({}, (err) => {
+        if (err) {
+          resolve(err);
+        } else {
+          reject(new Error("expected setup to fail"));
+        }
+      });
+    });
+
+    expect(error.message).toMatch(
+      /Using a URL as static.directory is not supported/,
+    );
+
     await new Promise((resolve) => {
       compiler.close(resolve);
     });
