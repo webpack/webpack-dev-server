@@ -78,6 +78,7 @@ const listOfTests = {
   "options-request-response": 2,
   app: 1,
   "cross-origin-request": 2,
+  "api-plugin": 1,
 };
 
 let startPort = 8089;
