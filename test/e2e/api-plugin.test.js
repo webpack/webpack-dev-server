@@ -3,6 +3,7 @@
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
+const multiCompilerConfig = require("../fixtures/multi-compiler-two-configurations/webpack.config");
 const compile = require("../helpers/compile");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["api-plugin"];
@@ -175,6 +176,87 @@ describe("API (plugin)", () => {
           compiler.close(resolve);
         });
       }
+    });
+  });
+
+  describe("MultiCompiler", () => {
+    it("should work with plugin API", async () => {
+      const compiler = webpack(multiCompilerConfig);
+      const server = new Server({ port });
+
+      server.apply(compiler);
+
+      await compile(compiler, port);
+
+      const { page, browser } = await runBrowser();
+
+      try {
+        const pageErrors = [];
+        const consoleMessages = [];
+
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(
+          `http://127.0.0.1:${port}/one-main.html`,
+          {
+            waitUntil: "networkidle0",
+          },
+        );
+
+        expect(response.status()).toBe(200);
+        expect(
+          consoleMessages.map((message) => message.text()),
+        ).toMatchSnapshot("console messages");
+        expect(pageErrors).toMatchSnapshot("page errors");
+      } finally {
+        await browser.close();
+        await new Promise((resolve) => {
+          compiler.close(resolve);
+        });
+      }
+    });
+
+    it("should call setup and listen once across all child compilers", async () => {
+      const compiler = webpack(multiCompilerConfig);
+      const server = new Server({ port });
+      const setupSpy = jest.spyOn(server, "setup");
+      const listenSpy = jest.spyOn(server, "listen");
+
+      server.apply(compiler);
+
+      await compile(compiler, port);
+
+      expect(setupSpy).toHaveBeenCalledTimes(1);
+      expect(listenSpy).toHaveBeenCalledTimes(1);
+
+      setupSpy.mockRestore();
+      listenSpy.mockRestore();
+      await new Promise((resolve) => {
+        compiler.close(resolve);
+      });
+    });
+
+    it("should stop the server only once when all child compilers shut down", async () => {
+      const compiler = webpack(multiCompilerConfig);
+      const server = new Server({ port });
+      const stopSpy = jest.spyOn(server, "stop");
+
+      server.apply(compiler);
+
+      await compile(compiler, port);
+
+      await new Promise((resolve) => {
+        compiler.close(resolve);
+      });
+
+      expect(stopSpy).toHaveBeenCalledTimes(1);
+      stopSpy.mockRestore();
     });
   });
 });
