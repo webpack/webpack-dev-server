@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`API (plugin) plugin in webpack config should work when added to webpack config plugins array: console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) plugin in webpack config should work when added to webpack config plugins array: page errors 1`] = `[]`;
+
+exports[`API (plugin) plugin in webpack config should work with output.clean: true: console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) plugin in webpack config should work with output.clean: true: page errors 1`] = `[]`;
+
+exports[`API (plugin) should work with plugin API: console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) should work with plugin API: page errors 1`] = `[]`;
