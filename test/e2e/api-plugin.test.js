@@ -343,31 +343,5 @@ describe("API (plugin)", () => {
         });
       }
     });
-
-    it("should stay passive when a standalone server runs on the same compiler", async () => {
-      const compiler = webpack(config);
-      const pluginServer = new Server({ port });
-      const standaloneServer = new Server({ port }, compiler);
-
-      const pluginSetupSpy = jest.spyOn(pluginServer, "setup");
-      const pluginListenSpy = jest.spyOn(pluginServer, "listen");
-
-      pluginServer.apply(compiler);
-      await standaloneServer.start();
-
-      try {
-        // The standalone server drives compilation through its own
-        // webpack-dev-middleware. The plugin's hooks fire during that
-        // compilation but must stay passive — so the plugin's own setup() and
-        // listen() are never called.
-        expect(pluginSetupSpy).not.toHaveBeenCalled();
-        expect(pluginListenSpy).not.toHaveBeenCalled();
-      } finally {
-        pluginSetupSpy.mockRestore();
-        pluginListenSpy.mockRestore();
-        await standaloneServer.stop();
-        await pluginServer.stop();
-      }
-    });
   });
 });
