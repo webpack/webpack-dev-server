@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const { klona } = require("klona/full");
 const webpack = require("webpack");
 const Server = require("../lib/Server");
@@ -571,7 +573,7 @@ describe("normalize options", () => {
   ];
 
   for (const item of cases) {
-    it(item.title, async () => {
+    it(item.title, async (t) => {
       let webpackConfig;
 
       if (item.multiCompiler) {
@@ -624,7 +626,7 @@ describe("normalize options", () => {
             }
           }
 
-          expect(optionsForSnapshot).toMatchSnapshot();
+          t.assert.snapshot(optionsForSnapshot);
         }
       } finally {
         await server.stop();

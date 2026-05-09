@@ -1,16 +1,14 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`options validate should throw an error on the "allowedHosts" option with '[""]' value 1`] = `
+exports[`options > validate > should throw an error on the "allowedHosts" option with '[""]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts[0] should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "allowedHosts" option with '[]' value 1`] = `
+exports[`options > validate > should throw an error on the "allowedHosts" option with '[]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be a non-empty array."
 `;
 
-exports[`options validate should throw an error on the "allowedHosts" option with '123' value 1`] = `
+exports[`options > validate > should throw an error on the "allowedHosts" option with '123' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
    [non-empty string, ...] (should not have fewer than 1 item) | "auto" | "all" | non-empty string
@@ -24,7 +22,7 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
     * options.allowedHosts should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "allowedHosts" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "allowedHosts" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
    [non-empty string, ...] (should not have fewer than 1 item) | "auto" | "all" | non-empty string
@@ -38,7 +36,7 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
     * options.allowedHosts should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "allowedHosts" option with 'true' value 1`] = `
+exports[`options > validate > should throw an error on the "allowedHosts" option with 'true' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.allowedHosts should be one of these:
    [non-empty string, ...] (should not have fewer than 1 item) | "auto" | "all" | non-empty string
@@ -52,21 +50,21 @@ exports[`options validate should throw an error on the "allowedHosts" option wit
     * options.allowedHosts should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "app" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "app" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.app should be an instance of function.
    -> Allows to use custom applications, such as 'connect', 'fastify', etc.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverapp"
 `;
 
-exports[`options validate should throw an error on the "app" option with 'test' value 1`] = `
+exports[`options > validate > should throw an error on the "app" option with 'test' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.app should be an instance of function.
    -> Allows to use custom applications, such as 'connect', 'fastify', etc.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverapp"
 `;
 
-exports[`options validate should throw an error on the "bonjour" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "bonjour" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.bonjour should be one of these:
    boolean | object { … }
@@ -80,7 +78,7 @@ exports[`options validate should throw an error on the "bonjour" option with '' 
       -> Read more at https://github.com/watson/bonjour#initializing"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"logging":"silent"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.logging should be one of these:
    "none" | "error" | "warn" | "info" | "log" | "verbose"
@@ -88,7 +86,7 @@ exports[`options validate should throw an error on the "client" option with '{"l
    -> Read more at https://webpack.js.org/configuration/dev-server/#logging"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"logging":"whoops!"}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"logging":"whoops!"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.logging should be one of these:
    "none" | "error" | "warn" | "info" | "log" | "verbose"
@@ -96,7 +94,7 @@ exports[`options validate should throw an error on the "client" option with '{"l
    -> Read more at https://webpack.js.org/configuration/dev-server/#logging"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"overlay":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -113,13 +111,13 @@ exports[`options validate should throw an error on the "client" option with '{"o
          object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"overlay":{"arbitrary":""}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"overlay":{"arbitrary":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.overlay has an unknown property 'arbitrary'. These properties are valid:
    object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"overlay":{"errors":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -135,7 +133,7 @@ exports[`options validate should throw an error on the "client" option with '{"o
          -> Filter compiler errors. Return true to include and return false to exclude."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"overlay":{"warnings":""}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"overlay":{"warnings":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -151,7 +149,7 @@ exports[`options validate should throw an error on the "client" option with '{"o
          -> Filter compiler warnings. Return true to include and return false to exclude."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"progress":""}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"progress":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.progress should be one of these:
    true | false | "linear" | "circular"
@@ -159,7 +157,7 @@ exports[`options validate should throw an error on the "client" option with '{"p
    -> Read more at https://webpack.js.org/configuration/dev-server/#progress"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"reconnect":""}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"reconnect":""}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -175,13 +173,13 @@ exports[`options validate should throw an error on the "client" option with '{"r
        * options.client.reconnect should be a number (should be >= 0)."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"unknownOption":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client has an unknown property 'unknownOption'. These properties are valid:
    object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }"
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketTransport":true}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketTransport":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -197,30 +195,30 @@ exports[`options validate should throw an error on the "client" option with '{"w
        * options.client.webSocketTransport should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"hostname":""}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketURL":{"hostname":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL.hostname should be a non-empty string.
    -> Tells clients connected to devServer to use the provided hostname."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"hostname":true,"pathname":"","port":8080}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketURL":{"hostname":true,"pathname":"","port":8080}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL.hostname should be a non-empty string.
    -> Tells clients connected to devServer to use the provided hostname."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"pathname":true}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketURL":{"pathname":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL.pathname should be a string.
    -> Tells clients connected to devServer to use the provided path to connect."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":""}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketURL":{"port":""}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.webSocketURL.port should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketURL":{"port":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -235,7 +233,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
        * options.client.webSocketURL.port should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "client" option with '{"webSocketURL":{"username":123,"password":976}}' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with '{"webSocketURL":{"username":123,"password":976}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -248,7 +246,7 @@ exports[`options validate should throw an error on the "client" option with '{"w
       -> Tells clients connected to devServer to use the provided username to authenticate."
 `;
 
-exports[`options validate should throw an error on the "client" option with 'whoops!' value 1`] = `
+exports[`options > validate > should throw an error on the "client" option with 'whoops!' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client should be one of these:
    false | object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }
@@ -260,14 +258,14 @@ exports[`options validate should throw an error on the "client" option with 'who
       object { logging?, overlay?, progress?, reconnect?, webSocketTransport?, webSocketURL? }"
 `;
 
-exports[`options validate should throw an error on the "compress" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "compress" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.compress should be a boolean.
    -> Enables gzip compression for everything served.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devservercompress"
 `;
 
-exports[`options validate should throw an error on the "devMiddleware" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "devMiddleware" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.devMiddleware should be an object:
    object { … }
@@ -275,18 +273,18 @@ exports[`options validate should throw an error on the "devMiddleware" option wi
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverdevmiddleware"
 `;
 
-exports[`options validate should throw an error on the "headers" option with '[]' value 1`] = `
+exports[`options > validate > should throw an error on the "headers" option with '[]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be a non-empty array."
 `;
 
-exports[`options validate should throw an error on the "headers" option with '[{"foo":"bar"}]' value 1`] = `
+exports[`options > validate > should throw an error on the "headers" option with '[{"foo":"bar"}]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers[0] has an unknown property 'foo'. These properties are valid:
    object { key?, value? }"
 `;
 
-exports[`options validate should throw an error on the "headers" option with '1' value 1`] = `
+exports[`options > validate > should throw an error on the "headers" option with '1' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
    [object { key?, value? }, ...] (should not have fewer than 1 item) | object { … } | function
@@ -300,7 +298,7 @@ exports[`options validate should throw an error on the "headers" option with '1'
     * options.headers should be an instance of function."
 `;
 
-exports[`options validate should throw an error on the "headers" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "headers" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
    [object { key?, value? }, ...] (should not have fewer than 1 item) | object { … } | function
@@ -314,7 +312,7 @@ exports[`options validate should throw an error on the "headers" option with 'fa
     * options.headers should be an instance of function."
 `;
 
-exports[`options validate should throw an error on the "historyApiFallback" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "historyApiFallback" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.historyApiFallback should be one of these:
    boolean | object { … }
@@ -328,12 +326,12 @@ exports[`options validate should throw an error on the "historyApiFallback" opti
       -> Read more at https://github.com/bripkens/connect-history-api-fallback#options"
 `;
 
-exports[`options validate should throw an error on the "host" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "host" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.host should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "host" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "host" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.host should be one of these:
    "local-ip" | "local-ipv4" | "local-ipv6" | non-empty string
@@ -345,7 +343,7 @@ exports[`options validate should throw an error on the "host" option with 'false
     * options.host should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "host" option with 'null' value 1`] = `
+exports[`options > validate > should throw an error on the "host" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.host should be one of these:
    "local-ip" | "local-ipv4" | "local-ipv6" | non-empty string
@@ -357,7 +355,7 @@ exports[`options validate should throw an error on the "host" option with 'null'
     * options.host should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "hot" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "hot" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.hot should be one of these:
    boolean | "only"
@@ -368,7 +366,7 @@ exports[`options validate should throw an error on the "hot" option with '' valu
     * options.hot should be "only"."
 `;
 
-exports[`options validate should throw an error on the "hot" option with 'foo' value 1`] = `
+exports[`options > validate > should throw an error on the "hot" option with 'foo' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.hot should be one of these:
    boolean | "only"
@@ -379,7 +377,7 @@ exports[`options validate should throw an error on the "hot" option with 'foo' v
     * options.hot should be "only"."
 `;
 
-exports[`options validate should throw an error on the "ipc" option with '{}' value 1`] = `
+exports[`options > validate > should throw an error on the "ipc" option with '{}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.ipc should be one of these:
    non-empty string | true
@@ -391,7 +389,7 @@ exports[`options validate should throw an error on the "ipc" option with '{}' va
     * options.ipc should be true."
 `;
 
-exports[`options validate should throw an error on the "ipc" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "ipc" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.ipc should be one of these:
    non-empty string | true
@@ -402,26 +400,26 @@ exports[`options validate should throw an error on the "ipc" option with 'false'
     * options.ipc should be true."
 `;
 
-exports[`options validate should throw an error on the "liveReload" option with 'invalid' value 1`] = `
+exports[`options > validate > should throw an error on the "liveReload" option with 'invalid' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.liveReload should be a boolean.
    -> Enables reload/refresh the page(s) when file changes are detected (enabled by default).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverlivereload"
 `;
 
-exports[`options validate should throw an error on the "onListening" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "onListening" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.onListening should be an instance of function.
    -> Provides the ability to execute a custom function when dev server starts listening.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserveronlistening"
 `;
 
-exports[`options validate should throw an error on the "open" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "open" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.open should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "open" option with '{"app":true}' value 1`] = `
+exports[`options > validate > should throw an error on the "open" option with '{"app":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.open should be one of these:
    [non-empty string | object { target?, app? }, ...] | boolean | non-empty string | object { target?, app? }
@@ -438,13 +436,13 @@ exports[`options validate should throw an error on the "open" option with '{"app
          -> Open specified browser."
 `;
 
-exports[`options validate should throw an error on the "open" option with '{"foo":"bar"}' value 1`] = `
+exports[`options > validate > should throw an error on the "open" option with '{"foo":"bar"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.open has an unknown property 'foo'. These properties are valid:
    object { target?, app? }"
 `;
 
-exports[`options validate should throw an error on the "open" option with '{"target":90}' value 1`] = `
+exports[`options > validate > should throw an error on the "open" option with '{"target":90}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.open should be one of these:
    [non-empty string | object { target?, app? }, ...] | boolean | non-empty string | object { target?, app? }
@@ -460,22 +458,22 @@ exports[`options validate should throw an error on the "open" option with '{"tar
        * options.open.target should be a string."
 `;
 
-exports[`options validate should throw an error on the "port" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "port" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "port" option with '-1' value 1`] = `
+exports[`options > validate > should throw an error on the "port" option with '-1' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be >= 0 and <= 65535."
 `;
 
-exports[`options validate should throw an error on the "port" option with '65536' value 1`] = `
+exports[`options > validate > should throw an error on the "port" option with '65536' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be >= 0 and <= 65535."
 `;
 
-exports[`options validate should throw an error on the "port" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "port" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
    number (should be >= 0 and <= 65535) | non-empty string | "auto"
@@ -487,7 +485,7 @@ exports[`options validate should throw an error on the "port" option with 'false
     * options.port should be "auto"."
 `;
 
-exports[`options validate should throw an error on the "port" option with 'null' value 1`] = `
+exports[`options > validate > should throw an error on the "port" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.port should be one of these:
    number (should be >= 0 and <= 65535) | non-empty string | "auto"
@@ -499,7 +497,7 @@ exports[`options validate should throw an error on the "port" option with 'null'
     * options.port should be "auto"."
 `;
 
-exports[`options validate should throw an error on the "proxy" option with '() => {}' value 1`] = `
+exports[`options > validate > should throw an error on the "proxy" option with '() => {}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be an array:
    [object { … } | function, ...]
@@ -507,7 +505,7 @@ exports[`options validate should throw an error on the "proxy" option with '() =
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy"
 `;
 
-exports[`options validate should throw an error on the "proxy" option with '{"/api":"http://localhost:3000"}' value 1`] = `
+exports[`options > validate > should throw an error on the "proxy" option with '{"/api":"http://localhost:3000"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be an array:
    [object { … } | function, ...]
@@ -515,7 +513,7 @@ exports[`options validate should throw an error on the "proxy" option with '{"/a
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy"
 `;
 
-exports[`options validate should throw an error on the "proxy" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "proxy" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.proxy should be an array:
    [object { … } | function, ...]
@@ -523,13 +521,13 @@ exports[`options validate should throw an error on the "proxy" option with 'fals
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverproxy"
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","additional":"test"}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","additional":"test"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server has an unknown property 'additional'. These properties are valid:
    object { type?, options? }"
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"ca":true}}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","options":{"ca":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server should be one of these:
    "http" | "https" | "http2" | function | non-empty string | object { type?, options? }
@@ -546,7 +544,7 @@ exports[`options validate should throw an error on the "server" option with '{"t
        * options.server.options.ca should be an instance of Buffer."
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"cert":true}}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","options":{"cert":true}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server should be one of these:
    "http" | "https" | "http2" | function | non-empty string | object { type?, options? }
@@ -563,7 +561,7 @@ exports[`options validate should throw an error on the "server" option with '{"t
        * options.server.options.cert should be an instance of Buffer."
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"key":10}}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","options":{"key":10}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server should be one of these:
    "http" | "https" | "http2" | function | non-empty string | object { type?, options? }
@@ -580,13 +578,13 @@ exports[`options validate should throw an error on the "server" option with '{"t
        * options.server.options.key should be an instance of Buffer."
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"passphrase":false}}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","options":{"passphrase":false}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server.options.passphrase should be a string.
    -> Passphrase for a pfx file."
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"pfx":10}}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","options":{"pfx":10}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server should be one of these:
    "http" | "https" | "http2" | function | non-empty string | object { type?, options? }
@@ -603,46 +601,46 @@ exports[`options validate should throw an error on the "server" option with '{"t
        * options.server.options.pfx should be an instance of Buffer."
 `;
 
-exports[`options validate should throw an error on the "server" option with '{"type":"https","options":{"requestCert":"false"}}' value 1`] = `
+exports[`options > validate > should throw an error on the "server" option with '{"type":"https","options":{"requestCert":"false"}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.server.options.requestCert should be a boolean.
    -> Request for an SSL certificate."
 `;
 
-exports[`options validate should throw an error on the "setupMiddlewares" option with '10' value 1`] = `
+exports[`options > validate > should throw an error on the "setupMiddlewares" option with '10' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.setupMiddlewares should be an instance of function.
    -> Provides the ability to execute a custom function and apply custom middleware(s).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
 `;
 
-exports[`options validate should throw an error on the "setupMiddlewares" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "setupMiddlewares" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.setupMiddlewares should be an instance of function.
    -> Provides the ability to execute a custom function and apply custom middleware(s).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
 `;
 
-exports[`options validate should throw an error on the "setupMiddlewares" option with 'true' value 1`] = `
+exports[`options > validate > should throw an error on the "setupMiddlewares" option with 'true' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.setupMiddlewares should be an instance of function.
    -> Provides the ability to execute a custom function and apply custom middleware(s).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares"
 `;
 
-exports[`options validate should throw an error on the "static" option with '' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with '' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "static" option with '{"directory":false}' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with '{"directory":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static.directory should be a non-empty string.
    -> Directory for static contents.
    -> Read more at https://webpack.js.org/configuration/dev-server/#directory"
 `;
 
-exports[`options validate should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with '{"publicPath":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
@@ -659,7 +657,7 @@ exports[`options validate should throw an error on the "static" option with '{"p
        * options.static.publicPath should be a string."
 `;
 
-exports[`options validate should throw an error on the "static" option with '{"serveIndex":"true"}' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with '{"serveIndex":"true"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
@@ -676,7 +674,7 @@ exports[`options validate should throw an error on the "static" option with '{"s
          object { … }"
 `;
 
-exports[`options validate should throw an error on the "static" option with '{"watch":10}' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with '{"watch":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
@@ -695,7 +693,7 @@ exports[`options validate should throw an error on the "static" option with '{"w
          -> Read more at https://github.com/paulmillr/chokidar#api"
 `;
 
-exports[`options validate should throw an error on the "static" option with '0' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with '0' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
@@ -710,7 +708,7 @@ exports[`options validate should throw an error on the "static" option with '0' 
       object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
-exports[`options validate should throw an error on the "static" option with 'null' value 1`] = `
+exports[`options > validate > should throw an error on the "static" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
    [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
@@ -725,7 +723,7 @@ exports[`options validate should throw an error on the "static" option with 'nul
       object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
-exports[`options validate should throw an error on the "watchFiles" option with '{"options":false}' value 1`] = `
+exports[`options > validate > should throw an error on the "watchFiles" option with '{"options":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles.options should be an object:
    object { … }
@@ -733,7 +731,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
    -> Read more at https://github.com/paulmillr/chokidar#api"
 `;
 
-exports[`options validate should throw an error on the "watchFiles" option with '{"paths":false}' value 1`] = `
+exports[`options > validate > should throw an error on the "watchFiles" option with '{"paths":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles should be one of these:
    [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
@@ -749,7 +747,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
        * options.watchFiles.paths should be a non-empty string."
 `;
 
-exports[`options validate should throw an error on the "watchFiles" option with '123' value 1`] = `
+exports[`options > validate > should throw an error on the "watchFiles" option with '123' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles should be one of these:
    [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
@@ -763,7 +761,7 @@ exports[`options validate should throw an error on the "watchFiles" option with 
       object { paths?, options? }"
 `;
 
-exports[`options validate should throw an error on the "watchFiles" option with 'false' value 1`] = `
+exports[`options > validate > should throw an error on the "watchFiles" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.watchFiles should be one of these:
    [non-empty string | object { paths?, options? }, ...] | non-empty string | object { paths?, options? }
@@ -777,13 +775,13 @@ exports[`options validate should throw an error on the "watchFiles" option with 
       object { paths?, options? }"
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with '{"notAnOption":true}' value 1`] = `
+exports[`options > validate > should throw an error on the "webSocketServer" option with '{"notAnOption":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer has an unknown property 'notAnOption'. These properties are valid:
    object { type?, options? }"
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with '{"type":false}' value 1`] = `
+exports[`options > validate > should throw an error on the "webSocketServer" option with '{"type":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    false | "ws" | non-empty string | function | object { type?, options? }
@@ -798,7 +796,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
        * options.webSocketServer.type should be an instance of function."
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with '{"type":true}' value 1`] = `
+exports[`options > validate > should throw an error on the "webSocketServer" option with '{"type":true}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    false | "ws" | non-empty string | function | object { type?, options? }
@@ -813,7 +811,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
        * options.webSocketServer.type should be an instance of function."
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with 'null' value 1`] = `
+exports[`options > validate > should throw an error on the "webSocketServer" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    false | "ws" | non-empty string | function | object { type?, options? }
@@ -831,7 +829,7 @@ exports[`options validate should throw an error on the "webSocketServer" option 
       object { type?, options? }"
 `;
 
-exports[`options validate should throw an error on the "webSocketServer" option with 'true' value 1`] = `
+exports[`options > validate > should throw an error on the "webSocketServer" option with 'true' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.webSocketServer should be one of these:
    false | "ws" | non-empty string | function | object { type?, options? }
