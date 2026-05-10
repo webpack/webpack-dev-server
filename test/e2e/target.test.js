@@ -6,6 +6,10 @@ const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
+
+// Set up jsdom before loading fixtures that use browser APIs like Worker
+require("../helpers/jsdom-setup");
+
 const workerConfig = require("../fixtures/worker-config/webpack.config");
 const workerConfigDevServerFalse = require("../fixtures/worker-config-dev-server-false/webpack.config");
 const runBrowser = require("../helpers/run-browser");
