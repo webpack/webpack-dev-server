@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const { klona } = require("klona/full");
 const webpack = require("webpack");
 const Server = require("../lib/Server");
@@ -72,7 +74,7 @@ describe("normalize options", () => {
           type: "ws",
           options: {
             host: "127.0.0.1",
-            // TODO `jest` is freeze here
+            // TODO test freeze here
             // port: 43334,
             pathname: "/ws",
           },
@@ -91,7 +93,7 @@ describe("normalize options", () => {
           type: "ws",
           options: {
             host: "127.0.0.1",
-            // TODO `jest` is freeze here
+            // TODO test freeze here
             // port: "43335",
             pathname: "/ws",
           },
@@ -571,7 +573,7 @@ describe("normalize options", () => {
   ];
 
   for (const item of cases) {
-    it(item.title, async () => {
+    it(item.title, async (t) => {
       let webpackConfig;
 
       if (item.multiCompiler) {
@@ -624,7 +626,7 @@ describe("normalize options", () => {
             }
           }
 
-          expect(optionsForSnapshot).toMatchSnapshot();
+          t.assert.snapshot(optionsForSnapshot);
         }
       } finally {
         await server.stop();
