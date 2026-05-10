@@ -16,7 +16,7 @@ const otherPublicDirectory = path.resolve(staticDirectory, "other");
 const staticPublicPath = "/serve-content-at-this-url";
 const otherStaticPublicPath = "/serve-other-content-at-this-url";
 
-describe("static.publicPath option", { concurrency: 1 }, () => {
+describe("static.publicPath option", () => {
   describe("to directory", () => {
     let compiler;
     let server;

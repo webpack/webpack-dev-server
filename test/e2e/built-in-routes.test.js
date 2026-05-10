@@ -9,7 +9,7 @@ const multiConfig = require("../fixtures/multi-public-path-config/webpack.config
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").routes;
 
-describe("Built in routes", { concurrency: 1 }, () => {
+describe("Built in routes", () => {
   describe("with simple config", () => {
     let compiler;
     let server;

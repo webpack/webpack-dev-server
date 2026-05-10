@@ -9,7 +9,7 @@ const config = require("../fixtures/simple-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["headers-option"];
 
-describe("headers option", { concurrency: 1 }, () => {
+describe("headers option", () => {
   describe("as a string", () => {
     let compiler;
     let server;

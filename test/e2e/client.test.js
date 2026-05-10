@@ -9,7 +9,7 @@ const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map")["client-option"];
 
-describe("client option", { concurrency: 1 }, () => {
+describe("client option", () => {
   describe("default behaviour", () => {
     let compiler;
     let server;
