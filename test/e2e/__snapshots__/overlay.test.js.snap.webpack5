@@ -313,27 +313,6 @@ exports[`overlay > should not show initially, then show on an error, then show o
 
 exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 3`] = `
 "<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-
-  <iframe
-    id="webpack-dev-server-client-overlay"
-    src="about:blank"
-    style="
-      position: fixed;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 2147483647;
-    "
-  ></iframe>
-</body>
-"
-`;
-
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 4`] = `
-"<body>
   <div
     id="webpack-dev-server-client-overlay-div"
     style="
@@ -421,15 +400,28 @@ exports[`overlay > should not show initially, then show on an error, then show o
 "
 `;
 
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 5`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 4`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
 </body>
 "
 `;
 
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 6`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 5`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -514,6 +506,14 @@ exports[`overlay > should not show initially, then show on an error, then show o
       </div>
     </div>
   </div>
+</body>
+"
+`;
+
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 6`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
 </body>
 "
 `;
