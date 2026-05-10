@@ -8,7 +8,7 @@ const defaultLevel = "info";
 // options new options, merge with old options
 /**
  * @param {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} level level
- * @param {object} logger internal-only override for tests; defaults to the
+ * @param {Logger} logger internal-only override for tests; defaults to the
  * real webpack runtime logger
  * @returns {void}
  */

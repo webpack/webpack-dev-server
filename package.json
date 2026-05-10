@@ -35,9 +35,10 @@
     "build:client": "rimraf -g ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "build:types": "rimraf -g ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && node ./scripts/extend-webpack-types.js && prettier \"types/**/*.ts\" --write && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",
-    "test": "node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test --test-timeout=400000 --test-force-exit",
-    "test:coverage": "npm run test -- --experimental-test-coverage",
-    "test:watch": "npm run test -- --watch",
+    "test:only": "node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test --test-timeout=400000 --test-force-exit",
+    "test:coverage": "npm run test:only -- --experimental-test-coverage",
+    "test:watch": "npm run test:only -- --watch",
+    "test": "npm run test:coverage",
     "pretest": "npm run lint",
     "prepare": "husky && npm run build",
     "release": "standard-version"
