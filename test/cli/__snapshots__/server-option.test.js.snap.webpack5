@@ -1,6 +1,5 @@
 exports[`"server" CLI options > should work using "--no-server-options-request-cert" 1`] = `
-"<i> [webpack-dev-server] Generating SSL certificate...
-<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> Loopback: https://localhost:<port>/, https://<ip-v4>:<port>/, https://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -33,8 +32,7 @@ exports[`"server" CLI options > should work using "--server-options-key-reset --
 `;
 
 exports[`"server" CLI options > should work using "--server-options-request-cert" 1`] = `
-"<i> [webpack-dev-server] Generating SSL certificate...
-<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> Loopback: https://localhost:<port>/, https://<ip-v4>:<port>/, https://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
@@ -51,8 +49,7 @@ exports[`"server" CLI options > should work using "--server-type http" 1`] = `
 `;
 
 exports[`"server" CLI options > should work using "--server-type https" 1`] = `
-"<i> [webpack-dev-server] Generating SSL certificate...
-<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
+"<i> [webpack-dev-server] SSL certificate: <cwd>/node_modules/.cache/webpack-dev-server/server.pem
 <i> [webpack-dev-server] Project is running at:
 <i> Loopback: https://localhost:<port>/, https://<ip-v4>:<port>/, https://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): https://<ip-v4>:<port>/
