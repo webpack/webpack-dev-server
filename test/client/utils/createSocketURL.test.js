@@ -1,8 +1,9 @@
-/**
- * @jest-environment jsdom
- */
-
 "use strict";
+
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
+
+require("../../helpers/jsdom-setup");
 
 describe("'createSocketURL' function", () => {
   globalThis.__webpack_hash__ = "hash";
@@ -138,6 +139,10 @@ describe("'createSocketURL' function", () => {
       expect(createSocketURL(parsedURL)).toBe(expected);
     });
 
-    jest.resetModules();
+    // jest.resetModules() removed during migration to node:test.
+    // Replaced by clearing require cache for client-src modules.
+    for (const key of Object.keys(require.cache)) {
+      if (key.includes("/client-src/")) delete require.cache[key];
+    }
   }
 });

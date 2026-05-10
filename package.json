@@ -38,7 +38,7 @@
     "test:only": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:coverage": "npm run test:only -- --coverage",
     "test:watch": "npm run test:coverage --watch",
-    "test:node": "node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test --test-timeout=400000",
+    "test:node": "node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test --test-timeout=400000 --test-force-exit",
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
     "prepare": "husky && npm run build",

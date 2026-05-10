@@ -1,9 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 "use strict";
 
+require("../helpers/jsdom-setup");
+
+const { afterEach, beforeEach, describe, it, mock } = require("node:test");
+const { expect } = require("expect");
+const { fn, spyOn } = require("jest-mock");
 const { createOverlay } = require("../../client-src/overlay");
 
 describe("createOverlay", () => {
@@ -12,40 +13,40 @@ describe("createOverlay", () => {
 
   beforeEach(() => {
     globalThis.document = {
-      createElement: jest.fn(() => ({
+      createElement: fn(() => ({
         style: {},
-        appendChild: jest.fn(),
-        addEventListener: jest.fn(),
+        appendChild: fn(),
+        addEventListener: fn(),
         contentDocument: {
-          createElement: jest.fn(() => ({ style: {}, appendChild: jest.fn() })),
-          body: { appendChild: jest.fn() },
+          createElement: fn(() => ({ style: {}, appendChild: fn() })),
+          body: { appendChild: fn() },
         },
       })),
-      body: { appendChild: jest.fn(), removeChild: jest.fn() },
+      body: { appendChild: fn(), removeChild: fn() },
     };
     globalThis.window = {
       // Keep addEventListener mocked for other potential uses
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
+      addEventListener: fn(),
+      removeEventListener: fn(),
       // Mock trustedTypes
       trustedTypes: null,
       // Mock dispatchEvent
-      dispatchEvent: jest.fn(),
+      dispatchEvent: fn(),
     };
-    jest.useFakeTimers();
+    mock.timers.enable();
   });
 
   afterEach(() => {
     globalThis.document = originalDocument;
     globalThis.window = originalWindow;
-    jest.useRealTimers();
-    jest.clearAllMocks();
+    mock.timers.reset();
+    mock.reset();
   });
 
   it("should not show overlay for errors caught by React error boundaries", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const reactError = new Error(
       "Error inside React render\n" +
@@ -75,7 +76,7 @@ describe("createOverlay", () => {
   it("should show overlay for normal uncaught errors", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const regularError = new Error(
       "Error inside React render\n" +
@@ -107,7 +108,7 @@ describe("createOverlay", () => {
   it("should show overlay for normal uncaught errors (when null is thrown)", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const errorEvent = new ErrorEvent("error", {
       error: null,
@@ -133,7 +134,7 @@ describe("createOverlay", () => {
       catchRuntimeError: () => true,
     };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const regularError = new Error("Regular test error");
     const errorEvent = new ErrorEvent("error", {
@@ -160,7 +161,7 @@ describe("createOverlay", () => {
       catchRuntimeError: () => false,
     };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const regularError = new Error("Regular test error");
     const errorEvent = new ErrorEvent("error", {
@@ -176,7 +177,7 @@ describe("createOverlay", () => {
   it("should not show the overlay for errors with stack containing 'invokeGuardedCallbackDev'", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const reactInternalError = new Error("React internal error");
     reactInternalError.stack = "invokeGuardedCallbackDev\n at somefile.js";
@@ -193,7 +194,7 @@ describe("createOverlay", () => {
   it("should show overlay for unhandled rejections", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const rejectionReason = new Error("Promise rejection reason");
     const rejectionEvent = new Event("unhandledrejection");
@@ -216,7 +217,7 @@ describe("createOverlay", () => {
   it("should show overlay for unhandled rejections with string reason", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
     const rejectionEvent = new Event("unhandledrejection");
     rejectionEvent.reason = "some reason";
     globalThis.dispatchEvent(rejectionEvent);
@@ -237,7 +238,7 @@ describe("createOverlay", () => {
   it("should dismiss overlay when ESC key is pressed", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const escEvent = new KeyboardEvent("keydown", { key: "Escape" });
     globalThis.window.dispatchEvent(escEvent);
@@ -249,7 +250,7 @@ describe("createOverlay", () => {
   it("should dismiss overlay when 'Esc' key is pressed (older browsers)", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const escEvent = new KeyboardEvent("keydown", { key: "Esc" });
     globalThis.window.dispatchEvent(escEvent);
@@ -261,7 +262,7 @@ describe("createOverlay", () => {
   it("should not dismiss overlay for other keys", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
     const overlay = createOverlay(options);
-    const showOverlayMock = jest.spyOn(overlay, "send");
+    const showOverlayMock = spyOn(overlay, "send");
 
     const otherKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
     globalThis.window.dispatchEvent(otherKeyEvent);

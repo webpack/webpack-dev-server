@@ -1,8 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 "use strict";
+
+const { beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
+const { fn } = require("jest-mock");
+
+require("../helpers/jsdom-setup");
 
 describe("socket", () => {
   beforeEach(() => {
@@ -10,14 +12,14 @@ describe("socket", () => {
     jest.resetModules();
   });
 
-  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", () => {
+  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", (t) => {
     jest.mock("../../client/clients/WebSocketClient");
 
     const socket = require("../../client/socket").default;
     const WebsocketClient =
       require("../../client/clients/WebSocketClient").default;
 
-    const mockHandler = jest.fn();
+    const mockHandler = fn();
 
     socket("my.url", {
       example: mockHandler,
@@ -35,14 +37,14 @@ describe("socket", () => {
       }),
     );
 
-    expect(WebsocketClient.mock.calls[0]).toMatchSnapshot();
-    expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
-    expect(mockHandler.mock.calls).toMatchSnapshot();
+    t.assert.snapshot(WebsocketClient.mock.calls[0]);
+    t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
+    t.assert.snapshot(mockClientInstance.onClose.mock.calls);
+    t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
+    t.assert.snapshot(mockHandler.mock.calls);
   });
 
-  it("should use __webpack_dev_server_client__ when set", () => {
+  it("should use __webpack_dev_server_client__ when set", (t) => {
     jest.mock("../../client/clients/WebSocketClient");
 
     const socket = require("../../client/socket").default;
@@ -50,7 +52,7 @@ describe("socket", () => {
     globalThis.__webpack_dev_server_client__ =
       require("../../client/clients/WebSocketClient").default;
 
-    const mockHandler = jest.fn();
+    const mockHandler = fn();
 
     socket("my.url", {
       example: mockHandler,
@@ -69,13 +71,11 @@ describe("socket", () => {
       }),
     );
 
-    expect(
-      globalThis.__webpack_dev_server_client__.mock.calls[0],
-    ).toMatchSnapshot();
-    expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
-    expect(mockHandler.mock.calls).toMatchSnapshot();
+    t.assert.snapshot(globalThis.__webpack_dev_server_client__.mock.calls[0]);
+    t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
+    t.assert.snapshot(mockClientInstance.onClose.mock.calls);
+    t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
+    t.assert.snapshot(mockHandler.mock.calls);
   });
 
   it("should export initialized client", () => {

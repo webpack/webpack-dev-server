@@ -1,19 +1,25 @@
-/**
- * @jest-environment jsdom
- */
-
 "use strict";
+
+require("../../helpers/jsdom-setup");
+
+const { afterEach, beforeEach, describe, it, mock } = require("node:test");
+const { expect } = require("expect");
+const { fn } = require("jest-mock");
 
 describe("'log' function", () => {
   let logMock;
   let setLogLevel;
+  let runtimeMock;
 
   beforeEach(() => {
-    jest.setMock("webpack/lib/logging/runtime", {
-      getLogger: jest.fn(),
-      configureDefaultLogger: jest.fn(),
+    logMock = {
+      getLogger: fn(),
+      configureDefaultLogger: fn(),
+    };
+    runtimeMock = mock.module("webpack/lib/logging/runtime.js", {
+      defaultExport: logMock,
+      namedExports: logMock,
     });
-    logMock = require("webpack/lib/logging/runtime");
 
     setLogLevel = require("../../../client-src/utils/log").setLogLevel;
   });
@@ -21,6 +27,8 @@ describe("'log' function", () => {
   afterEach(() => {
     logMock.getLogger.mockClear();
     logMock.configureDefaultLogger.mockClear();
+    runtimeMock.restore();
+    delete require.cache[require.resolve("../../../client-src/utils/log")];
   });
 
   it("should set info as the default level and create logger", () => {
@@ -36,11 +44,11 @@ describe("'log' function", () => {
     expect(getLogger.mock.calls[0][0]).toBe("webpack-dev-server");
   });
 
-  it("should set log level via setLogLevel", () => {
+  it("should set log level via setLogLevel", (t) => {
     for (const level of ["none", "error", "warn", "info", "log", "verbose"]) {
       setLogLevel(level);
     }
 
-    expect(logMock.configureDefaultLogger.mock.calls).toMatchSnapshot();
+    t.assert.snapshot(logMock.configureDefaultLogger.mock.calls);
   });
 });

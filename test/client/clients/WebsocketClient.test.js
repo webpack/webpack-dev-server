@@ -1,18 +1,23 @@
+"use strict";
+
 /**
  * @jest-environment jsdom
  * @jest-environment-options { "customExportConditions": ["main"] }
  */
 
-"use strict";
+require("../../helpers/jsdom-setup");
 
 const http = require("node:http");
+const { after, before, describe, it } = require("node:test");
+const { expect } = require("expect");
 const express = require("express");
+const { fn } = require("jest-mock");
 const ws = require("ws");
 const port = require("../../ports-map")["web-socket-client"];
 
 jest.setMock("../../../client-src/utils/log", {
   log: {
-    error: jest.fn(),
+    error: fn(),
   },
 });
 
@@ -24,7 +29,7 @@ describe("WebsocketClient", () => {
   let socketServer;
   let server;
 
-  beforeAll((done) => {
+  before((done) => {
     // eslint-disable-next-line new-cap
     const app = new express();
 
@@ -68,15 +73,15 @@ describe("WebsocketClient", () => {
       expect(log.error.mock.calls).toHaveLength(1);
       expect(log.error.mock.calls[0]).toEqual([testError]);
 
-      setTimeout(() => {
-        expect(data).toMatchSnapshot();
+      setTimeout((t) => {
+        t.assert.snapshot(data);
 
         done();
       }, 3000);
     });
   });
 
-  afterAll((done) => {
+  after((done) => {
     server.close(() => {
       done();
     });
