@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { spawn } from "node:child_process";
 import { glob } from "node:fs/promises";
 import path from "node:path";
@@ -43,6 +41,6 @@ child.on("exit", (code, signal) => {
   if (signal) {
     process.kill(process.pid, signal);
   } else {
-    process.exit(code ?? 1);
+    process.exitCode = code ?? 1;
   }
 });

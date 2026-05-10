@@ -8,11 +8,6 @@ declare interface CommunicationClientConstructor {
   new (url: string): CommunicationClient; // Defines a constructor that takes a string and returns a GreeterInstance
 }
 
-declare interface Logger {
-  configureDefaultLogger(options: { level: string }): void;
-  getLogger(name: string): any;
-}
-
 declare const __webpack_dev_server_client__:
   | CommunicationClientConstructor
   | { default: CommunicationClientConstructor }

@@ -2,7 +2,7 @@
 
 require("../helpers/jsdom-setup");
 
-const { beforeEach, describe, it } = require("node:test");
+const { beforeEach, describe, it, mock } = require("node:test");
 const { expect } = require("expect");
 const { fn } = require("jest-mock");
 
@@ -37,34 +37,44 @@ describe("socket", () => {
     socket = require("../../client-src/socket").default;
   });
 
-  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", (t) => {
+  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", async (t) => {
     const MockClient = createMockClient();
-    const mockHandler = fn();
-
-    socket(
-      "my.url",
+    const webSocketClientMock = mock.module(
+      "../../client-src/clients/WebSocketClient.js",
       {
-        example: mockHandler,
+        defaultExport: MockClient,
       },
-      undefined,
-      MockClient,
     );
 
-    const [mockClientInstance] = MockClient.mock.instances;
+    try {
+      const freshSocket = (
+        await import(`../../client-src/socket.js?t=${Date.now()}`)
+      ).default;
 
-    mockClientInstance.onMessage.mock.calls[0][0](
-      JSON.stringify({
-        type: "example",
-        data: "hello world",
-        params: { foo: "bar" },
-      }),
-    );
+      const mockHandler = fn();
 
-    t.assert.snapshot(MockClient.mock.calls[0]);
-    t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
-    t.assert.snapshot(mockClientInstance.onClose.mock.calls);
-    t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
-    t.assert.snapshot(mockHandler.mock.calls);
+      freshSocket("my.url", {
+        example: mockHandler,
+      });
+
+      const [mockClientInstance] = MockClient.mock.instances;
+
+      mockClientInstance.onMessage.mock.calls[0][0](
+        JSON.stringify({
+          type: "example",
+          data: "hello world",
+          params: { foo: "bar" },
+        }),
+      );
+
+      t.assert.snapshot(MockClient.mock.calls[0]);
+      t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
+      t.assert.snapshot(mockClientInstance.onClose.mock.calls);
+      t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
+      t.assert.snapshot(mockHandler.mock.calls);
+    } finally {
+      webSocketClientMock.restore();
+    }
   });
 
   it("should use __webpack_dev_server_client__ when set", (t) => {
@@ -73,7 +83,6 @@ describe("socket", () => {
 
     const mockHandler = fn();
 
-    // Call without 4th arg so the runtime resolves Client from the global.
     socket("my.url", {
       example: mockHandler,
     });
@@ -98,7 +107,8 @@ describe("socket", () => {
 
   it("should export initialized client", () => {
     const MockClient = createMockClient();
-    socket("my.url", {}, undefined, MockClient);
+    globalThis.__webpack_dev_server_client__ = MockClient;
+    socket("my.url", {});
 
     const initializedInstance = require("../../client-src/socket").client;
 

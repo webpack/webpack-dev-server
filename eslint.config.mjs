@@ -35,7 +35,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["scripts/node-test-setup.mjs"],
+    files: ["scripts/node-test-setup.mjs", "scripts/run-tests.mjs"],
     rules: {
       "n/no-unsupported-features/node-builtins": "off",
     },

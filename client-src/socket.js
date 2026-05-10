@@ -41,10 +41,9 @@ let timeout;
  * @param {string} url url
  * @param {{ [handler: string]: (data?: EXPECTED_ANY, params?: EXPECTED_ANY) => EXPECTED_ANY }} handlers handlers
  * @param {number=} reconnect count of reconnections
- * @param {CommunicationClientConstructor} Client internal-only override
- * or tests; defaults to the runtime-resolved client constructor
  */
-function socket(url, handlers, reconnect, Client = resolveClient()) {
+function socket(url, handlers, reconnect) {
+  const Client = resolveClient();
   client = new Client(url);
 
   client.onOpen(() => {
