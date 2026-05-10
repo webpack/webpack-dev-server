@@ -5,12 +5,7 @@ import webpack from "webpack";
 
 process.env.CHOKIDAR_USEPOLLING = "true";
 
-// Match Jest's snapshot serialization defaults so existing snapshots stay
-// byte-for-byte compatible:
-//   - jest-snapshot.serialize() hardcodes: escapeRegex: true, printFunctionName: false
-//   - jest-config defaults snapshotFormat to: { escapeString: false, printBasicPrototype: false }
-//   - jest-snapshot normalizes "\r\n" and "\r" to "\n" so snapshots are
-//     platform-agnostic; we mirror that here for Windows compatibility.
+// Normalize "\r\n" and "\r" to "\n" so snapshots are platform-agnostic.
 snapshot.setDefaultSnapshotSerializers([
   (value) =>
     format(value, {

@@ -208,8 +208,8 @@ describe("index", () => {
   });
 
   it("should parse overlay options from resource query", async () => {
-    // Helper that re-evaluates client-src/index.js fresh after mutating
-    // __resourceQuery — equivalent to Jest's jest.isolateModules.
+    // Re-evaluate client-src/index.js fresh after mutating __resourceQuery so
+    // top-level option parsing runs again.
     async function reloadClient() {
       overlay.send.mockReset();
       socket.mockReset();

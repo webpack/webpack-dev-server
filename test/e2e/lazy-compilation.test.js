@@ -10,7 +10,7 @@ const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["lazy-compilation"];
 
 describe("lazy compilation", () => {
-  // TODO jest freeze due webpack do not close `eventsource`, we should uncomment this after fix it on webpack side
+  // TODO freezes because webpack doesn't close `eventsource`, uncomment once fixed upstream
   it.skip("should work with single entry", async (t) => {
     const compiler = webpack(lazyCompilationSingleEntryConfig);
     const server = new Server({ port }, compiler);

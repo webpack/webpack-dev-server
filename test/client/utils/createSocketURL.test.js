@@ -139,8 +139,7 @@ describe("'createSocketURL' function", () => {
       expect(createSocketURL(parsedURL)).toBe(expected);
     });
 
-    // jest.resetModules() removed during migration to node:test.
-    // Replaced by clearing require cache for client-src modules.
+    // Reset between cases so top-level state in client-src doesn't bleed.
     for (const key of Object.keys(require.cache)) {
       if (key.includes("/client-src/")) delete require.cache[key];
     }

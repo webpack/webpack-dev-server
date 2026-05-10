@@ -9,7 +9,7 @@ const { fn } = require("jest-mock");
 /**
  * Build a fresh mock WebSocketClient class. Each `new MockClient(url)`
  * registers the instance and arguments on the static `.mock` so tests can
- * assert (matching the shape Jest's auto-mock produces).
+ * assert on them.
  * @returns {new (url: string) => unknown} mock client constructor
  */
 function createMockClient() {

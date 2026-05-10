@@ -8,11 +8,6 @@ const { spyOn } = require("jest-mock");
 const { createOverlay } = require("../../client-src/overlay");
 
 describe("createOverlay", () => {
-  // Use the real jsdom window/document (set up via test/helpers/jsdom-setup).
-  // The previous Jest version installed fake document/window stubs because
-  // jsdom's jest environment behaved differently; with the helper here,
-  // real EventTarget semantics let the source's window.addEventListener +
-  // globalThis.dispatchEvent path work directly.
   beforeEach(() => {
     mock.timers.enable();
   });
