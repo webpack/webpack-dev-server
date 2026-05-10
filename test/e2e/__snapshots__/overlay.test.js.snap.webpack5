@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`overlay should not show a warning when "client.overlay" is "false": page html 1`] = `
+exports[`overlay > should not show a warning when "client.overlay" is "false" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -8,7 +6,7 @@ exports[`overlay should not show a warning when "client.overlay" is "false": pag
 "
 `;
 
-exports[`overlay should not show a warning when "client.overlay.warnings" is "false": page html 1`] = `
+exports[`overlay > should not show a warning when "client.overlay.warnings" is "false" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -16,7 +14,7 @@ exports[`overlay should not show a warning when "client.overlay.warnings" is "fa
 "
 `;
 
-exports[`overlay should not show an error when "client.overlay" is "false": page html 1`] = `
+exports[`overlay > should not show an error when "client.overlay" is "false" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -24,7 +22,7 @@ exports[`overlay should not show an error when "client.overlay" is "false": page
 "
 `;
 
-exports[`overlay should not show an error when "client.overlay.errors" is "false": page html 1`] = `
+exports[`overlay > should not show an error when "client.overlay.errors" is "false" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -32,96 +30,7 @@ exports[`overlay should not show an error when "client.overlay.errors" is "false
 "
 `;
 
-exports[`overlay should not show initially, then show on an error and allow to close: overlay html 1`] = `
-"<body>
-  <div
-    id="webpack-dev-server-client-overlay-div"
-    style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    "
-  >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label="Dismiss"
-      style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      "
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          data-can-open="true"
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-            cursor: pointer;
-          "
-        >
-          ERROR in ./foo.js 1:1
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Module parse failed: Unterminated template (1:1) You may need an
-          appropriate loader to handle this file type, currently no loaders are
-          configured to process this file. See
-          https://webpack.js.org/concepts#loaders &gt; \`;
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-"
-`;
-
-exports[`overlay should not show initially, then show on an error and allow to close: page html after close 1`] = `
+exports[`overlay > should not show initially, then show on an error and allow to close 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -129,15 +38,7 @@ exports[`overlay should not show initially, then show on an error and allow to c
 "
 `;
 
-exports[`overlay should not show initially, then show on an error and allow to close: page html initial 1`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-</body>
-"
-`;
-
-exports[`overlay should not show initially, then show on an error and allow to close: page html with error 1`] = `
+exports[`overlay > should not show initially, then show on an error and allow to close 2`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -158,7 +59,7 @@ exports[`overlay should not show initially, then show on an error and allow to c
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then hide on fix: overlay html 1`] = `
+exports[`overlay > should not show initially, then show on an error and allow to close 3`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -247,7 +148,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then hide on fix: page html after fix error 1`] = `
+exports[`overlay > should not show initially, then show on an error and allow to close 4`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -255,7 +156,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then hide on fix: page html initial 1`] = `
+exports[`overlay > should not show initially, then show on an error, then hide on fix 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -263,7 +164,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then hide on fix: page html with error 1`] = `
+exports[`overlay > should not show initially, then show on an error, then hide on fix 2`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -284,7 +185,7 @@ exports[`overlay should not show initially, then show on an error, then hide on 
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: overlay html 1`] = `
+exports[`overlay > should not show initially, then show on an error, then hide on fix 3`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -373,7 +274,154 @@ exports[`overlay should not show initially, then show on an error, then show oth
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: overlay html 2`] = `
+exports[`overlay > should not show initially, then show on an error, then hide on fix 4`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+</body>
+"
+`;
+
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 1`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+</body>
+"
+`;
+
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 2`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 3`] = `
+"<body>
+  <div
+    id="webpack-dev-server-client-overlay-div"
+    style="
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      font-size: large;
+      padding: 2rem 2rem 4rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+    "
+  >
+    <div
+      style="
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
+      "
+    >
+      Compiled with problems:
+    </div>
+    <button
+      aria-label="Dismiss"
+      style="
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      "
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style="
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        "
+      >
+        <div
+          data-can-open="true"
+          style="
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            cursor: pointer;
+          "
+        >
+          ERROR in ./foo.js 1:1
+        </div>
+        <div
+          style="
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          "
+        >
+          Module parse failed: Unterminated template (1:1) You may need an
+          appropriate loader to handle this file type, currently no loaders are
+          configured to process this file. See
+          https://webpack.js.org/concepts#loaders &gt; \`;
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 4`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 5`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -462,7 +510,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html after fix error 1`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 6`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -470,7 +518,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html initial 1`] = `
+exports[`overlay > should not show overlay when Trusted Types are enabled, but policy is not allowed 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -478,28 +526,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
 "
 `;
 
-exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with error 1`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-
-  <iframe
-    id="webpack-dev-server-client-overlay"
-    src="about:blank"
-    style="
-      position: fixed;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 2147483647;
-    "
-  ></iframe>
-</body>
-"
-`;
-
-exports[`overlay should not show initially, then show on an error, then show other error, then hide on fix: page html with other error 1`] = `
+exports[`overlay > should show a warning after invalidation 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -520,15 +547,7 @@ exports[`overlay should not show initially, then show on an error, then show oth
 "
 `;
 
-exports[`overlay should not show overlay when Trusted Types are enabled, but policy is not allowed: page html 1`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-</body>
-"
-`;
-
-exports[`overlay should show a warning after invalidation: overlay html 1`] = `
+exports[`overlay > should show a warning after invalidation 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -612,7 +631,7 @@ exports[`overlay should show a warning after invalidation: overlay html 1`] = `
 "
 `;
 
-exports[`overlay should show a warning after invalidation: page html 1`] = `
+exports[`overlay > should show a warning and error for initial compilation 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -633,7 +652,220 @@ exports[`overlay should show a warning after invalidation: page html 1`] = `
 "
 `;
 
-exports[`overlay should show a warning and error for initial compilation and protects against xss: overlay html 1`] = `
+exports[`overlay > should show a warning and error for initial compilation 2`] = `
+"<body>
+  <div
+    id="webpack-dev-server-client-overlay-div"
+    style="
+      position: fixed;
+      box-sizing: border-box;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      font-size: large;
+      padding: 2rem 2rem 4rem;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+    "
+  >
+    <div
+      style="
+        color: rgb(232, 59, 70);
+        font-size: 2em;
+        white-space: pre-wrap;
+        font-family: sans-serif;
+        margin: 0px 2rem 2rem 0px;
+        flex: 0 0 auto;
+        max-height: 50%;
+        overflow: auto;
+      "
+    >
+      Compiled with problems:
+    </div>
+    <button
+      aria-label="Dismiss"
+      style="
+        color: rgb(255, 255, 255);
+        line-height: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+      "
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style="
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        "
+      >
+        <div
+          style="
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          "
+        >
+          ERROR
+        </div>
+        <div
+          style="
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          "
+        >
+          Warning from compilation
+        </div>
+      </div>
+      <div
+        style="
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        "
+      >
+        <div
+          style="
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          "
+        >
+          ERROR
+        </div>
+        <div
+          style="
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          "
+        >
+          Warning from compilation
+        </div>
+      </div>
+      <div
+        style="
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        "
+      >
+        <div
+          style="
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          "
+        >
+          ERROR
+        </div>
+        <div
+          style="
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          "
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
+      </div>
+      <div
+        style="
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        "
+      >
+        <div
+          style="
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          "
+        >
+          ERROR
+        </div>
+        <div
+          style="
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          "
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
+      </div>
+      <div
+        style="
+          background-color: rgba(206, 17, 38, 0.1);
+          color: rgb(252, 207, 207);
+          padding: 1rem 1rem 1.5rem;
+        "
+      >
+        <div
+          style="
+            color: rgb(232, 59, 70);
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+          "
+        >
+          ERROR
+        </div>
+        <div
+          style="
+            line-height: 1.5;
+            font-size: 1rem;
+            font-family: Menlo, Consolas, monospace;
+          "
+        >
+          Error from compilation. Can't find 'test' module.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay > should show a warning and error for initial compilation and protects against xss 1`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay > should show a warning and error for initial compilation and protects against xss 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -744,7 +976,7 @@ exports[`overlay should show a warning and error for initial compilation and pro
 "
 `;
 
-exports[`overlay should show a warning and error for initial compilation and protects against xss: page html 1`] = `
+exports[`overlay > should show a warning and hide them after closing connection 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -765,220 +997,7 @@ exports[`overlay should show a warning and error for initial compilation and pro
 "
 `;
 
-exports[`overlay should show a warning and error for initial compilation: overlay html 1`] = `
-"<body>
-  <div
-    id="webpack-dev-server-client-overlay-div"
-    style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
-      white-space: pre-wrap;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-    "
-  >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
-    <button
-      aria-label="Dismiss"
-      style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
-        border: none;
-      "
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-"
-`;
-
-exports[`overlay should show a warning and error for initial compilation: page html 1`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-
-  <iframe
-    id="webpack-dev-server-client-overlay"
-    src="about:blank"
-    style="
-      position: fixed;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 2147483647;
-    "
-  ></iframe>
-</body>
-"
-`;
-
-exports[`overlay should show a warning and hide them after closing connection: overlay html 1`] = `
+exports[`overlay > should show a warning and hide them after closing connection 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1062,7 +1081,15 @@ exports[`overlay should show a warning and hide them after closing connection: o
 "
 `;
 
-exports[`overlay should show a warning and hide them after closing connection: page html 1`] = `
+exports[`overlay > should show a warning and hide them after closing connection 3`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+</body>
+"
+`;
+
+exports[`overlay > should show a warning for initial compilation 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1083,15 +1110,7 @@ exports[`overlay should show a warning and hide them after closing connection: p
 "
 `;
 
-exports[`overlay should show a warning and hide them after closing connection: page html 2`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-</body>
-"
-`;
-
-exports[`overlay should show a warning for initial compilation: overlay html 1`] = `
+exports[`overlay > should show a warning for initial compilation 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1175,7 +1194,7 @@ exports[`overlay should show a warning for initial compilation: overlay html 1`]
 "
 `;
 
-exports[`overlay should show a warning for initial compilation: page html 1`] = `
+exports[`overlay > should show a warning when "client.overlay" is "true" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1196,7 +1215,7 @@ exports[`overlay should show a warning for initial compilation: page html 1`] = 
 "
 `;
 
-exports[`overlay should show a warning when "client.overlay" is "true": overlay html 1`] = `
+exports[`overlay > should show a warning when "client.overlay" is "true" 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1280,7 +1299,7 @@ exports[`overlay should show a warning when "client.overlay" is "true": overlay 
 "
 `;
 
-exports[`overlay should show a warning when "client.overlay" is "true": page html 1`] = `
+exports[`overlay > should show a warning when "client.overlay.errors" is "true" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1301,7 +1320,7 @@ exports[`overlay should show a warning when "client.overlay" is "true": page htm
 "
 `;
 
-exports[`overlay should show a warning when "client.overlay.errors" is "true": overlay html 1`] = `
+exports[`overlay > should show a warning when "client.overlay.errors" is "true" 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1385,7 +1404,7 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": o
 "
 `;
 
-exports[`overlay should show a warning when "client.overlay.errors" is "true": page html 1`] = `
+exports[`overlay > should show a warning when "client.overlay.warnings" is "true" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1406,7 +1425,7 @@ exports[`overlay should show a warning when "client.overlay.errors" is "true": p
 "
 `;
 
-exports[`overlay should show a warning when "client.overlay.warnings" is "true": overlay html 1`] = `
+exports[`overlay > should show a warning when "client.overlay.warnings" is "true" 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1490,7 +1509,7 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
 "
 `;
 
-exports[`overlay should show a warning when "client.overlay.warnings" is "true": page html 1`] = `
+exports[`overlay > should show an ansi formatted error for initial compilation 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1511,7 +1530,7 @@ exports[`overlay should show a warning when "client.overlay.warnings" is "true":
 "
 `;
 
-exports[`overlay should show an ansi formatted error for initial compilation: overlay html 1`] = `
+exports[`overlay > should show an ansi formatted error for initial compilation 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1606,7 +1625,7 @@ exports[`overlay should show an ansi formatted error for initial compilation: ov
 "
 `;
 
-exports[`overlay should show an ansi formatted error for initial compilation: page html 1`] = `
+exports[`overlay > should show an error after invalidation 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1627,7 +1646,7 @@ exports[`overlay should show an ansi formatted error for initial compilation: pa
 "
 `;
 
-exports[`overlay should show an error after invalidation: overlay html 1`] = `
+exports[`overlay > should show an error after invalidation 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1711,7 +1730,7 @@ exports[`overlay should show an error after invalidation: overlay html 1`] = `
 "
 `;
 
-exports[`overlay should show an error after invalidation: page html 1`] = `
+exports[`overlay > should show an error for initial compilation 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1732,7 +1751,7 @@ exports[`overlay should show an error after invalidation: page html 1`] = `
 "
 `;
 
-exports[`overlay should show an error for initial compilation: overlay html 1`] = `
+exports[`overlay > should show an error for initial compilation 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1816,7 +1835,7 @@ exports[`overlay should show an error for initial compilation: overlay html 1`] 
 "
 `;
 
-exports[`overlay should show an error for initial compilation: page html 1`] = `
+exports[`overlay > should show an error when "client.overlay" is "true" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1837,7 +1856,7 @@ exports[`overlay should show an error for initial compilation: page html 1`] = `
 "
 `;
 
-exports[`overlay should show an error when "client.overlay" is "true": overlay html 1`] = `
+exports[`overlay > should show an error when "client.overlay" is "true" 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1921,7 +1940,7 @@ exports[`overlay should show an error when "client.overlay" is "true": overlay h
 "
 `;
 
-exports[`overlay should show an error when "client.overlay" is "true": page html 1`] = `
+exports[`overlay > should show an error when "client.overlay.errors" is "true" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1942,7 +1961,7 @@ exports[`overlay should show an error when "client.overlay" is "true": page html
 "
 `;
 
-exports[`overlay should show an error when "client.overlay.errors" is "true": overlay html 1`] = `
+exports[`overlay > should show an error when "client.overlay.errors" is "true" 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2026,7 +2045,7 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": ov
 "
 `;
 
-exports[`overlay should show an error when "client.overlay.errors" is "true": page html 1`] = `
+exports[`overlay > should show an error when "client.overlay.warnings" is "true" 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -2047,7 +2066,7 @@ exports[`overlay should show an error when "client.overlay.errors" is "true": pa
 "
 `;
 
-exports[`overlay should show an error when "client.overlay.warnings" is "true": overlay html 1`] = `
+exports[`overlay > should show an error when "client.overlay.warnings" is "true" 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2131,28 +2150,7 @@ exports[`overlay should show an error when "client.overlay.warnings" is "true": 
 "
 `;
 
-exports[`overlay should show an error when "client.overlay.warnings" is "true": page html 1`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-
-  <iframe
-    id="webpack-dev-server-client-overlay"
-    src="about:blank"
-    style="
-      position: fixed;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 2147483647;
-    "
-  ></iframe>
-</body>
-"
-`;
-
-exports[`overlay should show error for uncaught promise rejection: overlay html 1`] = `
+exports[`overlay > should show error for uncaught promise rejection 1`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2236,7 +2234,7 @@ exports[`overlay should show error for uncaught promise rejection: overlay html 
 "
 `;
 
-exports[`overlay should show error for uncaught runtime error: overlay html 1`] = `
+exports[`overlay > should show error for uncaught runtime error 1`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2321,7 +2319,28 @@ exports[`overlay should show error for uncaught runtime error: overlay html 1`] 
 "
 `;
 
-exports[`overlay should show error when it is not filtered: overlay html 1`] = `
+exports[`overlay > should show error when it is not filtered 1`] = `
+"<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay > should show error when it is not filtered 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2405,7 +2424,7 @@ exports[`overlay should show error when it is not filtered: overlay html 1`] = `
 "
 `;
 
-exports[`overlay should show error when it is not filtered: page html 1`] = `
+exports[`overlay > should show overlay when "Content-Security-Policy" is "default-src 'self'" was used 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -2426,7 +2445,7 @@ exports[`overlay should show error when it is not filtered: page html 1`] = `
 "
 `;
 
-exports[`overlay should show overlay when "Content-Security-Policy" is "default-src 'self'" was used: overlay html 1`] = `
+exports[`overlay > should show overlay when "Content-Security-Policy" is "default-src 'self'" was used 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2510,7 +2529,7 @@ exports[`overlay should show overlay when "Content-Security-Policy" is "default-
 "
 `;
 
-exports[`overlay should show overlay when "Content-Security-Policy" is "default-src 'self'" was used: page html 1`] = `
+exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -2531,7 +2550,7 @@ exports[`overlay should show overlay when "Content-Security-Policy" is "default-
 "
 `;
 
-exports[`overlay should show overlay when Trusted Types are enabled and the "require-trusted-types-for 'script'" header was used: overlay html 1`] = `
+exports[`overlay > should show overlay when Trusted Types are enabled 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2615,7 +2634,7 @@ exports[`overlay should show overlay when Trusted Types are enabled and the "req
 "
 `;
 
-exports[`overlay should show overlay when Trusted Types are enabled and the "require-trusted-types-for 'script'" header was used: page html 1`] = `
+exports[`overlay > should show overlay when Trusted Types are enabled and the "require-trusted-types-for 'script'" header was used 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -2636,7 +2655,7 @@ exports[`overlay should show overlay when Trusted Types are enabled and the "req
 "
 `;
 
-exports[`overlay should show overlay when Trusted Types are enabled: overlay html 1`] = `
+exports[`overlay > should show overlay when Trusted Types are enabled and the "require-trusted-types-for 'script'" header was used 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2720,7 +2739,7 @@ exports[`overlay should show overlay when Trusted Types are enabled: overlay htm
 "
 `;
 
-exports[`overlay should show overlay when Trusted Types are enabled: page html 1`] = `
+exports[`overlay > should show warning when it is not filtered 1`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -2741,7 +2760,7 @@ exports[`overlay should show overlay when Trusted Types are enabled: page html 1
 "
 `;
 
-exports[`overlay should show warning when it is not filtered: overlay html 1`] = `
+exports[`overlay > should show warning when it is not filtered 2`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -2821,27 +2840,6 @@ exports[`overlay should show warning when it is not filtered: overlay html 1`] =
       </div>
     </div>
   </div>
-</body>
-"
-`;
-
-exports[`overlay should show warning when it is not filtered: page html 1`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-
-  <iframe
-    id="webpack-dev-server-client-overlay"
-    src="about:blank"
-    style="
-      position: fixed;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 2147483647;
-    "
-  ></iframe>
 </body>
 "
 `;

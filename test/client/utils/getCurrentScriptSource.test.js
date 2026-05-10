@@ -1,8 +1,9 @@
-/**
- * @jest-environment jsdom
- */
-
 "use strict";
+
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
+
+require("../../helpers/jsdom-setup");
 
 describe("'getCurrentScriptSource' function", () => {
   let getCurrentScriptSource;
@@ -26,11 +27,11 @@ describe("'getCurrentScriptSource' function", () => {
     });
   });
 
-  it("should fail when 'document.currentScript' doesn't exist and no 'script' tags", () => {
+  it("should fail when 'document.currentScript' doesn't exist and no 'script' tags", (t) => {
     try {
       getCurrentScriptSource();
     } catch (error) {
-      expect(error).toMatchSnapshot();
+      t.assert.snapshot(error);
     }
   });
 
@@ -46,7 +47,7 @@ describe("'getCurrentScriptSource' function", () => {
     expect(getCurrentScriptSource()).toBe("foo");
   });
 
-  it("should fail when 'document.scripts' doesn't exist and no scripts", () => {
+  it("should fail when 'document.scripts' doesn't exist and no scripts", (t) => {
     Object.defineProperty(document, "scripts", {
       value: undefined,
       writable: true,
@@ -55,7 +56,7 @@ describe("'getCurrentScriptSource' function", () => {
     try {
       getCurrentScriptSource();
     } catch (error) {
-      expect(error).toMatchSnapshot();
+      t.assert.snapshot(error);
     }
   });
 
@@ -75,7 +76,7 @@ describe("'getCurrentScriptSource' function", () => {
     expect(getCurrentScriptSource()).toBe("bar");
   });
 
-  it("should fail when no scripts with the 'scr' attribute", () => {
+  it("should fail when no scripts with the 'scr' attribute", (t) => {
     const elements = ["foo", "bar"].map(() => document.createElement("script"));
 
     Object.defineProperty(document, "scripts", {
@@ -85,7 +86,7 @@ describe("'getCurrentScriptSource' function", () => {
     try {
       getCurrentScriptSource();
     } catch (error) {
-      expect(error).toMatchSnapshot();
+      t.assert.snapshot(error);
     }
   });
 });

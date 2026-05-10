@@ -159,7 +159,7 @@ const normalizeStderr = (stderr, options = {}) => {
     // We have deprecation warning on windows in some cases
     normalizedStderr = normalizedStderr.split("\n");
     normalizedStderr = normalizedStderr.filter(
-      (item) => !/Generating SSL Certificate/g.test(item),
+      (item) => !/Generating SSL certificate/gi.test(item),
     );
     normalizedStderr = normalizedStderr.filter(
       (item) =>

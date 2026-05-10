@@ -1,5 +1,8 @@
 "use strict";
 
+const { describe, test } = require("node:test");
+
+const { spyOn } = require("jest-mock");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -7,7 +10,7 @@ const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").stats;
 
-jest.spyOn(globalThis.console, "log").mockImplementation();
+spyOn(globalThis.console, "log").mockImplementation();
 
 describe("stats", () => {
   const cases = [
@@ -108,7 +111,7 @@ describe("stats", () => {
   }
 
   for (const testCase of cases) {
-    it(testCase.title, async () => {
+    test(testCase.title, async (t) => {
       const compiler = webpack({ ...config, ...testCase.webpackOptions });
       const devServerOptions = {
         port,
@@ -130,9 +133,7 @@ describe("stats", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot();
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
       } finally {
         await browser.close();
         await server.stop();

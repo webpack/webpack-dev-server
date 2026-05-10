@@ -1,6 +1,8 @@
 "use strict";
 
 const http = require("node:http");
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -71,7 +73,7 @@ describe("host", () => {
   ];
 
   for (const host of hosts) {
-    it(`should work using "${host}" host and port as number`, async () => {
+    it(`should work using "${host}" host and port as number`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = { port };
 
@@ -134,18 +136,16 @@ describe("host", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work using "${host}" host and port as string`, async () => {
+    it(`should work using "${host}" host and port as string`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = { port: `${port}` };
 
@@ -208,18 +208,16 @@ describe("host", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work using "${host}" host and "auto" port`, async () => {
+    it(`should work using "${host}" host and "auto" port`, async (t) => {
       const compiler = webpack(config);
 
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = port;
@@ -286,11 +284,9 @@ describe("host", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(pageErrors);
       } finally {
         delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 
@@ -301,7 +297,6 @@ describe("host", () => {
   }
 
   // TODO need test on error
-  // eslint-disable-next-line jest/no-commented-out-tests
   // it(`should throw an error on invalid host`, async () => {
   //   const compiler = webpack(config);
   //   const server = new Server({ port, host: "unknown.unknown" }, compiler);

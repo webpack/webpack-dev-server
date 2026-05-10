@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -58,7 +60,7 @@ describe("onListening option", () => {
     await server.stop();
   });
 
-  it("should handle GET request to /listening/some/path route", async () => {
+  it("should handle GET request to /listening/some/path route", async (t) => {
     page
       .on("console", (message) => {
         consoleMessages.push(message);
@@ -76,22 +78,18 @@ describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
+    t.assert.snapshot(response.headers()["content-type"]);
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(await response.text()).toMatchSnapshot("response text");
+    t.assert.snapshot(await response.text());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 
-  it("should handle POST request to /listening/some/path route", async () => {
+  it("should handle POST request to /listening/some/path route", async (t) => {
     await page.setRequestInterception(true);
 
     page
@@ -116,18 +114,14 @@ describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
+    t.assert.snapshot(response.headers()["content-type"]);
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(await response.text()).toMatchSnapshot("response text");
+    t.assert.snapshot(await response.text());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });

@@ -2,7 +2,10 @@
 
 const os = require("node:os");
 const path = require("node:path");
+const { after, before, describe, it } = require("node:test");
+const { expect } = require("expect");
 const { readFileSync } = require("graceful-fs");
+const { spyOn } = require("jest-mock");
 const { Volume, createFsFromVolume } = require("memfs");
 const webpack = require("webpack");
 const Server = require("../lib/Server");
@@ -550,11 +553,11 @@ const tests = {
 describe("options", () => {
   let consoleMock;
 
-  beforeAll(() => {
-    consoleMock = jest.spyOn(console, "warn").mockImplementation();
+  before(() => {
+    consoleMock = spyOn(console, "warn").mockImplementation();
   });
 
-  afterAll(() => {
+  after(() => {
     consoleMock.mockRestore();
   });
 
@@ -594,7 +597,7 @@ describe("options", () => {
         type === "success" ? "successfully validate" : "throw an error on"
       } the "${key}" option with '${stringifyValue(
         value,
-      )}' value`, async () => {
+      )}' value`, async (t) => {
         const compiler = webpack(config);
         let thrownError;
 
@@ -609,7 +612,7 @@ describe("options", () => {
           expect(thrownError).toBeUndefined();
         } else {
           expect(thrownError).toBeDefined();
-          expect(thrownError.toString()).toMatchSnapshot();
+          t.assert.snapshot(thrownError.toString());
         }
       });
     }
