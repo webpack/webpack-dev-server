@@ -30,7 +30,7 @@ export default defineConfig([
       "jsdoc/require-jsdoc": "off",
       // Tests legitimately log diagnostics (retry attempts, etc.).
       "no-console": "off",
-      // Closure params in reduce/map (`(p, server) => ...`) are conventional.
+      // node:test callbacks receive `t` (TestContext) as a parameter.
       "id-length": "off",
     },
   },
