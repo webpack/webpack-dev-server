@@ -1,7 +1,8 @@
 "use strict";
 
 const http = require("node:http");
-
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -302,7 +303,6 @@ describe("host", () => {
   }
 
   // TODO need test on error
-  // eslint-disable-next-line jest/no-commented-out-tests
   // it(`should throw an error on invalid host`, async () => {
   //   const compiler = webpack(config);
   //   const server = new Server({ port, host: "unknown.unknown" }, compiler);

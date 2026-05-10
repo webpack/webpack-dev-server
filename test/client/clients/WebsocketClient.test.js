@@ -1,50 +1,55 @@
 "use strict";
 
-/**
- * @jest-environment jsdom
- * @jest-environment-options { "customExportConditions": ["main"] }
- */
-
 require("../../helpers/jsdom-setup");
 
 const http = require("node:http");
 const { after, before, describe, it } = require("node:test");
 const { expect } = require("expect");
 const express = require("express");
-const { fn } = require("jest-mock");
+const { spyOn } = require("jest-mock");
 const ws = require("ws");
+
+const WebSocketClient =
+  require("../../../client-src/clients/WebSocketClient").default;
+const { log } = require("../../../client-src/utils/log");
 const port = require("../../ports-map")["web-socket-client"];
 
-jest.setMock("../../../client-src/utils/log", {
-  log: {
-    error: fn(),
-  },
-});
-
 describe("WebsocketClient", () => {
-  const WebSocketClient =
-    require("../../../client-src/clients/WebSocketClient").default;
-  const { log } = require("../../../client-src/utils/log");
-
   let socketServer;
   let server;
+  let logErrorSpy;
 
-  before((done) => {
-    // eslint-disable-next-line new-cap
-    const app = new express();
+  before(
+    () =>
+      new Promise((resolve) => {
+        // eslint-disable-next-line new-cap
+        const app = new express();
 
-    server = http.createServer(app);
-    server.listen(port, "localhost", () => {
-      socketServer = new ws.Server({
-        server,
-        path: "/ws-server",
-      });
-      done();
-    });
-  });
+        server = http.createServer(app);
+        server.listen(port, "localhost", () => {
+          socketServer = new ws.Server({
+            server,
+            path: "/ws-server",
+          });
+          resolve();
+        });
+      }),
+  );
+
+  after(
+    () =>
+      new Promise((resolve) => {
+        logErrorSpy.mockRestore();
+        server.close(() => {
+          resolve();
+        });
+      }),
+  );
 
   describe("client", () => {
-    it("should open, receive message, and close", (done) => {
+    it("should open, receive message, and close", async (t) => {
+      logErrorSpy = spyOn(log, "error").mockImplementation();
+
       socketServer.on("connection", (connection) => {
         connection.send("hello world");
 
@@ -73,17 +78,11 @@ describe("WebsocketClient", () => {
       expect(log.error.mock.calls).toHaveLength(1);
       expect(log.error.mock.calls[0]).toEqual([testError]);
 
-      setTimeout((t) => {
-        t.assert.snapshot(data);
+      await new Promise((resolve) => {
+        setTimeout(resolve, 3000);
+      });
 
-        done();
-      }, 3000);
-    });
-  });
-
-  after((done) => {
-    server.close(() => {
-      done();
+      t.assert.snapshot(data);
     });
   });
 });

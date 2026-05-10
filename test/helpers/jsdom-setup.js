@@ -22,6 +22,12 @@ const props = [
   "MouseEvent",
   "KeyboardEvent",
   "MessageEvent",
+  "ErrorEvent",
+  "PromiseRejectionEvent",
+  "PageTransitionEvent",
+  "ProgressEvent",
+  "PopStateEvent",
+  "HashChangeEvent",
   "MutationObserver",
   "IntersectionObserver",
   "ResizeObserver",
@@ -76,3 +82,12 @@ for (const prop of props) {
 // dom.window is normally separate from Node's globalThis.)
 globalThis.window = globalThis;
 globalThis.self = globalThis;
+
+// Replace jsdom's stub WebSocket with the Node `ws` library so client-side
+// code that does `new WebSocket(url)` actually connects against test servers.
+// (Jest's jsdom env did this via `customExportConditions: ["main"]`.)
+try {
+  globalThis.WebSocket = require("ws");
+} catch {
+  // ws not installed; leave the jsdom WebSocket as-is.
+}

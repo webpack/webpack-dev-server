@@ -106,7 +106,7 @@ jobs:
           cp -R tmp-client client
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
-        run: npm run test:coverage -- --ci --shard=${{ matrix.shard }}
+        run: npm run test:coverage -- --test-shard=${{ matrix.shard }}
 
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@v5

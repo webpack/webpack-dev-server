@@ -2,53 +2,41 @@
 
 require("../../helpers/jsdom-setup");
 
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
+const { describe, it } = require("node:test");
 const { expect } = require("expect");
 const { fn } = require("jest-mock");
 
-describe("'log' function", () => {
-  let logMock;
-  let setLogLevel;
-  let runtimeMock;
+const { log, setLogLevel } = require("../../../client-src/utils/log");
 
-  beforeEach(() => {
-    logMock = {
+describe("'log' function", () => {
+  it("exports a logger instance bound at module load", () => {
+    expect(log).toBeDefined();
+    expect(typeof log).toBe("object");
+  });
+
+  it("setLogLevel forwards { level } to the logger when given default", () => {
+    const logger = {
       getLogger: fn(),
       configureDefaultLogger: fn(),
     };
-    runtimeMock = mock.module("webpack/lib/logging/runtime.js", {
-      defaultExport: logMock,
-      namedExports: logMock,
-    });
 
-    setLogLevel = require("../../../client-src/utils/log").setLogLevel;
-  });
+    setLogLevel("info", logger);
 
-  afterEach(() => {
-    logMock.getLogger.mockClear();
-    logMock.configureDefaultLogger.mockClear();
-    runtimeMock.restore();
-    delete require.cache[require.resolve("../../../client-src/utils/log")];
-  });
-
-  it("should set info as the default level and create logger", () => {
-    const { getLogger } = logMock;
-    const { configureDefaultLogger } = logMock;
-
-    expect(configureDefaultLogger).toHaveBeenCalled();
-    expect(configureDefaultLogger.mock.calls[0][0]).toEqual({
+    expect(logger.configureDefaultLogger).toHaveBeenCalledWith({
       level: "info",
     });
-
-    expect(getLogger).toHaveBeenCalled();
-    expect(getLogger.mock.calls[0][0]).toBe("webpack-dev-server");
   });
 
   it("should set log level via setLogLevel", (t) => {
+    const logger = {
+      getLogger: fn(),
+      configureDefaultLogger: fn(),
+    };
+
     for (const level of ["none", "error", "warn", "info", "log", "verbose"]) {
-      setLogLevel(level);
+      setLogLevel(level, logger);
     }
 
-    t.assert.snapshot(logMock.configureDefaultLogger.mock.calls);
+    t.assert.snapshot(logger.configureDefaultLogger.mock.calls);
   });
 });

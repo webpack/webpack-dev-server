@@ -4,41 +4,20 @@ require("../helpers/jsdom-setup");
 
 const { afterEach, beforeEach, describe, it, mock } = require("node:test");
 const { expect } = require("expect");
-const { fn, spyOn } = require("jest-mock");
+const { spyOn } = require("jest-mock");
 const { createOverlay } = require("../../client-src/overlay");
 
 describe("createOverlay", () => {
-  const originalDocument = globalThis.document;
-  const originalWindow = globalThis.window;
-
+  // Use the real jsdom window/document (set up via test/helpers/jsdom-setup).
+  // The previous Jest version installed fake document/window stubs because
+  // jsdom's jest environment behaved differently; with the helper here,
+  // real EventTarget semantics let the source's window.addEventListener +
+  // globalThis.dispatchEvent path work directly.
   beforeEach(() => {
-    globalThis.document = {
-      createElement: fn(() => ({
-        style: {},
-        appendChild: fn(),
-        addEventListener: fn(),
-        contentDocument: {
-          createElement: fn(() => ({ style: {}, appendChild: fn() })),
-          body: { appendChild: fn() },
-        },
-      })),
-      body: { appendChild: fn(), removeChild: fn() },
-    };
-    globalThis.window = {
-      // Keep addEventListener mocked for other potential uses
-      addEventListener: fn(),
-      removeEventListener: fn(),
-      // Mock trustedTypes
-      trustedTypes: null,
-      // Mock dispatchEvent
-      dispatchEvent: fn(),
-    };
     mock.timers.enable();
   });
 
   afterEach(() => {
-    globalThis.document = originalDocument;
-    globalThis.window = originalWindow;
     mock.timers.reset();
     mock.reset();
   });

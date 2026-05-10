@@ -1,10 +1,21 @@
 "use strict";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
+require("../helpers/jsdom-setup");
+
+const { afterEach, beforeEach, describe, it, mock } = require("node:test");
 const { expect } = require("expect");
 const { fn } = require("jest-mock");
 
-require("../helpers/jsdom-setup");
+/**
+ * Clear all client-src/* entries from require.cache so a fresh require()
+ * re-evaluates client-src/index.js with the active mock.module() mocks.
+ * @returns {void}
+ */
+function clearClientCache() {
+  for (const key of Object.keys(require.cache)) {
+    if (key.includes("/client-src/")) delete require.cache[key];
+  }
+}
 
 describe("index", () => {
   let log;
@@ -12,65 +23,86 @@ describe("index", () => {
   let overlay;
   let sendMessage;
   let onSocketMessage;
+  let logMockCtx;
+  let socketMockCtx;
+  let overlayMockCtx;
+  let sendMessageMockCtx;
   const locationValue = self.location;
   const resourceQueryValue = globalThis.__resourceQuery;
 
-  beforeEach(() => {
+  /**
+   * Install fresh mock.module() interceptors for the four modules
+   * client-src/index.js loads at evaluation time.
+   * @returns {void}
+   */
+  function installMocks() {
+    log = {
+      log: { info: fn(), warn: fn(), error: fn() },
+      logEnabledFeatures: fn(),
+      setLogLevel: fn(),
+    };
+    logMockCtx = mock.module("../../client-src/utils/log.js", {
+      namedExports: log,
+    });
+
+    socket = fn();
+    socketMockCtx = mock.module("../../client-src/socket.js", {
+      defaultExport: socket,
+    });
+
+    const send = fn();
+    overlay = { send };
+    overlayMockCtx = mock.module("../../client-src/overlay.js", {
+      namedExports: {
+        createOverlay: () => overlay,
+        formatProblem: (item) => ({
+          header: "HEADER warning",
+          body: `BODY: ${item}`,
+        }),
+      },
+    });
+
+    sendMessage = fn();
+    sendMessageMockCtx = mock.module("../../client-src/utils/sendMessage.js", {
+      defaultExport: sendMessage,
+    });
+  }
+
+  /**
+   * Tear down the mock.module() interceptors installed by installMocks().
+   * @returns {void}
+   */
+  function restoreMocks() {
+    logMockCtx.restore();
+    socketMockCtx.restore();
+    overlayMockCtx.restore();
+    sendMessageMockCtx.restore();
+  }
+
+  beforeEach(async () => {
     globalThis.__resourceQuery = "?mock-url";
     globalThis.__webpack_hash__ = "mock-hash";
 
-    // log
-    jest.setMock("../../client-src/utils/log.js", {
-      log: {
-        info: fn(),
-        warn: fn(),
-        error: fn(),
-      },
-      logEnabledFeatures: fn(),
-      setLogLevel: fn(),
-    });
-
-    log = require("../../client-src/utils/log");
-
-    // socket
-    jest.setMock("../../client-src/socket.js", fn());
-    socket = require("../../client-src/socket");
-
-    const send = fn();
-
-    // overlay
-    jest.setMock("../../client-src/overlay.js", {
-      createOverlay: () => ({
-        send,
-      }),
-      formatProblem: (item) => ({
-        header: "HEADER warning",
-        body: `BODY: ${item}`,
-      }),
-    });
-
-    const { createOverlay } = require("../../client-src/overlay");
-
-    overlay = createOverlay();
-
-    // sendMessage
-    jest.setMock("../../client-src/utils/sendMessage.js", fn());
-    sendMessage = require("../../client-src/utils/sendMessage");
+    clearClientCache();
+    installMocks();
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
     delete globalThis.location;
-
     globalThis.location = { ...locationValue, reload: fn() };
 
-    require("../../client-src");
+    // Use dynamic import with a cache-busting query string to force a fresh
+    // module evaluation each test (ESM modules aren't invalidated by deleting
+    // entries from require.cache).
+    const indexUrl = require.resolve("../../client-src");
+    await import(`file://${indexUrl}?t=${Date.now()}-${Math.random()}`);
     [[, onSocketMessage]] = socket.mock.calls;
   });
 
   afterEach(() => {
     globalThis.__resourceQuery = resourceQueryValue;
     Object.assign(globalThis, locationValue);
-    jest.resetAllMocks();
-    jest.resetModules();
+    restoreMocks();
+    clearClientCache();
   });
 
   it("should set arguments into socket function", (t) => {
@@ -175,74 +207,69 @@ describe("index", () => {
     });
   });
 
-  it("should parse overlay options from resource query", () => {
-    jest.isolateModules(() => {
-      // Pass JSON config with warnings disabled
-      globalThis.__resourceQuery = `?overlay=${encodeURIComponent(
-        '{"warnings": false}',
-      )}`;
+  it("should parse overlay options from resource query", async () => {
+    // Helper that re-evaluates client-src/index.js fresh after mutating
+    // __resourceQuery — equivalent to Jest's jest.isolateModules.
+    async function reloadClient() {
       overlay.send.mockReset();
       socket.mockReset();
-      require("../../client-src");
+      const indexUrl = require.resolve("../../client-src");
+      await import(`file://${indexUrl}?t=${Date.now()}-${Math.random()}`);
       [[, onSocketMessage]] = socket.mock.calls;
+    }
 
-      onSocketMessage.warnings(["warn1"]);
-      expect(overlay.send).not.toHaveBeenCalled();
+    // Pass JSON config with warnings disabled
+    globalThis.__resourceQuery = `?overlay=${encodeURIComponent(
+      '{"warnings": false}',
+    )}`;
+    await reloadClient();
 
-      onSocketMessage.errors(["error1"]);
-      expect(overlay.send).toHaveBeenCalledTimes(1);
-      expect(overlay.send).toHaveBeenCalledWith({
-        type: "BUILD_ERROR",
-        level: "error",
-        messages: ["error1"],
-      });
+    onSocketMessage.warnings(["warn1"]);
+    expect(overlay.send).not.toHaveBeenCalled();
+
+    onSocketMessage.errors(["error1"]);
+    expect(overlay.send).toHaveBeenCalledTimes(1);
+    expect(overlay.send).toHaveBeenCalledWith({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: ["error1"],
     });
 
-    jest.isolateModules(() => {
-      // Pass JSON config with errors disabled
-      globalThis.__resourceQuery = `?overlay=${encodeURIComponent(
-        '{"errors": false}',
-      )}`;
-      overlay.send.mockReset();
-      socket.mockReset();
-      require("../../client-src");
-      [[, onSocketMessage]] = socket.mock.calls;
+    // Pass JSON config with errors disabled
+    globalThis.__resourceQuery = `?overlay=${encodeURIComponent(
+      '{"errors": false}',
+    )}`;
+    await reloadClient();
 
-      onSocketMessage.errors(["error1"]);
-      expect(overlay.send).not.toHaveBeenCalled();
+    onSocketMessage.errors(["error1"]);
+    expect(overlay.send).not.toHaveBeenCalled();
 
-      onSocketMessage.warnings(["warn1"]);
-      expect(overlay.send).toHaveBeenCalledTimes(1);
-      expect(overlay.send).toHaveBeenCalledWith({
-        type: "BUILD_ERROR",
-        level: "warning",
-        messages: ["warn1"],
-      });
+    onSocketMessage.warnings(["warn1"]);
+    expect(overlay.send).toHaveBeenCalledTimes(1);
+    expect(overlay.send).toHaveBeenCalledWith({
+      type: "BUILD_ERROR",
+      level: "warning",
+      messages: ["warn1"],
     });
 
-    jest.isolateModules(() => {
-      // Use simple boolean
-      globalThis.__resourceQuery = "?overlay=true";
-      socket.mockReset();
-      overlay.send.mockReset();
-      require("../../client-src");
-      [[, onSocketMessage]] = socket.mock.calls;
+    // Use simple boolean
+    globalThis.__resourceQuery = "?overlay=true";
+    await reloadClient();
 
-      onSocketMessage.warnings(["warn2"]);
-      expect(overlay.send).toHaveBeenCalledTimes(1);
-      expect(overlay.send).toHaveBeenLastCalledWith({
-        type: "BUILD_ERROR",
-        level: "warning",
-        messages: ["warn2"],
-      });
+    onSocketMessage.warnings(["warn2"]);
+    expect(overlay.send).toHaveBeenCalledTimes(1);
+    expect(overlay.send).toHaveBeenLastCalledWith({
+      type: "BUILD_ERROR",
+      level: "warning",
+      messages: ["warn2"],
+    });
 
-      onSocketMessage.errors(["error2"]);
-      expect(overlay.send).toHaveBeenCalledTimes(2);
-      expect(overlay.send).toHaveBeenLastCalledWith({
-        type: "BUILD_ERROR",
-        level: "error",
-        messages: ["error2"],
-      });
+    onSocketMessage.errors(["error2"]);
+    expect(overlay.send).toHaveBeenCalledTimes(2);
+    expect(overlay.send).toHaveBeenLastCalledWith({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: ["error2"],
     });
   });
 

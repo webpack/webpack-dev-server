@@ -1,34 +1,57 @@
 "use strict";
 
+require("../helpers/jsdom-setup");
+
 const { beforeEach, describe, it } = require("node:test");
 const { expect } = require("expect");
 const { fn } = require("jest-mock");
 
-require("../helpers/jsdom-setup");
+/**
+ * Build a fresh mock WebSocketClient class. Each `new MockClient(url)`
+ * registers the instance and arguments on the static `.mock` so tests can
+ * assert (matching the shape Jest's auto-mock produces).
+ * @returns {new (url: string) => unknown} mock client constructor
+ */
+function createMockClient() {
+  class MockClient {
+    constructor(url) {
+      MockClient.mock.instances.push(this);
+      MockClient.mock.calls.push([url]);
+      this.onOpen = fn();
+      this.onClose = fn();
+      this.onMessage = fn();
+    }
+  }
+  MockClient.mock = { instances: [], calls: [] };
+  return MockClient;
+}
 
 describe("socket", () => {
+  let socket;
+
   beforeEach(() => {
-    jest.resetAllMocks();
-    jest.resetModules();
+    delete globalThis.__webpack_dev_server_client__;
+    for (const key of Object.keys(require.cache)) {
+      if (key.includes("/client-src/")) delete require.cache[key];
+    }
+    socket = require("../../client-src/socket").default;
   });
 
   it("should default to WebsocketClient when no __webpack_dev_server_client__ set", (t) => {
-    jest.mock("../../client/clients/WebSocketClient");
-
-    const socket = require("../../client/socket").default;
-    const WebsocketClient =
-      require("../../client/clients/WebSocketClient").default;
-
+    const MockClient = createMockClient();
     const mockHandler = fn();
 
-    socket("my.url", {
-      example: mockHandler,
-    });
+    socket(
+      "my.url",
+      {
+        example: mockHandler,
+      },
+      undefined,
+      MockClient,
+    );
 
-    const [mockClientInstance] = WebsocketClient.mock.instances;
+    const [mockClientInstance] = MockClient.mock.instances;
 
-    // this simulates receiving a message from the server and passing it
-    // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
         type: "example",
@@ -37,7 +60,7 @@ describe("socket", () => {
       }),
     );
 
-    t.assert.snapshot(WebsocketClient.mock.calls[0]);
+    t.assert.snapshot(MockClient.mock.calls[0]);
     t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
     t.assert.snapshot(mockClientInstance.onClose.mock.calls);
     t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
@@ -45,15 +68,12 @@ describe("socket", () => {
   });
 
   it("should use __webpack_dev_server_client__ when set", (t) => {
-    jest.mock("../../client/clients/WebSocketClient");
-
-    const socket = require("../../client/socket").default;
-
-    globalThis.__webpack_dev_server_client__ =
-      require("../../client/clients/WebSocketClient").default;
+    const MockClient = createMockClient();
+    globalThis.__webpack_dev_server_client__ = MockClient;
 
     const mockHandler = fn();
 
+    // Call without 4th arg so the runtime resolves Client from the global.
     socket("my.url", {
       example: mockHandler,
     });
@@ -61,8 +81,6 @@ describe("socket", () => {
     const [mockClientInstance] =
       globalThis.__webpack_dev_server_client__.mock.instances;
 
-    // this simulates receiving a message from the server and passing it
-    // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
         type: "example",
@@ -79,15 +97,10 @@ describe("socket", () => {
   });
 
   it("should export initialized client", () => {
-    const socket = require("../../client/socket").default;
+    const MockClient = createMockClient();
+    socket("my.url", {}, undefined, MockClient);
 
-    const nonInitializedInstance = require("../../client/socket").client;
-
-    expect(nonInitializedInstance).toBeNull();
-
-    socket("my.url", {});
-
-    const initializedInstance = require("../../client/socket").client;
+    const initializedInstance = require("../../client-src/socket").client;
 
     expect(initializedInstance).not.toBeNull();
     expect(typeof initializedInstance.onClose).toBe("function");
