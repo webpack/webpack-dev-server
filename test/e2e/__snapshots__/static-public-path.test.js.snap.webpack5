@@ -1,192 +1,286 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+exports[`static.publicPath option > Content type > should handle request to example.txt 1`] = `
+200
+`;
 
-exports[`static.publicPath option Content type should handle request to example.txt: console messages 1`] = `[]`;
+exports[`static.publicPath option > Content type > should handle request to example.txt 2`] = `
+"text/plain; charset=utf-8"
+`;
 
-exports[`static.publicPath option Content type should handle request to example.txt: page errors 1`] = `[]`;
+exports[`static.publicPath option > Content type > should handle request to example.txt 3`] = `
+[]
+`;
 
-exports[`static.publicPath option Content type should handle request to example.txt: response header content-type 1`] = `"text/plain; charset=utf-8"`;
+exports[`static.publicPath option > Content type > should handle request to example.txt 4`] = `
+[]
+`;
 
-exports[`static.publicPath option Content type should handle request to example.txt: response status 1`] = `200`;
+exports[`static.publicPath option > defaults to CWD > should handle request to page 1`] = `
+200
+`;
 
-exports[`static.publicPath option defaults to CWD should handle request to page: console messages 1`] = `[]`;
-
-exports[`static.publicPath option defaults to CWD should handle request to page: page errors 1`] = `[]`;
-
-exports[`static.publicPath option defaults to CWD should handle request to page: response status 1`] = `200`;
-
-exports[`static.publicPath option defaults to CWD should handle request to page: response text 1`] = `
+exports[`static.publicPath option > defaults to CWD > should handle request to page 2`] = `
 "Heyo.
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: console messages 1`] = `[]`;
+exports[`static.publicPath option > defaults to CWD > should handle request to page 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: page errors 1`] = `[]`;
+exports[`static.publicPath option > defaults to CWD > should handle request to page 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the /foo route of second path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the /foo route of second path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the /foo route of second path 2`] = `
 "Foo!
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the /foo route of second path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the /foo route of second path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the index of first path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the index of first path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the index of first path 2`] = `
 "Heyo.
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the index of first path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the index of first path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the other file of first path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries should handle request to the other file of first path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the other file of first path 2`] = `
 "Other html
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the other file of first path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries > should handle request to the other file of first path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of first path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of first path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of first path 2`] = `
 "Foo!
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of first path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of first path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of second path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the /foo route of second path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of second path 2`] = `
 "Foo!
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of second path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the /foo route of second path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the index of first path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the index of first path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the index of first path 2`] = `
 "Heyo.
 "
 `;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the index of first path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the index of first path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: response status 1`] = `200`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the other file of first path 1`] = `
+200
+`;
 
-exports[`static.publicPath option multiple static.publicPath entries with publicPath array should handle request to the other file of first path: response text 1`] = `
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the other file of first path 2`] = `
 "Other html
 "
 `;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: console messages 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the other file of first path 3`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: page errors 1`] = `[]`;
+exports[`static.publicPath option > multiple static.publicPath entries with publicPath array > should handle request to the other file of first path 4`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle GET request: response status 1`] = `200`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should handle GET request 1`] = `
+200
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle HEAD request: console messages 1`] = `[]`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should handle GET request 2`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle HEAD request: page errors 1`] = `[]`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should handle GET request 3`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should handle HEAD request: response status 1`] = `200`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should handle HEAD request 1`] = `
+200
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle DELETE request: console messages 1`] = `
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should handle HEAD request 2`] = `
+[]
+`;
+
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should handle HEAD request 3`] = `
+[]
+`;
+
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle DELETE request 1`] = `
+404
+`;
+
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle DELETE request 2`] = `
 [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle DELETE request: page errors 1`] = `[]`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle DELETE request 3`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle DELETE request: response status 1`] = `404`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle PATCH request 1`] = `
+404
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PATCH request: console messages 1`] = `
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle PATCH request 2`] = `
 [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PATCH request: page errors 1`] = `[]`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle PATCH request 3`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PATCH request: response status 1`] = `404`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle POST request 1`] = `
+404
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle POST request: console messages 1`] = `
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle POST request 2`] = `
 [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle POST request: page errors 1`] = `[]`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle POST request 3`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle POST request: response status 1`] = `404`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle PUT request 1`] = `
+404
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PUT request: console messages 1`] = `
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle PUT request 2`] = `
 [
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
 ]
 `;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PUT request: page errors 1`] = `[]`;
+exports[`static.publicPath option > should ignore methods other than GET and HEAD > should not handle PUT request 3`] = `
+[]
+`;
 
-exports[`static.publicPath option should ignore methods other than GET and HEAD should not handle PUT request: response status 1`] = `404`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should list the files inside the assets folder (200) 1`] = `
+200
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): console messages 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should list the files inside the assets folder (200) 2`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): page errors 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should list the files inside the assets folder (200) 3`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should list the files inside the assets folder (200): response status 1`] = `200`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should show Heyo. because bar has index.html inside it (200) 1`] = `
+200
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
-
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
-
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): response status 1`] = `200`;
-
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex default (true) should show Heyo. because bar has index.html inside it (200): response text 1`] = `
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should show Heyo. because bar has index.html inside it (200) 2`] = `
 "Heyo
 "
 `;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should show Heyo. because bar has index.html inside it (200) 3`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex default (true) > should show Heyo. because bar has index.html inside it (200) 4`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): response status 1`] = `200`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > should show Heyo. because bar has index.html inside it (200) 1`] = `
+200
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false should show Heyo. because bar has index.html inside it (200): response text 1`] = `
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > should show Heyo. because bar has index.html inside it (200) 2`] = `
 "Heyo
 "
 `;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false shouldn't list the files inside the assets folder (404): console messages 1`] = `
-[
-  "Failed to load resource: the server responded with a status of 404 (Not Found)",
-]
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > should show Heyo. because bar has index.html inside it (200) 3`] = `
+[]
 `;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false shouldn't list the files inside the assets folder (404): page errors 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > should show Heyo. because bar has index.html inside it (200) 4`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false shouldn't list the files inside the assets folder (404): response status 1`] = `404`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > shouldn't list the files inside the assets folder (404) 1`] = `
+404
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: false shouldn't list the files inside the assets folder (404): response text 1`] = `
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > shouldn't list the files inside the assets folder (404) 2`] = `
 "<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,63 +294,109 @@ exports[`static.publicPath option test listing files in folders without index.ht
 "
 `;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): console messages 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > shouldn't list the files inside the assets folder (404) 3`] = `
+[
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): page errors 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: false > shouldn't list the files inside the assets folder (404) 4`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should list the files inside the assets folder (200): response status 1`] = `200`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should list the files inside the assets folder (200) 1`] = `
+200
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): console messages 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should list the files inside the assets folder (200) 2`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): page errors 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should list the files inside the assets folder (200) 3`] = `
+[]
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): response status 1`] = `200`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should show Heyo. because bar has index.html inside it (200) 1`] = `
+200
+`;
 
-exports[`static.publicPath option test listing files in folders without index.html using the option static.serveIndex: true should show Heyo. because bar has index.html inside it (200): response text 1`] = `
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should show Heyo. because bar has index.html inside it (200) 2`] = `
 "Heyo
 "
 `;
 
-exports[`static.publicPath option to directory should handle request to index: console messages 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should show Heyo. because bar has index.html inside it (200) 3`] = `
+[]
+`;
 
-exports[`static.publicPath option to directory should handle request to index: page errors 1`] = `[]`;
+exports[`static.publicPath option > test listing files in folders without index.html using the option static.serveIndex: true > should show Heyo. because bar has index.html inside it (200) 4`] = `
+[]
+`;
 
-exports[`static.publicPath option to directory should handle request to index: response status 1`] = `200`;
+exports[`static.publicPath option > to directory > should handle request to index 1`] = `
+200
+`;
 
-exports[`static.publicPath option to directory should handle request to index: response text 1`] = `
+exports[`static.publicPath option > to directory > should handle request to index 2`] = `
 "Heyo.
 "
 `;
 
-exports[`static.publicPath option to directory should handle request to other file: console messages 1`] = `[]`;
+exports[`static.publicPath option > to directory > should handle request to index 3`] = `
+[]
+`;
 
-exports[`static.publicPath option to directory should handle request to other file: page errors 1`] = `[]`;
+exports[`static.publicPath option > to directory > should handle request to index 4`] = `
+[]
+`;
 
-exports[`static.publicPath option to directory should handle request to other file: response status 1`] = `200`;
+exports[`static.publicPath option > to directory > should handle request to other file 1`] = `
+200
+`;
 
-exports[`static.publicPath option to directory should handle request to other file: response text 1`] = `
+exports[`static.publicPath option > to directory > should handle request to other file 2`] = `
 "Other html
 "
 `;
 
-exports[`static.publicPath option to multiple directories should handle request to first directory: console messages 1`] = `[]`;
+exports[`static.publicPath option > to directory > should handle request to other file 3`] = `
+[]
+`;
 
-exports[`static.publicPath option to multiple directories should handle request to first directory: page errors 1`] = `[]`;
+exports[`static.publicPath option > to directory > should handle request to other file 4`] = `
+[]
+`;
 
-exports[`static.publicPath option to multiple directories should handle request to first directory: response status 1`] = `200`;
+exports[`static.publicPath option > to multiple directories > should handle request to first directory 1`] = `
+200
+`;
 
-exports[`static.publicPath option to multiple directories should handle request to first directory: response text 1`] = `
+exports[`static.publicPath option > to multiple directories > should handle request to first directory 2`] = `
 "Heyo.
 "
 `;
 
-exports[`static.publicPath option to multiple directories should handle request to second directory: console messages 1`] = `[]`;
+exports[`static.publicPath option > to multiple directories > should handle request to first directory 3`] = `
+[]
+`;
 
-exports[`static.publicPath option to multiple directories should handle request to second directory: page errors 1`] = `[]`;
+exports[`static.publicPath option > to multiple directories > should handle request to first directory 4`] = `
+[]
+`;
 
-exports[`static.publicPath option to multiple directories should handle request to second directory: response status 1`] = `200`;
+exports[`static.publicPath option > to multiple directories > should handle request to second directory 1`] = `
+200
+`;
 
-exports[`static.publicPath option to multiple directories should handle request to second directory: response text 1`] = `
+exports[`static.publicPath option > to multiple directories > should handle request to second directory 2`] = `
 "Foo!
 "
+`;
+
+exports[`static.publicPath option > to multiple directories > should handle request to second directory 3`] = `
+[]
+`;
+
+exports[`static.publicPath option > to multiple directories > should handle request to second directory 4`] = `
+[]
 `;

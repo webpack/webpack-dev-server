@@ -1,25 +1,47 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+exports[`Module federation > should use plugin > should contain hot script in main.js 1`] = `
+[]
+`;
 
-exports[`Module federation should use plugin should contain hot script in main.js: console messages 1`] = `[]`;
+exports[`Module federation > should use plugin > should contain hot script in main.js 2`] = `
+[]
+`;
 
-exports[`Module federation should use plugin should contain hot script in main.js: page errors 1`] = `[]`;
+exports[`Module federation > should use plugin > should contain hot script in remoteEntry.js 1`] = `
+[]
+`;
 
-exports[`Module federation should use plugin should contain hot script in remoteEntry.js: console messages 1`] = `[]`;
+exports[`Module federation > should use plugin > should contain hot script in remoteEntry.js 2`] = `
+[]
+`;
 
-exports[`Module federation should use plugin should contain hot script in remoteEntry.js: page errors 1`] = `[]`;
+exports[`Module federation > should work with multi compiler config > should use the last entry export 1`] = `
+[]
+`;
 
-exports[`Module federation should work with multi compiler config should use the last entry export: console messages 1`] = `[]`;
+exports[`Module federation > should work with multi compiler config > should use the last entry export 2`] = `
+[]
+`;
 
-exports[`Module federation should work with multi compiler config should use the last entry export: page errors 1`] = `[]`;
+exports[`Module federation > should work with object multi-entry config > should support the named entry export 1`] = `
+[]
+`;
 
-exports[`Module federation should work with object multi-entry config should support the named entry export: console messages 1`] = `[]`;
+exports[`Module federation > should work with object multi-entry config > should support the named entry export 2`] = `
+[]
+`;
 
-exports[`Module federation should work with object multi-entry config should support the named entry export: page errors 1`] = `[]`;
+exports[`Module federation > should work with object multi-entry config > should use the last entry export 1`] = `
+[]
+`;
 
-exports[`Module federation should work with object multi-entry config should use the last entry export: console messages 1`] = `[]`;
+exports[`Module federation > should work with object multi-entry config > should use the last entry export 2`] = `
+[]
+`;
 
-exports[`Module federation should work with object multi-entry config should use the last entry export: page errors 1`] = `[]`;
+exports[`Module federation > should work with simple multi-entry config > should use the last entry export 1`] = `
+[]
+`;
 
-exports[`Module federation should work with simple multi-entry config should use the last entry export: console messages 1`] = `[]`;
-
-exports[`Module federation should work with simple multi-entry config should use the last entry export: page errors 1`] = `[]`;
+exports[`Module federation > should work with simple multi-entry config > should use the last entry export 2`] = `
+[]
+`;

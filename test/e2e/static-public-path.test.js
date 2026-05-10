@@ -1,6 +1,9 @@
 "use strict";
 
 const path = require("node:path");
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
+const { spyOn } = require("jest-mock");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/static-config/webpack.config");
@@ -50,7 +53,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle request to index", async () => {
+    it("should handle request to index", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -66,18 +69,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to other file", async () => {
+    it("should handle request to other file", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -93,15 +94,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -142,7 +141,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("shouldn't list the files inside the assets folder (404)", async () => {
+    it("shouldn't list the files inside the assets folder (404)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -158,18 +157,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -185,15 +182,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -234,7 +229,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    it("should list the files inside the assets folder (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -250,18 +245,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
       expect(await response.text()).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -277,15 +270,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -326,7 +317,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    it("should list the files inside the assets folder (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -342,18 +333,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
       expect(await response.text()).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -369,15 +358,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -422,7 +409,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle request to first directory", async () => {
+    it("should handle request to first directory", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -438,18 +425,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to second directory", async () => {
+    it("should handle request to second directory", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -465,15 +450,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -487,9 +470,7 @@ describe("static.publicPath option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      cwdSpy = jest
-        .spyOn(process, "cwd")
-        .mockImplementation(() => staticDirectory);
+      cwdSpy = spyOn(process, "cwd").mockImplementation(() => staticDirectory);
 
       compiler = webpack(config);
 
@@ -518,7 +499,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle request to page", async () => {
+    it("should handle request to page", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -534,15 +515,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -581,7 +560,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle request to example.txt", async () => {
+    it("should handle request to example.txt", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -597,17 +576,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response header content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -646,7 +621,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle GET request", async () => {
+    it("should handle GET request", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -662,16 +637,14 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle HEAD request", async () => {
+    it("should handle HEAD request", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -692,16 +665,14 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should not handle POST request", async () => {
+    it("should not handle POST request", async (t) => {
       await page.setRequestInterception(true);
 
       page
@@ -722,16 +693,14 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should not handle PUT request", async () => {
+    it("should not handle PUT request", async (t) => {
       await page.setRequestInterception(true);
 
       page
@@ -752,16 +721,14 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should not handle DELETE request", async () => {
+    it("should not handle DELETE request", async (t) => {
       await page.setRequestInterception(true);
 
       page
@@ -782,16 +749,14 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should not handle PATCH request", async () => {
+    it("should not handle PATCH request", async (t) => {
       await page.setRequestInterception(true);
 
       page
@@ -812,13 +777,11 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -865,7 +828,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle request to the index of first path", async () => {
+    it("should handle request to the index of first path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -881,18 +844,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to the other file of first path", async () => {
+    it("should handle request to the other file of first path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -908,18 +869,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to the /foo route of second path", async () => {
+    it("should handle request to the /foo route of second path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -935,15 +894,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -990,7 +947,7 @@ describe("static.publicPath option", () => {
       await server.stop();
     });
 
-    it("should handle request to the index of first path", async () => {
+    it("should handle request to the index of first path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1006,18 +963,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to the other file of first path", async () => {
+    it("should handle request to the other file of first path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1033,18 +988,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to the /foo route of first path", async () => {
+    it("should handle request to the /foo route of first path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1060,18 +1013,16 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to the /foo route of second path", async () => {
+    it("should handle request to the /foo route of second path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -1087,15 +1038,13 @@ describe("static.publicPath option", () => {
         },
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 });

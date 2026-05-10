@@ -1,6 +1,8 @@
 "use strict";
 
+const { after, before, describe, it } = require("node:test");
 const acorn = require("acorn");
+const { expect } = require("expect");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -12,7 +14,7 @@ describe("bundle", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack({
         ...config,
         target: ["es5", "web"],
@@ -25,7 +27,7 @@ describe("bundle", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
     });
 

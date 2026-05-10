@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-colors"];
 
@@ -14,7 +16,7 @@ const colorsEnabled = require.resolve(
 );
 
 describe("colors", () => {
-  it("should work use colors by default", async () => {
+  it("should work use colors by default", async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -23,27 +25,27 @@ describe("colors", () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).toContain("\u001B[");
   });
 
-  it('should work use colors using "--color"', async () => {
+  it('should work use colors using "--color"', async (t) => {
     const { exitCode, stderr } = await testBin(["--port", port, "--color"]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).toContain("\u001B[");
   });
 
-  it('should work do not use colors using "--no-color"', async () => {
+  it('should work do not use colors using "--no-color"', async (t) => {
     const { exitCode, stderr } = await testBin(["--port", port, "--no-color"]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).not.toContain("\u001B[");
   });
 
-  it("should work use colors using configuration with enabled colors", async () => {
+  it("should work use colors using configuration with enabled colors", async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -52,11 +54,11 @@ describe("colors", () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).toContain("\u001B[");
   });
 
-  it("should work and do not use colors using configuration with disabled colors", async () => {
+  it("should work and do not use colors using configuration with disabled colors", async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -65,7 +67,7 @@ describe("colors", () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).not.toContain("\u001B[");
   });
 });

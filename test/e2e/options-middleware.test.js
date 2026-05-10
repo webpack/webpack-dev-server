@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const Express = require("express");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");

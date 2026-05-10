@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("node:path");
+const { describe, it } = require("node:test");
+
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -189,7 +191,7 @@ describe("logging", () => {
     for (const testCase of cases) {
       it(`${testCase.title} (${
         webSocketServer.webSocketServer || "default"
-      })`, async () => {
+      })`, async (t) => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = {
           port,
@@ -223,7 +225,7 @@ describe("logging", () => {
             });
           }
 
-          expect(
+          t.assert.snapshot(
             consoleMessages.map((message) =>
               message
                 .text()
@@ -233,7 +235,7 @@ describe("logging", () => {
                   "<cwd>",
                 ),
             ),
-          ).toMatchSnapshot();
+          );
         } finally {
           await browser.close();
           await server.stop();

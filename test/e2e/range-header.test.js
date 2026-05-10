@@ -1,5 +1,7 @@
 "use strict";
 
+const { after, before, describe, it } = require("node:test");
+const { expect } = require("expect");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -10,7 +12,7 @@ describe("'Range' header", () => {
   let compiler;
   let server;
 
-  beforeAll(async () => {
+  before(async () => {
     compiler = webpack(config);
 
     server = new Server({ port }, compiler);
@@ -18,7 +20,7 @@ describe("'Range' header", () => {
     await server.start();
   });
 
-  afterAll(async () => {
+  after(async () => {
     await server.stop();
   });
 

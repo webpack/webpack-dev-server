@@ -1,6 +1,9 @@
 "use strict";
 
 const path = require("node:path");
+const { afterEach, beforeEach, describe, it, mock } = require("node:test");
+const { expect } = require("expect");
+const { fn } = require("jest-mock");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -18,12 +21,10 @@ describe("API", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      // this is important - it clears the cache
-      jest.resetModules();
-
       process.env = { ...OLD_ENV };
 
       delete process.env.WEBPACK_SERVE;
+      delete require.cache[require.resolve("../../lib/Server")];
 
       ({ page, browser } = await runBrowser());
 
@@ -37,7 +38,7 @@ describe("API", () => {
       process.env = OLD_ENV;
     });
 
-    it("should be present", async () => {
+    it("should be present", async (t) => {
       expect(process.env.WEBPACK_SERVE).toBeUndefined();
 
       page
@@ -61,18 +62,16 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
   describe("latest async API", () => {
-    it("should work with async API", async () => {
+    it("should work with async API", async (t) => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -96,17 +95,15 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it("should work with callback API", async () => {
+    it("should work with callback API", async (t) => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -134,10 +131,8 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -171,7 +166,7 @@ describe("API", () => {
       });
     });
 
-    it("should work when using configured manually", async () => {
+    it("should work when using configured manually", async (t) => {
       const compiler = webpack({
         ...config,
         entry: [
@@ -205,17 +200,15 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it("should work and allow to rerun dev server multiple times", async () => {
+    it("should work and allow to rerun dev server multiple times", async (t) => {
       const compiler = webpack(config);
       const server = new Server({ port }, compiler);
 
@@ -239,10 +232,10 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
+        t.assert.snapshot(
           firstConsoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(firstPageErrors).toMatchSnapshot("page errors");
+        );
+        t.assert.snapshot(firstPageErrors);
       } finally {
         await server.stop();
       }
@@ -267,10 +260,10 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
+        t.assert.snapshot(
           secondConsoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(secondPageErrors).toMatchSnapshot("page errors");
+        );
+        t.assert.snapshot(secondPageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -312,8 +305,8 @@ describe("API", () => {
       await server.stop();
     });
 
-    it("should use the default `noop` callback when invalidate is called without any callback", async () => {
-      const callback = jest.fn();
+    it("should use the default `noop` callback when invalidate is called without any callback", async (t) => {
+      const callback = fn();
 
       server.invalidate();
       server.middleware.context.callbacks[0] = callback;
@@ -323,16 +316,14 @@ describe("API", () => {
       });
 
       expect(callback).toHaveBeenCalledTimes(1);
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should use the provided `callback` function", async () => {
-      const callback = jest.fn();
+    it("should use the provided `callback` function", async (t) => {
+      const callback = fn();
 
       server.invalidate(callback);
 
@@ -341,13 +332,11 @@ describe("API", () => {
       });
 
       expect(callback).toHaveBeenCalledTimes(1);
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -429,7 +418,7 @@ describe("API", () => {
       expect(freePort).toBe(9082);
     });
 
-    it("should return the port when the port is `null`", async () => {
+    it("should return the port when the port is `null`", async (t) => {
       const retryCount = 2;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -464,13 +453,11 @@ describe("API", () => {
             },
           );
 
-          expect(response.status()).toMatchSnapshot("response status");
+          t.assert.snapshot(response.status());
 
-          expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -504,7 +491,7 @@ describe("API", () => {
       }
     });
 
-    it("should return the port when the port is undefined", async () => {
+    it("should return the port when the port is undefined", async (t) => {
       const retryCount = 3;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -540,13 +527,11 @@ describe("API", () => {
             },
           );
 
-          expect(response.status()).toMatchSnapshot("response status");
+          t.assert.snapshot(response.status());
 
-          expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -580,7 +565,7 @@ describe("API", () => {
       }
     });
 
-    it("should retry finding the port for up to defaultPortRetry times (number)", async () => {
+    it("should retry finding the port for up to defaultPortRetry times (number)", async (t) => {
       const retryCount = 4;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -616,13 +601,11 @@ describe("API", () => {
             },
           );
 
-          expect(response.status()).toMatchSnapshot("response status");
+          t.assert.snapshot(response.status());
 
-          expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -657,7 +640,7 @@ describe("API", () => {
       }
     });
 
-    it("should retry finding the port for up to defaultPortRetry times (string)", async () => {
+    it("should retry finding the port for up to defaultPortRetry times (string)", async (t) => {
       const retryCount = 5;
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = retryCount;
@@ -693,13 +676,11 @@ describe("API", () => {
             },
           );
 
-          expect(response.status()).toMatchSnapshot("response status");
+          t.assert.snapshot(response.status());
 
-          expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -734,7 +715,7 @@ describe("API", () => {
       }
     });
 
-    it("should retry finding the port when serial ports are busy", async () => {
+    it("should retry finding the port when serial ports are busy", async (t) => {
       const basePort = Number.parseInt(
         process.env.WEBPACK_DEV_SERVER_TEST_BASE_PORT || 30000,
         10,
@@ -772,13 +753,11 @@ describe("API", () => {
             },
           );
 
-          expect(response.status()).toMatchSnapshot("response status");
+          t.assert.snapshot(response.status());
 
-          expect(
-            consoleMessages.map((message) => message.text()),
-          ).toMatchSnapshot("console messages");
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -823,20 +802,21 @@ describe("API", () => {
       }
     });
 
-    it("should throw the error when the port isn't found", async () => {
+    it("should throw the error when the port isn't found", async (t) => {
       expect.assertions(1);
 
-      jest.mock(
-        "../../lib/getPort",
-        () => () => Promise.reject(new Error("busy")),
-      );
+      const getPortMock = mock.module("../../lib/getPort.js", {
+        defaultExport: () => Promise.reject(new Error("busy")),
+      });
 
       process.env.WEBPACK_DEV_SERVER_PORT_RETRY = 1;
 
       try {
         await Server.getFreePort();
       } catch (error) {
-        expect(error.message).toMatchSnapshot();
+        t.assert.snapshot(error.message);
+      } finally {
+        getPortMock.restore();
       }
     });
   });
@@ -872,7 +852,7 @@ describe("API", () => {
       expect(isValidHost).toBe(true);
     });
 
-    it('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async () => {
+    it('should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object', async (t) => {
       const options = {
         port,
         client: {
@@ -943,16 +923,15 @@ describe("API", () => {
             }, 100);
           });
 
-          expect(webSocketRequests[0].url).toMatchSnapshot("web socket URL");
+          t.assert.snapshot(webSocketRequests[0].url);
 
-          expect(response.status()).toMatchSnapshot("response status");
+          t.assert.snapshot(response.status());
 
-          expect(
-            // net::ERR_NAME_NOT_RESOLVED can be multiple times
+          t.assert.snapshot(
             consoleMessages.map((message) => message.text()).slice(0, 7),
-          ).toMatchSnapshot("console messages");
+          );
 
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
