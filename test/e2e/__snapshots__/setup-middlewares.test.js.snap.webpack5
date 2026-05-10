@@ -2,32 +2,12 @@ exports[`setupMiddlewares option > should handle GET request to /setup-middlewar
 "text/html; charset=utf-8"
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 10`] = `
-"Hello World without path!"
-`;
-
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 11`] = `
-"Hello World as function!"
-`;
-
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 12`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 2`] = `
 200
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 13`] = `
-"setup-middlewares option GET"
-`;
-
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 14`] = `
-[]
-`;
-
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 2`] = `
-[]
-`;
-
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 3`] = `
-"text/html; charset=utf-8"
+"setup-middlewares option GET"
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 4`] = `
@@ -35,15 +15,15 @@ exports[`setupMiddlewares option > should handle GET request to /setup-middlewar
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 5`] = `
-"text/html; charset=utf-8"
+200
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 6`] = `
-200
+"Hello World with path!"
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 7`] = `
-200
+"text/html; charset=utf-8"
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 8`] = `
@@ -51,7 +31,27 @@ exports[`setupMiddlewares option > should handle GET request to /setup-middlewar
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 9`] = `
-"Hello World with path!"
+"Hello World without path!"
+`;
+
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 10`] = `
+"text/html; charset=utf-8"
+`;
+
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 11`] = `
+200
+`;
+
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 12`] = `
+"Hello World as function!"
+`;
+
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 13`] = `
+[]
+`;
+
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 14`] = `
+[]
 `;
 
 exports[`setupMiddlewares option > should handle POST request to /setup-middleware/some/path route 1`] = `

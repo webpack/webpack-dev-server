@@ -21,13 +21,10 @@ describe("API", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      // Note: jest.resetModules() removed during migration to node:test.
-      // It cleared require.cache between tests; mock.module() restoration
-      // (in afterEach / try-finally) replaces that role.
-
       process.env = { ...OLD_ENV };
 
       delete process.env.WEBPACK_SERVE;
+      delete require.cache[require.resolve("../../lib/Server")];
 
       ({ page, browser } = await runBrowser());
 
@@ -808,7 +805,7 @@ describe("API", () => {
     it("should throw the error when the port isn't found", async (t) => {
       expect.assertions(1);
 
-      const getPortMock = mock.module("../../lib/getPort", {
+      const getPortMock = mock.module("../../lib/getPort.js", {
         defaultExport: () => Promise.reject(new Error("busy")),
       });
 
