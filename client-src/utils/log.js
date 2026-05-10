@@ -1,4 +1,4 @@
-import defaultLogger from "../modules/logger/index.js";
+import logger from "../modules/logger/index.js";
 
 const name = "webpack-dev-server";
 // default level is set on the client side, so it does not need
@@ -8,16 +8,14 @@ const defaultLevel = "info";
 // options new options, merge with old options
 /**
  * @param {false | true | "none" | "error" | "warn" | "info" | "log" | "verbose"} level level
- * @param {Logger} logger internal-only override for tests; defaults to the
- * real webpack runtime logger
  * @returns {void}
  */
-function setLogLevel(level, logger = defaultLogger) {
+function setLogLevel(level) {
   logger.configureDefaultLogger({ level });
 }
 
 setLogLevel(defaultLevel);
 
-const log = defaultLogger.getLogger(name);
+const log = logger.getLogger(name);
 
 export { log, setLogLevel };
