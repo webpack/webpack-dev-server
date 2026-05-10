@@ -268,11 +268,11 @@ exports[`allowed hosts > should disconnect web client using localhost to web soc
 ]
 `;
 
-exports[`allowed hosts > should disconnect web client using localhost to web socket server with the "auto" value ("ws") 1`] = `
+exports[`allowed hosts > should disconnect web client using localhost to web socket server with the "auto" value ("ws") 2`] = `
 "<html><head><meta name="color-scheme" content="light dark"></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">Invalid Host header</pre></body></html>"
 `;
 
-exports[`allowed hosts > should disconnect web client using localhost to web socket server with the "auto" value ("ws") 2`] = `
+exports[`allowed hosts > should disconnect web client using localhost to web socket server with the "auto" value ("ws") 3`] = `
 []
 `;
 

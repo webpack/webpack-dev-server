@@ -18,7 +18,11 @@ exports[`port > should work using "8159" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "8159" port  1`] = `
+exports[`port > should work using "8159" port  2`] = `
+[]
+`;
+
+exports[`port > should work using "8159" port  3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -26,11 +30,7 @@ exports[`port > should work using "8159" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "8159" port  2`] = `
-[]
-`;
-
-exports[`port > should work using "8159" port  2`] = `
+exports[`port > should work using "8159" port  4`] = `
 []
 `;
 

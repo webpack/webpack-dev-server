@@ -225,7 +225,7 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -233,11 +233,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 2`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 3`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 2`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 4`] = `
 []
 `;
 

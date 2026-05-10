@@ -1,57 +1,57 @@
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 10`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 1`] = `
 "text/html; charset=utf-8"
 `;
 
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 10`] = `
+"Hello World without path!"
+`;
+
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 11`] = `
-200
+"Hello World as function!"
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 12`] = `
-"setup-middlewares option GET"
+200
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 13`] = `
-[]
+"setup-middlewares option GET"
 `;
 
 exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 14`] = `
 []
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response headers content-type 2`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 2`] = `
+[]
+`;
+
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 3`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response headers content-type 3`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 4`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response headers content-type 4`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 5`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response status 2`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 6`] = `
 200
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response status 3`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 7`] = `
 200
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response status 4`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 8`] = `
 200
 `;
 
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response text 2`] = `
+exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route 9`] = `
 "Hello World with path!"
-`;
-
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response text 3`] = `
-"Hello World without path!"
-`;
-
-exports[`setupMiddlewares option > should handle GET request to /setup-middleware/some/path route > response text 4`] = `
-"Hello World as function!"
 `;
 
 exports[`setupMiddlewares option > should handle POST request to /setup-middleware/some/path route 1`] = `

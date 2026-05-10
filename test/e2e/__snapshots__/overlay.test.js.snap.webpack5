@@ -311,7 +311,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 "
 `;
 
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 4`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 3`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -332,7 +332,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 "
 `;
 
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 5`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 4`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -421,7 +421,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 "
 `;
 
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 6`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 5`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -429,7 +429,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 "
 `;
 
-exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix > overlay html 2`] = `
+exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 6`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -976,7 +976,7 @@ exports[`overlay > should show a warning and error for initial compilation and p
 "
 `;
 
-exports[`overlay > should show a warning and hide them after closing connection 2`] = `
+exports[`overlay > should show a warning and hide them after closing connection 1`] = `
 "<body>
   <div
     id="webpack-dev-server-client-overlay-div"
@@ -1060,7 +1060,7 @@ exports[`overlay > should show a warning and hide them after closing connection 
 "
 `;
 
-exports[`overlay > should show a warning and hide them after closing connection 3`] = `
+exports[`overlay > should show a warning and hide them after closing connection 2`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>
@@ -1081,7 +1081,7 @@ exports[`overlay > should show a warning and hide them after closing connection 
 "
 `;
 
-exports[`overlay > should show a warning and hide them after closing connection > page html 2`] = `
+exports[`overlay > should show a warning and hide them after closing connection 3`] = `
 "<body>
   <h1>webpack-dev-server is running...</h1>
   <script type="text/javascript" charset="utf-8" src="/main.js"></script>

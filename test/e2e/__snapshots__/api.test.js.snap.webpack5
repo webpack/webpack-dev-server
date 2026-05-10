@@ -154,6 +154,18 @@ exports[`API > WEBPACK_SERVE environment variable > should be present 3`] = `
 []
 `;
 
+exports[`API > latest async API > should work and allow to rerun dev server multiple times 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API > latest async API > should work and allow to rerun dev server multiple times 2`] = `
+[]
+`;
+
 exports[`API > latest async API > should work and allow to rerun dev server multiple times 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
@@ -163,18 +175,6 @@ exports[`API > latest async API > should work and allow to rerun dev server mult
 `;
 
 exports[`API > latest async API > should work and allow to rerun dev server multiple times 4`] = `
-[]
-`;
-
-exports[`API > latest async API > should work and allow to rerun dev server multiple times > console messages 2`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`API > latest async API > should work and allow to rerun dev server multiple times > page errors 2`] = `
 []
 `;
 
