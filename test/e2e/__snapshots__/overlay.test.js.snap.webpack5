@@ -978,6 +978,27 @@ exports[`overlay > should show a warning and error for initial compilation and p
 
 exports[`overlay > should show a warning and hide them after closing connection 1`] = `
 "<body>
+  <h1>webpack-dev-server is running...</h1>
+  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
+
+  <iframe
+    id="webpack-dev-server-client-overlay"
+    src="about:blank"
+    style="
+      position: fixed;
+      inset: 0px;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2147483647;
+    "
+  ></iframe>
+</body>
+"
+`;
+
+exports[`overlay > should show a warning and hide them after closing connection 2`] = `
+"<body>
   <div
     id="webpack-dev-server-client-overlay-div"
     style="
@@ -1056,27 +1077,6 @@ exports[`overlay > should show a warning and hide them after closing connection 
       </div>
     </div>
   </div>
-</body>
-"
-`;
-
-exports[`overlay > should show a warning and hide them after closing connection 2`] = `
-"<body>
-  <h1>webpack-dev-server is running...</h1>
-  <script type="text/javascript" charset="utf-8" src="/main.js"></script>
-
-  <iframe
-    id="webpack-dev-server-client-overlay"
-    src="about:blank"
-    style="
-      position: fixed;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 2147483647;
-    "
-  ></iframe>
 </body>
 "
 `;

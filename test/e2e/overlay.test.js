@@ -1505,6 +1505,7 @@ describe("overlay", () => {
       );
     } finally {
       await browser.close();
+      await server.stop();
     }
   });
 

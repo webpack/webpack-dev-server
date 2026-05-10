@@ -369,7 +369,7 @@ describe("server and client transport", () => {
     }
   });
 
-  it("should throw an error on invalid path to server transport", async () => {
+  it("should throw an error on invalid path to server transport", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -378,14 +378,17 @@ describe("server and client transport", () => {
       },
     };
     const server = new Server(devServerOptions, compiler);
-    await expect(async () => {
+    try {
       await server.start();
-    }).rejects.toThrowErrorMatchingSnapshot();
-
-    await server.stop();
+      throw new Error("server.start() should have thrown");
+    } catch (error) {
+      t.assert.snapshot(error.message);
+    } finally {
+      await server.stop();
+    }
   });
 
-  it("should throw an error on invalid path to client transport", async () => {
+  it("should throw an error on invalid path to client transport", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -394,10 +397,13 @@ describe("server and client transport", () => {
       },
     };
     const server = new Server(devServerOptions, compiler);
-    await expect(async () => {
+    try {
       await server.start();
-    }).rejects.toThrowErrorMatchingSnapshot();
-
-    await server.stop();
+      throw new Error("server.start() should have thrown");
+    } catch (error) {
+      t.assert.snapshot(error.message);
+    } finally {
+      await server.stop();
+    }
   });
 });
