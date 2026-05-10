@@ -9,6 +9,8 @@ process.env.CHOKIDAR_USEPOLLING = "true";
 // byte-for-byte compatible:
 //   - jest-snapshot.serialize() hardcodes: escapeRegex: true, printFunctionName: false
 //   - jest-config defaults snapshotFormat to: { escapeString: false, printBasicPrototype: false }
+//   - jest-snapshot normalizes "\r\n" and "\r" to "\n" so snapshots are
+//     platform-agnostic; we mirror that here for Windows compatibility.
 snapshot.setDefaultSnapshotSerializers([
   (value) =>
     format(value, {
@@ -17,7 +19,7 @@ snapshot.setDefaultSnapshotSerializers([
       indent: 2,
       printBasicPrototype: false,
       printFunctionName: false,
-    }),
+    }).replaceAll(/\r\n|\r/g, "\n"),
 ]);
 
 const [webpackVersion] = webpack.version;
