@@ -35,7 +35,7 @@
     "build:client": "rimraf -g ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "build:types": "rimraf -g ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && node ./scripts/extend-webpack-types.js && prettier \"types/**/*.ts\" --write && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",
-    "test:only": "node ./scripts/check-test-ports.mjs && node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test --test-timeout=400000 --test-force-exit test/cli test/client test/e2e test/server test/normalize-options.test.js test/validate-options.test.js",
+    "test:only": "node ./scripts/check-test-ports.mjs && node ./scripts/run-tests.mjs",
     "test:coverage": "npm run test:only -- --experimental-test-coverage",
     "test:watch": "npm run test:only -- --watch",
     "test": "npm run test:coverage",
