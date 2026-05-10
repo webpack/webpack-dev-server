@@ -139,17 +139,17 @@ exports[`watchFiles option > should work with options > {"interval":400,"poll":2
 `;
 
 exports[`watchFiles option > should work with options > {"interval":400,"poll":200} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"interval":400,"poll":200} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"interval":400,"poll":200} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"interval":400,"poll":200} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"poll":200} > should reload when file content is changed 1`] = `
@@ -169,17 +169,17 @@ exports[`watchFiles option > should work with options > {"poll":200} > should re
 `;
 
 exports[`watchFiles option > should work with options > {"poll":200} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"poll":200} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"poll":200} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"poll":200} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"poll":true} > should reload when file content is changed 1`] = `
@@ -199,17 +199,17 @@ exports[`watchFiles option > should work with options > {"poll":true} > should r
 `;
 
 exports[`watchFiles option > should work with options > {"poll":true} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"poll":true} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"poll":true} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"poll":true} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false,"interval":200,"poll":400} > should reload when file content is changed 1`] = `
@@ -229,17 +229,17 @@ exports[`watchFiles option > should work with options > {"usePolling":false,"int
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false,"interval":200,"poll":400} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":false,"interval":200,"poll":400} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":false,"interval":200,"poll":400} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":false,"interval":200,"poll":400} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false,"poll":200} > should reload when file content is changed 1`] = `
@@ -259,17 +259,17 @@ exports[`watchFiles option > should work with options > {"usePolling":false,"pol
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false,"poll":200} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":false,"poll":200} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":false,"poll":200} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":false,"poll":200} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false,"poll":true} > should reload when file content is changed 1`] = `
@@ -289,17 +289,17 @@ exports[`watchFiles option > should work with options > {"usePolling":false,"pol
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false,"poll":true} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":false,"poll":true} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":false,"poll":true} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":false,"poll":true} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false} > should reload when file content is changed 1`] = `
@@ -319,17 +319,17 @@ exports[`watchFiles option > should work with options > {"usePolling":false} > s
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":false} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":false} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":false} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":false} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":true,"interval":200,"poll":400} > should reload when file content is changed 1`] = `
@@ -349,17 +349,17 @@ exports[`watchFiles option > should work with options > {"usePolling":true,"inte
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":true,"interval":200,"poll":400} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":true,"interval":200,"poll":400} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":true,"interval":200,"poll":400} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":true,"interval":200,"poll":400} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":true,"poll":200} > should reload when file content is changed 1`] = `
@@ -379,17 +379,17 @@ exports[`watchFiles option > should work with options > {"usePolling":true,"poll
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":true,"poll":200} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":true,"poll":200} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":true,"poll":200} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":true,"poll":200} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":true} > should reload when file content is changed 1`] = `
@@ -409,17 +409,17 @@ exports[`watchFiles option > should work with options > {"usePolling":true} > sh
 `;
 
 exports[`watchFiles option > should work with options > {"usePolling":true} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {"usePolling":true} > should reload when file content is changed 3`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {"usePolling":true} > should reload when file content is changed 3`] = `
-[]
-`;
-
 exports[`watchFiles option > should work with options > {"usePolling":true} > should reload when file content is changed 4`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 1`] = `
@@ -443,11 +443,13 @@ exports[`watchFiles option > should work with options > {} > should reload when 
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 11`] = `
-[]
+[
+  "Hey.",
+]
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 12`] = `
-200
+[]
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 13`] = `
@@ -467,128 +469,20 @@ exports[`watchFiles option > should work with options > {} > should reload when 
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 14`] = `
-[]
+200
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 15`] = `
-{
-  "alwaysStat": true,
-  "atomic": false,
-  "awaitWriteFinish": false,
-  "binaryInterval": 300,
-  "followSymlinks": false,
-  "ignoreInitial": true,
-  "ignorePermissionErrors": true,
-  "ignored": [],
-  "interval": 100,
-  "persistent": undefined,
-  "usePolling": true,
-}
+[
+  "Hey.",
+]
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 16`] = `
-[
-  "Hey.",
-]
+[]
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 17`] = `
-[
-  "Hey.",
-]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 18`] = `
-{
-  "alwaysStat": undefined,
-  "atomic": false,
-  "awaitWriteFinish": false,
-  "binaryInterval": 300,
-  "followSymlinks": false,
-  "ignoreInitial": true,
-  "ignorePermissionErrors": true,
-  "ignored": [],
-  "interval": 100,
-  "persistent": true,
-  "usePolling": true,
-}
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 19`] = `
-{
-  "alwaysStat": true,
-  "atomic": false,
-  "awaitWriteFinish": false,
-  "binaryInterval": 300,
-  "followSymlinks": false,
-  "ignoreInitial": true,
-  "ignorePermissionErrors": undefined,
-  "ignored": [],
-  "interval": 100,
-  "persistent": true,
-  "usePolling": true,
-}
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 2`] = `
-[
-  "Hey.",
-]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 20`] = `
-[]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 21`] = `
-{
-  "alwaysStat": true,
-  "atomic": false,
-  "awaitWriteFinish": false,
-  "binaryInterval": 300,
-  "followSymlinks": false,
-  "ignoreInitial": true,
-  "ignorePermissionErrors": true,
-  "ignored": [],
-  "interval": 100,
-  "persistent": true,
-  "usePolling": true,
-}
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 22`] = `
-[
-  "Hey.",
-]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 23`] = `
-[
-  "Hey.",
-]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 24`] = `
-200
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 25`] = `
-200
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 26`] = `
-[]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 27`] = `
-[]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 28`] = `
-200
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 29`] = `
 {
   "alwaysStat": true,
   "atomic": true,
@@ -604,7 +498,55 @@ exports[`watchFiles option > should work with options > {} > should reload when 
 }
 `;
 
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 3`] = `
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 18`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 19`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 20`] = `
+[]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 21`] = `
+{
+  "alwaysStat": undefined,
+  "atomic": false,
+  "awaitWriteFinish": false,
+  "binaryInterval": 300,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": [],
+  "interval": 100,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 22`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 23`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 24`] = `
+[]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 25`] = `
 {
   "alwaysStat": true,
   "atomic": false,
@@ -621,30 +563,78 @@ exports[`watchFiles option > should work with options > {} > should reload when 
 }
 `;
 
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 30`] = `
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 26`] = `
 200
 `;
 
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 31`] = `
-[]
-`;
-
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 32`] = `
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 27`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 4`] = `
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 28`] = `
+[]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 29`] = `
+{
+  "alwaysStat": true,
+  "atomic": false,
+  "awaitWriteFinish": false,
+  "binaryInterval": 300,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": undefined,
+  "ignored": [],
+  "interval": 100,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 3`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 30`] = `
 200
 `;
 
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 5`] = `
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 31`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 32`] = `
 []
 `;
 
-exports[`watchFiles option > should work with options > {} > should reload when file content is changed 6`] = `
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 4`] = `
 []
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 5`] = `
+{
+  "alwaysStat": true,
+  "atomic": false,
+  "awaitWriteFinish": false,
+  "binaryInterval": 300,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": [],
+  "interval": 100,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
+exports[`watchFiles option > should work with options > {} > should reload when file content is changed 6`] = `
+200
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 7`] = `
@@ -654,13 +644,23 @@ exports[`watchFiles option > should work with options > {} > should reload when 
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 8`] = `
-[
-  "Hey.",
-]
+[]
 `;
 
 exports[`watchFiles option > should work with options > {} > should reload when file content is changed 9`] = `
-200
+{
+  "alwaysStat": true,
+  "atomic": false,
+  "awaitWriteFinish": false,
+  "binaryInterval": 300,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": [],
+  "interval": 100,
+  "persistent": undefined,
+  "usePolling": true,
+}
 `;
 
 exports[`watchFiles option > should work with string and glob > should reload when file content is changed 1`] = `
