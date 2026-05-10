@@ -1,6 +1,6 @@
 "use strict";
 
-/* global test */
+const { test } = require("node:test");
 
 const isWindows = process.platform === "win32";
 

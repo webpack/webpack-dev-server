@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -33,7 +35,7 @@ describe("Built in routes", () => {
       await server.stop();
     });
 
-    it("should handle GET request to invalidate endpoint", async () => {
+    it("should handle GET request to invalidate endpoint", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -51,16 +53,14 @@ describe("Built in routes", () => {
 
       expect(response.headers()["content-type"]).not.toBe("text/html");
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle GET request to directory index and list all middleware directories", async () => {
+    it("should handle GET request to directory index and list all middleware directories", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -76,22 +76,18 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle HEAD request to directory index", async () => {
+    it("should handle HEAD request to directory index", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -112,22 +108,18 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle GET request to magic async chunk", async () => {
+    it("should handle GET request to magic async chunk", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -140,18 +132,14 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     });
 
-    it("should handle HEAD request to magic async chunk", async () => {
+    it("should handle HEAD request to magic async chunk", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -169,15 +157,11 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     });
   });
 
@@ -206,7 +190,7 @@ describe("Built in routes", () => {
       await server.stop();
     });
 
-    it("should handle GET request to directory index and list all middleware directories", async () => {
+    it("should handle GET request to directory index and list all middleware directories", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -222,19 +206,15 @@ describe("Built in routes", () => {
         },
       );
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("directory list");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 });

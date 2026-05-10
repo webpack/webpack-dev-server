@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const express = require("express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const webpack = require("webpack");
@@ -15,7 +17,7 @@ describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer;
 
-    it(`should work behind proxy, when hostnames are same and ports are different ("${webSocketServer}")`, async () => {
+    it(`should work behind proxy, when hostnames are same and ports are different ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -91,10 +93,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
         await browser.close();
@@ -102,7 +102,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work behind proxy, when hostnames are different and ports are same ("${webSocketServer}")`, async () => {
+    it(`should work behind proxy, when hostnames are different and ports are same ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = Server.findIp("v4", false);
@@ -179,10 +179,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
         await browser.close();
@@ -190,7 +188,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work behind proxy, when hostnames are different and ports are different ("${webSocketServer}")`, async () => {
+    it(`should work behind proxy, when hostnames are different and ports are different ("${webSocketServer}")`, async (t) => {
       const devServerHost = "localhost";
       const devServerPort = port1;
       const proxyHost = Server.findIp("v4", false);
@@ -271,10 +269,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -283,7 +279,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async () => {
+    it(`should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("${webSocketServer}")`, async (t) => {
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = 40000;
 
       const proxyHost = Server.findIp("v4", false);
@@ -364,10 +360,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -378,7 +372,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work with the "client.webSocketURL.protocol" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.protocol" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -434,17 +428,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.protocol" option using "auto:" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.protocol" option using "auto:" value ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -500,17 +492,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -566,17 +556,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.host" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.host" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -632,17 +620,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -697,17 +683,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.port" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.port" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -763,17 +747,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.port" option as string ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.port" option as string ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -829,17 +811,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("${webSocketServer}")`, async () => {
+    it(`should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer: {
@@ -901,17 +881,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port2}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.port" option using "0" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.port" option using "0" value ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -966,17 +944,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1031,17 +1007,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with default "/ws" value of the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
+    it(`should work with default "/ws" value of the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer,
@@ -1092,17 +1066,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.username" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.username" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1157,17 +1129,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://zenitsu@127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.password" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.password" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1223,17 +1193,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://foo:chuntaro@127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1290,17 +1258,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the custom web socket server "path" ("${webSocketServer}")`, async () => {
+    it(`should work with the custom web socket server "path" ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer: {
@@ -1356,10 +1322,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1367,7 +1331,7 @@ describe("web socket server URL", () => {
     });
 
     // Only works for "ws" server
-    it(`should work with the custom web socket server "path" using empty value ("${webSocketServer}")`, async () => {
+    it(`should work with the custom web socket server "path" using empty value ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         webSocketServer: {
@@ -1423,17 +1387,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1494,17 +1456,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1565,17 +1525,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1636,10 +1594,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1647,7 +1603,7 @@ describe("web socket server URL", () => {
     });
 
     // Only works for "ws" server
-    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1708,17 +1664,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL.pathname" option ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -1777,17 +1731,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work when "host" option is IPv4 ("${webSocketServer}")`, async () => {
+    it(`should work when "host" option is IPv4 ("${webSocketServer}")`, async (t) => {
       const hostname = Server.findIp("v4", false);
       const compiler = webpack(config);
       const devServerOptions = {
@@ -1837,17 +1789,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work when "host" option is "local-ip" ("${webSocketServer}")`, async () => {
+    it(`should work when "host" option is "local-ip" ("${webSocketServer}")`, async (t) => {
       const hostname = Server.findIp("v4", false);
       const compiler = webpack(config);
       const devServerOptions = {
@@ -1898,17 +1848,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work when "host" option is "local-ipv4" ("${webSocketServer}")`, async () => {
+    it(`should work when "host" option is "local-ipv4" ("${webSocketServer}")`, async (t) => {
       const hostname = Server.findIp("v4", false);
       const compiler = webpack(config);
       const devServerOptions = {
@@ -1958,17 +1906,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with "server: 'https'" option ("${webSocketServer}")`, async () => {
+    it(`should work with "server: 'https'" option ("${webSocketServer}")`, async (t) => {
       const hostname = "localhost";
       const compiler = webpack(config);
       const devServerOptions = {
@@ -2018,17 +1964,15 @@ describe("web socket server URL", () => {
 
         expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work when "port" option is "auto" ("${webSocketServer}")`, async () => {
+    it(`should work when "port" option is "auto" ("${webSocketServer}")`, async (t) => {
       process.env.WEBPACK_DEV_SERVER_BASE_PORT = 50000;
 
       const compiler = webpack(config);
@@ -2083,10 +2027,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${resolvedFreePort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -2095,7 +2037,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work with "client.webSocketURL.*" options ("${webSocketServer}")`, async () => {
+    it(`should work with "client.webSocketURL.*" options ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -2154,17 +2096,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work with the "client.webSocketURL" option as "string" ("${webSocketServer}")`, async () => {
+    it(`should work with the "client.webSocketURL" option as "string" ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -2218,17 +2158,15 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should work and throw an error on invalid web socket URL ("${webSocketServer}")`, async () => {
+    it(`should work and throw an error on invalid web socket URL ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -2261,21 +2199,19 @@ describe("web socket server URL", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(
           pageErrors.map((pageError) =>
             pageError.message.split("\n")[0].replace("SyntaxError: ", ""),
           ),
-        ).toMatchSnapshot("page errors");
+        );
       } finally {
         await browser.close();
         await server.stop();
       }
     });
 
-    it(`should not work and output disconnect wrong web socket URL ("${webSocketServer}")`, async () => {
+    it(`should not work and output disconnect wrong web socket URL ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
         client: {
@@ -2327,10 +2263,10 @@ describe("web socket server URL", () => {
           }, 100);
         });
 
-        expect(consoleMessages).toMatchSnapshot("console messages");
-        expect(
+        t.assert.snapshot(consoleMessages);
+        t.assert.snapshot(
           pageErrors.map((pageError) => pageError.message.split("\n")[0]),
-        ).toMatchSnapshot("page errors");
+        );
       } finally {
         await browser.close();
         await server.stop();

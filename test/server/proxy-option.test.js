@@ -2,7 +2,10 @@
 
 const http = require("node:http");
 const path = require("node:path");
+const { after, before, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const express = require("express");
+const { spyOn } = require("jest-mock");
 const request = require("supertest");
 const webpack = require("webpack");
 const WebSocket = require("ws");
@@ -156,7 +159,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -178,7 +181,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -255,7 +258,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -273,7 +276,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -290,7 +293,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -308,7 +311,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -325,7 +328,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -343,7 +346,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -360,7 +363,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -378,7 +381,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -395,7 +398,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -413,7 +416,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -441,7 +444,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -459,7 +462,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -477,7 +480,7 @@ describe("proxy option", () => {
     let req;
     let listener;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -510,7 +513,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await new Promise((resolve) => {
         listener.close(() => {
@@ -545,7 +548,7 @@ describe("proxy option", () => {
     for (const webSocketServerType of webSocketServerTypes) {
       // eslint-disable-next-line no-loop-func
       describe(`with webSocketServerType: ${webSocketServerType}`, () => {
-        beforeAll(async () => {
+        before(async () => {
           const compiler = webpack(config);
 
           server = new Server(
@@ -573,20 +576,23 @@ describe("proxy option", () => {
           });
         });
 
-        beforeEach((done) => {
-          ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
+        beforeEach(
+          () =>
+            new Promise((resolve) => {
+              ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
 
-          ws.on("message", (message) => {
-            responseMessage = message.toString();
-            done();
-          });
+              ws.on("message", (message) => {
+                responseMessage = message.toString();
+                resolve();
+              });
 
-          ws.on("open", () => {
-            ws.send("foo");
-          });
-        });
+              ws.on("open", () => {
+                ws.send("foo");
+              });
+            }),
+        );
 
-        afterAll(async () => {
+        after(async () => {
           webSocketServer.close();
 
           for (const client of webSocketServer.clients) {
@@ -998,7 +1004,7 @@ describe("proxy option", () => {
     let req;
     let listener;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -1065,7 +1071,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
 
       await new Promise((resolve) => {
@@ -1129,7 +1135,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack([config, config]);
 
       server = new Server(
@@ -1152,7 +1158,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -1170,8 +1176,8 @@ describe("proxy option", () => {
     let req;
     let consoleSpy;
 
-    beforeAll(async () => {
-      consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    before(async () => {
+      consoleSpy = spyOn(console, "error").mockImplementation(() => {});
 
       const compiler = webpack([config, config]);
 
@@ -1196,17 +1202,17 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       consoleSpy.mockRestore();
       await server.stop();
       await closeProxyServers();
     });
 
     describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
+      it("respects a proxy option when a request path is matched", async (t) => {
         await req.get("/my-path");
 
-        expect(getConsoleErrorOutput(consoleSpy)).toMatchSnapshot();
+        t.assert.snapshot(getConsoleErrorOutput(consoleSpy));
       });
     });
   });
@@ -1216,10 +1222,8 @@ describe("proxy option", () => {
     let req;
     let stderrSpy;
 
-    beforeAll(async () => {
-      stderrSpy = jest
-        .spyOn(process.stderr, "write")
-        .mockImplementation(() => true);
+    before(async () => {
+      stderrSpy = spyOn(process.stderr, "write").mockImplementation(() => true);
 
       const compiler = webpack({
         ...config,
@@ -1246,17 +1250,17 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       stderrSpy.mockRestore();
       await server.stop();
       await closeProxyServers();
     });
 
     describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
+      it("respects a proxy option when a request path is matched", async (t) => {
         await req.get("/my-path");
 
-        expect(getStderrOutput(stderrSpy)).toMatchSnapshot();
+        t.assert.snapshot(getStderrOutput(stderrSpy));
       });
     });
   });
@@ -1266,10 +1270,8 @@ describe("proxy option", () => {
     let req;
     let stderrSpy;
 
-    beforeAll(async () => {
-      stderrSpy = jest
-        .spyOn(process.stderr, "write")
-        .mockImplementation(() => true);
+    before(async () => {
+      stderrSpy = spyOn(process.stderr, "write").mockImplementation(() => true);
 
       const compiler = webpack({
         ...config,
@@ -1294,16 +1296,16 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       stderrSpy.mockRestore();
       await server.stop();
     });
 
     describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
+      it("respects a proxy option when a request path is matched", async (t) => {
         await req.get("/my-path");
 
-        expect(getStderrOutput(stderrSpy)).toMatchSnapshot();
+        t.assert.snapshot(getStderrOutput(stderrSpy));
       });
     });
   });

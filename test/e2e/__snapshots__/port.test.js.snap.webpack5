@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`port should work using "<not-specified>" port : console messages 1`] = `
+exports[`port > should work using "0" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -8,9 +6,11 @@ exports[`port should work using "<not-specified>" port : console messages 1`] = 
 ]
 `;
 
-exports[`port should work using "<not-specified>" port : page errors 1`] = `[]`;
+exports[`port > should work using "0" port  2`] = `
+[]
+`;
 
-exports[`port should work using "0" port : console messages 1`] = `
+exports[`port > should work using "8159" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -18,9 +18,11 @@ exports[`port should work using "0" port : console messages 1`] = `
 ]
 `;
 
-exports[`port should work using "0" port : page errors 1`] = `[]`;
+exports[`port > should work using "8159" port  2`] = `
+[]
+`;
 
-exports[`port should work using "8159" port : console messages 1`] = `
+exports[`port > should work using "8159" port  3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -28,7 +30,11 @@ exports[`port should work using "8159" port : console messages 1`] = `
 ]
 `;
 
-exports[`port should work using "8159" port : console messages 2`] = `
+exports[`port > should work using "8159" port  4`] = `
+[]
+`;
+
+exports[`port > should work using "<not-specified>" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -36,11 +42,11 @@ exports[`port should work using "8159" port : console messages 2`] = `
 ]
 `;
 
-exports[`port should work using "8159" port : page errors 1`] = `[]`;
+exports[`port > should work using "<not-specified>" port  2`] = `
+[]
+`;
 
-exports[`port should work using "8159" port : page errors 2`] = `[]`;
-
-exports[`port should work using "auto" port : console messages 1`] = `
+exports[`port > should work using "auto" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -48,9 +54,11 @@ exports[`port should work using "auto" port : console messages 1`] = `
 ]
 `;
 
-exports[`port should work using "auto" port : page errors 1`] = `[]`;
+exports[`port > should work using "auto" port  2`] = `
+[]
+`;
 
-exports[`port should work using "undefined" port : console messages 1`] = `
+exports[`port > should work using "undefined" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -58,4 +66,6 @@ exports[`port should work using "undefined" port : console messages 1`] = `
 ]
 `;
 
-exports[`port should work using "undefined" port : page errors 1`] = `[]`;
+exports[`port > should work using "undefined" port  2`] = `
+[]
+`;

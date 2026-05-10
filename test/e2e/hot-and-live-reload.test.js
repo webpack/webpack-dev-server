@@ -1,11 +1,10 @@
-/**
- * @jest-environment node
- */
-
 "use strict";
 
 const path = require("node:path");
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const fs = require("graceful-fs");
+const { fn, spyOn } = require("jest-mock");
 const webpack = require("webpack");
 const WebSocket = require("ws");
 const Server = require("../../lib/Server");
@@ -267,7 +266,7 @@ describe("hot and live reload", () => {
         : "default";
 
     // eslint-disable-next-line no-loop-func
-    it(`${mode.title} (${webSocketServerTitle})`, async () => {
+    it(`${mode.title} (${webSocketServerTitle})`, async (t) => {
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
@@ -452,8 +451,8 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toBe("rgb(255, 0, 0)");
       }
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     });
   }
 });
@@ -483,7 +482,7 @@ describe("simple hot config HMR plugin", () => {
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  it("should register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -514,13 +513,11 @@ describe("simple hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -549,7 +546,7 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  it("should register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -581,13 +578,11 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -604,15 +599,16 @@ describe("simple config with already added HMR plugin", () => {
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
     });
 
-    loggerWarnSpy = jest.fn();
+    loggerWarnSpy = fn();
 
-    getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
   });
 
   afterEach(() => {
@@ -679,7 +675,7 @@ describe("multi compiler hot config HMR plugin", () => {
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  it("should register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.compilers[0].hooks.compilation.intercept({
@@ -710,13 +706,11 @@ describe("multi compiler hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -742,7 +736,7 @@ describe("hot disabled HMR plugin", () => {
     await server.stop();
   });
 
-  it("should NOT register the HMR plugin before compilation is complete", async () => {
+  it("should NOT register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -773,12 +767,10 @@ describe("hot disabled HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });

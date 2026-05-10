@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/mime-types-config/webpack.config");
@@ -43,7 +45,7 @@ describe("mimeTypes option", () => {
       await server.stop();
     });
 
-    it("should request file with different js mime type", async () => {
+    it("should request file with different js mime type", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -56,17 +58,13 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -106,7 +104,7 @@ describe("mimeTypes option", () => {
       await server.stop();
     });
 
-    it("should request file with different js mime type", async () => {
+    it("should request file with different js mime type", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -119,17 +117,13 @@ describe("mimeTypes option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(response.headers()["content-type"]).toMatchSnapshot(
-        "response headers content-type",
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 });

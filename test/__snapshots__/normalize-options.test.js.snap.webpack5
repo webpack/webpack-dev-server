@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`normalize options allowedHosts is array 1`] = `
+exports[`normalize options > allowedHosts is array 1`] = `
 {
   "allowedHosts": "all",
   "bonjour": false,
@@ -54,7 +52,7 @@ exports[`normalize options allowedHosts is array 1`] = `
 }
 `;
 
-exports[`normalize options allowedHosts is string 1`] = `
+exports[`normalize options > allowedHosts is string 1`] = `
 {
   "allowedHosts": "all",
   "bonjour": false,
@@ -108,7 +106,7 @@ exports[`normalize options allowedHosts is string 1`] = `
 }
 `;
 
-exports[`normalize options client custom webSocketTransport path 1`] = `
+exports[`normalize options > client custom webSocketTransport path 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -163,7 +161,7 @@ exports[`normalize options client custom webSocketTransport path 1`] = `
 }
 `;
 
-exports[`normalize options client host and port 1`] = `
+exports[`normalize options > client host and port 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -220,7 +218,7 @@ exports[`normalize options client host and port 1`] = `
 }
 `;
 
-exports[`normalize options client host and string port 1`] = `
+exports[`normalize options > client host and string port 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -277,7 +275,7 @@ exports[`normalize options client host and string port 1`] = `
 }
 `;
 
-exports[`normalize options client path 1`] = `
+exports[`normalize options > client path 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -333,7 +331,7 @@ exports[`normalize options client path 1`] = `
 }
 `;
 
-exports[`normalize options client path without leading/ending slashes 1`] = `
+exports[`normalize options > client path without leading/ending slashes 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -389,7 +387,7 @@ exports[`normalize options client path without leading/ending slashes 1`] = `
 }
 `;
 
-exports[`normalize options client.webSocketTransport ws string 1`] = `
+exports[`normalize options > client.webSocketTransport ws string 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -444,64 +442,7 @@ exports[`normalize options client.webSocketTransport ws string 1`] = `
 }
 `;
 
-exports[`normalize options client.webSocketTransport ws string and webSocketServer object 1`] = `
-{
-  "allowedHosts": "auto",
-  "bonjour": false,
-  "client": {
-    "logging": "info",
-    "overlay": true,
-    "reconnect": 10,
-    "webSocketTransport": "ws",
-    "webSocketURL": {},
-  },
-  "compress": true,
-  "devMiddleware": {},
-  "historyApiFallback": false,
-  "host": undefined,
-  "hot": true,
-  "liveReload": true,
-  "open": [],
-  "port": "<auto>",
-  "server": {
-    "options": {},
-    "type": "http",
-  },
-  "setupExitSignals": true,
-  "static": [
-    {
-      "directory": "<cwd>/public",
-      "publicPath": [
-        "/",
-      ],
-      "serveIndex": {
-        "icons": true,
-      },
-      "staticOptions": {},
-      "watch": {
-        "alwaysStat": true,
-        "atomic": false,
-        "followSymlinks": false,
-        "ignoreInitial": true,
-        "ignorePermissionErrors": true,
-        "persistent": true,
-        "usePolling": false,
-      },
-    },
-  ],
-  "watchFiles": [],
-  "webSocketServer": {
-    "options": {
-      "host": "127.0.0.1",
-      "path": "/ws",
-      "pathname": "/ws",
-    },
-    "type": "ws",
-  },
-}
-`;
-
-exports[`normalize options client.webSocketTransport ws string and webSocketServer object with port as string 1`] = `
+exports[`normalize options > client.webSocketTransport ws string and webSocketServer object 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -558,7 +499,64 @@ exports[`normalize options client.webSocketTransport ws string and webSocketServ
 }
 `;
 
-exports[`normalize options client.webSocketTransport ws string and webSocketServer ws string 1`] = `
+exports[`normalize options > client.webSocketTransport ws string and webSocketServer object with port as string 1`] = `
+{
+  "allowedHosts": "auto",
+  "bonjour": false,
+  "client": {
+    "logging": "info",
+    "overlay": true,
+    "reconnect": 10,
+    "webSocketTransport": "ws",
+    "webSocketURL": {},
+  },
+  "compress": true,
+  "devMiddleware": {},
+  "historyApiFallback": false,
+  "host": undefined,
+  "hot": true,
+  "liveReload": true,
+  "open": [],
+  "port": "<auto>",
+  "server": {
+    "options": {},
+    "type": "http",
+  },
+  "setupExitSignals": true,
+  "static": [
+    {
+      "directory": "<cwd>/public",
+      "publicPath": [
+        "/",
+      ],
+      "serveIndex": {
+        "icons": true,
+      },
+      "staticOptions": {},
+      "watch": {
+        "alwaysStat": true,
+        "atomic": false,
+        "followSymlinks": false,
+        "ignoreInitial": true,
+        "ignorePermissionErrors": true,
+        "persistent": true,
+        "usePolling": false,
+      },
+    },
+  ],
+  "watchFiles": [],
+  "webSocketServer": {
+    "options": {
+      "host": "127.0.0.1",
+      "path": "/ws",
+      "pathname": "/ws",
+    },
+    "type": "ws",
+  },
+}
+`;
+
+exports[`normalize options > client.webSocketTransport ws string and webSocketServer ws string 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -613,7 +611,7 @@ exports[`normalize options client.webSocketTransport ws string and webSocketServ
 }
 `;
 
-exports[`normalize options dev is set 1`] = `
+exports[`normalize options > dev is set 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -669,7 +667,7 @@ exports[`normalize options dev is set 1`] = `
 }
 `;
 
-exports[`normalize options hot is false 1`] = `
+exports[`normalize options > hot is false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -723,7 +721,7 @@ exports[`normalize options hot is false 1`] = `
 }
 `;
 
-exports[`normalize options hot is only 1`] = `
+exports[`normalize options > hot is only 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -777,7 +775,7 @@ exports[`normalize options hot is only 1`] = `
 }
 `;
 
-exports[`normalize options hot is true 1`] = `
+exports[`normalize options > hot is true 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -831,7 +829,7 @@ exports[`normalize options hot is true 1`] = `
 }
 `;
 
-exports[`normalize options liveReload is false 1`] = `
+exports[`normalize options > liveReload is false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -885,7 +883,7 @@ exports[`normalize options liveReload is false 1`] = `
 }
 `;
 
-exports[`normalize options liveReload is true 1`] = `
+exports[`normalize options > liveReload is true 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -939,7 +937,7 @@ exports[`normalize options liveReload is true 1`] = `
 }
 `;
 
-exports[`normalize options multi compiler client.logging should override infrastructureLogging.level 1`] = `
+exports[`normalize options > multi compiler client.logging should override infrastructureLogging.level 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -993,7 +991,7 @@ exports[`normalize options multi compiler client.logging should override infrast
 }
 `;
 
-exports[`normalize options multi compiler client.logging should respect infrastructureLogging.level 1`] = `
+exports[`normalize options > multi compiler client.logging should respect infrastructureLogging.level 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1047,7 +1045,7 @@ exports[`normalize options multi compiler client.logging should respect infrastr
 }
 `;
 
-exports[`normalize options multi compiler client.logging should respect infrastructureLogging.level 2`] = `
+exports[`normalize options > multi compiler client.logging should respect infrastructureLogging.level 2`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1101,7 +1099,7 @@ exports[`normalize options multi compiler client.logging should respect infrastr
 }
 `;
 
-exports[`normalize options multi compiler client.logging should respect infrastructureLogging.level 3`] = `
+exports[`normalize options > multi compiler client.logging should respect infrastructureLogging.level 3`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1155,7 +1153,7 @@ exports[`normalize options multi compiler client.logging should respect infrastr
 }
 `;
 
-exports[`normalize options multi compiler watchOptions is set 1`] = `
+exports[`normalize options > multi compiler watchOptions is set 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1209,7 +1207,7 @@ exports[`normalize options multi compiler watchOptions is set 1`] = `
 }
 `;
 
-exports[`normalize options no options 1`] = `
+exports[`normalize options > no options 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1263,7 +1261,7 @@ exports[`normalize options no options 1`] = `
 }
 `;
 
-exports[`normalize options port string 1`] = `
+exports[`normalize options > port string 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1317,7 +1315,7 @@ exports[`normalize options port string 1`] = `
 }
 `;
 
-exports[`normalize options single compiler client.logging should default to infrastructureLogging.level 1`] = `
+exports[`normalize options > single compiler client.logging should default to infrastructureLogging.level 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1371,7 +1369,7 @@ exports[`normalize options single compiler client.logging should default to infr
 }
 `;
 
-exports[`normalize options single compiler client.logging should override to infrastructureLogging.level 1`] = `
+exports[`normalize options > single compiler client.logging should override to infrastructureLogging.level 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1425,7 +1423,7 @@ exports[`normalize options single compiler client.logging should override to inf
 }
 `;
 
-exports[`normalize options single compiler watchOptions is object 1`] = `
+exports[`normalize options > single compiler watchOptions is object 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1479,7 +1477,7 @@ exports[`normalize options single compiler watchOptions is object 1`] = `
 }
 `;
 
-exports[`normalize options single compiler watchOptions is object with static watch overriding it 1`] = `
+exports[`normalize options > single compiler watchOptions is object with static watch overriding it 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1534,7 +1532,7 @@ exports[`normalize options single compiler watchOptions is object with static wa
 }
 `;
 
-exports[`normalize options single compiler watchOptions is object with static watch true 1`] = `
+exports[`normalize options > single compiler watchOptions is object with static watch true 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1588,7 +1586,7 @@ exports[`normalize options single compiler watchOptions is object with static wa
 }
 `;
 
-exports[`normalize options single compiler watchOptions is object with watch false 1`] = `
+exports[`normalize options > single compiler watchOptions is object with watch false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1642,7 +1640,7 @@ exports[`normalize options single compiler watchOptions is object with watch fal
 }
 `;
 
-exports[`normalize options static is an array of static objects 1`] = `
+exports[`normalize options > static is an array of static objects 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1715,7 +1713,7 @@ exports[`normalize options static is an array of static objects 1`] = `
 }
 `;
 
-exports[`normalize options static is an array of strings 1`] = `
+exports[`normalize options > static is an array of strings 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1788,7 +1786,7 @@ exports[`normalize options static is an array of strings 1`] = `
 }
 `;
 
-exports[`normalize options static is an array of strings and static objects 1`] = `
+exports[`normalize options > static is an array of strings and static objects 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1861,7 +1859,7 @@ exports[`normalize options static is an array of strings and static objects 1`] 
 }
 `;
 
-exports[`normalize options static is an object 1`] = `
+exports[`normalize options > static is an object 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1915,7 +1913,7 @@ exports[`normalize options static is an object 1`] = `
 }
 `;
 
-exports[`normalize options static is an object with staticOptions 1`] = `
+exports[`normalize options > static is an object with staticOptions 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -1972,7 +1970,7 @@ exports[`normalize options static is an object with staticOptions 1`] = `
 }
 `;
 
-exports[`normalize options static is false 1`] = `
+exports[`normalize options > static is false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2006,7 +2004,7 @@ exports[`normalize options static is false 1`] = `
 }
 `;
 
-exports[`normalize options static is string 1`] = `
+exports[`normalize options > static is string 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2060,7 +2058,7 @@ exports[`normalize options static is string 1`] = `
 }
 `;
 
-exports[`normalize options static is true 1`] = `
+exports[`normalize options > static is true 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2114,7 +2112,7 @@ exports[`normalize options static is true 1`] = `
 }
 `;
 
-exports[`normalize options static publicPath is a string 1`] = `
+exports[`normalize options > static publicPath is a string 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2168,7 +2166,7 @@ exports[`normalize options static publicPath is a string 1`] = `
 }
 `;
 
-exports[`normalize options static publicPath is an array 1`] = `
+exports[`normalize options > static publicPath is an array 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2223,7 +2221,7 @@ exports[`normalize options static publicPath is an array 1`] = `
 }
 `;
 
-exports[`normalize options static serveIndex is an object more options 1`] = `
+exports[`normalize options > static serveIndex is an object more options 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2280,7 +2278,7 @@ exports[`normalize options static serveIndex is an object more options 1`] = `
 }
 `;
 
-exports[`normalize options static serveIndex is an object with icons false 1`] = `
+exports[`normalize options > static serveIndex is an object with icons false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2334,7 +2332,7 @@ exports[`normalize options static serveIndex is an object with icons false 1`] =
 }
 `;
 
-exports[`normalize options static serveIndex is false 1`] = `
+exports[`normalize options > static serveIndex is false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2386,7 +2384,7 @@ exports[`normalize options static serveIndex is false 1`] = `
 }
 `;
 
-exports[`normalize options static serveIndex is true 1`] = `
+exports[`normalize options > static serveIndex is true 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2440,7 +2438,7 @@ exports[`normalize options static serveIndex is true 1`] = `
 }
 `;
 
-exports[`normalize options static watch is an object 1`] = `
+exports[`normalize options > static watch is an object 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2495,7 +2493,7 @@ exports[`normalize options static watch is an object 1`] = `
 }
 `;
 
-exports[`normalize options static watch is false 1`] = `
+exports[`normalize options > static watch is false 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2541,7 +2539,7 @@ exports[`normalize options static watch is false 1`] = `
 }
 `;
 
-exports[`normalize options static watch is true 1`] = `
+exports[`normalize options > static watch is true 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2595,7 +2593,7 @@ exports[`normalize options static watch is true 1`] = `
 }
 `;
 
-exports[`normalize options username and password 1`] = `
+exports[`normalize options > username and password 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2652,7 +2650,7 @@ exports[`normalize options username and password 1`] = `
 }
 `;
 
-exports[`normalize options webSocketServer custom server class 1`] = `
+exports[`normalize options > webSocketServer custom server class 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
@@ -2706,7 +2704,7 @@ exports[`normalize options webSocketServer custom server class 1`] = `
 }
 `;
 
-exports[`normalize options webSocketServer custom server path 1`] = `
+exports[`normalize options > webSocketServer custom server path 1`] = `
 {
   "allowedHosts": "auto",
   "bonjour": false,
