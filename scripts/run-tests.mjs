@@ -1,8 +1,26 @@
 import { spawn } from "node:child_process";
-import { glob } from "node:fs/promises";
+import { glob, mkdir } from "node:fs/promises";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
+
+// Pre-create any directory referenced by `--test-reporter-destination` because
+// Node's reporter stream opens the file with `fs.createWriteStream` and won't
+// create missing parent directories.
+for (let i = 0; i < process.argv.length; i++) {
+  const arg = process.argv[i];
+  let destination;
+  if (arg === "--test-reporter-destination") {
+    destination = process.argv[i + 1];
+  } else if (arg?.startsWith("--test-reporter-destination=")) {
+    destination = arg.slice("--test-reporter-destination=".length);
+  }
+  if (destination && destination !== "stdout" && destination !== "stderr") {
+    await mkdir(path.dirname(path.resolve(ROOT, destination)), {
+      recursive: true,
+    });
+  }
+}
 
 const PATTERNS = [
   "test/*.test.js",
