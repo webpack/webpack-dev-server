@@ -10,7 +10,7 @@ const config = require("../fixtures/simple-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map").bonjour;
 
-describe("bonjour option", () => {
+describe("bonjour option", { concurrency: 1 }, () => {
   let mockPublish;
   let mockUnpublishAll;
   let mockDestroy;

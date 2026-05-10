@@ -8,7 +8,7 @@ const config = require("../fixtures/simple-config-other/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["compress-option"];
 
-describe("compress option", () => {
+describe("compress option", { concurrency: 1 }, () => {
   describe("enabled by default when not specified", () => {
     let compiler;
     let server;

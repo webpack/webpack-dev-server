@@ -11,7 +11,12 @@ const runBrowser = require("../helpers/run-browser");
 const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map").api;
 
-describe("API", () => {
+// concurrency: 1 — force inner describes/its to run strictly sequentially.
+// Each inner describe's beforeEach starts a Server on the same `port`; if
+// node:test ever overlaps cleanup of one with start of the next, we hit
+// EADDRINUSE. Serial guarantees server.stop() completes before the next
+// server.start().
+describe("API", { concurrency: 1 }, () => {
   describe("WEBPACK_SERVE environment variable", () => {
     const OLD_ENV = process.env;
     let server;

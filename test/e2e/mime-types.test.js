@@ -8,7 +8,7 @@ const config = require("../fixtures/mime-types-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["mime-types-option"];
 
-describe("mimeTypes option", () => {
+describe("mimeTypes option", { concurrency: 1 }, () => {
   describe("as an object with a remapped type", () => {
     let compiler;
     let server;

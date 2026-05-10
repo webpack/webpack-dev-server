@@ -12,7 +12,7 @@ const config = require("../fixtures/historyapifallback-config/webpack.config");
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["history-api-fallback-option"];
 
-describe("historyApiFallback option", () => {
+describe("historyApiFallback option", { concurrency: 1 }, () => {
   describe("as boolean", () => {
     let compiler;
     let server;

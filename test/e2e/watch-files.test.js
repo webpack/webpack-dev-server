@@ -15,7 +15,7 @@ const watchDir = path.resolve(
   "../fixtures/watch-files-config/public",
 );
 
-describe("watchFiles option", () => {
+describe("watchFiles option", { concurrency: 1 }, () => {
   describe("should work with string and path to file", () => {
     const file = path.join(watchDir, "assets/example.txt");
     let compiler;

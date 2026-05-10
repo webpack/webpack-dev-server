@@ -12,7 +12,7 @@ const pluginConfig = require("../fixtures/module-federation-config/webpack.plugi
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["module-federation"];
 
-describe("Module federation", () => {
+describe("Module federation", { concurrency: 1 }, () => {
   describe("should work with simple multi-entry config", () => {
     let compiler;
     let server;

@@ -16,7 +16,7 @@ const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
 const otherPublicDirectory = path.resolve(staticDirectory, "other");
 
-describe("static.directory option", () => {
+describe("static.directory option", { concurrency: 1 }, () => {
   describe("to directory", () => {
     const nestedFile = path.resolve(publicDirectory, "assets/example.txt");
 

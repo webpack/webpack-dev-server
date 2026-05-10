@@ -22,7 +22,7 @@ const cssFilePath = path.resolve(
 
 const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
 
-describe("hot and live reload", () => {
+describe("hot and live reload", { concurrency: 1 }, () => {
   const modes = [
     {
       title: "should work and refresh content using hot module replacement",
