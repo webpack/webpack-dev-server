@@ -4,6 +4,8 @@ const http = require("node:http");
 const net = require("node:net");
 const os = require("node:os");
 const path = require("node:path");
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const httpProxy = require("http-proxy");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -18,7 +20,7 @@ describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
     const websocketURLProtocol = webSocketServer;
 
-    it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "localhost";
       const proxyHost = devServerHost;
       const proxyPort = port1;
@@ -95,10 +97,10 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        await t.test("console messages", async (t) =>
+          t.assert.snapshot(consoleMessages.map((message) => message.text())),
+        );
+        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
       } finally {
         proxy.close();
 
@@ -107,7 +109,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async (t) => {
       const isWindows = process.platform === "win32";
       const pipePrefix = isWindows ? "\\\\.\\pipe\\" : os.tmpdir();
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;
@@ -189,10 +191,10 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        await t.test("console messages", async (t) =>
+          t.assert.snapshot(consoleMessages.map((message) => message.text())),
+        );
+        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
       } finally {
         proxy.close();
 
@@ -202,8 +204,8 @@ describe("web socket server URL", () => {
     });
 
     // TODO un skip after implement new API
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async () => {
+
+    it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async (t) => {
       const isWindows = process.platform === "win32";
       const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
       const pipePrefix = isWindows ? "\\\\.\\pipe\\" : localRelative;
@@ -301,10 +303,10 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        await t.test("console messages", async (t) =>
+          t.assert.snapshot(consoleMessages.map((message) => message.text())),
+        );
+        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
       } finally {
         proxy.close();
 

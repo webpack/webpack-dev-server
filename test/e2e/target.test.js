@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("node:path");
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -30,7 +32,7 @@ describe("target", () => {
   ];
 
   for (const target of targets) {
-    it(`should work using "${target}" target`, async () => {
+    it(`should work using "${target}" target`, async (t) => {
       const compiler = webpack({
         ...config,
         target,
@@ -62,9 +64,9 @@ describe("target", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        await t.test("console messages", async (t) =>
+          t.assert.snapshot(consoleMessages.map((message) => message.text())),
+        );
 
         if (
           target === "node" ||
@@ -82,7 +84,9 @@ describe("target", () => {
 
           expect(hasRequireOrGlobalError).toBe(true);
         } else {
-          expect(pageErrors).toMatchSnapshot("page errors");
+          await t.test("page errors", async (t) =>
+            t.assert.snapshot(pageErrors),
+          );
         }
       } finally {
         await browser.close();
@@ -91,7 +95,7 @@ describe("target", () => {
     });
   }
 
-  it("should work using multi compiler mode with `web` and `webworker` targets", async () => {
+  it("should work using multi compiler mode with `web` and `webworker` targets", async (t) => {
     const compiler = webpack(workerConfig);
     const server = new Server({ port }, compiler);
 
@@ -115,21 +119,23 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        sortByTerm(
-          consoleMessages.map((message) => message.text()),
-          "Worker said:",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(
+          sortByTerm(
+            consoleMessages.map((message) => message.text()),
+            "Worker said:",
+          ),
         ),
-      ).toMatchSnapshot("console messages");
+      );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work using multi compiler mode with `web` and `webworker` targets with `devServer: false`", async () => {
+  it("should work using multi compiler mode with `web` and `webworker` targets with `devServer: false`", async (t) => {
     const compiler = webpack(workerConfigDevServerFalse);
     const server = new Server(
       {
@@ -164,14 +170,16 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
-        sortByTerm(
-          consoleMessages.map((message) => message.text()),
-          "Worker said:",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(
+          sortByTerm(
+            consoleMessages.map((message) => message.text()),
+            "Worker said:",
+          ),
         ),
-      ).toMatchSnapshot("console messages");
+      );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     } finally {
       await browser.close();
       await server.stop();

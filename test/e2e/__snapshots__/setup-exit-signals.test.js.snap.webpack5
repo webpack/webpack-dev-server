@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: console messages 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -8,11 +6,15 @@ exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals sh
 ]
 `;
 
-exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: page errors 1`] = `[]`;
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT > page errors 1`] = `
+[]
+`;
 
-exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGINT: response status 1`] = `200`;
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT > response status 1`] = `
+200
+`;
 
-exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: console messages 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -20,6 +22,10 @@ exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals sh
 ]
 `;
 
-exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: page errors 1`] = `[]`;
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM > page errors 1`] = `
+[]
+`;
 
-exports[`setupExitSignals option should handle 'SIGINT' and 'SIGTERM' signals should close and exit on SIGTERM: response status 1`] = `200`;
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM > response status 1`] = `
+200
+`;

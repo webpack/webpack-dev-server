@@ -2,6 +2,8 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const wdm = require("webpack-dev-middleware");
 const Server = require("../../lib/Server");

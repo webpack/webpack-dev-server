@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -43,7 +45,7 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("responds with a 200 status code for / path", async () => {
+    it("responds with a 200 status code for / path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -74,17 +76,19 @@ describe("client option", () => {
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(webSocketRequests.map((request) => request.url)).toMatchSnapshot(
-        "webSockets",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("webSockets", async (t) =>
+        t.assert.snapshot(webSocketRequests.map((request) => request.url)),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -132,7 +136,7 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("responds with a websocket with the /foo/test/bar path", async () => {
+    it("responds with a websocket with the /foo/test/bar path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -160,15 +164,15 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(webSocketRequests.map((request) => request.url)).toMatchSnapshot(
-        "webSockets",
+      await t.test("webSockets", async (t) =>
+        t.assert.snapshot(webSocketRequests.map((request) => request.url)),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -204,7 +208,7 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("should disable client entry", async () => {
+    it("should disable client entry", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -232,17 +236,21 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(webSocketRequests).toMatchSnapshot("webSockets");
+      await t.test("webSockets", async (t) =>
+        t.assert.snapshot(webSocketRequests),
+      );
 
-      expect(response.status()).toMatchSnapshot("response status");
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
+      );
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -286,12 +294,14 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("should disable client entry", async () => {
+    it("should disable client entry", async (t) => {
       const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
+      );
 
       const content = await response.text();
       expect(content).toContain("CustomClientEntry.js");

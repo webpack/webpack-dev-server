@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const requireFromString = require("require-from-string");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -36,7 +38,7 @@ describe("Module federation", () => {
       await server.stop();
     });
 
-    it("should use the last entry export", async () => {
+    it("should use the last entry export", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -61,11 +63,11 @@ describe("Module federation", () => {
 
       expect(exports).toBe("entry2");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -94,7 +96,7 @@ describe("Module federation", () => {
       await server.stop();
     });
 
-    it("should use the last entry export", async () => {
+    it("should use the last entry export", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -119,14 +121,14 @@ describe("Module federation", () => {
 
       expect(exports).toBe("entry2");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
 
-    it("should support the named entry export", async () => {
+    it("should support the named entry export", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -151,11 +153,11 @@ describe("Module federation", () => {
 
       expect(exports).toBe("entry1");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -184,7 +186,7 @@ describe("Module federation", () => {
       await server.stop();
     });
 
-    it("should use the last entry export", async () => {
+    it("should use the last entry export", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -209,11 +211,11 @@ describe("Module federation", () => {
 
       expect(exports).toBe("entry2");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -242,7 +244,7 @@ describe("Module federation", () => {
       await server.stop();
     });
 
-    it("should contain hot script in remoteEntry.js", async () => {
+    it("should contain hot script in remoteEntry.js", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -262,14 +264,14 @@ describe("Module federation", () => {
 
       expect(remoteEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
 
-    it("should contain hot script in main.js", async () => {
+    it("should contain hot script in main.js", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -286,11 +288,11 @@ describe("Module federation", () => {
 
       expect(mainEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 });

@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilation-multiple-entries/webpack.config");
@@ -7,10 +9,9 @@ const lazyCompilationSingleEntryConfig = require("../fixtures/lazy-compilation-s
 const runBrowser = require("../helpers/run-browser");
 const port = require("../ports-map")["lazy-compilation"];
 
-/* eslint-disable jest/no-disabled-tests */
 describe("lazy compilation", () => {
   // TODO jest freeze due webpack do not close `eventsource`, we should uncomment this after fix it on webpack side
-  it.skip("should work with single entry", async () => {
+  it.skip("should work with single entry", async (t) => {
     const compiler = webpack(lazyCompilationSingleEntryConfig);
     const server = new Server({ port }, compiler);
 
@@ -43,15 +44,17 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages),
+      );
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it.skip("should work with multiple entries", async () => {
+  it.skip("should work with multiple entries", async (t) => {
     const compiler = webpack(lazyCompilationMultipleEntriesConfig);
     const server = new Server({ port }, compiler);
 
@@ -99,8 +102,10 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages),
+      );
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     } finally {
       await browser.close();
       await server.stop();

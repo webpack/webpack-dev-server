@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -8,7 +10,7 @@ const sessionSubscribe = require("../helpers/session-subscribe");
 const port = require("../ports-map")["web-socket-server-test"];
 
 describe("web socket server", () => {
-  it("should work allow to disable", async () => {
+  it("should work allow to disable", async (t) => {
     const devServerPort = port;
 
     const compiler = webpack(config);
@@ -54,10 +56,10 @@ describe("web socket server", () => {
       });
 
       expect(webSocketRequests).toHaveLength(0);
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
       );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     } finally {
       await browser.close();
       await server.stop();

@@ -1,6 +1,8 @@
 "use strict";
 
 const path = require("node:path");
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const fs = require("graceful-fs");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");

@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`web socket communication should work and close web socket client connection when web socket server closed ("ws"): console messages 1`] = `
+exports[`web socket communication > should work and close web socket client connection when web socket server closed ("ws") > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -10,9 +8,11 @@ exports[`web socket communication should work and close web socket client connec
 ]
 `;
 
-exports[`web socket communication should work and close web socket client connection when web socket server closed ("ws"): page errors 1`] = `[]`;
+exports[`web socket communication > should work and close web socket client connection when web socket server closed ("ws") > page errors 1`] = `
+[]
+`;
 
-exports[`web socket communication should work and reconnect when the connection is lost ("ws"): console messages 1`] = `
+exports[`web socket communication > should work and reconnect when the connection is lost ("ws") > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -30,9 +30,11 @@ exports[`web socket communication should work and reconnect when the connection 
 ]
 `;
 
-exports[`web socket communication should work and reconnect when the connection is lost ("ws"): page errors 1`] = `[]`;
+exports[`web socket communication > should work and reconnect when the connection is lost ("ws") > page errors 1`] = `
+[]
+`;
 
-exports[`web socket communication should work and terminate client that is not alive ("ws"): console messages 1`] = `
+exports[`web socket communication > should work and terminate client that is not alive ("ws") > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -40,4 +42,6 @@ exports[`web socket communication should work and terminate client that is not a
 ]
 `;
 
-exports[`web socket communication should work and terminate client that is not alive ("ws"): page errors 1`] = `[]`;
+exports[`web socket communication > should work and terminate client that is not alive ("ws") > page errors 1`] = `
+[]
+`;

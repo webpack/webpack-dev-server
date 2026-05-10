@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+exports[`target > should work using "async-node" target > console messages 1`] = `
+[]
+`;
 
-exports[`target should work using "async-node" target: console messages 1`] = `[]`;
-
-exports[`target should work using "browserslist:defaults" target: console messages 1`] = `
+exports[`target > should work using "browserslist:defaults" target > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -10,59 +10,57 @@ exports[`target should work using "browserslist:defaults" target: console messag
 ]
 `;
 
-exports[`target should work using "browserslist:defaults" target: page errors 1`] = `[]`;
+exports[`target > should work using "browserslist:defaults" target > page errors 1`] = `
+[]
+`;
 
-exports[`target should work using "electron-main" target: console messages 1`] = `[]`;
+exports[`target > should work using "electron-main" target > console messages 1`] = `
+[]
+`;
 
-exports[`target should work using "electron-preload" target: console messages 1`] = `[]`;
+exports[`target > should work using "electron-preload" target > console messages 1`] = `
+[]
+`;
 
-exports[`target should work using "electron-renderer" target: console messages 1`] = `[]`;
+exports[`target > should work using "electron-renderer" target > console messages 1`] = `
+[]
+`;
 
-exports[`target should work using "es5" target: console messages 1`] = `
+exports[`target > should work using "es5" target > console messages 1`] = `
 [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
 
-exports[`target should work using "es5" target: page errors 1`] = `[]`;
+exports[`target > should work using "es5" target > page errors 1`] = `
+[]
+`;
 
-exports[`target should work using "false" target: console messages 1`] = `
+exports[`target > should work using "false" target > console messages 1`] = `
 [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
 
-exports[`target should work using "false" target: page errors 1`] = `[]`;
-
-exports[`target should work using "node" target: console messages 1`] = `[]`;
-
-exports[`target should work using "node-webkit" target: console messages 1`] = `[]`;
-
-exports[`target should work using "nwjs" target: console messages 1`] = `[]`;
-
-exports[`target should work using "web" target: console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
+exports[`target > should work using "false" target > page errors 1`] = `
+[]
 `;
 
-exports[`target should work using "web" target: page errors 1`] = `[]`;
-
-exports[`target should work using "web,es5" target: console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
+exports[`target > should work using "node" target > console messages 1`] = `
+[]
 `;
 
-exports[`target should work using "web,es5" target: page errors 1`] = `[]`;
+exports[`target > should work using "node-webkit" target > console messages 1`] = `
+[]
+`;
 
-exports[`target should work using "webworker" target: console messages 1`] = `
+exports[`target > should work using "nwjs" target > console messages 1`] = `
+[]
+`;
+
+exports[`target > should work using "web" target > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -70,9 +68,35 @@ exports[`target should work using "webworker" target: console messages 1`] = `
 ]
 `;
 
-exports[`target should work using "webworker" target: page errors 1`] = `[]`;
+exports[`target > should work using "web" target > page errors 1`] = `
+[]
+`;
 
-exports[`target should work using multi compiler mode with \`web\` and \`webworker\` targets with \`devServer: false\`: console messages 1`] = `
+exports[`target > should work using "web,es5" target > console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`target > should work using "web,es5" target > page errors 1`] = `
+[]
+`;
+
+exports[`target > should work using "webworker" target > console messages 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`target > should work using "webworker" target > page errors 1`] = `
+[]
+`;
+
+exports[`target > should work using multi compiler mode with \`web\` and \`webworker\` targets with \`devServer: false\` > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -81,9 +105,11 @@ exports[`target should work using multi compiler mode with \`web\` and \`webwork
 ]
 `;
 
-exports[`target should work using multi compiler mode with \`web\` and \`webworker\` targets with \`devServer: false\`: page errors 1`] = `[]`;
+exports[`target > should work using multi compiler mode with \`web\` and \`webworker\` targets with \`devServer: false\` > page errors 1`] = `
+[]
+`;
 
-exports[`target should work using multi compiler mode with \`web\` and \`webworker\` targets: console messages 1`] = `
+exports[`target > should work using multi compiler mode with \`web\` and \`webworker\` targets > console messages 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -94,4 +120,6 @@ exports[`target should work using multi compiler mode with \`web\` and \`webwork
 ]
 `;
 
-exports[`target should work using multi compiler mode with \`web\` and \`webworker\` targets: page errors 1`] = `[]`;
+exports[`target > should work using multi compiler mode with \`web\` and \`webworker\` targets > page errors 1`] = `
+[]
+`;

@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config-other/webpack.config");
@@ -33,7 +35,7 @@ describe("compress option", () => {
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should handle GET request to bundle file", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -46,17 +48,19 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response headers content-encoding", async (t) =>
+        t.assert.snapshot(response.headers()["content-encoding"]),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -92,7 +96,7 @@ describe("compress option", () => {
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should handle GET request to bundle file", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -105,17 +109,19 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response headers content-encoding", async (t) =>
+        t.assert.snapshot(response.headers()["content-encoding"]),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -151,7 +157,7 @@ describe("compress option", () => {
       await server.stop();
     });
 
-    it("should handle GET request to bundle file", async () => {
+    it("should handle GET request to bundle file", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -164,17 +170,19 @@ describe("compress option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(response.headers()["content-encoding"]).toMatchSnapshot(
-        "response headers content-encoding",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response headers content-encoding", async (t) =>
+        t.assert.snapshot(response.headers()["content-encoding"]),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 });

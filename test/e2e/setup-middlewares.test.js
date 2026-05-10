@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -82,7 +84,7 @@ describe("setupMiddlewares option", () => {
     await server.stop();
   });
 
-  it("should handle GET request to /setup-middleware/some/path route", async () => {
+  it("should handle GET request to /setup-middleware/some/path route", async (t) => {
     page
       .on("console", (message) => {
         consoleMessages.push(message);
@@ -98,31 +100,43 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    await t.test("response headers content-type", async (t) =>
+      t.assert.snapshot(response.headers()["content-type"]),
     );
-    expect(response.status()).toMatchSnapshot("response status");
-    expect(await response.text()).toMatchSnapshot("response text");
+    await t.test("response status", async (t) =>
+      t.assert.snapshot(response.status()),
+    );
+    await t.test("response text", async (t) =>
+      t.assert.snapshot(await response.text()),
+    );
 
     const response1 = await page.goto(`http://localhost:${port}/foo/bar`, {
       waitUntil: "networkidle0",
     });
 
-    expect(response1.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    await t.test("response headers content-type", async (t) =>
+      t.assert.snapshot(response1.headers()["content-type"]),
     );
-    expect(response1.status()).toMatchSnapshot("response status");
-    expect(await response1.text()).toMatchSnapshot("response text");
+    await t.test("response status", async (t) =>
+      t.assert.snapshot(response1.status()),
+    );
+    await t.test("response text", async (t) =>
+      t.assert.snapshot(await response1.text()),
+    );
 
     const response2 = await page.goto(`http://localhost:${port}/foo/bar/baz`, {
       waitUntil: "networkidle0",
     });
 
-    expect(response2.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    await t.test("response headers content-type", async (t) =>
+      t.assert.snapshot(response2.headers()["content-type"]),
     );
-    expect(response2.status()).toMatchSnapshot("response status");
-    expect(await response2.text()).toMatchSnapshot("response text");
+    await t.test("response status", async (t) =>
+      t.assert.snapshot(response2.status()),
+    );
+    await t.test("response text", async (t) =>
+      t.assert.snapshot(await response2.text()),
+    );
 
     const response3 = await page.goto(
       `http://localhost:${port}/setup-middleware/unknown`,
@@ -131,19 +145,23 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response3.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    await t.test("response headers content-type", async (t) =>
+      t.assert.snapshot(response3.headers()["content-type"]),
     );
-    expect(response3.status()).toMatchSnapshot("response status");
-    expect(await response3.text()).toMatchSnapshot("response text");
+    await t.test("response status", async (t) =>
+      t.assert.snapshot(response3.status()),
+    );
+    await t.test("response text", async (t) =>
+      t.assert.snapshot(await response3.text()),
+    );
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
+    await t.test("console messages", async (t) =>
+      t.assert.snapshot(consoleMessages.map((message) => message.text())),
     );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
   });
 
-  it("should handle POST request to /setup-middleware/some/path route", async () => {
+  it("should handle POST request to /setup-middleware/some/path route", async (t) => {
     await page.setRequestInterception(true);
 
     page
@@ -166,14 +184,18 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
+    await t.test("response headers content-type", async (t) =>
+      t.assert.snapshot(response.headers()["content-type"]),
     );
-    expect(response.status()).toMatchSnapshot("response status");
-    expect(await response.text()).toMatchSnapshot("response text");
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
+    await t.test("response status", async (t) =>
+      t.assert.snapshot(response.status()),
     );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    await t.test("response text", async (t) =>
+      t.assert.snapshot(await response.text()),
+    );
+    await t.test("console messages", async (t) =>
+      t.assert.snapshot(consoleMessages.map((message) => message.text())),
+    );
+    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
   });
 });

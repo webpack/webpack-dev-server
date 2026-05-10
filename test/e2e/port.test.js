@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/client-config/webpack.config");
@@ -20,7 +22,7 @@ describe("port", () => {
   ];
 
   for (const testedPort of ports) {
-    it(`should work using "${testedPort}" port `, async () => {
+    it(`should work using "${testedPort}" port `, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {};
 
@@ -89,10 +91,10 @@ describe("port", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        await t.test("console messages", async (t) =>
+          t.assert.snapshot(consoleMessages.map((message) => message.text())),
+        );
+        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
       } finally {
         await browser.close();
         await server.stop();

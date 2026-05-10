@@ -1,5 +1,7 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
 const request = require("supertest");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
@@ -40,7 +42,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    it("should handle GET request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -53,17 +55,19 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
+      await t.test("response headers x-foo", async (t) =>
+        t.assert.snapshot(response.headers()["x-foo"]),
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -108,7 +112,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    it("should handle GET request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -121,21 +125,23 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
+      await t.test("response headers x-foo", async (t) =>
+        t.assert.snapshot(response.headers()["x-foo"]),
       );
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
+      await t.test("response headers x-bar", async (t) =>
+        t.assert.snapshot(response.headers()["x-bar"]),
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -171,7 +177,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers as an array", async () => {
+    it("should handle GET request with headers as an array", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -184,17 +190,19 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
+      await t.test("response headers x-bar", async (t) =>
+        t.assert.snapshot(response.headers()["x-bar"]),
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -230,7 +238,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers as a function", async () => {
+    it("should handle GET request with headers as a function", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -243,17 +251,19 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
+      await t.test("response headers x-bar", async (t) =>
+        t.assert.snapshot(response.headers()["x-bar"]),
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -298,7 +308,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    it("should handle GET request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -311,21 +321,23 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
+      await t.test("response headers x-foo", async (t) =>
+        t.assert.snapshot(response.headers()["x-foo"]),
       );
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
+      await t.test("response headers x-bar", async (t) =>
+        t.assert.snapshot(response.headers()["x-bar"]),
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -364,7 +376,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers as a function", async () => {
+    it("should handle GET request with headers as a function", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -377,17 +389,19 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
+      await t.test("response headers x-foo", async (t) =>
+        t.assert.snapshot(response.headers()["x-foo"]),
       );
 
-      expect(response.status()).toMatchSnapshot("response status");
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
     });
   });
 
@@ -426,7 +440,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle HEAD request with headers", async () => {
+    it("should handle HEAD request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -439,14 +453,16 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
+      await t.test("response headers x-foo", async (t) =>
+        t.assert.snapshot(response.headers()["x-foo"]),
       );
-      expect(response.status()).toMatchSnapshot("response status");
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
+      await t.test("response status", async (t) =>
+        t.assert.snapshot(response.status()),
       );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      await t.test("console messages", async (t) =>
+        t.assert.snapshot(consoleMessages.map((message) => message.text())),
+      );
+      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
 
       const responseForHead = await req.get("/");
 

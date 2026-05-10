@@ -1,5 +1,8 @@
 "use strict";
 
+const { afterEach, beforeEach, describe, it } = require("node:test");
+const { expect } = require("expect");
+const { spyOn } = require("jest-mock");
 const webpack = require("webpack");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/simple-config/webpack.config");
@@ -41,18 +44,18 @@ describe("setupExitSignals option", () => {
       consoleMessages = [];
       doExit = false;
 
-      exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {
+      exitSpy = spyOn(process, "exit").mockImplementation(() => {
         doExit = true;
       });
 
-      stdinResumeSpy = jest
-        .spyOn(process.stdin, "resume")
-        .mockImplementation(() => {});
+      stdinResumeSpy = spyOn(process.stdin, "resume").mockImplementation(
+        () => {},
+      );
 
-      stopCallbackSpy = jest.spyOn(server, "stopCallback");
+      stopCallbackSpy = spyOn(server, "stopCallback");
 
       if (server.compiler.close) {
-        closeCallbackSpy = jest.spyOn(server.compiler, "close");
+        closeCallbackSpy = spyOn(server.compiler, "close");
       }
     });
 
@@ -67,52 +70,57 @@ describe("setupExitSignals option", () => {
       await server.stop();
     });
 
-    it.each(signals)("should close and exit on %s", async (signal) => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+    for (const signal of signals) {
+      // eslint-disable-next-line no-loop-func
+      it(`should close and exit on ${signal}`, async (t) => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const response = await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        await t.test("response status", async (t) =>
+          t.assert.snapshot(response.status()),
+        );
 
-      expect(response.status()).toMatchSnapshot("response status");
+        process.emit(signal);
 
-      process.emit(signal);
+        await new Promise((resolve) => {
+          const interval = setInterval(() => {
+            if (doExit) {
+              expect(stopCallbackSpy.mock.calls).toHaveLength(1);
 
-      await new Promise((resolve) => {
-        const interval = setInterval(() => {
-          if (doExit) {
-            expect(stopCallbackSpy.mock.calls).toHaveLength(1);
+              if (server.compiler.close) {
+                expect(closeCallbackSpy.mock.calls).toHaveLength(1);
+              }
 
-            if (server.compiler.close) {
-              expect(closeCallbackSpy.mock.calls).toHaveLength(1);
+              clearInterval(interval);
+
+              resolve();
             }
+          }, 100);
+        });
 
-            clearInterval(interval);
+        consoleMessages = consoleMessages.filter(
+          (message) =>
+            !(
+              message.text().includes("Trying to reconnect...") ||
+              message.text().includes("Disconnected")
+            ),
+        );
 
-            resolve();
-          }
-        }, 100);
+        await t.test("console messages", async (t) =>
+          t.assert.snapshot(consoleMessages.map((message) => message.text())),
+        );
+
+        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
       });
-
-      consoleMessages = consoleMessages.filter(
-        (message) =>
-          !(
-            message.text().includes("Trying to reconnect...") ||
-            message.text().includes("Disconnected")
-          ),
-      );
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
+    }
   });
 });
