@@ -35,7 +35,7 @@
     "build:client": "rimraf -g ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "build:types": "rimraf -g ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && node ./scripts/extend-webpack-types.js && prettier \"types/**/*.ts\" --write && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",
-    "test:only": "node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test \"test/**/*.test.js\" --test-timeout=400000 --test-force-exit",
+    "test:only": "node ./scripts/check-test-ports.mjs && node --import ./scripts/node-test-setup.mjs --experimental-test-module-mocks --test \"test/**/*.test.js\" --test-timeout=400000 --test-force-exit",
     "test:coverage": "npm run test:only -- --experimental-test-coverage",
     "test:watch": "npm run test:only -- --watch",
     "test": "npm run test:coverage",
@@ -124,6 +124,7 @@
     "standard-version": "^9.3.0",
     "style-loader": "^4.0.0",
     "supertest": "^7.2.2",
+    "tcp-port-used": "^1.0.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.36.0",
     "wait-for-expect": "^3.0.2",
@@ -143,6 +144,6 @@
     }
   },
   "engines": {
-    "node": ">= 22.12.0"
+    "node": ">= 22.15.0"
   }
 }
