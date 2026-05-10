@@ -1,11 +1,3 @@
-// Pre-test port validation. Runs once before `npm run test:only` (via the
-// pretest:only npm hook) to assert that none of the ports the test suite
-// will claim are already bound on localhost.
-//
-// We do this via an npm pre-hook (rather than node:test's
-// `--test-global-setup`) because that flag was only added in Node v24.0.0,
-// and the package supports Node v22.x.
-
 import tcpPortUsed from "tcp-port-used";
 import webpack from "webpack";
 import ports from "../test/ports-map.js";

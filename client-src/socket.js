@@ -6,13 +6,10 @@ import { log } from "./utils/log.js";
 /** @typedef {import("./index.js").EXPECTED_ANY} EXPECTED_ANY */
 /** @typedef {WebSocketClient} */
 
-/**
- * Resolves the client constructor at call time so callers (and tests) can
- * override the global without relying on module-load ordering.
- * @returns {CommunicationClientConstructor} client constructor
- */
-function resolveClient() {
-  return typeof __webpack_dev_server_client__ !== "undefined"
+// this WebsocketClient is here as a default fallback, in case the client is not injected
+/** @type {CommunicationClientConstructor} */
+const Client =
+  typeof __webpack_dev_server_client__ !== "undefined"
     ? typeof (
         /** @type {{ default: CommunicationClientConstructor }} */
         (__webpack_dev_server_client__).default
@@ -23,7 +20,6 @@ function resolveClient() {
           __webpack_dev_server_client__
         )
     : WebSocketClient;
-}
 
 let retries = 0;
 let maxRetries = 10;
@@ -43,7 +39,6 @@ let timeout;
  * @param {number=} reconnect count of reconnections
  */
 function socket(url, handlers, reconnect) {
-  const Client = resolveClient();
   client = new Client(url);
 
   client.onOpen(() => {

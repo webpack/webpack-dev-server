@@ -27,14 +27,11 @@ function createMockClient() {
 }
 
 describe("socket", () => {
-  let socket;
-
   beforeEach(() => {
     delete globalThis.__webpack_dev_server_client__;
     for (const key of Object.keys(require.cache)) {
       if (key.includes("/client-src/")) delete require.cache[key];
     }
-    socket = require("../../client-src/socket").default;
   });
 
   it("should default to WebsocketClient when no __webpack_dev_server_client__ set", async (t) => {
@@ -81,6 +78,8 @@ describe("socket", () => {
     const MockClient = createMockClient();
     globalThis.__webpack_dev_server_client__ = MockClient;
 
+    const socket = require("../../client-src/socket").default;
+
     const mockHandler = fn();
 
     socket("my.url", {
@@ -108,6 +107,9 @@ describe("socket", () => {
   it("should export initialized client", () => {
     const MockClient = createMockClient();
     globalThis.__webpack_dev_server_client__ = MockClient;
+
+    const socket = require("../../client-src/socket").default;
+
     socket("my.url", {});
 
     const initializedInstance = require("../../client-src/socket").client;
