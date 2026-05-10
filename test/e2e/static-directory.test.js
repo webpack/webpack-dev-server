@@ -68,19 +68,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should handle request to other file", async (t) => {
@@ -96,19 +90,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("watches folder recursively", () =>
@@ -202,19 +190,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
@@ -230,19 +212,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -297,18 +273,14 @@ describe("static.directory option", () => {
 
       const text = await response.text();
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
@@ -324,19 +296,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -390,18 +356,14 @@ describe("static.directory option", () => {
 
       const text = await response.text();
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
@@ -417,19 +379,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -478,19 +434,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should handle request to second directory", async (t) => {
@@ -506,19 +456,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -678,19 +622,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -743,19 +681,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 });

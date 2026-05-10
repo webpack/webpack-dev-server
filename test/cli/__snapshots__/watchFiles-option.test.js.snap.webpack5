@@ -1,4 +1,4 @@
-exports[`"watchFiles" CLI option > should work using "--watch-files <value> --watch-files <other-value>" > stderr 1`] = `
+exports[`"watchFiles" CLI option > should work using "--watch-files <value> --watch-files <other-value>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
@@ -6,7 +6,7 @@ exports[`"watchFiles" CLI option > should work using "--watch-files <value> --wa
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"watchFiles" CLI option > should work using "--watch-files <value>" > stderr 1`] = `
+exports[`"watchFiles" CLI option > should work using "--watch-files <value>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/
@@ -14,7 +14,7 @@ exports[`"watchFiles" CLI option > should work using "--watch-files <value>" > s
 <i> [webpack-dev-server] Content not from webpack is served from '<cwd>/public' directory"
 `;
 
-exports[`"watchFiles" CLI option > should work using "--watch-files-reset --watch-files <static>" > stderr 1`] = `
+exports[`"watchFiles" CLI option > should work using "--watch-files-reset --watch-files <static>" 1`] = `
 "<i> [webpack-dev-server] Project is running at:
 <i> Loopback: http://localhost:<port>/, http://<ip-v4>:<port>/, http://[<ip-v6>]:<port>/
 <i> [webpack-dev-server] On Your Network (IPv4): http://<ip-v4>:<port>/

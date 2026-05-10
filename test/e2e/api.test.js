@@ -65,15 +65,11 @@ describe("API", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -102,10 +98,8 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -140,10 +134,8 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -211,10 +203,8 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -245,14 +235,10 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(
-            firstConsoleMessages.map((message) => message.text()),
-          ),
+        t.assert.snapshot(
+          firstConsoleMessages.map((message) => message.text()),
         );
-        await t.test("page errors", async (t) =>
-          t.assert.snapshot(firstPageErrors),
-        );
+        t.assert.snapshot(firstPageErrors);
       } finally {
         await server.stop();
       }
@@ -277,14 +263,10 @@ describe("API", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(
-            secondConsoleMessages.map((message) => message.text()),
-          ),
+        t.assert.snapshot(
+          secondConsoleMessages.map((message) => message.text()),
         );
-        await t.test("page errors", async (t) =>
-          t.assert.snapshot(secondPageErrors),
-        );
+        t.assert.snapshot(secondPageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -337,14 +319,10 @@ describe("API", () => {
       });
 
       expect(callback).toHaveBeenCalledTimes(1);
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should use the provided `callback` function", async (t) => {
@@ -357,15 +335,11 @@ describe("API", () => {
       });
 
       expect(callback).toHaveBeenCalledTimes(1);
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -482,17 +456,11 @@ describe("API", () => {
             },
           );
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
+          t.assert.snapshot(response.status());
 
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(consoleMessages.map((message) => message.text())),
-          );
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -562,17 +530,11 @@ describe("API", () => {
             },
           );
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
+          t.assert.snapshot(response.status());
 
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(consoleMessages.map((message) => message.text())),
-          );
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -642,17 +604,11 @@ describe("API", () => {
             },
           );
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
+          t.assert.snapshot(response.status());
 
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(consoleMessages.map((message) => message.text())),
-          );
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -723,17 +679,11 @@ describe("API", () => {
             },
           );
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
+          t.assert.snapshot(response.status());
 
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(consoleMessages.map((message) => message.text())),
-          );
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -806,17 +756,11 @@ describe("API", () => {
             },
           );
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
+          t.assert.snapshot(response.status());
 
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(consoleMessages.map((message) => message.text())),
-          );
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors
@@ -982,23 +926,15 @@ describe("API", () => {
             }, 100);
           });
 
-          await t.test("web socket URL", async (t) =>
-            t.assert.snapshot(webSocketRequests[0].url),
+          t.assert.snapshot(webSocketRequests[0].url);
+
+          t.assert.snapshot(response.status());
+
+          t.assert.snapshot(
+            consoleMessages.map((message) => message.text()).slice(0, 7),
           );
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
-
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(
-              consoleMessages.map((message) => message.text()).slice(0, 7),
-            ),
-          );
-
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         } catch (error) {
           if (error.code === "EACCES") {
             // Retry mechanism for EACCES errors

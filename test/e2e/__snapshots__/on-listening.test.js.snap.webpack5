@@ -1,39 +1,39 @@
-exports[`onListening option > should handle GET request to /listening/some/path route > console messages 1`] = `
-[]
-`;
-
-exports[`onListening option > should handle GET request to /listening/some/path route > page errors 1`] = `
-[]
-`;
-
-exports[`onListening option > should handle GET request to /listening/some/path route > response headers content-type 1`] = `
+exports[`onListening option > should handle GET request to /listening/some/path route 1`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`onListening option > should handle GET request to /listening/some/path route > response status 1`] = `
+exports[`onListening option > should handle GET request to /listening/some/path route 2`] = `
 200
 `;
 
-exports[`onListening option > should handle GET request to /listening/some/path route > response text 1`] = `
+exports[`onListening option > should handle GET request to /listening/some/path route 3`] = `
 "listening"
 `;
 
-exports[`onListening option > should handle POST request to /listening/some/path route > console messages 1`] = `
+exports[`onListening option > should handle GET request to /listening/some/path route 4`] = `
 []
 `;
 
-exports[`onListening option > should handle POST request to /listening/some/path route > page errors 1`] = `
+exports[`onListening option > should handle GET request to /listening/some/path route 5`] = `
 []
 `;
 
-exports[`onListening option > should handle POST request to /listening/some/path route > response headers content-type 1`] = `
+exports[`onListening option > should handle POST request to /listening/some/path route 1`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`onListening option > should handle POST request to /listening/some/path route > response status 1`] = `
+exports[`onListening option > should handle POST request to /listening/some/path route 2`] = `
 200
 `;
 
-exports[`onListening option > should handle POST request to /listening/some/path route > response text 1`] = `
+exports[`onListening option > should handle POST request to /listening/some/path route 3`] = `
 "listening POST"
+`;
+
+exports[`onListening option > should handle POST request to /listening/some/path route 4`] = `
+[]
+`;
+
+exports[`onListening option > should handle POST request to /listening/some/path route 5`] = `
+[]
 `;

@@ -11,7 +11,7 @@ describe('"ipc" CLI option', () => {
     const { exitCode, stderr } = await testBin(["--ipc"]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it('should work using "--ipc=<string>"', async (t) => {
@@ -23,6 +23,6 @@ describe('"ipc" CLI option', () => {
     const { exitCode, stderr } = await testBin(["--ipc", ipc]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 });

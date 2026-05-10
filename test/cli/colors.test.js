@@ -25,9 +25,7 @@ describe("colors", () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).toContain("\u001B[");
   });
 
@@ -35,9 +33,7 @@ describe("colors", () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--color"]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).toContain("\u001B[");
   });
 
@@ -45,9 +41,7 @@ describe("colors", () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--no-color"]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).not.toContain("\u001B[");
   });
 
@@ -60,9 +54,7 @@ describe("colors", () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).toContain("\u001B[");
   });
 
@@ -75,9 +67,7 @@ describe("colors", () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     expect(stderr).not.toContain("\u001B[");
   });
 });

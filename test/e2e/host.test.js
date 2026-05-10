@@ -136,11 +136,9 @@ describe("host", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -210,11 +208,9 @@ describe("host", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -288,11 +284,9 @@ describe("host", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       } finally {
         delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
 

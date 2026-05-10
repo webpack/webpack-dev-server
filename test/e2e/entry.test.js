@@ -61,10 +61,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -98,10 +96,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -140,10 +136,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -177,10 +171,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -220,10 +212,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -271,10 +261,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://localhost:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -322,10 +310,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://localhost:${port}/bar.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -371,10 +357,8 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://localhost:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -416,10 +400,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

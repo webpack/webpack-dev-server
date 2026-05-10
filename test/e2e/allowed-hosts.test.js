@@ -75,10 +75,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -148,10 +146,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -221,10 +217,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -295,10 +289,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -369,10 +361,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -444,10 +434,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -523,10 +511,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -602,10 +588,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -682,10 +666,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -762,10 +744,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -842,10 +822,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -922,10 +900,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1005,10 +981,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1085,10 +1059,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1165,12 +1137,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("(work) console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("(work) page errors", async (t) =>
-          t.assert.snapshot(pageErrors),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1247,10 +1215,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1330,10 +1296,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1410,10 +1374,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1493,11 +1455,9 @@ describe("allowed hosts", () => {
 
         const html = await page.content();
 
-        await t.test("html", async (t) => t.assert.snapshot(html));
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(html);
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1574,12 +1534,8 @@ describe("allowed hosts", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("(work) console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("(work) page errors", async (t) =>
-          t.assert.snapshot(pageErrors),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -1640,15 +1596,11 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should always allow `localhost` subdomain if options.allowedHosts is auto", async (t) => {
@@ -1683,15 +1635,11 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should always allow value from the `host` options if options.allowedHosts is auto", async (t) => {
@@ -1728,15 +1676,11 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should always allow value of the `host` option from the `client.webSocketURL` option if options.allowedHosts is auto", async (t) => {
@@ -1774,15 +1718,11 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should always allow any host if options.allowedHosts is all", async (t) => {
@@ -1816,15 +1756,11 @@ describe("allowed hosts", () => {
         throw new Error("Validation didn't fail");
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should allow hosts in allowedHosts", async (t) => {
@@ -1860,15 +1796,11 @@ describe("allowed hosts", () => {
         }
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should allow hosts that pass a wildcard in allowedHosts", async (t) => {
@@ -1912,15 +1844,11 @@ describe("allowed hosts", () => {
         }
       }
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 });

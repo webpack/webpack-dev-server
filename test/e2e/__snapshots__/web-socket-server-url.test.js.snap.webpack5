@@ -1,4 +1,4 @@
-exports[`web socket server URL > should not work and output disconnect wrong web socket URL ("ws") > console messages 1`] = `
+exports[`web socket server URL > should not work and output disconnect wrong web socket URL ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -9,23 +9,23 @@ exports[`web socket server URL > should not work and output disconnect wrong web
 ]
 `;
 
-exports[`web socket server URL > should not work and output disconnect wrong web socket URL ("ws") > page errors 1`] = `
+exports[`web socket server URL > should not work and output disconnect wrong web socket URL ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work and throw an error on invalid web socket URL ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work and throw an error on invalid web socket URL ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
 ]
 `;
 
-exports[`web socket server URL > should work and throw an error on invalid web socket URL ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work and throw an error on invalid web socket URL ("ws") 2`] = `
 [
   "Failed to construct 'WebSocket': The URL's scheme must be either 'http', 'https', 'ws', or 'wss'. 'unknown' is not allowed.",
 ]
 `;
 
-exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are different ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are different ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -33,11 +33,11 @@ exports[`web socket server URL > should work behind proxy, when hostnames are di
 ]
 `;
 
-exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are different ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are different ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are same ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are same ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -45,11 +45,11 @@ exports[`web socket server URL > should work behind proxy, when hostnames are di
 ]
 `;
 
-exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are same ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are same ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work behind proxy, when hostnames are same and ports are different ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work behind proxy, when hostnames are same and ports are different ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -57,11 +57,11 @@ exports[`web socket server URL > should work behind proxy, when hostnames are sa
 ]
 `;
 
-exports[`web socket server URL > should work behind proxy, when hostnames are same and ports are different ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work behind proxy, when hostnames are same and ports are different ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -69,11 +69,11 @@ exports[`web socket server URL > should work behind proxy, when the "host" optio
 ]
 `;
 
-exports[`web socket server URL > should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work behind proxy, when the "host" option is "local-ip" and the "port" option is "auto" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work when "host" option is "local-ip" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work when "host" option is "local-ip" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -81,11 +81,11 @@ exports[`web socket server URL > should work when "host" option is "local-ip" ("
 ]
 `;
 
-exports[`web socket server URL > should work when "host" option is "local-ip" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work when "host" option is "local-ip" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work when "host" option is "local-ipv4" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work when "host" option is "local-ipv4" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -93,11 +93,11 @@ exports[`web socket server URL > should work when "host" option is "local-ipv4" 
 ]
 `;
 
-exports[`web socket server URL > should work when "host" option is "local-ipv4" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work when "host" option is "local-ipv4" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work when "host" option is IPv4 ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work when "host" option is IPv4 ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -105,11 +105,11 @@ exports[`web socket server URL > should work when "host" option is IPv4 ("ws") >
 ]
 `;
 
-exports[`web socket server URL > should work when "host" option is IPv4 ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work when "host" option is IPv4 ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work when "port" option is "auto" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work when "port" option is "auto" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -117,11 +117,11 @@ exports[`web socket server URL > should work when "port" option is "auto" ("ws")
 ]
 `;
 
-exports[`web socket server URL > should work when "port" option is "auto" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work when "port" option is "auto" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with "client.webSocketURL.*" options ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with "client.webSocketURL.*" options ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -129,11 +129,11 @@ exports[`web socket server URL > should work with "client.webSocketURL.*" option
 ]
 `;
 
-exports[`web socket server URL > should work with "client.webSocketURL.*" options ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with "client.webSocketURL.*" options ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -141,11 +141,11 @@ exports[`web socket server URL > should work with "client.webSocketURL.port" and
 ]
 `;
 
-exports[`web socket server URL > should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with "server: 'https'" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with "server: 'https'" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -153,11 +153,11 @@ exports[`web socket server URL > should work with "server: 'https'" option ("ws"
 ]
 `;
 
-exports[`web socket server URL > should work with "server: 'https'" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with "server: 'https'" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with default "/ws" value of the "client.webSocketURL.pathname" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with default "/ws" value of the "client.webSocketURL.pathname" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -165,11 +165,11 @@ exports[`web socket server URL > should work with default "/ws" value of the "cl
 ]
 `;
 
-exports[`web socket server URL > should work with default "/ws" value of the "client.webSocketURL.pathname" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with default "/ws" value of the "client.webSocketURL.pathname" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL" option as "string" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL" option as "string" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -177,11 +177,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL" opti
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL" option as "string" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL" option as "string" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.host" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.host" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -189,11 +189,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.host"
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.host" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.host" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -201,11 +201,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.host"
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.host" option using "0.0.0.0" value ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.password" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.password" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -213,11 +213,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.passw
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.password" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.password" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -225,7 +225,7 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") > console messages 2`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -233,15 +233,15 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") > page errors 2`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -249,11 +249,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -261,11 +261,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending with slash ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -273,11 +273,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" ending without slash ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -285,11 +285,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.pathn
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.pathname" option and the custom web socket server "path" using empty value ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.port" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.port" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -297,11 +297,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.port"
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.port" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.port" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.port" option as string ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.port" option as string ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -309,11 +309,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.port"
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.port" option as string ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.port" option as string ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.port" option using "0" value ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.port" option using "0" value ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -321,11 +321,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.port"
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.port" option using "0" value ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.port" option using "0" value ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -333,11 +333,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.proto
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "auto:" value ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "auto:" value ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -345,11 +345,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.proto
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "auto:" value ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "auto:" value ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -357,11 +357,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.proto
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.protocol" option using "http:" value and convert to "ws:" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -369,11 +369,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.usern
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.username" and "client.webSocketURL.password" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.username" option ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.username" option ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -381,11 +381,11 @@ exports[`web socket server URL > should work with the "client.webSocketURL.usern
 ]
 `;
 
-exports[`web socket server URL > should work with the "client.webSocketURL.username" option ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the "client.webSocketURL.username" option ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the custom web socket server "path" ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the custom web socket server "path" ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -393,11 +393,11 @@ exports[`web socket server URL > should work with the custom web socket server "
 ]
 `;
 
-exports[`web socket server URL > should work with the custom web socket server "path" ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the custom web socket server "path" ("ws") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the custom web socket server "path" using empty value ("ws") > console messages 1`] = `
+exports[`web socket server URL > should work with the custom web socket server "path" using empty value ("ws") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -405,6 +405,6 @@ exports[`web socket server URL > should work with the custom web socket server "
 ]
 `;
 
-exports[`web socket server URL > should work with the custom web socket server "path" using empty value ("ws") > page errors 1`] = `
+exports[`web socket server URL > should work with the custom web socket server "path" using empty value ("ws") 2`] = `
 []
 `;

@@ -1,4 +1,8 @@
-exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT > console messages 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT 1`] = `
+200
+`;
+
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -6,15 +10,15 @@ exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals 
 ]
 `;
 
-exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT > page errors 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT 3`] = `
 []
 `;
 
-exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGINT > response status 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM 1`] = `
 200
 `;
 
-exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM > console messages 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -22,10 +26,6 @@ exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals 
 ]
 `;
 
-exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM > page errors 1`] = `
+exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM 3`] = `
 []
-`;
-
-exports[`setupExitSignals option > should handle 'SIGINT' and 'SIGTERM' signals > should close and exit on SIGTERM > response status 1`] = `
-200
 `;

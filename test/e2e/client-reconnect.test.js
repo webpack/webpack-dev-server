@@ -48,9 +48,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
       } finally {
         await server.stop();
       }
@@ -71,7 +69,7 @@ describe("client.reconnect option", () => {
         }, 1000);
       });
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -114,9 +112,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
       } finally {
         await server.stop();
       }
@@ -131,11 +127,9 @@ describe("client.reconnect option", () => {
         );
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -178,9 +172,7 @@ describe("client.reconnect option", () => {
       });
 
       try {
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
       } finally {
         await server.stop();
       }
@@ -195,11 +187,9 @@ describe("client.reconnect option", () => {
         );
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 });

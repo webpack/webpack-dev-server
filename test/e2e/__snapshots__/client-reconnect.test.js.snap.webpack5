@@ -1,4 +1,8 @@
-exports[`client.reconnect option > specified as false > should not try to reconnect > console messages 1`] = `
+exports[`client.reconnect option > specified as false > should not try to reconnect 1`] = `
+200
+`;
+
+exports[`client.reconnect option > specified as false > should not try to reconnect 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -7,15 +11,15 @@ exports[`client.reconnect option > specified as false > should not try to reconn
 ]
 `;
 
-exports[`client.reconnect option > specified as false > should not try to reconnect > page errors 1`] = `
+exports[`client.reconnect option > specified as false > should not try to reconnect 3`] = `
 []
 `;
 
-exports[`client.reconnect option > specified as false > should not try to reconnect > response status 1`] = `
+exports[`client.reconnect option > specified as number > should try to reconnect 2 times 1`] = `
 200
 `;
 
-exports[`client.reconnect option > specified as number > should try to reconnect 2 times > console messages 1`] = `
+exports[`client.reconnect option > specified as number > should try to reconnect 2 times 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -30,18 +34,14 @@ exports[`client.reconnect option > specified as number > should try to reconnect
 ]
 `;
 
-exports[`client.reconnect option > specified as number > should try to reconnect 2 times > page errors 1`] = `
+exports[`client.reconnect option > specified as number > should try to reconnect 2 times 3`] = `
 []
 `;
 
-exports[`client.reconnect option > specified as number > should try to reconnect 2 times > response status 1`] = `
+exports[`client.reconnect option > specified as true > should try to reconnect unlimited times 1`] = `
 200
 `;
 
-exports[`client.reconnect option > specified as true > should try to reconnect unlimited times > page errors 1`] = `
+exports[`client.reconnect option > specified as true > should try to reconnect unlimited times 2`] = `
 []
-`;
-
-exports[`client.reconnect option > specified as true > should try to reconnect unlimited times > response status 1`] = `
-200
 `;

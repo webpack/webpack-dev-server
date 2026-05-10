@@ -100,43 +100,25 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response.headers()["content-type"]),
-    );
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response.text()),
-    );
+    t.assert.snapshot(response.headers()["content-type"]);
+    t.assert.snapshot(response.status());
+    t.assert.snapshot(await response.text());
 
     const response1 = await page.goto(`http://localhost:${port}/foo/bar`, {
       waitUntil: "networkidle0",
     });
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response1.headers()["content-type"]),
-    );
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response1.status()),
-    );
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response1.text()),
-    );
+    t.assert.snapshot(response1.headers()["content-type"]);
+    t.assert.snapshot(response1.status());
+    t.assert.snapshot(await response1.text());
 
     const response2 = await page.goto(`http://localhost:${port}/foo/bar/baz`, {
       waitUntil: "networkidle0",
     });
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response2.headers()["content-type"]),
-    );
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response2.status()),
-    );
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response2.text()),
-    );
+    t.assert.snapshot(response2.headers()["content-type"]);
+    t.assert.snapshot(response2.status());
+    t.assert.snapshot(await response2.text());
 
     const response3 = await page.goto(
       `http://localhost:${port}/setup-middleware/unknown`,
@@ -145,20 +127,12 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response3.headers()["content-type"]),
-    );
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response3.status()),
-    );
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response3.text()),
-    );
+    t.assert.snapshot(response3.headers()["content-type"]);
+    t.assert.snapshot(response3.status());
+    t.assert.snapshot(await response3.text());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
+    t.assert.snapshot(pageErrors);
   });
 
   it("should handle POST request to /setup-middleware/some/path route", async (t) => {
@@ -184,18 +158,10 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response.headers()["content-type"]),
-    );
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response.text()),
-    );
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(response.headers()["content-type"]);
+    t.assert.snapshot(response.status());
+    t.assert.snapshot(await response.text());
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
+    t.assert.snapshot(pageErrors);
   });
 });

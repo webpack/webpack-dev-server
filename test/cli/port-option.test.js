@@ -10,17 +10,13 @@ describe('"port" CLI option', () => {
     const { exitCode, stderr } = await testBin(["--port", port]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--port auto"', async (t) => {
     const { exitCode, stderr } = await testBin(["--port", "auto"]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 });

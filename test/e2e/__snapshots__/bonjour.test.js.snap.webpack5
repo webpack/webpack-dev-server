@@ -1,4 +1,8 @@
-exports[`bonjour option > as object > should apply bonjour options > console messages 1`] = `
+exports[`bonjour option > as object > should apply bonjour options 1`] = `
+200
+`;
+
+exports[`bonjour option > as object > should apply bonjour options 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -6,15 +10,15 @@ exports[`bonjour option > as object > should apply bonjour options > console mes
 ]
 `;
 
-exports[`bonjour option > as object > should apply bonjour options > page errors 1`] = `
+exports[`bonjour option > as object > should apply bonjour options 3`] = `
 []
 `;
 
-exports[`bonjour option > as object > should apply bonjour options > response status 1`] = `
+exports[`bonjour option > as true > should call bonjour with correct params 1`] = `
 200
 `;
 
-exports[`bonjour option > as true > should call bonjour with correct params > console messages 1`] = `
+exports[`bonjour option > as true > should call bonjour with correct params 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -22,15 +26,15 @@ exports[`bonjour option > as true > should call bonjour with correct params > co
 ]
 `;
 
-exports[`bonjour option > as true > should call bonjour with correct params > page errors 1`] = `
+exports[`bonjour option > as true > should call bonjour with correct params 3`] = `
 []
 `;
 
-exports[`bonjour option > as true > should call bonjour with correct params > response status 1`] = `
+exports[`bonjour option > bonjour object and 'server' option > should apply bonjour options 1`] = `
 200
 `;
 
-exports[`bonjour option > bonjour object and 'server' option > should apply bonjour options > console messages 1`] = `
+exports[`bonjour option > bonjour object and 'server' option > should apply bonjour options 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -38,15 +42,15 @@ exports[`bonjour option > bonjour object and 'server' option > should apply bonj
 ]
 `;
 
-exports[`bonjour option > bonjour object and 'server' option > should apply bonjour options > page errors 1`] = `
+exports[`bonjour option > bonjour object and 'server' option > should apply bonjour options 3`] = `
 []
 `;
 
-exports[`bonjour option > bonjour object and 'server' option > should apply bonjour options > response status 1`] = `
+exports[`bonjour option > with 'server' option > should call bonjour with 'https' type 1`] = `
 200
 `;
 
-exports[`bonjour option > with 'server' option > should call bonjour with 'https' type > console messages 1`] = `
+exports[`bonjour option > with 'server' option > should call bonjour with 'https' type 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -54,10 +58,6 @@ exports[`bonjour option > with 'server' option > should call bonjour with 'https
 ]
 `;
 
-exports[`bonjour option > with 'server' option > should call bonjour with 'https' type > page errors 1`] = `
+exports[`bonjour option > with 'server' option > should call bonjour with 'https' type 3`] = `
 []
-`;
-
-exports[`bonjour option > with 'server' option > should call bonjour with 'https' type > response status 1`] = `
-200
 `;

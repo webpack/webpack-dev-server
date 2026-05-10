@@ -1,4 +1,4 @@
-exports[`multi compiler > should work with one web target configuration and do nothing > console messages 1`] = `
+exports[`multi compiler > should work with one web target configuration and do nothing 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -6,11 +6,11 @@ exports[`multi compiler > should work with one web target configuration and do n
 ]
 `;
 
-exports[`multi compiler > should work with one web target configuration and do nothing > page errors 1`] = `
+exports[`multi compiler > should work with one web target configuration and do nothing 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with universal configuration and do nothing > console messages 1`] = `
+exports[`multi compiler > should work with universal configuration and do nothing 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -18,11 +18,11 @@ exports[`multi compiler > should work with universal configuration and do nothin
 ]
 `;
 
-exports[`multi compiler > should work with universal configuration and do nothing > page errors 1`] = `
+exports[`multi compiler > should work with universal configuration and do nothing 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed > console messages 1`] = `
+exports[`multi compiler > should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -40,11 +40,11 @@ Update propagation: ./browser.js
 ]
 `;
 
-exports[`multi compiler > should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed > page errors 1`] = `
+exports[`multi compiler > should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed > console messages 1`] = `
+exports[`multi compiler > should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -62,11 +62,11 @@ Update propagation: ./browser.js
 ]
 `;
 
-exports[`multi compiler > should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed > page errors 1`] = `
+exports[`multi compiler > should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries > console messages 1`] = `
+exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
@@ -75,6 +75,10 @@ exports[`multi compiler > should work with universal configuration when only liv
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
 ]
+`;
+
+exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries > console messages 2`] = `
@@ -88,15 +92,11 @@ exports[`multi compiler > should work with universal configuration when only liv
 ]
 `;
 
-exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries > page errors 1`] = `
-[]
-`;
-
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries > page errors 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries > console messages 1`] = `
+exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
@@ -105,6 +105,10 @@ exports[`multi compiler > should work with universal configuration when only liv
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
 ]
+`;
+
+exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries > console messages 2`] = `
@@ -118,20 +122,20 @@ exports[`multi compiler > should work with universal configuration when only liv
 ]
 `;
 
-exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries > page errors 1`] = `
-[]
-`;
-
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries > page errors 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with web target configurations and do nothing > console messages 1`] = `
+exports[`multi compiler > should work with web target configurations and do nothing 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
   "one",
 ]
+`;
+
+exports[`multi compiler > should work with web target configurations and do nothing 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with web target configurations and do nothing > console messages 2`] = `
@@ -142,15 +146,11 @@ exports[`multi compiler > should work with web target configurations and do noth
 ]
 `;
 
-exports[`multi compiler > should work with web target configurations and do nothing > page errors 1`] = `
-[]
-`;
-
 exports[`multi compiler > should work with web target configurations and do nothing > page errors 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries > console messages 1`] = `
+exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -166,6 +166,10 @@ Update propagation: ./one.js
   "[HMR] Waiting for update signal from WDS...",
   "one",
 ]
+`;
+
+exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries > console messages 2`] = `
@@ -186,15 +190,11 @@ Update propagation: ./two.js
 ]
 `;
 
-exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries > page errors 1`] = `
-[]
-`;
-
 exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries > page errors 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries > console messages 1`] = `
+exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -210,6 +210,10 @@ Update propagation: ./one.js
   "[HMR] Waiting for update signal from WDS...",
   "one",
 ]
+`;
+
+exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries > console messages 2`] = `
@@ -230,15 +234,11 @@ Update propagation: ./two.js
 ]
 `;
 
-exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries > page errors 1`] = `
-[]
-`;
-
 exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries > page errors 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries > console messages 1`] = `
+exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
@@ -247,6 +247,10 @@ exports[`multi compiler > should work with web target configurations when only l
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
 ]
+`;
+
+exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries > console messages 2`] = `
@@ -260,15 +264,11 @@ exports[`multi compiler > should work with web target configurations when only l
 ]
 `;
 
-exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries > page errors 1`] = `
-[]
-`;
-
 exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries > page errors 2`] = `
 []
 `;
 
-exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries > console messages 1`] = `
+exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
@@ -277,6 +277,10 @@ exports[`multi compiler > should work with web target configurations when only l
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
 ]
+`;
+
+exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries 4`] = `
+[]
 `;
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries > console messages 2`] = `
@@ -288,10 +292,6 @@ exports[`multi compiler > should work with web target configurations when only l
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "two",
 ]
-`;
-
-exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries > page errors 1`] = `
-[]
 `;
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries > page errors 2`] = `

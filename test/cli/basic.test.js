@@ -29,9 +29,7 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      await t.test("stderr", (t) =>
-        t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-      );
+      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     });
 
     it('should work using "--host localhost --port <port>"', async (t) => {
@@ -43,7 +41,7 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+      t.assert.snapshot(normalizeStderr(stderr));
     });
 
     it("should accept the promise function of webpack.config.js", async (t) => {
@@ -58,9 +56,7 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      await t.test("stderr", (t) =>
-        t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-      );
+      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     });
 
     it("should work using multi compiler mode", async (t) => {
@@ -75,9 +71,7 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      await t.test("stderr", (t) =>
-        t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-      );
+      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     });
 
     it("should exit the process when SIGINT is detected", () =>

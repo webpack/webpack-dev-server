@@ -78,23 +78,15 @@ describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response.headers()["content-type"]),
-    );
+    t.assert.snapshot(response.headers()["content-type"]);
 
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
+    t.assert.snapshot(response.status());
 
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response.text()),
-    );
+    t.assert.snapshot(await response.text());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(pageErrors);
   });
 
   it("should handle POST request to /listening/some/path route", async (t) => {
@@ -122,22 +114,14 @@ describe("onListening option", () => {
 
     expect(onListeningIsRunning).toBe(true);
 
-    await t.test("response headers content-type", async (t) =>
-      t.assert.snapshot(response.headers()["content-type"]),
-    );
+    t.assert.snapshot(response.headers()["content-type"]);
 
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
+    t.assert.snapshot(response.status());
 
-    await t.test("response text", async (t) =>
-      t.assert.snapshot(await response.text()),
-    );
+    t.assert.snapshot(await response.text());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(pageErrors);
   });
 });

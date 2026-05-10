@@ -1,125 +1,125 @@
-exports[`watchFiles option > should not crash if file doesn't exist > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should not crash if file doesn't exist > should reload when file content is changed 1`] = `
+200
+`;
+
+exports[`watchFiles option > should not crash if file doesn't exist > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should not crash if file doesn't exist > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should not crash if file doesn't exist > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should not crash if file doesn't exist > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with array config > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with array config > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with array config > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with array config > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with array config > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with array config > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with array of globs > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with array of globs > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with array of globs > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with array of globs > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with array of globs > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with array of globs > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with directory and ignored option to filter files > should not reload when a non-matching file is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with directory and ignored option to filter files > should not reload when a non-matching file is changed > response status 1`] = `
+exports[`watchFiles option > should work with directory and ignored option to filter files > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with directory and ignored option to filter files > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with directory and ignored option to filter files > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with directory and ignored option to filter files > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with directory and ignored option to filter files > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with directory and ignored option to filter files > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with ignored option using glob array > should not reload when an ignored glob file is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with ignored option using glob array > should not reload when an ignored glob file is changed > response status 1`] = `
+exports[`watchFiles option > should work with ignored option using glob array > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with ignored option using glob array > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with ignored option using glob array > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with ignored option using glob array > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with ignored option using glob array > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with ignored option using glob array > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with ignored option using glob string > should not reload when an ignored glob file is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with ignored option using glob string > should not reload when an ignored glob file is changed > response status 1`] = `
+exports[`watchFiles option > should work with ignored option using glob string > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with ignored option using glob string > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with ignored option using glob string > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with ignored option using glob string > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with ignored option using glob string > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with ignored option using glob string > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with object with multiple paths > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with object with multiple paths > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with object with multiple paths > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with object with multiple paths > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with object with multiple paths > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with object with multiple paths > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with object with single path > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with object with single path > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with object with single path > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with object with single path > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with object with single path > should reload when file content is changed 3`] = `
 []
-`;
-
-exports[`watchFiles option > should work with object with single path > should reload when file content is changed > response status 1`] = `
-200
 `;
 
 exports[`watchFiles option > should work with options > {"interval":400,"poll":200} should reload when file content is changed 1`] = `
@@ -663,44 +663,44 @@ exports[`watchFiles option > should work with options > {} should reload when fi
 200
 `;
 
-exports[`watchFiles option > should work with string and glob > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with string and glob > should reload when file content is changed 1`] = `
+200
+`;
+
+exports[`watchFiles option > should work with string and glob > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with string and glob > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with string and glob > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with string and glob > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with string and path to directory > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with string and path to directory > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with string and path to directory > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with string and path to directory > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with string and path to directory > should reload when file content is changed 3`] = `
 []
 `;
 
-exports[`watchFiles option > should work with string and path to directory > should reload when file content is changed > response status 1`] = `
+exports[`watchFiles option > should work with string and path to file > should reload when file content is changed 1`] = `
 200
 `;
 
-exports[`watchFiles option > should work with string and path to file > should reload when file content is changed > console messages 1`] = `
+exports[`watchFiles option > should work with string and path to file > should reload when file content is changed 2`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`watchFiles option > should work with string and path to file > should reload when file content is changed > page errors 1`] = `
+exports[`watchFiles option > should work with string and path to file > should reload when file content is changed 3`] = `
 []
-`;
-
-exports[`watchFiles option > should work with string and path to file > should reload when file content is changed > response status 1`] = `
-200
 `;

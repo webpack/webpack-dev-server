@@ -10,9 +10,7 @@ describe('"static" CLI option', () => {
     const { exitCode, stderr } = await testBin(["--port", port, "--static"]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static new-static"', async (t) => {
@@ -24,9 +22,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static new-static --static other-static"', async (t) => {
@@ -40,9 +36,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-reset"', async (t) => {
@@ -55,9 +49,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-reset --static-directory new-static-directory"', async (t) => {
@@ -70,9 +62,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-directory static-dir"', async (t) => {
@@ -84,9 +74,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-public-path /public"', async (t) => {
@@ -98,9 +86,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-public-path-reset"', async (t) => {
@@ -113,9 +99,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-serve-index"', async (t) => {
@@ -126,9 +110,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--no-static-serve-index"', async (t) => {
@@ -139,9 +121,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--static-watch"', async (t) => {
@@ -152,9 +132,7 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--no-static-watch"', async (t) => {
@@ -165,8 +143,6 @@ describe('"static" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 });

@@ -18,9 +18,7 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--watch-files <value> --watch-files <other-value>"', async (t) => {
@@ -40,9 +38,7 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--watch-files-reset --watch-files <static>"', async (t) => {
@@ -57,8 +53,6 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 });

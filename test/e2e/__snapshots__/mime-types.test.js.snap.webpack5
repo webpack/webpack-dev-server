@@ -1,31 +1,31 @@
-exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type > console messages 1`] = `
-[]
+exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type 1`] = `
+200
 `;
 
-exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type > page errors 1`] = `
-[]
-`;
-
-exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type > response headers content-type 1`] = `
+exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type 2`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type > response status 1`] = `
+exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type 3`] = `
+[]
+`;
+
+exports[`mimeTypes option > as an object with a custom type > should request file with different js mime type 4`] = `
+[]
+`;
+
+exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type 1`] = `
 200
 `;
 
-exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type > console messages 1`] = `
-[]
-`;
-
-exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type > page errors 1`] = `
-[]
-`;
-
-exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type > response headers content-type 1`] = `
+exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type 2`] = `
 "text/plain; charset=utf-8"
 `;
 
-exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type > response status 1`] = `
-200
+exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type 3`] = `
+[]
+`;
+
+exports[`mimeTypes option > as an object with a remapped type > should request file with different js mime type 4`] = `
+[]
 `;

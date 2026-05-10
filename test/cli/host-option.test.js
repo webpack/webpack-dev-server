@@ -21,9 +21,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--host ::" (IPv6)', async (t) => {
@@ -35,9 +33,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) =>
-      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
-    );
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
   it('should work using "--host ::1" (IPv6)', async (t) => {
@@ -49,7 +45,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it('should work using "--host localhost"', async (t) => {
@@ -61,7 +57,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it('should work using "--host 127.0.0.1" (IPv4)', async (t) => {
@@ -73,7 +69,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it('should work using "--host <IPv4>"', async (t) => {
@@ -85,7 +81,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it.skip('should work using "--host <IPv6>"', async (t) => {
@@ -97,7 +93,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it('should work using "--host local-ip"', async (t) => {
@@ -109,7 +105,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
   it.skip('should work using "--host local-ip" take the first network found', async () => {
@@ -240,6 +236,6 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 });

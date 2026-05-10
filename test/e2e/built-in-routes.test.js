@@ -53,15 +53,11 @@ describe("Built in routes", () => {
 
       expect(response.headers()["content-type"]).not.toBe("text/html");
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should handle GET request to directory index and list all middleware directories", async (t) => {
@@ -80,23 +76,15 @@ describe("Built in routes", () => {
         },
       );
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("directory list", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should handle HEAD request to directory index", async (t) => {
@@ -120,23 +108,15 @@ describe("Built in routes", () => {
         },
       );
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("directory list", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should handle GET request to magic async chunk", async (t) => {
@@ -152,17 +132,11 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     });
 
     it("should handle HEAD request to magic async chunk", async (t) => {
@@ -183,17 +157,11 @@ describe("Built in routes", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     });
   });
 
@@ -238,23 +206,15 @@ describe("Built in routes", () => {
         },
       );
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("directory list", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 });

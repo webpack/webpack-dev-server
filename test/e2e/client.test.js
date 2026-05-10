@@ -76,19 +76,13 @@ describe("client option", () => {
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("webSockets", async (t) =>
-        t.assert.snapshot(webSocketRequests.map((request) => request.url)),
-      );
+      t.assert.snapshot(webSocketRequests.map((request) => request.url));
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -164,15 +158,11 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("webSockets", async (t) =>
-        t.assert.snapshot(webSocketRequests.map((request) => request.url)),
-      );
+      t.assert.snapshot(webSocketRequests.map((request) => request.url));
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -236,21 +226,15 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("webSockets", async (t) =>
-        t.assert.snapshot(webSocketRequests),
-      );
+      t.assert.snapshot(webSocketRequests);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -299,9 +283,7 @@ describe("client option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       const content = await response.text();
       expect(content).toContain("CustomClientEntry.js");

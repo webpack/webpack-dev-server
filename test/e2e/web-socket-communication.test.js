@@ -57,10 +57,8 @@ describe("web socket communication", () => {
           }, 100);
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages);
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
       }
@@ -105,10 +103,8 @@ describe("web socket communication", () => {
         });
 
         expect(server.webSocketServer.clients).toHaveLength(0);
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await server.stop();
       }
@@ -151,10 +147,8 @@ describe("web socket communication", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();

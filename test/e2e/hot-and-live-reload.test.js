@@ -451,10 +451,8 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toBe("rgb(255, 0, 0)");
       }
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     });
   }
 });
@@ -515,15 +513,11 @@ describe("simple hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
+    t.assert.snapshot(response.status());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -584,15 +578,11 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
+    t.assert.snapshot(response.status());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -716,15 +706,11 @@ describe("multi compiler hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
+    t.assert.snapshot(response.status());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -781,14 +767,10 @@ describe("hot disabled HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    await t.test("response status", async (t) =>
-      t.assert.snapshot(response.status()),
-    );
+    t.assert.snapshot(response.status());
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages.map((message) => message.text())),
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(pageErrors);
   });
 });

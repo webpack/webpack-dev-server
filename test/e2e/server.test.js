@@ -83,19 +83,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toBe("h2");
 
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
 
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
+        t.assert.snapshot(await response.text());
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -147,19 +141,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toBe("h2");
 
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
 
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
+        t.assert.snapshot(await response.text());
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -211,19 +199,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toBe("h2");
 
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
 
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
+        t.assert.snapshot(await response.text());
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       });
     });
   });
@@ -300,19 +282,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -395,19 +369,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -488,19 +454,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -590,19 +548,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -669,19 +619,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -748,19 +690,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -920,19 +854,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -1020,19 +946,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -1108,19 +1026,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -1175,20 +1085,14 @@ describe("server option", () => {
       });
 
       it("should pass options to the 'https.createServer' method", async (t) => {
-        await t.test("https options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
       });
 
       it("should handle GET request to index route (/)", async (t) => {
         const response = await req.get("/");
 
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(response.text),
-        );
+        t.assert.snapshot(response.status);
+        t.assert.snapshot(response.text);
       });
     });
 
@@ -1256,19 +1160,11 @@ describe("server option", () => {
         );
 
         expect(HTTPVersion).toBe("http/1.1");
-        await t.test("http options", async (t) =>
-          t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0])),
-        );
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
-        await t.test("response text", async (t) =>
-          t.assert.snapshot(await response.text()),
-        );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
   });

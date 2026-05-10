@@ -68,9 +68,7 @@ describe("target", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
         if (
           target === "node" ||
@@ -88,9 +86,7 @@ describe("target", () => {
 
           expect(hasRequireOrGlobalError).toBe(true);
         } else {
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
         }
       } finally {
         await browser.close();
@@ -123,16 +119,14 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(
-          sortByTerm(
-            consoleMessages.map((message) => message.text()),
-            "Worker said:",
-          ),
+      t.assert.snapshot(
+        sortByTerm(
+          consoleMessages.map((message) => message.text()),
+          "Worker said:",
         ),
       );
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -174,16 +168,14 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(
-          sortByTerm(
-            consoleMessages.map((message) => message.text()),
-            "Worker said:",
-          ),
+      t.assert.snapshot(
+        sortByTerm(
+          consoleMessages.map((message) => message.text()),
+          "Worker said:",
         ),
       );
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

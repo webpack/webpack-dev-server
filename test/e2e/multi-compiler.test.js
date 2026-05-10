@@ -40,10 +40,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -78,10 +76,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -90,10 +86,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -152,10 +146,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -168,10 +160,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -233,10 +223,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -249,10 +237,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -306,10 +292,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -322,10 +306,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -379,10 +361,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -395,10 +375,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -450,10 +428,8 @@ describe("multi compiler", () => {
       await server.stop();
     }
 
-    await t.test("console messages", async (t) =>
-      t.assert.snapshot(consoleMessages),
-    );
-    await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+    t.assert.snapshot(consoleMessages);
+    t.assert.snapshot(pageErrors);
   });
 
   it("should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed", async (t) => {
@@ -523,10 +499,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -598,10 +572,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -669,10 +641,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -688,10 +658,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -760,10 +728,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -779,10 +745,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

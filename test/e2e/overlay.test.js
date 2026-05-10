@@ -102,19 +102,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -151,19 +147,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -204,19 +196,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -255,19 +243,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -305,19 +289,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -345,12 +325,10 @@ describe("overlay", () => {
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html initial", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
 
       const pathToFile = path.resolve(
@@ -371,19 +349,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html with error", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -396,12 +370,10 @@ describe("overlay", () => {
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html after fix error", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -429,12 +401,10 @@ describe("overlay", () => {
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html initial", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
 
       const pathToFile = path.resolve(
@@ -455,19 +425,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html with error", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
 
       fs.writeFileSync(pathToFile, "`;a");
@@ -483,19 +449,15 @@ describe("overlay", () => {
       overlayFrame = await overlayHandle.contentFrame();
       overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
-      await t.test("page html with other error", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -508,12 +470,10 @@ describe("overlay", () => {
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html after fix error", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -541,12 +501,10 @@ describe("overlay", () => {
       let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html initial", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
 
       const pathToFile = path.resolve(
@@ -567,19 +525,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html with error", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
 
       const frame = await page
@@ -598,12 +552,10 @@ describe("overlay", () => {
       overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html after close", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
 
       fs.writeFileSync(pathToFile, originalCode);
@@ -693,12 +645,10 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -737,12 +687,10 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -828,19 +776,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -880,19 +824,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -934,19 +874,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -988,19 +924,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1037,12 +969,10 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1081,12 +1011,10 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
       expect(overlayHandle).toBeNull();
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1173,19 +1101,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1225,19 +1149,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1290,19 +1210,15 @@ describe("overlay", () => {
           /requires 'TrustedHTML' assignment/.test(item),
         ),
       ).toHaveLength(0);
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1365,19 +1281,15 @@ describe("overlay", () => {
           /requires 'TrustedHTML' assignment/.test(item),
         ),
       ).toHaveLength(0);
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1415,12 +1327,10 @@ describe("overlay", () => {
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       expect(overlayHandle).toBeNull();
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1462,19 +1372,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1516,19 +1422,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1569,19 +1471,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
 
       await server.stop();
@@ -1600,12 +1498,10 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtmlAfterClose, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtmlAfterClose, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1655,19 +1551,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1718,19 +1610,15 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1772,12 +1660,10 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -1863,12 +1749,10 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(overlayHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(overlayHtml, {
+          parser: "html",
+        }),
       );
     } finally {
       await browser.close();
@@ -2006,24 +1890,20 @@ describe("overlay", () => {
         () => document.body.outerHTML,
       );
 
-      await t.test("page html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(pageHtml, {
-            parser: "html",
-          }),
-        ),
+      t.assert.snapshot(
+        await prettier.format(pageHtml, {
+          parser: "html",
+        }),
       );
-      await t.test("overlay html", async (t) =>
-        t.assert.snapshot(
-          await prettier.format(
-            overlayHtml.replace(
-              /<button ([^>]+)>.+<\/button>/m,
-              "<button $1>X</button>",
-            ),
-            {
-              parser: "html",
-            },
+      t.assert.snapshot(
+        await prettier.format(
+          overlayHtml.replace(
+            /<button ([^>]+)>.+<\/button>/m,
+            "<button $1>X</button>",
           ),
+          {
+            parser: "html",
+          },
         ),
       );
     } finally {

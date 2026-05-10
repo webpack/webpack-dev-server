@@ -63,15 +63,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -136,15 +132,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -209,15 +201,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -284,15 +272,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -363,15 +347,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -403,9 +383,7 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       // change ignored file content
       fs.writeFileSync(ignoredFile, "// changed", "utf8");
@@ -482,15 +460,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -520,9 +494,7 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       // change ignored file content
       fs.writeFileSync(ignoredFile, "// changed", "utf8");
@@ -599,15 +571,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -637,9 +605,7 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
       // change ignored file content
       fs.writeFileSync(ignoredFile, "// changed", "utf8");
@@ -715,15 +681,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       await new Promise((resolve) => {
         server.staticWatchers[0].on("change", async (changedPath) => {
@@ -793,15 +755,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
@@ -868,15 +826,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
@@ -951,15 +905,11 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
 
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
@@ -1117,17 +1067,11 @@ describe("watchFiles option", () => {
           // should pass correct options to chokidar config
           t.assert.snapshot(server.staticWatchers[0].options);
 
-          await t.test("response status", async (t) =>
-            t.assert.snapshot(response.status()),
-          );
+          t.assert.snapshot(response.status());
 
-          await t.test("console messages", async (t) =>
-            t.assert.snapshot(consoleMessages.map((message) => message.text())),
-          );
+          t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-          await t.test("page errors", async (t) =>
-            t.assert.snapshot(pageErrors),
-          );
+          t.assert.snapshot(pageErrors);
 
           // change file content
           fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");

@@ -93,10 +93,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
         await browser.close();
@@ -181,10 +179,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
         await browser.close();
@@ -273,10 +269,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${devServerPort}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -366,10 +360,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${resolvedHost}:${resolvedPort}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -436,10 +428,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -502,10 +492,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -568,10 +556,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://localhost:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -634,10 +620,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -699,10 +683,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -765,10 +747,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -831,10 +811,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -903,10 +881,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port2}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -968,10 +944,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1033,10 +1007,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1094,10 +1066,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1159,10 +1129,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://zenitsu@127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1225,10 +1193,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://foo:chuntaro@127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1292,10 +1258,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://zenitsu:chuntaro@127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1358,10 +1322,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1425,10 +1387,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1496,10 +1456,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/foo/bar`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1567,10 +1525,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1638,10 +1594,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws/`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1710,10 +1664,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1779,10 +1731,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/custom-ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1839,10 +1789,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1900,10 +1848,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -1960,10 +1906,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${hostname}:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -2020,10 +1964,8 @@ describe("web socket server URL", () => {
 
         expect(webSocketRequest.url).toContain(`wss://${hostname}:${port1}/ws`);
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -2085,10 +2027,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${resolvedFreePort}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -2156,10 +2096,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -2220,10 +2158,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://127.0.0.1:${port1}/ws`,
         );
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();
@@ -2263,14 +2199,10 @@ describe("web socket server URL", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
-        await t.test("page errors", async (t) =>
-          t.assert.snapshot(
-            pageErrors.map((pageError) =>
-              pageError.message.split("\n")[0].replace("SyntaxError: ", ""),
-            ),
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(
+          pageErrors.map((pageError) =>
+            pageError.message.split("\n")[0].replace("SyntaxError: ", ""),
           ),
         );
       } finally {
@@ -2331,13 +2263,9 @@ describe("web socket server URL", () => {
           }, 100);
         });
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages),
-        );
-        await t.test("page errors", async (t) =>
-          t.assert.snapshot(
-            pageErrors.map((pageError) => pageError.message.split("\n")[0]),
-          ),
+        t.assert.snapshot(consoleMessages);
+        t.assert.snapshot(
+          pageErrors.map((pageError) => pageError.message.split("\n")[0]),
         );
       } finally {
         await browser.close();

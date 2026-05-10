@@ -85,9 +85,7 @@ describe("setupExitSignals option", () => {
           waitUntil: "networkidle0",
         });
 
-        await t.test("response status", async (t) =>
-          t.assert.snapshot(response.status()),
-        );
+        t.assert.snapshot(response.status());
 
         process.emit(signal);
 
@@ -115,11 +113,9 @@ describe("setupExitSignals option", () => {
             ),
         );
 
-        await t.test("console messages", async (t) =>
-          t.assert.snapshot(consoleMessages.map((message) => message.text())),
-        );
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+        t.assert.snapshot(pageErrors);
       });
     }
   });

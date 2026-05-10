@@ -55,19 +55,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-foo", async (t) =>
-        t.assert.snapshot(response.headers()["x-foo"]),
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -125,23 +119,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-foo", async (t) =>
-        t.assert.snapshot(response.headers()["x-foo"]),
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      await t.test("response headers x-bar", async (t) =>
-        t.assert.snapshot(response.headers()["x-bar"]),
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -190,19 +176,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-bar", async (t) =>
-        t.assert.snapshot(response.headers()["x-bar"]),
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -251,19 +231,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-bar", async (t) =>
-        t.assert.snapshot(response.headers()["x-bar"]),
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -321,23 +295,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-foo", async (t) =>
-        t.assert.snapshot(response.headers()["x-foo"]),
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      await t.test("response headers x-bar", async (t) =>
-        t.assert.snapshot(response.headers()["x-bar"]),
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -389,19 +355,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-foo", async (t) =>
-        t.assert.snapshot(response.headers()["x-foo"]),
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -453,16 +413,10 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers x-foo", async (t) =>
-        t.assert.snapshot(response.headers()["x-foo"]),
-      );
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(response.headers()["x-foo"]);
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
 
       const responseForHead = await req.get("/");
 

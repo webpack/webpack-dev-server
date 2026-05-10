@@ -58,23 +58,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -125,23 +117,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -196,23 +180,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should prefer static file over historyApiFallback", async (t) => {
@@ -231,23 +207,15 @@ describe("historyApiFallback option", () => {
         },
       );
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -299,23 +267,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -379,23 +339,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("historyApiFallback respect rewrites and shows index for unknown urls", async (t) => {
@@ -411,23 +363,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("historyApiFallback respect any other specified rewrites", async (t) => {
@@ -443,23 +387,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -515,17 +451,11 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
       expect(consoleSpy).toHaveBeenCalledWith(
         "Rewriting",
@@ -535,11 +465,9 @@ describe("historyApiFallback option", () => {
         "/bar.html",
       );
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -595,17 +523,11 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
       expect(consoleSpy).toHaveBeenCalledWith(
         "Rewriting",
@@ -615,11 +537,9 @@ describe("historyApiFallback option", () => {
         "/bar.html",
       );
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -672,23 +592,15 @@ describe("historyApiFallback option", () => {
         waitUntil: "networkidle0",
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(response.headers()["content-type"]),
-      );
+      t.assert.snapshot(response.headers()["content-type"]);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(response.status()),
-      );
+      t.assert.snapshot(response.status());
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(await response.text()),
-      );
+      t.assert.snapshot(await response.text());
 
-      await t.test("console messages", async (t) =>
-        t.assert.snapshot(consoleMessages.map((message) => message.text())),
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      await t.test("page errors", async (t) => t.assert.snapshot(pageErrors));
+      t.assert.snapshot(pageErrors);
     });
 
     it("should perform HEAD request in same way as GET", async (t) => {
@@ -706,17 +618,11 @@ describe("historyApiFallback option", () => {
         };
       });
 
-      await t.test("response headers content-type", async (t) =>
-        t.assert.snapshot(responseGet.contentType),
-      );
+      t.assert.snapshot(responseGet.contentType);
 
-      await t.test("response status", async (t) =>
-        t.assert.snapshot(responseGet.statusText),
-      );
+      t.assert.snapshot(responseGet.statusText);
 
-      await t.test("response text", async (t) =>
-        t.assert.snapshot(responseGet.text),
-      );
+      t.assert.snapshot(responseGet.text);
 
       const responseHead = await page.evaluate(async () => {
         const response = await fetch("/foo", { method: "HEAD" });
