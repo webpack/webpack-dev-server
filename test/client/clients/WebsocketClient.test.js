@@ -9,6 +9,12 @@ const express = require("express");
 const { spyOn } = require("jest-mock");
 const ws = require("ws");
 
+// jsdom's built-in WebSocket stays in CONNECTING for unreachable URLs (good
+// for silencing other client tests) but doesn't fully drive open/close
+// against a real local server. Use Node's `ws` library here so this test
+// can talk to the express+ws server below.
+globalThis.WebSocket = ws;
+
 const WebSocketClient =
   require("../../../client-src/clients/WebSocketClient").default;
 const { log } = require("../../../client-src/utils/log");
