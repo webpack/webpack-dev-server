@@ -1,5 +1,7 @@
 "use strict";
 
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
 const { testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-client"];
 

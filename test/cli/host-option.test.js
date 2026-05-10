@@ -1,6 +1,9 @@
 "use strict";
 
 const os = require("node:os");
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
+const { spyOn } = require("jest-mock");
 const Server = require("../../lib/Server");
 const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-host"];
@@ -9,7 +12,7 @@ const localIPv4 = Server.findIp("v4", false);
 const localIPv6 = Server.findIp("v6", false);
 
 describe('"host" CLI option', () => {
-  it('should work using "--host 0.0.0.0" (IPv4)', async () => {
+  it('should work using "--host 0.0.0.0" (IPv4)', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -18,10 +21,12 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) =>
+      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
+    );
   });
 
-  it('should work using "--host ::" (IPv6)', async () => {
+  it('should work using "--host ::" (IPv6)', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -30,10 +35,12 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) =>
+      t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
+    );
   });
 
-  it('should work using "--host ::1" (IPv6)', async () => {
+  it('should work using "--host ::1" (IPv6)', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -42,10 +49,10 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 
-  it('should work using "--host localhost"', async () => {
+  it('should work using "--host localhost"', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -54,10 +61,10 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 
-  it('should work using "--host 127.0.0.1" (IPv4)', async () => {
+  it('should work using "--host 127.0.0.1" (IPv4)', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -66,10 +73,10 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 
-  it('should work using "--host <IPv4>"', async () => {
+  it('should work using "--host <IPv4>"', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -78,11 +85,10 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should work using "--host <IPv6>"', async () => {
+  it.skip('should work using "--host <IPv6>"', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -91,10 +97,10 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 
-  it('should work using "--host local-ip"', async () => {
+  it('should work using "--host local-ip"', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -103,10 +109,9 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should work using "--host local-ip" take the first network found', async () => {
     const { exitCode, stderr } = await testBin([
       "--port",
@@ -116,7 +121,7 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    jest.spyOn(os, "networkInterfaces").mockImplementation(() => ({
+    spyOn(os, "networkInterfaces").mockImplementation(() => ({
       lo: [
         {
           address: "127.0.0.1",
@@ -226,7 +231,7 @@ describe('"host" CLI option', () => {
     expect(stderr).toContain("192.168.1.15");
   });
 
-  it('should work using "--host local-ipv4"', async () => {
+  it('should work using "--host local-ipv4"', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -235,6 +240,6 @@ describe('"host" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
   });
 });

@@ -1,8 +1,10 @@
 "use strict";
 
 const path = require("node:path");
+const { describe, it } = require("node:test");
 const util = require("node:util");
 const execa = require("execa");
+const { expect } = require("expect");
 const { normalizeStderr, testBin } = require("../helpers/test-bin");
 const port = require("../ports-map")["cli-basic"];
 
@@ -10,18 +12,16 @@ const isMacOS = process.platform === "darwin";
 
 describe("basic", () => {
   describe("should output help", () => {
-    (isMacOS ? it.skip : it)("should generate correct cli flags", async () => {
+    (isMacOS ? it.skip : it)("should generate correct cli flags", async (t) => {
       const { exitCode, stdout } = await testBin(["--help"]);
 
-      // eslint-disable-next-line jest/no-standalone-expect
       expect(exitCode).toBe(0);
-      // eslint-disable-next-line jest/no-standalone-expect
-      expect(util.stripVTControlCharacters(stdout)).toMatchSnapshot();
+      t.assert.snapshot(util.stripVTControlCharacters(stdout));
     });
   });
 
   describe("basic", () => {
-    it("should work", async () => {
+    it("should work", async (t) => {
       const { exitCode, stderr } = await testBin([
         // Ideally it should be empty to test without arguments, unfortunately it takes 8080 port and other test can failed
         "--port",
@@ -29,10 +29,12 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+      await t.test("stderr", (t) =>
+        t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
+      );
     });
 
-    it('should work using "--host localhost --port <port>"', async () => {
+    it('should work using "--host localhost --port <port>"', async (t) => {
       const { exitCode, stderr } = await testBin([
         "--port",
         port,
@@ -41,10 +43,10 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+      await t.test("stderr", (t) => t.assert.snapshot(normalizeStderr(stderr)));
     });
 
-    it("should accept the promise function of webpack.config.js", async () => {
+    it("should accept the promise function of webpack.config.js", async (t) => {
       const { exitCode, stderr } = await testBin([
         "--config",
         path.resolve(
@@ -56,10 +58,12 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+      await t.test("stderr", (t) =>
+        t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
+      );
     });
 
-    it("should work using multi compiler mode", async () => {
+    it("should work using multi compiler mode", async (t) => {
       const { exitCode, stderr } = await testBin([
         "--config",
         path.resolve(
@@ -71,130 +75,138 @@ describe("basic", () => {
       ]);
 
       expect(exitCode).toBe(0);
-      expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+      await t.test("stderr", (t) =>
+        t.assert.snapshot(normalizeStderr(stderr, { ipv6: true })),
+      );
     });
 
-    it("should exit the process when SIGINT is detected", (done) => {
-      const cliPath = path.resolve(
-        __dirname,
-        "../../bin/webpack-dev-server.js",
-      );
-      const examplePath = path.resolve(
-        __dirname,
-        "../../examples/client/web-socket-url",
-      );
-      const cp = execa("node", ["--port", port, cliPath], { cwd: examplePath });
-
-      cp.stdout.on("data", (data) => {
-        const bits = data.toString();
-
-        if (/main.js/.test(bits)) {
-          expect(cp.pid).not.toBe(0);
-
-          cp.kill("SIGINT");
-        }
-      });
-
-      cp.on("exit", () => {
-        done();
-      });
-    });
-
-    it("should exit the process when SIGINT is detected, even before the compilation is done", (done) => {
-      const cliPath = path.resolve(
-        __dirname,
-        "../../bin/webpack-dev-server.js",
-      );
-      const cwd = path.resolve(__dirname, "../fixtures/cli");
-      const cp = execa("node", ["--port", port, cliPath], { cwd });
-
-      let killed = false;
-
-      cp.stdout.on("data", () => {
-        if (!killed) {
-          expect(cp.pid).not.toBe(0);
-
-          cp.kill("SIGINT");
-        }
-
-        killed = true;
-      });
-
-      cp.on("exit", () => {
-        done();
-      });
-    });
-
-    it("should exit the process when stdin ends if --watch-options-stdin", (done) => {
-      const cliPath = path.resolve(
-        __dirname,
-        "../../bin/webpack-dev-server.js",
-      );
-      const examplePath = path.resolve(
-        __dirname,
-        "../../examples/client/web-socket-url",
-      );
-      const cp = execa(
-        "node",
-        [cliPath, "--port", port, "--watch-options-stdin"],
-        {
+    it("should exit the process when SIGINT is detected", () =>
+      new Promise((resolve) => {
+        const cliPath = path.resolve(
+          __dirname,
+          "../../bin/webpack-dev-server.js",
+        );
+        const examplePath = path.resolve(
+          __dirname,
+          "../../examples/client/web-socket-url",
+        );
+        const cp = execa("node", ["--port", port, cliPath], {
           cwd: examplePath,
-        },
-      );
+        });
 
-      cp.stdout.on("data", (data) => {
-        const bits = data.toString();
+        cp.stdout.on("data", (data) => {
+          const bits = data.toString();
 
-        if (/main.js/.test(bits)) {
-          expect(cp.pid).not.toBe(0);
+          if (/main.js/.test(bits)) {
+            expect(cp.pid).not.toBe(0);
 
-          cp.stdin.write("hello");
-          cp.stdin.end("world");
-        }
-      });
+            cp.kill("SIGINT");
+          }
+        });
 
-      cp.on("exit", () => {
-        done();
-      });
-    });
+        cp.on("exit", () => {
+          resolve();
+        });
+      }));
 
-    it("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", (done) => {
-      const cliPath = path.resolve(
-        __dirname,
-        "../../bin/webpack-dev-server.js",
-      );
-      const cwd = path.resolve(__dirname, "../fixtures/cli");
-      const cp = execa(
-        "node",
-        [cliPath, "--port", port, "--watch-options-stdin"],
-        { cwd },
-      );
+    it("should exit the process when SIGINT is detected, even before the compilation is done", () =>
+      new Promise((resolve) => {
+        const cliPath = path.resolve(
+          __dirname,
+          "../../bin/webpack-dev-server.js",
+        );
+        const cwd = path.resolve(__dirname, "../fixtures/cli");
+        const cp = execa("node", ["--port", port, cliPath], { cwd });
 
-      let killed = false;
+        let killed = false;
 
-      cp.on("error", (error) => {
-        done(error);
-      });
+        cp.stdout.on("data", () => {
+          if (!killed) {
+            expect(cp.pid).not.toBe(0);
 
-      cp.stdin.on("error", (error) => {
-        done(error);
-      });
+            cp.kill("SIGINT");
+          }
 
-      cp.stdout.on("data", () => {
-        if (!killed) {
-          expect(cp.pid).not.toBe(0);
+          killed = true;
+        });
 
-          cp.stdin.write("hello");
-          cp.stdin.end("world");
-        }
+        cp.on("exit", () => {
+          resolve();
+        });
+      }));
 
-        killed = true;
-      });
+    it("should exit the process when stdin ends if --watch-options-stdin", () =>
+      new Promise((resolve) => {
+        const cliPath = path.resolve(
+          __dirname,
+          "../../bin/webpack-dev-server.js",
+        );
+        const examplePath = path.resolve(
+          __dirname,
+          "../../examples/client/web-socket-url",
+        );
+        const cp = execa(
+          "node",
+          [cliPath, "--port", port, "--watch-options-stdin"],
+          {
+            cwd: examplePath,
+          },
+        );
 
-      cp.on("exit", () => {
-        done();
-      });
-    });
+        cp.stdout.on("data", (data) => {
+          const bits = data.toString();
+
+          if (/main.js/.test(bits)) {
+            expect(cp.pid).not.toBe(0);
+
+            cp.stdin.write("hello");
+            cp.stdin.end("world");
+          }
+        });
+
+        cp.on("exit", () => {
+          resolve();
+        });
+      }));
+
+    it("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", () =>
+      new Promise((resolve, reject) => {
+        const cliPath = path.resolve(
+          __dirname,
+          "../../bin/webpack-dev-server.js",
+        );
+        const cwd = path.resolve(__dirname, "../fixtures/cli");
+        const cp = execa(
+          "node",
+          [cliPath, "--port", port, "--watch-options-stdin"],
+          { cwd },
+        );
+
+        let killed = false;
+
+        cp.on("error", (error) => {
+          reject(error);
+        });
+
+        cp.stdin.on("error", (error) => {
+          reject(error);
+        });
+
+        cp.stdout.on("data", () => {
+          if (!killed) {
+            expect(cp.pid).not.toBe(0);
+
+            cp.stdin.write("hello");
+            cp.stdin.end("world");
+          }
+
+          killed = true;
+        });
+
+        cp.on("exit", () => {
+          resolve();
+        });
+      }));
 
     it("should add dev server entry points to a single entry point", async () => {
       const { exitCode, stdout } = await testBin(
@@ -324,7 +336,6 @@ describe("basic", () => {
       expect(stdout).toContain("client/index.js");
     });
 
-    // eslint-disable-next-line jest/no-disabled-tests
     it.skip("should use different random port when multiple instances are started on different processes", async () => {
       const cliPath = path.resolve(
         __dirname,
