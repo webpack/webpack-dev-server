@@ -1,3 +1,15 @@
+exports[`allowed hosts > check host headers > should NOT allow websocket connection when allowedHosts is restrictive and excludes every loopback alias 1`] = `
+200
+`;
+
+exports[`allowed hosts > check host headers > should NOT allow websocket connection when allowedHosts is restrictive and excludes every loopback alias 2`] = `
+[]
+`;
+
+exports[`allowed hosts > check host headers > should NOT allow websocket connection when allowedHosts is restrictive and excludes every loopback alias 3`] = `
+[]
+`;
+
 exports[`allowed hosts > check host headers > should NOT allow websocket connection when origin is a non-loopback address mismatching host (loopback fix must not widen trust) 1`] = `
 200
 `;

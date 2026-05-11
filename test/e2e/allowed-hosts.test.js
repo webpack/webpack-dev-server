@@ -1982,6 +1982,49 @@ describe("allowed hosts", () => {
       t.assert.snapshot(pageErrors);
     });
 
+    it("should NOT allow websocket connection when allowedHosts is restrictive and excludes every loopback alias", async (t) => {
+      const options = {
+        // Explicit allow-list without any loopback alias: the loopback
+        // equivalence must NOT override the user's configuration.
+        allowedHosts: ["example.com"],
+        host: "localhost",
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      const headersLoopbackButNotAllowed = {
+        host: "127.0.0.1",
+        origin: "http://localhost",
+      };
+
+      if (server.isSameOrigin(headersLoopbackButNotAllowed)) {
+        throw new Error(
+          "isSameOrigin must respect explicit allowedHosts when no loopback alias is permitted",
+        );
+      }
+
+      const response = await page.goto(`http://localhost:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
+    });
+
     it("should NOT allow websocket connection when origin is a non-loopback address mismatching host (loopback fix must not widen trust)", async (t) => {
       const options = {
         allowedHosts: "auto",
