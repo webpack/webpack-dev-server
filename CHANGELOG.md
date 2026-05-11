@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.4](https://github.com/webpack/webpack-dev-server/compare/v5.2.3...v5.2.4) (2026-05-11)
+
+### Bug Fixes
+
+* set Cross-Origin-Resource-Policy header to prevent source code theft over HTTP
+
 ### [5.2.3](https://github.com/webpack/webpack-dev-server/compare/v5.2.2...v5.2.3) (2026-01-12)
 
 
