@@ -1832,7 +1832,7 @@ type Configuration<
   proxy?: ProxyConfigArray | undefined;
   open?: (boolean | string | Open | Array<string | Open>) | undefined;
   setupExitSignals?: boolean | undefined;
-  client?: (boolean | ClientConfiguration) | undefined;
+  client?: (false | ClientConfiguration) | undefined;
   headers?:
     | (
         | Headers
