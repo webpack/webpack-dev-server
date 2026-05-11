@@ -1,6 +1,7 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const oneHTMLContent = `
+const __dirname = path.dirname(fileURLToPath(import.meta.url));const oneHTMLContent = `
 <!doctype html>
 <html>
   <head>
@@ -23,7 +24,7 @@ const twoHTMLContent = `
 </html>
 `;
 
-module.exports = {
+export default {
   devtool: false,
   mode: "development",
   context: __dirname,

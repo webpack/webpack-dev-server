@@ -1,6 +1,7 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const moduleRuleForCustom = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));const moduleRuleForCustom = {
   test: /\.custom$/,
   type: "asset/resource",
   generator: {
@@ -8,7 +9,7 @@ const moduleRuleForCustom = {
   },
 };
 
-module.exports = {
+export default {
   mode: "development",
   context: __dirname,
   stats: "none",

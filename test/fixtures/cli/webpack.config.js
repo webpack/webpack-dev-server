@@ -1,6 +1,9 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-module.exports = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default {
   mode: "development",
   stats: "detailed",
   context: __dirname,
