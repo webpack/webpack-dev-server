@@ -7,18 +7,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const library = {
   library: {
-    // type: "module",
-    type: "commonjs",
+    type: "module",
   },
 };
 
 const baseForModules = {
   devtool: false,
   mode: "development",
-  // TODO enable this in future after fix bug with `eval` in webpack
-  // experiments: {
-  //   outputModule: true,
-  // },
+  experiments: {
+    outputModule: true,
+  },
   output: {
     path: path.resolve(__dirname, "../client/modules"),
     ...library,
