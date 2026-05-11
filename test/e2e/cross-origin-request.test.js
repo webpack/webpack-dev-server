@@ -1,3 +1,4 @@
+import http from "node:http";
 import { describe, it } from "node:test";
 import { expect } from "expect";
 import webpack from "webpack";
@@ -24,7 +25,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    import http from "node:http";
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -78,7 +78,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    import http from "node:http";
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -129,7 +128,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    import http from "node:http";
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -180,7 +178,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    import http from "node:http";
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
