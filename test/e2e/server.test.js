@@ -1,5 +1,6 @@
 import https from "node:https";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { expect } from "expect";
 import fs from "graceful-fs";
@@ -14,6 +15,7 @@ import normalizeOptions from "../helpers/normalize-options.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["server-option"];
 
 const httpsCertificateDirectory = path.resolve(

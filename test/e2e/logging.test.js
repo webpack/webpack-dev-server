@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
 
 import fs from "graceful-fs";
@@ -9,6 +10,7 @@ import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.logging;
 
 describe("logging", () => {

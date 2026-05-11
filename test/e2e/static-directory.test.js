@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { expect } from "expect";
 import fs from "graceful-fs";
@@ -10,6 +11,7 @@ import runBrowser from "../helpers/run-browser.js";
 import * as testServer from "../helpers/test-server.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["static-directory-option"];
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");

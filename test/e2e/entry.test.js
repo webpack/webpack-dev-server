@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
 
 import webpack from "webpack";
@@ -7,6 +8,7 @@ import config from "../fixtures/client-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.entry;
 
 const HOT_ENABLED_MESSAGE =

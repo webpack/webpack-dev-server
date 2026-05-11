@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
 import { expect } from "expect";
 import fs from "graceful-fs";
@@ -10,6 +11,7 @@ import universalConfiguration from "../fixtures/universal-compiler-config/webpac
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["multi-compiler"];
 
 describe("multi compiler", () => {

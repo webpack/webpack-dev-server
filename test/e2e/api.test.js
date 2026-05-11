@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, it, mock } from "node:test";
 import { expect } from "expect";
 import { fn } from "jest-mock";
@@ -9,6 +10,7 @@ import runBrowser from "../helpers/run-browser.js";
 import sessionSubscribe from "../helpers/session-subscribe.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.api;
 
 describe("API", () => {

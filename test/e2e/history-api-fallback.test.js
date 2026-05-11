@@ -1,4 +1,5 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { expect } from "expect";
 import { spyOn } from "jest-mock";
@@ -10,6 +11,7 @@ import config from "../fixtures/historyapifallback-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["history-api-fallback-option"];
 
 describe("historyApiFallback option", () => {
