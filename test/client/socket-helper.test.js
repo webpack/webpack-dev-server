@@ -1,10 +1,8 @@
-"use strict";
+import "../helpers/jsdom-setup.js";
 
-require("../helpers/jsdom-setup");
-
-const { beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { fn } = require("jest-mock");
+import { beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
 
 /**
  * Build a fresh mock WebSocketClient class. Each `new MockClient(url)`
@@ -29,9 +27,6 @@ function createMockClient() {
 describe("socket", () => {
   beforeEach(() => {
     delete globalThis.__webpack_dev_server_client__;
-    for (const key of Object.keys(require.cache)) {
-      if (key.includes("/client-src/")) delete require.cache[key];
-    }
   });
 
   it("should default to WebsocketClient when no __webpack_dev_server_client__ set", async (t) => {
@@ -74,11 +69,13 @@ describe("socket", () => {
     }
   });
 
-  it("should use __webpack_dev_server_client__ when set", (t) => {
+  it("should use __webpack_dev_server_client__ when set", async (t) => {
     const MockClient = createMockClient();
     globalThis.__webpack_dev_server_client__ = MockClient;
 
-    const socket = require("../../client-src/socket").default;
+    const socket = (
+      await import(`../../client-src/socket.js?t=${Date.now()}-${Math.random()}`)
+    ).default;
 
     const mockHandler = fn();
 
@@ -104,15 +101,18 @@ describe("socket", () => {
     t.assert.snapshot(mockHandler.mock.calls);
   });
 
-  it("should export initialized client", () => {
+  it("should export initialized client", async () => {
     const MockClient = createMockClient();
     globalThis.__webpack_dev_server_client__ = MockClient;
 
-    const socket = require("../../client-src/socket").default;
+    const socketMod = await import(
+      `../../client-src/socket.js?t=${Date.now()}-${Math.random()}`
+    );
+    const socket = socketMod.default;
 
     socket("my.url", {});
 
-    const initializedInstance = require("../../client-src/socket").client;
+    const initializedInstance = socketMod.client;
 
     expect(initializedInstance).not.toBeNull();
     expect(typeof initializedInstance.onClose).toBe("function");

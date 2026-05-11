@@ -1,12 +1,14 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, it } from "node:test";
+import util from "node:util";
+import execa from "execa";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const util = require("node:util");
-const execa = require("execa");
-const { expect } = require("expect");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-basic"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["cli-basic"];
 
 const isMacOS = process.platform === "darwin";
 

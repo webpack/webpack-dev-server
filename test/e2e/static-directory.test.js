@@ -1,16 +1,16 @@
-"use strict";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/static-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import * as testServer from "../helpers/test-server.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const fs = require("graceful-fs");
-const { spyOn } = require("jest-mock");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const testServer = require("../helpers/test-server");
-const port = require("../ports-map")["static-directory-option"];
+const port = portsMap["static-directory-option"];
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");

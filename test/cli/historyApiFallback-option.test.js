@@ -1,9 +1,9 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-history-api-fallback"];
+const port = portsMap["cli-history-api-fallback"];
 
 describe('"historyApiFallback" CLI option', () => {
   it('should work using "--history-api-fallback"', async (t) => {

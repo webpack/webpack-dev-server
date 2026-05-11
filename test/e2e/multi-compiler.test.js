@@ -1,16 +1,16 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import oneWebTargetConfiguration from "../fixtures/multi-compiler-one-configuration/webpack.config.js";
+import twoWebTargetConfiguration from "../fixtures/multi-compiler-two-configurations/webpack.config.js";
+import universalConfiguration from "../fixtures/universal-compiler-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const oneWebTargetConfiguration = require("../fixtures/multi-compiler-one-configuration/webpack.config");
-const twoWebTargetConfiguration = require("../fixtures/multi-compiler-two-configurations/webpack.config");
-const universalConfiguration = require("../fixtures/universal-compiler-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["multi-compiler"];
+const port = portsMap["multi-compiler"];
 
 describe("multi compiler", () => {
   it("should work with one web target configuration and do nothing", async (t) => {

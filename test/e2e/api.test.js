@@ -1,15 +1,15 @@
-"use strict";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import sessionSubscribe from "../helpers/session-subscribe.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { fn } = require("jest-mock");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const sessionSubscribe = require("../helpers/session-subscribe");
-const port = require("../ports-map").api;
+const port = portsMap.api;
 
 describe("API", () => {
   describe("WEBPACK_SERVE environment variable", () => {
@@ -24,7 +24,6 @@ describe("API", () => {
       process.env = { ...OLD_ENV };
 
       delete process.env.WEBPACK_SERVE;
-      delete require.cache[require.resolve("../../lib/Server")];
 
       ({ page, browser } = await runBrowser());
 
@@ -49,7 +48,10 @@ describe("API", () => {
           pageErrors.push(error);
         });
 
-      const WebpackDevServer = require("../../lib/Server");
+      const serverUrl = import.meta.resolve("../../lib/Server.js");
+      const { default: WebpackDevServer } = await import(
+        `${serverUrl}?t=${Date.now()}-${Math.random()}`
+      );
 
       const compiler = webpack(config);
       server = new WebpackDevServer({ port }, compiler);

@@ -1,13 +1,13 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import request from "supertest";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const request = require("supertest");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["headers-option"];
+const port = portsMap["headers-option"];
 
 describe("headers option", () => {
   describe("as a string", () => {

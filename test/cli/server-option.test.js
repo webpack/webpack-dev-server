@@ -1,12 +1,14 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import { rimraf } from "rimraf";
+import Server from "../../lib/Server.js";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const { rimraf } = require("rimraf");
-const Server = require("../../lib/Server");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-server"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["cli-server"];
 
 const httpsCertificateDirectory = path.resolve(
   __dirname,

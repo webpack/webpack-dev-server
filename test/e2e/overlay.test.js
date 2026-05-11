@@ -1,18 +1,18 @@
-"use strict";
+import path from "node:path";
+import { describe, it, mock } from "node:test";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { fn } from "jest-mock";
+import prettier from "prettier";
+import waitForExpect from "wait-for-expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import trustedTypesConfig from "../fixtures/overlay-config/trusted-types.webpack.config.js";
+import config from "../fixtures/overlay-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const fs = require("graceful-fs");
-const { fn } = require("jest-mock");
-const prettier = require("prettier");
-const waitForExpect = require("wait-for-expect");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const trustedTypesConfig = require("../fixtures/overlay-config/trusted-types.webpack.config");
-const config = require("../fixtures/overlay-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").overlay;
+const port = portsMap.overlay;
 
 class ErrorPlugin {
   constructor(message, skipCounter) {

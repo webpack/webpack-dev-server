@@ -1,14 +1,14 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
+import express from "express";
+import { createProxyMiddleware } from "http-proxy-middleware";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const express = require("express");
-const { createProxyMiddleware } = require("http-proxy-middleware");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const [port1, port2] = require("../ports-map")["allowed-hosts"];
+const [port1, port2] = portsMap["allowed-hosts"];
 
 const webSocketServers = ["ws"];
 

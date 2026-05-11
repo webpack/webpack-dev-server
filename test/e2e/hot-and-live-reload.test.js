@@ -1,19 +1,22 @@
-"use strict";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { fn, spyOn } from "jest-mock";
+import webpack from "webpack";
+import WebSocket from "ws";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import multiCompilerConfig from "../fixtures/multi-compiler-one-configuration/webpack.config.js";
+import reloadConfig from "../fixtures/reload-config/webpack.config.js";
+import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const fs = require("graceful-fs");
-const { fn, spyOn } = require("jest-mock");
-const webpack = require("webpack");
-const WebSocket = require("ws");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
-const reloadConfig = require("../fixtures/reload-config/webpack.config");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["hot-and-live-reload"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const port = portsMap["hot-and-live-reload"];
 
 const cssFilePath = path.resolve(
   __dirname,
@@ -162,8 +165,8 @@ describe("hot and live reload", () => {
       title: "should work with manual client setup",
       webpackOptions: {
         entry: [
-          require.resolve("../../client-src/index.js"),
-          require.resolve("../fixtures/reload-config/foo.js"),
+          fileURLToPath(import.meta.resolve("../../client-src/index.js")),
+          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
         ],
       },
       options: {
@@ -179,8 +182,8 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           "webpack/hot/dev-server",
-          `${require.resolve("../../client-src/index.js")}?hot=true`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=true`,
+          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
         ],
         plugins: [
           new webpack.HotModuleReplacementPlugin(),
@@ -198,8 +201,8 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable hot module replacement",
       webpackOptions: {
         entry: [
-          `${require.resolve("../../client-src/index.js")}?hot=false`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=false`,
+          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
         ],
       },
       options: {
@@ -213,8 +216,8 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to enable live reload",
       webpackOptions: {
         entry: [
-          `${require.resolve("../../client-src/index.js")}?live-reload=true`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=true`,
+          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
         ],
       },
       options: {
@@ -228,8 +231,8 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable live reload",
       webpackOptions: {
         entry: [
-          `${require.resolve("../../client-src/index.js")}?live-reload=false`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=false`,
+          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
         ],
       },
       options: {

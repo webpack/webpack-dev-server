@@ -1,18 +1,19 @@
-"use strict";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-colors"];
+const port = portsMap["cli-colors"];
 
-const colorsDefaultStats = require.resolve(
-  "../fixtures/cli-colors-default-stats/webpack.config",
+const colorsDefaultStats = fileURLToPath(
+  import.meta.resolve("../fixtures/cli-colors-default-stats/webpack.config.js"),
 );
-const colorsDisabled = require.resolve(
-  "../fixtures/cli-colors-disabled/webpack.config",
+const colorsDisabled = fileURLToPath(
+  import.meta.resolve("../fixtures/cli-colors-disabled/webpack.config.js"),
 );
-const colorsEnabled = require.resolve(
-  "../fixtures/cli-colors-enabled/webpack.config",
+const colorsEnabled = fileURLToPath(
+  import.meta.resolve("../fixtures/cli-colors-enabled/webpack.config.js"),
 );
 
 describe("colors", () => {
