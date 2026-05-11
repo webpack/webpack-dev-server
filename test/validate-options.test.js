@@ -1,15 +1,17 @@
-"use strict";
+import os from "node:os";
+import path from "node:path";
+import { after, before, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import connect from "connect";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { spyOn } from "jest-mock";
+import { Volume, createFsFromVolume } from "memfs";
+import webpack from "webpack";
+import Server from "../lib/Server.js";
+import config from "./fixtures/simple-config/webpack.config.js";
 
-const os = require("node:os");
-const path = require("node:path");
-const { after, before, describe, it } = require("node:test");
-const { expect } = require("expect");
-const { readFileSync } = require("graceful-fs");
-const { spyOn } = require("jest-mock");
-const { Volume, createFsFromVolume } = require("memfs");
-const webpack = require("webpack");
-const Server = require("../lib/Server");
-const config = require("./fixtures/simple-config/webpack.config");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const httpsCertificateDirectory = path.join(
   __dirname,
@@ -272,16 +274,16 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: readFileSync(
+          ca: fs.readFileSync(
             path.join(httpsCertificateDirectory, "ca.pem"),
           ).toString(),
-          pfx: readFileSync(
+          pfx: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.pfx"),
           ).toString(),
-          key: readFileSync(
+          key: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.key"),
           ).toString(),
-          cert: readFileSync(
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ).toString(),
           passphrase: "webpack-dev-server",
@@ -291,22 +293,22 @@ const tests = {
         type: "https",
         options: {
           ca: [
-            readFileSync(
+            fs.readFileSync(
               path.join(httpsCertificateDirectory, "ca.pem"),
             ).toString(),
           ],
           pfx: [
-            readFileSync(
+            fs.readFileSync(
               path.join(httpsCertificateDirectory, "server.pfx"),
             ).toString(),
           ],
           key: [
-            readFileSync(
+            fs.readFileSync(
               path.join(httpsCertificateDirectory, "server.key"),
             ).toString(),
           ],
           cert: [
-            readFileSync(
+            fs.readFileSync(
               path.join(httpsCertificateDirectory, "server.crt"),
             ).toString(),
           ],
@@ -316,10 +318,10 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
-          pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
-          key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
-          cert: readFileSync(
+          ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+          pfx: fs.readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+          key: fs.readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
@@ -328,15 +330,15 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: [readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))],
+          ca: [fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))],
           pfx: [
-            readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+            fs.readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
           ],
           key: [
-            readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+            fs.readFileSync(path.join(httpsCertificateDirectory, "server.key")),
           ],
           cert: [
-            readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+            fs.readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
           ],
           passphrase: "webpack-dev-server",
         },
@@ -356,10 +358,10 @@ const tests = {
         type: "https",
         options: {
           minVersion: "TLSv1.1",
-          ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
-          pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
-          key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
-          cert: readFileSync(
+          ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+          pfx: fs.readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+          key: fs.readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
@@ -368,22 +370,22 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+          ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
           pfx: [
             {
-              buf: readFileSync(
+              buf: fs.readFileSync(
                 path.join(httpsCertificateDirectory, "server.pfx"),
               ),
             },
           ],
           key: [
             {
-              pem: readFileSync(
+              pem: fs.readFileSync(
                 path.join(httpsCertificateDirectory, "server.key"),
               ),
             },
           ],
-          cert: readFileSync(
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
@@ -435,10 +437,10 @@ const tests = {
   },
   app: {
     success: [
-      () => require("connect")(),
+      () => connect(),
       async () =>
         new Promise((resolve) => {
-          resolve(require("connect")());
+          resolve(connect());
         }),
     ],
     failure: ["test", false],
