@@ -1850,5 +1850,176 @@ describe("allowed hosts", () => {
 
       t.assert.snapshot(pageErrors);
     });
+
+    it("should allow websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch)", async (t) => {
+      const options = {
+        allowedHosts: "auto",
+        host: "localhost",
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      // Simulate: browser opens from localhost, but OS resolved
+      // 'localhost' to '127.0.0.1' so host header is the IP
+      const headersLocalhostOriginIPv4Host = {
+        host: "127.0.0.1",
+        origin: "http://localhost",
+      };
+
+      if (!server.isSameOrigin(headersLocalhostOriginIPv4Host)) {
+        throw new Error(
+          "isSameOrigin should treat localhost and 127.0.0.1 as equivalent loopback addresses",
+        );
+      }
+
+      const response = await page.goto(`http://localhost:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
+    });
+
+    it("should allow websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch)", async (t) => {
+      const options = {
+        allowedHosts: "auto",
+        host: "localhost",
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      // Simulate: browser opens from localhost, but OS resolved
+      // 'localhost' to '::1' (IPv6) so host header is the IPv6 address
+      const headersLocalhostOriginIPv6Host = {
+        host: "::1",
+        origin: "http://localhost",
+      };
+
+      if (!server.isSameOrigin(headersLocalhostOriginIPv6Host)) {
+        throw new Error(
+          "isSameOrigin should treat localhost and ::1 as equivalent loopback addresses",
+        );
+      }
+
+      const response = await page.goto(`http://localhost:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
+    });
+
+    it("should allow websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch)", async (t) => {
+      const options = {
+        allowedHosts: "auto",
+        host: "127.0.0.1",
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      // Reverse of above: server bound to 127.0.0.1, but browser
+      // sent origin header using 'localhost' name
+      const headersIPv4OriginLocalhostHost = {
+        host: "localhost",
+        origin: "http://127.0.0.1",
+      };
+
+      if (!server.isSameOrigin(headersIPv4OriginLocalhostHost)) {
+        throw new Error(
+          "isSameOrigin should treat 127.0.0.1 and localhost as equivalent loopback addresses",
+        );
+      }
+
+      const response = await page.goto(`http://127.0.0.1:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
+    });
+
+    it("should NOT allow websocket connection when origin is a non-loopback address mismatching host (loopback fix must not widen trust)", async (t) => {
+      const options = {
+        allowedHosts: "auto",
+        host: "localhost",
+        port: port1,
+      };
+
+      server = new Server(options, compiler);
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+
+      page
+        .on("console", (message) => {
+          consoleMessages.push(message);
+        })
+        .on("pageerror", (error) => {
+          pageErrors.push(error);
+        });
+
+      // A real external origin must never pass as loopback equivalent.
+      const headersExternalOrigin = {
+        host: "localhost",
+        origin: "http://evil.example.com",
+      };
+
+      if (server.isSameOrigin(headersExternalOrigin)) {
+        throw new Error(
+          "isSameOrigin must NOT allow external origins to match loopback host",
+        );
+      }
+
+      const response = await page.goto(`http://localhost:${port1}/main.js`, {
+        waitUntil: "networkidle0",
+      });
+
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
+    });
   });
 });
