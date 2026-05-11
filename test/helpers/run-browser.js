@@ -1,7 +1,5 @@
-"use strict";
-
-const puppeteer = require("puppeteer");
-const { puppeteerArgs } = require("./puppeteer-constants");
+import { launch } from "puppeteer";
+import { puppeteerArgs } from "./puppeteer-constants.js";
 
 /** @typedef {import('puppeteer').Browser} Browser */
 /** @typedef {import('puppeteer').Page} Page */
@@ -18,7 +16,7 @@ const { puppeteerArgs } = require("./puppeteer-constants");
  * @param {Device} device config
  * @returns {Promise<Page>} page
  */
-function runPage(browser, device) {
+export function runPage(browser, device) {
   /**
    * @type {Page}
    */
@@ -77,14 +75,13 @@ function runBrowser(device) {
      */
     let browser;
 
-    puppeteer
-      .launch({
-        headless: "new",
-        // because of invalid localhost certificate
-        acceptInsecureCerts: true,
-        // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
-        args: puppeteerArgs,
-      })
+    launch({
+      headless: "new",
+      // because of invalid localhost certificate
+      acceptInsecureCerts: true,
+      // args come from: https://github.com/alixaxel/chrome-aws-lambda/blob/master/source/index.js
+      args: puppeteerArgs,
+    })
       .then((launchedBrowser) => {
         browser = launchedBrowser;
 
@@ -99,5 +96,4 @@ function runBrowser(device) {
   });
 }
 
-module.exports = runBrowser;
-module.exports.runPage = runPage;
+export default runBrowser;
