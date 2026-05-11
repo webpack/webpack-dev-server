@@ -1915,10 +1915,12 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      // Simulate: browser opens from localhost, but OS resolved
-      // 'localhost' to '::1' (IPv6) so host header is the IPv6 address
+      // Simulate: page loaded via localhost, but a WS client built the
+      // connection URL using the IPv6 loopback, so the Host header is
+      // the bracketed IPv6 form (per RFC 3986/7230) while Origin keeps
+      // the original 'localhost'.
       const headersLocalhostOriginIPv6Host = {
-        host: "::1",
+        host: "[::1]",
         origin: "http://localhost",
       };
 
