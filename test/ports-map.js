@@ -1,5 +1,3 @@
-"use strict";
-
 // important: new port mappings must be added to the bottom of this list
 const listOfTests = {
   // CLI tests
@@ -98,7 +96,7 @@ for (const key of Object.keys(listOfTests)) {
 
 const busy = {};
 
-module.exports = new Proxy(ports, {
+export default new Proxy(ports, {
   get(target, name) {
     if (!target[name]) {
       throw new Error(
