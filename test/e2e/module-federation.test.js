@@ -61,7 +61,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry2");
+      expect(exports.default).toBe("entry2");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -117,7 +117,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry2");
+      expect(exports.default).toBe("entry2");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -147,7 +147,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry1");
+      expect(exports.default).toBe("entry1");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -203,7 +203,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry2");
+      expect(exports.default).toBe("entry2");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
