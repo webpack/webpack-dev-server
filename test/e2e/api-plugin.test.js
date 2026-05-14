@@ -2,6 +2,9 @@
 
 const os = require("node:os");
 const path = require("node:path");
+const { describe, it } = require("node:test");
+const { expect } = require("expect");
+const { spyOn } = require("jest-mock");
 const webpack = require("webpack");
 const WebSocket = require("ws");
 const Server = require("../../lib/Server");
@@ -13,7 +16,7 @@ const port = require("../ports-map")["api-plugin"];
 const [portA, portB] = require("../ports-map")["api-plugin-multi"];
 
 describe("API (plugin)", () => {
-  it("should work with plugin API", async () => {
+  it("should work with plugin API", async (t) => {
     const compiler = webpack(config);
     const server = new Server({ port });
 
@@ -38,10 +41,8 @@ describe("API (plugin)", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
+    t.assert.snapshot(pageErrors);
 
     await browser.close();
     await new Promise((resolve) => {
@@ -52,8 +53,8 @@ describe("API (plugin)", () => {
   it("should not start the server multiple times on recompilation", async () => {
     const compiler = webpack(config);
     const server = new Server({ port });
-    const setupSpy = jest.spyOn(server, "setup");
-    const listenSpy = jest.spyOn(server, "listen");
+    const setupSpy = spyOn(server, "setup");
+    const listenSpy = spyOn(server, "listen");
 
     server.apply(compiler);
 
@@ -84,7 +85,7 @@ describe("API (plugin)", () => {
   it("should stop the server cleanly via compiler.close()", async () => {
     const compiler = webpack(config);
     const server = new Server({ port });
-    const stopSpy = jest.spyOn(server, "stop");
+    const stopSpy = spyOn(server, "stop");
 
     server.apply(compiler);
 
@@ -110,8 +111,8 @@ describe("API (plugin)", () => {
       },
     });
     const server = new Server({ port });
-    const setupSpy = jest.spyOn(server, "setup");
-    const listenSpy = jest.spyOn(server, "listen");
+    const setupSpy = spyOn(server, "setup");
+    const listenSpy = spyOn(server, "listen");
 
     server.apply(compiler);
 
@@ -239,7 +240,7 @@ describe("API (plugin)", () => {
   });
 
   describe("plugin in webpack config", () => {
-    it("should work when added to webpack config plugins array", async () => {
+    it("should work when added to webpack config plugins array", async (t) => {
       const server = new Server({ port });
       const compiler = webpack({
         ...config,
@@ -266,10 +267,8 @@ describe("API (plugin)", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -278,7 +277,7 @@ describe("API (plugin)", () => {
       }
     });
 
-    it("should work with output.clean: true", async () => {
+    it("should work with output.clean: true", async (t) => {
       const server = new Server({ port });
       const compiler = webpack({
         ...config,
@@ -310,10 +309,8 @@ describe("API (plugin)", () => {
         });
 
         expect(response.status()).toBe(200);
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -324,7 +321,7 @@ describe("API (plugin)", () => {
   });
 
   describe("MultiCompiler", () => {
-    it("should work with plugin API", async () => {
+    it("should work with plugin API", async (t) => {
       const compiler = webpack(multiCompilerConfig);
       const server = new Server({ port });
 
@@ -354,10 +351,8 @@ describe("API (plugin)", () => {
         );
 
         expect(response.status()).toBe(200);
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await new Promise((resolve) => {
@@ -369,8 +364,8 @@ describe("API (plugin)", () => {
     it("should call setup and listen once across all child compilers", async () => {
       const compiler = webpack(multiCompilerConfig);
       const server = new Server({ port });
-      const setupSpy = jest.spyOn(server, "setup");
-      const listenSpy = jest.spyOn(server, "listen");
+      const setupSpy = spyOn(server, "setup");
+      const listenSpy = spyOn(server, "listen");
 
       server.apply(compiler);
 
@@ -389,7 +384,7 @@ describe("API (plugin)", () => {
     it("should stop the server only once when all child compilers shut down", async () => {
       const compiler = webpack(multiCompilerConfig);
       const server = new Server({ port });
-      const stopSpy = jest.spyOn(server, "stop");
+      const stopSpy = spyOn(server, "stop");
 
       server.apply(compiler);
 

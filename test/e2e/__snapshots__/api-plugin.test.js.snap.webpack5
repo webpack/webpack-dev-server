@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`API (plugin) MultiCompiler should work with plugin API: console messages 1`] = `
+exports[`API (plugin) > MultiCompiler > should work with plugin API 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -8,9 +6,11 @@ exports[`API (plugin) MultiCompiler should work with plugin API: console message
 ]
 `;
 
-exports[`API (plugin) MultiCompiler should work with plugin API: page errors 1`] = `[]`;
+exports[`API (plugin) > MultiCompiler > should work with plugin API 2`] = `
+[]
+`;
 
-exports[`API (plugin) plugin in webpack config should work when added to webpack config plugins array: console messages 1`] = `
+exports[`API (plugin) > plugin in webpack config > should work when added to webpack config plugins array 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -18,9 +18,11 @@ exports[`API (plugin) plugin in webpack config should work when added to webpack
 ]
 `;
 
-exports[`API (plugin) plugin in webpack config should work when added to webpack config plugins array: page errors 1`] = `[]`;
+exports[`API (plugin) > plugin in webpack config > should work when added to webpack config plugins array 2`] = `
+[]
+`;
 
-exports[`API (plugin) plugin in webpack config should work with output.clean: true: console messages 1`] = `
+exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -28,9 +30,11 @@ exports[`API (plugin) plugin in webpack config should work with output.clean: tr
 ]
 `;
 
-exports[`API (plugin) plugin in webpack config should work with output.clean: true: page errors 1`] = `[]`;
+exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 2`] = `
+[]
+`;
 
-exports[`API (plugin) should work with plugin API: console messages 1`] = `
+exports[`API (plugin) > should work with plugin API 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -38,4 +42,6 @@ exports[`API (plugin) should work with plugin API: console messages 1`] = `
 ]
 `;
 
-exports[`API (plugin) should work with plugin API: page errors 1`] = `[]`;
+exports[`API (plugin) > should work with plugin API 2`] = `
+[]
+`;
