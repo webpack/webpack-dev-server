@@ -1,6 +1,6 @@
 /* global WorkerGlobalScope */
 
-/** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
+/** @typedef {import("../index.js").EXPECTED_ANY} EXPECTED_ANY */
 
 // Send messages to the outside, so plugins can consume it.
 /**

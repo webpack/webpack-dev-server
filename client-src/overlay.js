@@ -3,7 +3,7 @@
 
 import ansiHTML from "ansi-html-community";
 
-/** @typedef {import("./index").EXPECTED_ANY} EXPECTED_ANY */
+/** @typedef {import("./index.js").EXPECTED_ANY} EXPECTED_ANY */
 
 /**
  * @type {(input: string, position: number) => number | undefined}
