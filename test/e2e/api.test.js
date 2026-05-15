@@ -1,12 +1,12 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import { fn } from "jest-mock";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
-import runBrowser from "../helpers/run-browser.js";
+import runBrowser, { runPage } from "../helpers/run-browser.js";
 import sessionSubscribe from "../helpers/session-subscribe.js";
 import portsMap from "../ports-map.js";
 
@@ -246,7 +246,7 @@ describe("API", () => {
 
       await server.start();
 
-      const secondPage = await runBrowser.runPage(browser);
+      const secondPage = await runPage(browser);
 
       try {
         const secondPageErrors = [];

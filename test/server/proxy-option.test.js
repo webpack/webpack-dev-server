@@ -6,14 +6,12 @@ import { expect } from "expect";
 import { spyOn } from "jest-mock";
 import request from "supertest";
 import webpack from "webpack";
-import WebSocket from "ws";
+import WebSocket, { WebSocketServer } from "ws";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/proxy-config/webpack.config.js";
 import portsMap from "../ports-map.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const WebSocketServer = WebSocket.Server;
 
 const [port1, port2, port3, port4] = portsMap["proxy-option"];
 

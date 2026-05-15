@@ -5,7 +5,7 @@ import { after, before, describe, it } from "node:test";
 import { expect } from "expect";
 import express from "express";
 import { spyOn } from "jest-mock";
-import ws from "ws";
+import WebSocket, { WebSocketServer } from "ws";
 import WebSocketClient from "../../../client-src/clients/WebSocketClient.js";
 import { log } from "../../../client-src/utils/log.js";
 import portsMap from "../../ports-map.js";
@@ -15,7 +15,7 @@ import portsMap from "../../ports-map.js";
 // against a real local server. Use Node's `ws` library here so this test
 // can talk to the express+ws server below. WebSocketClient only reads the
 // global at construction time, so assigning after import is safe.
-globalThis.WebSocket = ws;
+globalThis.WebSocket = WebSocket;
 
 const port = portsMap["web-socket-client"];
 
@@ -32,7 +32,7 @@ describe("WebsocketClient", () => {
 
         server = http.createServer(app);
         server.listen(port, "localhost", () => {
-          socketServer = new ws.Server({
+          socketServer = new WebSocketServer({
             server,
             path: "/ws-server",
           });
