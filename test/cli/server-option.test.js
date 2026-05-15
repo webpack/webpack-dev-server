@@ -1,6 +1,6 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import { rimraf } from "rimraf";
 import Server from "../../lib/Server.js";

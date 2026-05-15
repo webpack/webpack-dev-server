@@ -1,6 +1,6 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import { normalizeStderr, testBin } from "../helpers/test-bin.js";
 import portsMap from "../ports-map.js";
