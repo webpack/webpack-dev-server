@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2024",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "lib": ["es2022", "dom"],
+    "lib": ["es2024", "dom"],
     "allowJs": true,
     "checkJs": true,
     "strict": true,
     "types": ["node"],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
   "include": ["./bin/**/*", "./lib/**/*"]

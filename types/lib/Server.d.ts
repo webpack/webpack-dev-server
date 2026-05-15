@@ -1535,6 +1535,7 @@ declare class Server<
   /**
    * @private
    * @param {Compiler} compiler compiler
+   * @returns {Promise<void>}
    */
   private addAdditionalEntries;
   /**
