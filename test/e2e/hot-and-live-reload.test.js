@@ -166,7 +166,9 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           fileURLToPath(import.meta.resolve("../../client-src/index.js")),
-          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -183,7 +185,9 @@ describe("hot and live reload", () => {
         entry: [
           "webpack/hot/dev-server",
           `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=true`,
-          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
         plugins: [
           new webpack.HotModuleReplacementPlugin(),
@@ -202,7 +206,9 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=false`,
-          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -217,7 +223,9 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=true`,
-          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -232,7 +240,9 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=false`,
-          fileURLToPath(import.meta.resolve("../fixtures/reload-config/foo.js")),
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {

@@ -74,7 +74,9 @@ describe("socket", () => {
     globalThis.__webpack_dev_server_client__ = MockClient;
 
     const socket = (
-      await import(`../../client-src/socket.js?t=${Date.now()}-${Math.random()}`)
+      await import(
+        `../../client-src/socket.js?t=${Date.now()}-${Math.random()}`
+      )
     ).default;
 
     const mockHandler = fn();

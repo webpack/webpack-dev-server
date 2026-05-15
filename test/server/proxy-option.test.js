@@ -1,8 +1,8 @@
 import path from "node:path";
 import { after, before, beforeEach, describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import express from "express";
 import { expect } from "expect";
+import express from "express";
 import { spyOn } from "jest-mock";
 import request from "supertest";
 import webpack from "webpack";

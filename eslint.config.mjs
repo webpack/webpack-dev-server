@@ -26,6 +26,11 @@ export default defineConfig([
   {
     files: ["test/**/*"],
     extends: [configs["universal-recommended"]],
+    languageOptions: {
+      // ES2025 needed so `import/*` rules can parse lib/Server.js (uses
+      // import attributes). eslint-config-webpack pins ecmaVersion to 2024.
+      ecmaVersion: "latest",
+    },
     rules: {
       // Tests use experimental node:test APIs intentionally
       // (mock.module, mock.timers, snapshot.*). The package's engines field

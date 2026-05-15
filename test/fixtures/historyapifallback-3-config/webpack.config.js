@@ -1,7 +1,8 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));const moduleRuleForHTML = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const moduleRuleForHTML = {
   test: /\.html$/,
   type: "asset/resource",
   generator: {

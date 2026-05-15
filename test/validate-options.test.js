@@ -274,18 +274,18 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: fs.readFileSync(
-            path.join(httpsCertificateDirectory, "ca.pem"),
-          ).toString(),
-          pfx: fs.readFileSync(
-            path.join(httpsCertificateDirectory, "server.pfx"),
-          ).toString(),
-          key: fs.readFileSync(
-            path.join(httpsCertificateDirectory, "server.key"),
-          ).toString(),
-          cert: fs.readFileSync(
-            path.join(httpsCertificateDirectory, "server.crt"),
-          ).toString(),
+          ca: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
+            .toString(),
+          pfx: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "server.pfx"))
+            .toString(),
+          key: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "server.key"))
+            .toString(),
+          cert: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "server.crt"))
+            .toString(),
           passphrase: "webpack-dev-server",
         },
       },
@@ -293,24 +293,24 @@ const tests = {
         type: "https",
         options: {
           ca: [
-            fs.readFileSync(
-              path.join(httpsCertificateDirectory, "ca.pem"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
+              .toString(),
           ],
           pfx: [
-            fs.readFileSync(
-              path.join(httpsCertificateDirectory, "server.pfx"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "server.pfx"))
+              .toString(),
           ],
           key: [
-            fs.readFileSync(
-              path.join(httpsCertificateDirectory, "server.key"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "server.key"))
+              .toString(),
           ],
           cert: [
-            fs.readFileSync(
-              path.join(httpsCertificateDirectory, "server.crt"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "server.crt"))
+              .toString(),
           ],
           passphrase: "webpack-dev-server",
         },
@@ -319,8 +319,12 @@ const tests = {
         type: "https",
         options: {
           ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
-          pfx: fs.readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
-          key: fs.readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+          pfx: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.pfx"),
+          ),
+          key: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.key"),
+          ),
           cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
@@ -359,8 +363,12 @@ const tests = {
         options: {
           minVersion: "TLSv1.1",
           ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
-          pfx: fs.readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
-          key: fs.readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+          pfx: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.pfx"),
+          ),
+          key: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.key"),
+          ),
           cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),

@@ -203,7 +203,9 @@ describe("server and client transport", () => {
       client: {
         webSocketTransport: "ws",
       },
-      webSocketServer: fileURLToPath(import.meta.resolve("../../lib/servers/WebsocketServer.js")),
+      webSocketServer: fileURLToPath(
+        import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+      ),
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -242,7 +244,9 @@ describe("server and client transport", () => {
         webSocketTransport: "ws",
       },
       webSocketServer: {
-        type: fileURLToPath(import.meta.resolve("../../lib/servers/WebsocketServer.js")),
+        type: fileURLToPath(
+          import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+        ),
       },
     };
     const server = new Server(devServerOptions, compiler);
