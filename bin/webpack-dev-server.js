@@ -3,11 +3,13 @@
 /* eslint-disable no-console */
 
 import cp from "node:child_process";
-import nodeModule from "node:module";
+import { createRequire } from "node:module";
 import path from "node:path";
 import readLine from "node:readline";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import fs from "graceful-fs";
+
+const require = createRequire(import.meta.url);
 
 /**
  * @param {string} command process to run
@@ -43,33 +45,12 @@ const isInstalled = (packageName) => {
     return true;
   }
 
-  let dir = path.dirname(fileURLToPath(import.meta.url));
-
-  do {
-    try {
-      if (
-        fs.statSync(path.join(dir, "node_modules", packageName)).isDirectory()
-      ) {
-        return true;
-      }
-    } catch {
-      // Nothing
-    }
-  } while (dir !== (dir = path.dirname(dir)));
-
-  // https://github.com/nodejs/node/blob/v22.12.0/lib/internal/modules/cjs/loader.js#L1818
-  // @ts-expect-error
-  for (const internalPath of nodeModule.globalPaths) {
-    try {
-      if (fs.statSync(path.join(internalPath, packageName)).isDirectory()) {
-        return true;
-      }
-    } catch {
-      // Nothing
-    }
+  try {
+    require.resolve(packageName);
+    return true;
+  } catch {
+    return false;
   }
-
-  return false;
 };
 
 /**
