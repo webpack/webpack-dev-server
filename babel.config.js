@@ -22,7 +22,7 @@ export default (api) => {
             "@babel/preset-env",
             {
               targets: {
-                node: "22.25.0",
+                node: "22.15.0",
               },
             },
           ],
