@@ -37,7 +37,7 @@
     "build:types": "rimraf -g ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && node ./scripts/extend-webpack-types.js && prettier \"types/**/*.ts\" --write && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",
     "test:only": "node ./scripts/check-test-ports.mjs && node ./scripts/run-tests.mjs",
-    "test:coverage": "npm run test:only -- --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info",
+    "test:coverage": "npm run test:only -- --experimental-test-coverage --test-coverage-include=lib/** --test-coverage-include=bin/** --test-coverage-include=client/** --test-coverage-include=client-src/** --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info",
     "test:watch": "npm run test:only -- --watch",
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
