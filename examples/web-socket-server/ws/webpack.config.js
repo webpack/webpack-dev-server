@@ -7,7 +7,9 @@ export default setup(
     context: import.meta.dirname,
     entry: "./app.js",
     devServer: {
-      webSocketServer: "ws",
+      webSocketServer: {
+        type: "ws",
+      },
     },
   },
   import.meta.url,
