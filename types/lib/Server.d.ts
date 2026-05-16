@@ -269,10 +269,10 @@ export type ClientConfiguration = {
   webSocketURL?: (string | WebSocketURL) | undefined;
 };
 export type Headers =
-  | Array<{
+  | {
       key: string;
       value: string;
-    }>
+    }[]
   | Record<string, string | string[]>;
 export type MiddlewareHandler<
   T extends BasicApplication = import("express").Application,
@@ -304,16 +304,16 @@ export type Configuration<
   historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
   bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
   watchFiles?:
-    | (string | string[] | WatchFiles | Array<string | WatchFiles>)
+    | (string | string[] | WatchFiles | (string | WatchFiles)[])
     | undefined;
-  static?: (boolean | string | Static | Array<string | Static>) | undefined;
+  static?: (boolean | string | Static | (string | Static)[]) | undefined;
   server?: (ServerType<A, S> | ServerConfiguration<A, S>) | undefined;
   app?: (() => Promise<A>) | undefined;
   webSocketServer?:
     | (boolean | "ws" | string | WebSocketServerConfiguration)
     | undefined;
   proxy?: ProxyConfigArray | undefined;
-  open?: (boolean | string | Open | Array<string | Open>) | undefined;
+  open?: (boolean | string | Open | (string | Open)[]) | undefined;
   setupExitSignals?: boolean | undefined;
   client?: (boolean | ClientConfiguration) | undefined;
   headers?:
@@ -1515,7 +1515,7 @@ declare class Server<
   staticWatchers: FSWatcher[];
   /**
    * @private
-   * @type {{ name: string | symbol, listener: (...args: EXPECTED_ANY[]) => void}[] }}
+   * @type {{ name: string | symbol, listener: (...args: EXPECTED_ANY[]) => void }[]} }
    */
   private listeners;
   /**
