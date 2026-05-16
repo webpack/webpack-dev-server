@@ -1,11 +1,9 @@
-"use strict";
+import "../helpers/jsdom-setup.js";
 
-require("../helpers/jsdom-setup");
-
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { spyOn } = require("jest-mock");
-const { createOverlay } = require("../../client-src/overlay");
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import { createOverlay } from "../../client-src/overlay.js";
 
 describe("createOverlay", () => {
   beforeEach(() => {

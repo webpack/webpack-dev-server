@@ -1,24 +1,23 @@
-"use strict";
+import "../../helpers/jsdom-setup.js";
 
-require("../../helpers/jsdom-setup");
-
-const http = require("node:http");
-const { after, before, describe, it } = require("node:test");
-const { expect } = require("expect");
-const express = require("express");
-const { spyOn } = require("jest-mock");
-const ws = require("ws");
+import http from "node:http";
+import { after, before, describe, it } from "node:test";
+import { expect } from "expect";
+import express from "express";
+import { spyOn } from "jest-mock";
+import WebSocket, { WebSocketServer } from "ws";
+import WebSocketClient from "../../../client-src/clients/WebSocketClient.js";
+import { log } from "../../../client-src/utils/log.js";
+import portsMap from "../../ports-map.js";
 
 // jsdom's built-in WebSocket stays in CONNECTING for unreachable URLs (good
 // for silencing other client tests) but doesn't fully drive open/close
 // against a real local server. Use Node's `ws` library here so this test
-// can talk to the express+ws server below.
-globalThis.WebSocket = ws;
+// can talk to the express+ws server below. WebSocketClient only reads the
+// global at construction time, so assigning after import is safe.
+globalThis.WebSocket = WebSocket;
 
-const WebSocketClient =
-  require("../../../client-src/clients/WebSocketClient").default;
-const { log } = require("../../../client-src/utils/log");
-const port = require("../../ports-map")["web-socket-client"];
+const port = portsMap["web-socket-client"];
 
 describe("WebsocketClient", () => {
   let socketServer;
@@ -33,7 +32,7 @@ describe("WebsocketClient", () => {
 
         server = http.createServer(app);
         server.listen(port, "localhost", () => {
-          socketServer = new ws.Server({
+          socketServer = new WebSocketServer({
             server,
             path: "/ws-server",
           });

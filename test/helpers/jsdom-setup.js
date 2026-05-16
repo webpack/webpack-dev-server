@@ -1,6 +1,4 @@
-"use strict";
-
-const { JSDOM } = require("jsdom");
+import { JSDOM } from "jsdom";
 
 const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>", {
   url: "http://localhost/",

@@ -22,10 +22,6 @@ export default defineConfig([
     files: ["test/**/*"],
     extends: [configs["universal-recommended"]],
     rules: {
-      // Tests use experimental node:test APIs intentionally
-      // (mock.module, mock.timers, snapshot.*). The package's engines field
-      // is wider than where these are stable, so silence the linter here.
-      "n/no-unsupported-features/node-builtins": "off",
       // Test callbacks (it/test/subtest arrow functions) don't need JSDoc.
       "jsdoc/require-jsdoc": "off",
       // Tests legitimately log diagnostics (retry attempts, etc.).

@@ -1,15 +1,15 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import express from "express";
+import { createProxyMiddleware } from "http-proxy-middleware";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import sessionSubscribe from "../helpers/session-subscribe.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const express = require("express");
-const { createProxyMiddleware } = require("http-proxy-middleware");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const sessionSubscribe = require("../helpers/session-subscribe");
-const [port1, port2] = require("../ports-map")["web-socket-server-url"];
+const [port1, port2] = portsMap["web-socket-server-url"];
 
 const webSocketServers = ["ws"];
 

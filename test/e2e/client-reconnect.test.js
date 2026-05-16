@@ -1,12 +1,12 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["client-reconnect-option"];
+const port = portsMap["client-reconnect-option"];
 
 describe("client.reconnect option", () => {
   describe("specified as true", () => {

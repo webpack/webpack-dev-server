@@ -1,11 +1,11 @@
-"use strict";
+import fs from "node:fs";
+import { beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import Server from "../../lib/Server.js";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const fs = require("node:fs");
-const { beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const Server = require("../../lib/Server");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-bonjour"];
+const port = portsMap["cli-bonjour"];
 
 const defaultCertificateDir = Server.findCacheDir();
 

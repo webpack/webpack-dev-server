@@ -1,3 +1,1 @@
-"use strict";
-
-module.exports = "entry1";
+export default "entry1";

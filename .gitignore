@@ -7,6 +7,9 @@ npm-debug.log
 client
 !/examples/client
 !/test/client
+
+examples/**/dist
+
 coverage
 node_modules
 .vscode

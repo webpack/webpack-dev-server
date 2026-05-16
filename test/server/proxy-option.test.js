@@ -1,20 +1,21 @@
-"use strict";
+import http from "node:http";
+import path from "node:path";
+import { after, before, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import express from "express";
+import { spyOn } from "jest-mock";
+import request from "supertest";
+import webpack from "webpack";
+import WebSocket, { WebSocketServer } from "ws";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/proxy-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const http = require("node:http");
-const path = require("node:path");
-const { after, before, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const express = require("express");
-const { spyOn } = require("jest-mock");
-const request = require("supertest");
-const webpack = require("webpack");
-const WebSocket = require("ws");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/proxy-config/webpack.config");
-const [port1, port2, port3, port4, port5] =
-  require("../ports-map")["proxy-option"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const WebSocketServer = WebSocket.Server;
+const [port1, port2, port3, port4, port5] = portsMap["proxy-option"];
+
 const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
 
 const proxyOptionPathsAsProperties = [

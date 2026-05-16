@@ -1,4 +1,340 @@
-export = Server;
+export default Server;
+export type Schema = import("schema-utils").Schema;
+export type Compiler = import("webpack").Compiler;
+export type MultiCompiler = import("webpack").MultiCompiler;
+export type WebpackConfiguration = import("webpack").Configuration;
+export type StatsOptions = import("webpack").StatsOptions;
+export type StatsCompilation = import("webpack").StatsCompilation;
+export type Stats = import("webpack").Stats;
+export type MultiStats = import("webpack").MultiStats;
+export type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
+export type WatchOptions = import("chokidar").ChokidarOptions;
+export type FSWatcher = import("chokidar").FSWatcher;
+export type ConnectHistoryApiFallbackOptions =
+  import("connect-history-api-fallback").Options;
+export type Bonjour = import("bonjour-service").Bonjour;
+export type BonjourOptions = import("bonjour-service").Service;
+export type RequestHandler = import("http-proxy-middleware").RequestHandler;
+export type HttpProxyMiddlewareOptions =
+  import("http-proxy-middleware").Options;
+export type HttpProxyMiddlewareOptionsFilter =
+  import("http-proxy-middleware").Filter;
+export type ServeIndexOptions = import("serve-index").Options;
+export type ServeStaticOptions = import("serve-static").ServeStaticOptions;
+export type IPv4 = import("ipaddr.js").IPv4;
+export type IPv6 = import("ipaddr.js").IPv6;
+export type Socket = import("net").Socket;
+export type HTTPServer = import("http").Server;
+export type IncomingMessage = import("http").IncomingMessage;
+export type ServerResponse = import("http").ServerResponse;
+export type OpenOptions = import("open").Options;
+export type ExpressApplication = import("express").Application;
+export type ExpressRequestHandler = import("express").RequestHandler;
+export type ExpressErrorRequestHandler = import("express").ErrorRequestHandler;
+export type ExpressRequest = import("express").Request;
+export type ExpressResponse = import("express").Response;
+export type EXPECTED_ANY = any;
+export type NextFunction = (err?: EXPECTED_ANY) => void;
+export type SimpleHandleFunction = (
+  req: IncomingMessage,
+  res: ServerResponse,
+) => void;
+export type NextHandleFunction = (
+  req: IncomingMessage,
+  res: ServerResponse,
+  next: NextFunction,
+) => void;
+export type ErrorHandleFunction = (
+  err: EXPECTED_ANY,
+  req: IncomingMessage,
+  res: ServerResponse,
+  next: NextFunction,
+) => void;
+export type HandleFunction =
+  | SimpleHandleFunction
+  | NextHandleFunction
+  | ErrorHandleFunction;
+export type ServerOptions = import("https").ServerOptions;
+export type Request<
+  T extends BasicApplication = import("express").Application,
+> = T extends ExpressApplication ? ExpressRequest : IncomingMessage;
+export type Response<
+  T extends BasicApplication = import("express").Application,
+> = T extends ExpressApplication ? ExpressResponse : ServerResponse;
+export type DevMiddlewareOptions<
+  T extends Request,
+  U extends Response,
+> = import("webpack-dev-middleware").Options<T, U>;
+export type DevMiddlewareContext<
+  T extends Request,
+  U extends Response,
+> = import("webpack-dev-middleware").Context<T, U>;
+export type Host = "local-ip" | "local-ipv4" | "local-ipv6" | string;
+export type Port = number | string | "auto";
+export type WatchFiles = {
+  /**
+   * paths
+   */
+  paths: string | string[];
+  /**
+   * options
+   */
+  options?:
+    | (WatchOptions & {
+        aggregateTimeout?: number;
+        ignored?: WatchOptions["ignored"];
+        poll?: number | boolean;
+      })
+    | undefined;
+};
+export type Static = {
+  /**
+   * directory
+   */
+  directory?: string | undefined;
+  /**
+   * public path
+   */
+  publicPath?: (string | string[]) | undefined;
+  /**
+   * serve index
+   */
+  serveIndex?: (boolean | ServeIndexOptions) | undefined;
+  /**
+   * static options
+   */
+  staticOptions?: ServeStaticOptions | undefined;
+  /**
+   * watch and watch options
+   */
+  watch?:
+    | (
+        | boolean
+        | (WatchOptions & {
+            aggregateTimeout?: number;
+            ignored?: WatchOptions["ignored"];
+            poll?: number | boolean;
+          })
+      )
+    | undefined;
+};
+export type NormalizedStatic = {
+  directory: string;
+  publicPath: string[];
+  serveIndex: false | ServeIndexOptions;
+  staticOptions: ServeStaticOptions;
+  watch: false | WatchOptions;
+};
+export type ServerType<
+  A extends BasicApplication = import("express").Application,
+  S extends BasicServer = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
+> =
+  | "http"
+  | "https"
+  | "http2"
+  | string
+  | ((serverOptions: ServerOptions, application: A) => S);
+export type ServerConfiguration<
+  A extends BasicApplication = import("express").Application,
+  S extends BasicServer = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
+> = {
+  /**
+   * type
+   */
+  type?: ServerType<A, S> | undefined;
+  /**
+   * options
+   */
+  options?: ServerOptions | undefined;
+};
+export type WebSocketServerConfiguration = {
+  /**
+   * type
+   */
+  type?: ("ws" | string | (() => WebSocketServerConfiguration)) | undefined;
+  /**
+   * options
+   */
+  options?: Record<string, EXPECTED_ANY> | undefined;
+};
+export type ClientConnection = (import("ws").WebSocket & {
+  send: import("ws").WebSocket["send"];
+  terminate: import("ws").WebSocket["terminate"];
+  ping: import("ws").WebSocket["ping"];
+}) & {
+  isAlive?: boolean;
+};
+export type WebSocketServer = import("ws").WebSocketServer & {
+  close: import("ws").WebSocketServer["close"];
+};
+export type WebSocketServerImplementation = {
+  implementation: WebSocketServer;
+  clients: ClientConnection[];
+};
+export type ProxyConfigArrayItem = {
+  path?: HttpProxyMiddlewareOptionsFilter | undefined;
+  context?: HttpProxyMiddlewareOptionsFilter | undefined;
+} & HttpProxyMiddlewareOptions;
+export type ProxyConfigArray = (
+  | ProxyConfigArrayItem
+  | ((
+      req?: Request | undefined,
+      res?: Response | undefined,
+      next?: NextFunction | undefined,
+    ) => ProxyConfigArrayItem)
+)[];
+export type OpenApp = {
+  name?: string | undefined;
+  arguments?: string[] | undefined;
+};
+export type Open = {
+  app?: (string | string[] | OpenApp) | undefined;
+  /**
+   * target
+   */
+  target?: (string | string[]) | undefined;
+};
+export type NormalizedOpen = {
+  target: string;
+  options: import("open").Options;
+};
+export type WebSocketURL = {
+  /**
+   * hostname
+   */
+  hostname?: string | undefined;
+  /**
+   * password
+   */
+  password?: string | undefined;
+  /**
+   * pathname
+   */
+  pathname?: string | undefined;
+  /**
+   * port
+   */
+  port?: (number | string) | undefined;
+  /**
+   * protocol
+   */
+  protocol?: string | undefined;
+  /**
+   * username
+   */
+  username?: string | undefined;
+};
+export type OverlayMessageOptions = boolean | ((error: Error) => void);
+export type ClientConfiguration = {
+  /**
+   * logging
+   */
+  logging?:
+    | ("log" | "info" | "warn" | "error" | "none" | "verbose")
+    | undefined;
+  /**
+   * overlay
+   */
+  overlay?:
+    | (
+        | boolean
+        | {
+            warnings?: OverlayMessageOptions;
+            errors?: OverlayMessageOptions;
+            runtimeErrors?: OverlayMessageOptions;
+          }
+      )
+    | undefined;
+  /**
+   * progress
+   */
+  progress?: boolean | undefined;
+  /**
+   * reconnect
+   */
+  reconnect?: (boolean | number) | undefined;
+  /**
+   * web socket transport
+   */
+  webSocketTransport?: ("ws" | string) | undefined;
+  /**
+   * web socket URL
+   */
+  webSocketURL?: (string | WebSocketURL) | undefined;
+};
+export type Headers =
+  | {
+      key: string;
+      value: string;
+    }[]
+  | Record<string, string | string[]>;
+export type MiddlewareHandler<
+  T extends BasicApplication = import("express").Application,
+> = T extends ExpressApplication
+  ? ExpressRequestHandler | ExpressErrorRequestHandler
+  : HandleFunction;
+export type MiddlewareObject = {
+  name?: string;
+  path?: string;
+  middleware: MiddlewareHandler;
+};
+export type Middleware = MiddlewareObject | MiddlewareHandler;
+export type BasicServer = import("net").Server | import("tls").Server;
+export type Configuration<
+  A extends BasicApplication = import("express").Application,
+  S extends BasicServer = import("http").Server<
+    typeof import("http").IncomingMessage,
+    typeof import("http").ServerResponse
+  >,
+> = {
+  ipc?: (boolean | string) | undefined;
+  host?: Host | undefined;
+  port?: Port | undefined;
+  hot?: (boolean | "only") | undefined;
+  liveReload?: boolean | undefined;
+  devMiddleware?: DevMiddlewareOptions<Request, Response> | undefined;
+  compress?: boolean | undefined;
+  allowedHosts?: ("auto" | "all" | string | string[]) | undefined;
+  historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
+  bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
+  watchFiles?:
+    | (string | string[] | WatchFiles | (string | WatchFiles)[])
+    | undefined;
+  static?: (boolean | string | Static | (string | Static)[]) | undefined;
+  server?: (ServerType<A, S> | ServerConfiguration<A, S>) | undefined;
+  app?: (() => Promise<A>) | undefined;
+  webSocketServer?:
+    | (boolean | "ws" | string | WebSocketServerConfiguration)
+    | undefined;
+  proxy?: ProxyConfigArray | undefined;
+  open?: (boolean | string | Open | (string | Open)[]) | undefined;
+  setupExitSignals?: boolean | undefined;
+  client?: (boolean | ClientConfiguration) | undefined;
+  headers?:
+    | (
+        | Headers
+        | ((
+            req: Request,
+            res: Response,
+            context: DevMiddlewareContext<Request, Response> | undefined,
+          ) => Headers)
+      )
+    | undefined;
+  onListening?: ((devServer: Server<A, S>) => void) | undefined;
+  setupMiddlewares?:
+    | ((middlewares: Middleware[], devServer: Server<A, S>) => Middleware[])
+    | undefined;
+};
+export type FunctionReturning<T> = () => T;
+export type BasicApplication = {
+  use: typeof useFn;
+};
 /**
  * @typedef {object} BasicApplication
  * @property {typeof useFn} use
@@ -1179,7 +1515,7 @@ declare class Server<
   staticWatchers: FSWatcher[];
   /**
    * @private
-   * @type {{ name: string | symbol, listener: (...args: EXPECTED_ANY[]) => void}[] }}
+   * @type {{ name: string | symbol, listener: (...args: EXPECTED_ANY[]) => void }[]} }
    */
   private listeners;
   /**
@@ -1199,6 +1535,7 @@ declare class Server<
   /**
    * @private
    * @param {Compiler} compiler compiler
+   * @returns {Promise<void>}
    */
   private addAdditionalEntries;
   /**
@@ -1219,7 +1556,7 @@ declare class Server<
   /**
    * @template T
    * @private
-   * @returns {T} server transport
+   * @returns {Promise<T>} server transport
    */
   private getServerTransport;
   /**
@@ -1265,17 +1602,17 @@ declare class Server<
   private stats;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private setupWatchStaticFiles;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private setupWatchFiles;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private setupMiddlewares;
   /** @type {import("webpack-dev-middleware").API<Request, Response>} */
@@ -1285,7 +1622,7 @@ declare class Server<
           import("express-serve-static-core").ParamsDictionary,
           any,
           any,
-          qs.ParsedQs,
+          import("qs").ParsedQs,
           Record<string, any>
         >,
         import("express").Response<any, Record<string, any>>
@@ -1301,7 +1638,7 @@ declare class Server<
   isTlsServer: boolean | undefined;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private createWebSocketServer;
   /** @type {WebSocketServerImplementation | undefined | null} */
@@ -1314,7 +1651,7 @@ declare class Server<
   private openBrowser;
   /**
    * @private
-   * @returns {void}
+   * @returns {Promise<void>}
    */
   private runBonjour;
   /**
@@ -1388,11 +1725,12 @@ declare class Server<
   /**
    * @param {string | string[]} watchPath watch path
    * @param {WatchOptions=} watchOptions watch options
+   * @returns {Promise<void>}
    */
   watchFiles(
     watchPath: string | string[],
     watchOptions?: WatchOptions | undefined,
-  ): void;
+  ): Promise<void>;
   /**
    * @param {import("webpack-dev-middleware").Callback=} callback callback
    */
@@ -1417,408 +1755,6 @@ declare class Server<
   stopCallback(callback?: ((err?: Error) => void) | undefined): void;
   #private;
 }
-declare namespace Server {
-  export {
-    Schema,
-    Compiler,
-    MultiCompiler,
-    WebpackConfiguration,
-    StatsOptions,
-    StatsCompilation,
-    Stats,
-    MultiStats,
-    NetworkInterfaceInfo,
-    WatchOptions,
-    FSWatcher,
-    ConnectHistoryApiFallbackOptions,
-    Bonjour,
-    BonjourOptions,
-    RequestHandler,
-    HttpProxyMiddlewareOptions,
-    HttpProxyMiddlewareOptionsFilter,
-    ServeIndexOptions,
-    ServeStaticOptions,
-    IPv4,
-    IPv6,
-    Socket,
-    HTTPServer,
-    IncomingMessage,
-    ServerResponse,
-    OpenOptions,
-    ExpressApplication,
-    ExpressRequestHandler,
-    ExpressErrorRequestHandler,
-    ExpressRequest,
-    ExpressResponse,
-    EXPECTED_ANY,
-    NextFunction,
-    SimpleHandleFunction,
-    NextHandleFunction,
-    ErrorHandleFunction,
-    HandleFunction,
-    ServerOptions,
-    Request,
-    Response,
-    DevMiddlewareOptions,
-    DevMiddlewareContext,
-    Host,
-    Port,
-    WatchFiles,
-    Static,
-    NormalizedStatic,
-    ServerType,
-    ServerConfiguration,
-    WebSocketServerConfiguration,
-    ClientConnection,
-    WebSocketServer,
-    WebSocketServerImplementation,
-    ProxyConfigArrayItem,
-    ProxyConfigArray,
-    OpenApp,
-    Open,
-    NormalizedOpen,
-    WebSocketURL,
-    OverlayMessageOptions,
-    ClientConfiguration,
-    Headers,
-    MiddlewareHandler,
-    MiddlewareObject,
-    Middleware,
-    BasicServer,
-    Configuration,
-    FunctionReturning,
-    BasicApplication,
-  };
-}
-type Schema = import("schema-utils/declarations/validate").Schema;
-type Compiler = import("webpack").Compiler;
-type MultiCompiler = import("webpack").MultiCompiler;
-type WebpackConfiguration = import("webpack").Configuration;
-type StatsOptions = import("webpack").StatsOptions;
-type StatsCompilation = import("webpack").StatsCompilation;
-type Stats = import("webpack").Stats;
-type MultiStats = import("webpack").MultiStats;
-type NetworkInterfaceInfo = import("os").NetworkInterfaceInfo;
-type WatchOptions = import("chokidar").ChokidarOptions;
-type FSWatcher = import("chokidar").FSWatcher;
-type ConnectHistoryApiFallbackOptions =
-  import("connect-history-api-fallback").Options;
-type Bonjour = import("bonjour-service").Bonjour;
-type BonjourOptions = import("bonjour-service").Service;
-type RequestHandler = import("http-proxy-middleware").RequestHandler;
-type HttpProxyMiddlewareOptions = import("http-proxy-middleware").Options;
-type HttpProxyMiddlewareOptionsFilter = import("http-proxy-middleware").Filter;
-type ServeIndexOptions = import("serve-index").Options;
-type ServeStaticOptions = import("serve-static").ServeStaticOptions;
-type IPv4 = import("ipaddr.js").IPv4;
-type IPv6 = import("ipaddr.js").IPv6;
-type Socket = import("net").Socket;
-type HTTPServer = import("http").Server;
-type IncomingMessage = import("http").IncomingMessage;
-type ServerResponse = import("http").ServerResponse;
-type OpenOptions = import("open").Options;
-type ExpressApplication = import("express").Application;
-type ExpressRequestHandler = import("express").RequestHandler;
-type ExpressErrorRequestHandler = import("express").ErrorRequestHandler;
-type ExpressRequest = import("express").Request;
-type ExpressResponse = import("express").Response;
-type EXPECTED_ANY = any;
-type NextFunction = (err?: EXPECTED_ANY) => void;
-type SimpleHandleFunction = (req: IncomingMessage, res: ServerResponse) => void;
-type NextHandleFunction = (
-  req: IncomingMessage,
-  res: ServerResponse,
-  next: NextFunction,
-) => void;
-type ErrorHandleFunction = (
-  err: EXPECTED_ANY,
-  req: IncomingMessage,
-  res: ServerResponse,
-  next: NextFunction,
-) => void;
-type HandleFunction =
-  | SimpleHandleFunction
-  | NextHandleFunction
-  | ErrorHandleFunction;
-type ServerOptions = import("https").ServerOptions;
-type Request<T extends BasicApplication = import("express").Application> =
-  T extends ExpressApplication ? ExpressRequest : IncomingMessage;
-type Response<T extends BasicApplication = import("express").Application> =
-  T extends ExpressApplication ? ExpressResponse : ServerResponse;
-type DevMiddlewareOptions<
-  T extends Request,
-  U extends Response,
-> = import("webpack-dev-middleware").Options<T, U>;
-type DevMiddlewareContext<
-  T extends Request,
-  U extends Response,
-> = import("webpack-dev-middleware").Context<T, U>;
-type Host = "local-ip" | "local-ipv4" | "local-ipv6" | string;
-type Port = number | string | "auto";
-type WatchFiles = {
-  /**
-   * paths
-   */
-  paths: string | string[];
-  /**
-   * options
-   */
-  options?:
-    | (WatchOptions & {
-        aggregateTimeout?: number;
-        ignored?: WatchOptions["ignored"];
-        poll?: number | boolean;
-      })
-    | undefined;
-};
-type Static = {
-  /**
-   * directory
-   */
-  directory?: string | undefined;
-  /**
-   * public path
-   */
-  publicPath?: (string | string[]) | undefined;
-  /**
-   * serve index
-   */
-  serveIndex?: (boolean | ServeIndexOptions) | undefined;
-  /**
-   * static options
-   */
-  staticOptions?: ServeStaticOptions | undefined;
-  /**
-   * watch and watch options
-   */
-  watch?:
-    | (
-        | boolean
-        | (WatchOptions & {
-            aggregateTimeout?: number;
-            ignored?: WatchOptions["ignored"];
-            poll?: number | boolean;
-          })
-      )
-    | undefined;
-};
-type NormalizedStatic = {
-  directory: string;
-  publicPath: string[];
-  serveIndex: false | ServeIndexOptions;
-  staticOptions: ServeStaticOptions;
-  watch: false | WatchOptions;
-};
-type ServerType<
-  A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
-  >,
-> =
-  | "http"
-  | "https"
-  | "http2"
-  | string
-  | ((serverOptions: ServerOptions, application: A) => S);
-type ServerConfiguration<
-  A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
-  >,
-> = {
-  /**
-   * type
-   */
-  type?: ServerType<A, S> | undefined;
-  /**
-   * options
-   */
-  options?: ServerOptions | undefined;
-};
-type WebSocketServerConfiguration = {
-  /**
-   * type
-   */
-  type?: ("ws" | string | (() => WebSocketServerConfiguration)) | undefined;
-  /**
-   * options
-   */
-  options?: Record<string, EXPECTED_ANY> | undefined;
-};
-type ClientConnection = (import("ws").WebSocket & {
-  send: import("ws").WebSocket["send"];
-  terminate: import("ws").WebSocket["terminate"];
-  ping: import("ws").WebSocket["ping"];
-}) & {
-  isAlive?: boolean;
-};
-type WebSocketServer = import("ws").WebSocketServer & {
-  close: import("ws").WebSocketServer["close"];
-};
-type WebSocketServerImplementation = {
-  implementation: WebSocketServer;
-  clients: ClientConnection[];
-};
-type ProxyConfigArrayItem = {
-  path?: HttpProxyMiddlewareOptionsFilter | undefined;
-  context?: HttpProxyMiddlewareOptionsFilter | undefined;
-} & HttpProxyMiddlewareOptions;
-type ProxyConfigArray = (
-  | ProxyConfigArrayItem
-  | ((
-      req?: Request | undefined,
-      res?: Response | undefined,
-      next?: NextFunction | undefined,
-    ) => ProxyConfigArrayItem)
-)[];
-type OpenApp = {
-  name?: string | undefined;
-  arguments?: string[] | undefined;
-};
-type Open = {
-  app?: (string | string[] | OpenApp) | undefined;
-  /**
-   * target
-   */
-  target?: (string | string[]) | undefined;
-};
-type NormalizedOpen = {
-  target: string;
-  options: import("open").Options;
-};
-type WebSocketURL = {
-  /**
-   * hostname
-   */
-  hostname?: string | undefined;
-  /**
-   * password
-   */
-  password?: string | undefined;
-  /**
-   * pathname
-   */
-  pathname?: string | undefined;
-  /**
-   * port
-   */
-  port?: (number | string) | undefined;
-  /**
-   * protocol
-   */
-  protocol?: string | undefined;
-  /**
-   * username
-   */
-  username?: string | undefined;
-};
-type OverlayMessageOptions = boolean | ((error: Error) => void);
-type ClientConfiguration = {
-  /**
-   * logging
-   */
-  logging?:
-    | ("log" | "info" | "warn" | "error" | "none" | "verbose")
-    | undefined;
-  /**
-   * overlay
-   */
-  overlay?:
-    | (
-        | boolean
-        | {
-            warnings?: OverlayMessageOptions;
-            errors?: OverlayMessageOptions;
-            runtimeErrors?: OverlayMessageOptions;
-          }
-      )
-    | undefined;
-  /**
-   * progress
-   */
-  progress?: boolean | undefined;
-  /**
-   * reconnect
-   */
-  reconnect?: (boolean | number) | undefined;
-  /**
-   * web socket transport
-   */
-  webSocketTransport?: ("ws" | string) | undefined;
-  /**
-   * web socket URL
-   */
-  webSocketURL?: (string | WebSocketURL) | undefined;
-};
-type Headers =
-  | Array<{
-      key: string;
-      value: string;
-    }>
-  | Record<string, string | string[]>;
-type MiddlewareHandler<
-  T extends BasicApplication = import("express").Application,
-> = T extends ExpressApplication
-  ? ExpressRequestHandler | ExpressErrorRequestHandler
-  : HandleFunction;
-type MiddlewareObject = {
-  name?: string;
-  path?: string;
-  middleware: MiddlewareHandler;
-};
-type Middleware = MiddlewareObject | MiddlewareHandler;
-type BasicServer = import("net").Server | import("tls").Server;
-type Configuration<
-  A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
-  >,
-> = {
-  ipc?: (boolean | string) | undefined;
-  host?: Host | undefined;
-  port?: Port | undefined;
-  hot?: (boolean | "only") | undefined;
-  liveReload?: boolean | undefined;
-  devMiddleware?: DevMiddlewareOptions<Request, Response> | undefined;
-  compress?: boolean | undefined;
-  allowedHosts?: ("auto" | "all" | string | string[]) | undefined;
-  historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
-  bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
-  watchFiles?:
-    | (string | string[] | WatchFiles | Array<string | WatchFiles>)
-    | undefined;
-  static?: (boolean | string | Static | Array<string | Static>) | undefined;
-  server?: (ServerType<A, S> | ServerConfiguration<A, S>) | undefined;
-  app?: (() => Promise<A>) | undefined;
-  webSocketServer?:
-    | (boolean | "ws" | string | WebSocketServerConfiguration)
-    | undefined;
-  proxy?: ProxyConfigArray | undefined;
-  open?: (boolean | string | Open | Array<string | Open>) | undefined;
-  setupExitSignals?: boolean | undefined;
-  client?: (boolean | ClientConfiguration) | undefined;
-  headers?:
-    | (
-        | Headers
-        | ((
-            req: Request,
-            res: Response,
-            context: DevMiddlewareContext<Request, Response> | undefined,
-          ) => Headers)
-      )
-    | undefined;
-  onListening?: ((devServer: Server<A, S>) => void) | undefined;
-  setupMiddlewares?:
-    | ((middlewares: Middleware[], devServer: Server<A, S>) => Middleware[])
-    | undefined;
-};
-type FunctionReturning<T> = () => T;
-type BasicApplication = {
-  use: typeof useFn;
-};
 /**
  * @overload
  * @param {NextHandleFunction} fn function

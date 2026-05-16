@@ -1,9 +1,7 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-
-require("../../helpers/jsdom-setup");
+import "../../helpers/jsdom-setup.js";
 
 describe("'createSocketURL' function", () => {
   globalThis.__webpack_hash__ = "hash";
@@ -106,7 +104,7 @@ describe("'createSocketURL' function", () => {
   ];
 
   for (const [__resourceQuery, location, expected] of samples) {
-    it(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, () => {
+    it(`should return '${expected}' socket URL when '__resourceQuery' is '${__resourceQuery}' and 'self.location' is '${location}'`, async () => {
       globalThis.__resourceQuery = __resourceQuery;
 
       if (__resourceQuery === null) {
@@ -116,7 +114,12 @@ describe("'createSocketURL' function", () => {
         });
       }
 
-      const client = require("../../../client-src/index");
+      // Force a fresh evaluation each iteration so top-level state in
+      // client-src doesn't bleed between cases.
+      const indexUrl = import.meta.resolve("../../../client-src/index.js");
+      const client = await import(
+        `${indexUrl}?t=${Date.now()}-${Math.random()}`
+      );
 
       const { createSocketURL } = client;
       const { parseURL } = client;
@@ -138,10 +141,5 @@ describe("'createSocketURL' function", () => {
 
       expect(createSocketURL(parsedURL)).toBe(expected);
     });
-
-    // Reset between cases so top-level state in client-src doesn't bleed.
-    for (const key of Object.keys(require.cache)) {
-      if (key.includes("/client-src/")) delete require.cache[key];
-    }
   }
 });

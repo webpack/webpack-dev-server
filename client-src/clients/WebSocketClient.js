@@ -1,6 +1,6 @@
 import { log } from "../utils/log.js";
 
-/** @typedef {import("../index").EXPECTED_ANY} EXPECTED_ANY */
+/** @typedef {import("../index.js").EXPECTED_ANY} EXPECTED_ANY */
 
 /**
  * @implements {CommunicationClient}

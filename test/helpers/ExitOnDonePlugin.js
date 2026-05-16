@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = class ExitOnDonePlugin {
+export default class ExitOnDonePlugin {
   apply(compiler) {
     compiler.hooks.afterDone.tap("webpack-dev-server", (stats) => {
       let exitCode = 0;
@@ -15,4 +13,4 @@ module.exports = class ExitOnDonePlugin {
       });
     });
   }
-};
+}

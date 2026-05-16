@@ -1,15 +1,12 @@
-export = BaseServer;
-declare class BaseServer {
+/** @typedef {import("../Server.js").ClientConnection} ClientConnection */
+export default class BaseServer {
   /**
-   * @param {import("../Server")} server server
+   * @param {import("../Server.js").default} server server
    */
-  constructor(server: import("../Server"));
-  /** @type {import("../Server")} */
-  server: import("../Server");
+  constructor(server: import("../Server.js").default);
+  /** @type {import("../Server.js").default} */
+  server: import("../Server.js").default;
   /** @type {ClientConnection[]} */
   clients: ClientConnection[];
 }
-declare namespace BaseServer {
-  export { ClientConnection };
-}
-type ClientConnection = import("../Server").ClientConnection;
+export type ClientConnection = import("../Server.js").ClientConnection;
