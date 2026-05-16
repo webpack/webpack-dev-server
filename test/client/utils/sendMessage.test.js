@@ -1,11 +1,9 @@
-"use strict";
+import "../../helpers/jsdom-setup.js";
 
-require("../../helpers/jsdom-setup");
-
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { spyOn } = require("jest-mock");
-const sendMessage = require("../../../client-src/utils/sendMessage").default;
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import sendMessage from "../../../client-src/utils/sendMessage.js";
 
 describe("'sendMessage' function", () => {
   it("should run self.postMessage", (t) => {

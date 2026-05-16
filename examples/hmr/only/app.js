@@ -1,9 +1,7 @@
-"use strict";
+import "./example.js";
 
-require("./example");
-
-if (module.hot) {
-  module.hot.accept((err) => {
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept((err) => {
     if (err) {
       console.error("Cannot apply HMR update.", err);
     }

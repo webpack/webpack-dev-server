@@ -1,14 +1,16 @@
-"use strict";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/watch-files-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/watch-files-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["watch-files-option"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["watch-files-option"];
 
 const watchDir = path.resolve(
   __dirname,

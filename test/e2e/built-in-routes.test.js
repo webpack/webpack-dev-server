@@ -1,13 +1,13 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import multiConfig from "../fixtures/multi-public-path-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const multiConfig = require("../fixtures/multi-public-path-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").routes;
+const port = portsMap.routes;
 
 describe("Built in routes", () => {
   describe("with simple config", () => {

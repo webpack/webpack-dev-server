@@ -1,13 +1,13 @@
 exports[`server and client transport > should throw an error on invalid path to client transport 1`] = `
-"client.webSocketTransport must be a string denoting a default implementation (e.g. 'ws') or a full path to a JS file via require.resolve(...) which exports a class "
+"client.webSocketTransport must be a string denoting a default implementation (e.g. 'ws') or a resolvable module specifier or absolute file path which exports a class "
 `;
 
 exports[`server and client transport > should throw an error on invalid path to server transport 1`] = `
-"webSocketServer (webSocketServer.type) must be a string denoting a default implementation (e.g. 'ws'), a full path to a JS file which exports a class extending BaseServer (webpack-dev-server/lib/servers/BaseServer.js) via require.resolve(...), or the class itself which extends BaseServer"
+"webSocketServer (webSocketServer.type) must be a string denoting a default implementation (e.g. 'ws'), a resolvable module specifier or absolute file path which exports a class extending BaseServer (webpack-dev-server/lib/servers/BaseServer.js), or the class itself which extends BaseServer"
 `;
 
 exports[`server and client transport > should throw an error on wrong path 1`] = `
-"webSocketServer (webSocketServer.type) must be a string denoting a default implementation (e.g. 'ws'), a full path to a JS file which exports a class extending BaseServer (webpack-dev-server/lib/servers/BaseServer.js) via require.resolve(...), or the class itself which extends BaseServer"
+"webSocketServer (webSocketServer.type) must be a string denoting a default implementation (e.g. 'ws'), a resolvable module specifier or absolute file path which exports a class extending BaseServer (webpack-dev-server/lib/servers/BaseServer.js), or the class itself which extends BaseServer"
 `;
 
 exports[`server and client transport > should use "ws" transport and "ws" web socket server 1`] = `

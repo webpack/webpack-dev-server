@@ -1,18 +1,20 @@
-"use strict";
+import path from "node:path";
+import { describe, it, mock } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { fn } from "jest-mock";
+import { format } from "prettier";
+import waitForExpect from "wait-for-expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import trustedTypesConfig from "../fixtures/overlay-config/trusted-types.webpack.config.js";
+import config from "../fixtures/overlay-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const fs = require("graceful-fs");
-const { fn } = require("jest-mock");
-const prettier = require("prettier");
-const waitForExpect = require("wait-for-expect");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const trustedTypesConfig = require("../fixtures/overlay-config/trusted-types.webpack.config");
-const config = require("../fixtures/overlay-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").overlay;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.overlay;
 
 class ErrorPlugin {
   constructor(message, skipCounter) {
@@ -103,12 +105,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -148,12 +150,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -197,12 +199,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -244,12 +246,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -290,12 +292,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -326,7 +328,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -350,12 +352,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -371,7 +373,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -402,7 +404,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -426,12 +428,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -450,12 +452,12 @@ describe("overlay", () => {
       overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -471,7 +473,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -502,7 +504,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -526,12 +528,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -553,7 +555,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -646,7 +648,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -688,7 +690,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -777,12 +779,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -825,12 +827,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -875,12 +877,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -925,12 +927,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -970,7 +972,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -1012,7 +1014,7 @@ describe("overlay", () => {
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -1102,12 +1104,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1150,12 +1152,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1211,12 +1213,12 @@ describe("overlay", () => {
         ),
       ).toHaveLength(0);
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1282,12 +1284,12 @@ describe("overlay", () => {
         ),
       ).toHaveLength(0);
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1328,7 +1330,7 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
@@ -1373,12 +1375,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1423,12 +1425,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1472,12 +1474,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1499,7 +1501,7 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtmlAfterClose, {
+        await format(pageHtmlAfterClose, {
           parser: "html",
         }),
       );
@@ -1553,12 +1555,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1612,12 +1614,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1662,7 +1664,7 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1751,7 +1753,7 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(overlayHtml, {
+        await format(overlayHtml, {
           parser: "html",
         }),
       );
@@ -1892,12 +1894,12 @@ describe("overlay", () => {
       );
 
       t.assert.snapshot(
-        await prettier.format(pageHtml, {
+        await format(pageHtml, {
           parser: "html",
         }),
       );
       t.assert.snapshot(
-        await prettier.format(
+        await format(
           overlayHtml.replace(
             /<button ([^>]+)>.+<\/button>/m,
             "<button $1>X</button>",

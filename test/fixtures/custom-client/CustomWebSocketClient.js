@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = class WebSocketClient {
+export default class WebSocketClient {
   constructor(url) {
     this.client = new WebSocket(url);
     this.client.onerror = (error) => {
@@ -30,4 +28,4 @@ module.exports = class WebSocketClient {
       f(e.data);
     };
   }
-};
+}

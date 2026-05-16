@@ -1,12 +1,12 @@
-"use strict";
+import os from "node:os";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import Server from "../../lib/Server.js";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const os = require("node:os");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { spyOn } = require("jest-mock");
-const Server = require("../../lib/Server");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-host"];
+const port = portsMap["cli-host"];
 
 const localIPv4 = Server.findIp("v4", false);
 const localIPv6 = Server.findIp("v6", false);

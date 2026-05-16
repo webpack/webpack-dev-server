@@ -1,18 +1,18 @@
-"use strict";
+import http from "node:http";
+import net from "node:net";
+import os from "node:os";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import httpProxy from "http-proxy";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import sessionSubscribe from "../helpers/session-subscribe.js";
+import portsMap from "../ports-map.js";
 
-const http = require("node:http");
-const net = require("node:net");
-const os = require("node:os");
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const httpProxy = require("http-proxy");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const sessionSubscribe = require("../helpers/session-subscribe");
-const port1 = require("../ports-map").ipc;
+const port1 = portsMap.ipc;
 
 const webSocketServers = ["ws"];
 

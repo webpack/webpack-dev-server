@@ -1,6 +1,4 @@
-"use strict";
-
-require("./style.less");
+import "./style.less";
 
 const target = document.querySelector("#target");
 

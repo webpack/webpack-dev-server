@@ -1,4 +1,4 @@
-export = getPorts;
+export default getPorts;
 /**
  * @param {number} basePort base port
  * @param {string=} host host

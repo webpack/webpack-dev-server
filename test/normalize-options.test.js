@@ -1,11 +1,13 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { klona } from "klona/full";
+import webpack from "webpack";
+import Server from "../lib/Server.js";
+import multiCompilerConfig from "./fixtures/multi-compiler-one-configuration/webpack.config.js";
+import simpleConfig from "./fixtures/simple-config/webpack.config.js";
+import portsMap from "./ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { klona } = require("klona/full");
-const webpack = require("webpack");
-const Server = require("../lib/Server");
-const port = require("./ports-map")["normalize-option"];
+const port = portsMap["normalize-option"];
 
 describe("normalize options", () => {
   const cases = [
@@ -577,7 +579,7 @@ describe("normalize options", () => {
       let webpackConfig;
 
       if (item.multiCompiler) {
-        webpackConfig = require("./fixtures/multi-compiler-one-configuration/webpack.config");
+        webpackConfig = multiCompilerConfig;
 
         if (Array.isArray(item.webpackConfig)) {
           webpackConfig = item.webpackConfig.map((config, index) => ({
@@ -586,7 +588,7 @@ describe("normalize options", () => {
           }));
         }
       } else {
-        webpackConfig = require("./fixtures/simple-config/webpack.config");
+        webpackConfig = simpleConfig;
 
         if (item.webpackConfig) {
           webpackConfig = {

@@ -1,15 +1,17 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 
-const path = require("node:path");
-const { describe, it } = require("node:test");
+import fs from "graceful-fs";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").logging;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.logging;
 
 describe("logging", () => {
   const webSocketServers = [{ webSocketServer: "ws" }];

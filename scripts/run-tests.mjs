@@ -37,7 +37,7 @@ for (const pattern of PATTERNS) {
   }
 }
 
-const testFiles = [...files].sort();
+const testFiles = [...files].toSorted();
 
 const nodeArgs = [
   "--import",

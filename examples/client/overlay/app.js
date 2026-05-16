@@ -1,6 +1,6 @@
-"use strict";
-
-const createButton = require("./create-button");
+import createButton from "./create-button.js";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import invalid from "./invalid.js";
 
 /**
  * @param {string} errorMessage
@@ -45,9 +45,6 @@ target.insertAdjacentElement(
     unsafeOperation("Error message thrown from JS");
   }),
 );
-
-// eslint-disable-next-line import/no-unresolved, import/extensions
-const invalid = require("./invalid.js");
 
 console.log(invalid);
 target.classList.add("pass");

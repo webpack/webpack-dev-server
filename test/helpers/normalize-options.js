@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @param {import("https").ServerOptions} options server options
  * @returns {Record<string, string | string[] | boolean>} normalized server options
@@ -38,4 +36,4 @@ function normalizeOptions(options) {
   return normalizedOptions;
 }
 
-module.exports = normalizeOptions;
+export default normalizeOptions;

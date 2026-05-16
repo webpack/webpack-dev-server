@@ -1,12 +1,12 @@
-"use strict";
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn, spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { fn, spyOn } = require("jest-mock");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const port = require("../ports-map")["open-option"];
+const port = portsMap["open-option"];
 
 const internalIPv4 = Server.findIp("v4", false);
 

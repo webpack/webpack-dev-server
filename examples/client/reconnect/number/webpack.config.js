@@ -1,15 +1,16 @@
-"use strict";
-
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
-const { setup } = require("../../../util");
+import { setup } from "../../../util.js";
 
-module.exports = setup({
-  context: __dirname,
-  entry: "./app.js",
-  devServer: {
-    client: {
-      reconnect: 2,
+export default setup(
+  {
+    context: import.meta.dirname,
+    entry: "./app.js",
+    devServer: {
+      client: {
+        reconnect: 2,
+      },
     },
   },
-});
+  import.meta.url,
+);

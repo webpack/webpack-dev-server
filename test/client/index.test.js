@@ -1,21 +1,8 @@
-"use strict";
+import "../helpers/jsdom-setup.js";
 
-require("../helpers/jsdom-setup");
-
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { fn } = require("jest-mock");
-
-/**
- * Clear all client-src/* entries from require.cache so a fresh require()
- * re-evaluates client-src/index.js with the active mock.module() mocks.
- * @returns {void}
- */
-function clearClientCache() {
-  for (const key of Object.keys(require.cache)) {
-    if (key.includes("/client-src/")) delete require.cache[key];
-  }
-}
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
 
 describe("index", () => {
   let log;
@@ -83,7 +70,6 @@ describe("index", () => {
     globalThis.__resourceQuery = "?mock-url";
     globalThis.__webpack_hash__ = "mock-hash";
 
-    clearClientCache();
     installMocks();
 
     // issue: https://github.com/jsdom/jsdom/issues/2112
@@ -91,10 +77,9 @@ describe("index", () => {
     globalThis.location = { ...locationValue, reload: fn() };
 
     // Use dynamic import with a cache-busting query string to force a fresh
-    // module evaluation each test (ESM modules aren't invalidated by deleting
-    // entries from require.cache).
-    const indexUrl = require.resolve("../../client-src");
-    await import(`file://${indexUrl}?t=${Date.now()}-${Math.random()}`);
+    // module evaluation each test.
+    const indexUrl = import.meta.resolve("../../client-src/index.js");
+    await import(`${indexUrl}?t=${Date.now()}-${Math.random()}`);
     [[, onSocketMessage]] = socket.mock.calls;
   });
 
@@ -102,7 +87,6 @@ describe("index", () => {
     globalThis.__resourceQuery = resourceQueryValue;
     Object.assign(globalThis, locationValue);
     restoreMocks();
-    clearClientCache();
   });
 
   it("should set arguments into socket function", (t) => {
@@ -213,8 +197,8 @@ describe("index", () => {
     async function reloadClient() {
       overlay.send.mockReset();
       socket.mockReset();
-      const indexUrl = require.resolve("../../client-src");
-      await import(`file://${indexUrl}?t=${Date.now()}-${Math.random()}`);
+      const indexUrl = import.meta.resolve("../../client-src/index.js");
+      await import(`${indexUrl}?t=${Date.now()}-${Math.random()}`);
       [[, onSocketMessage]] = socket.mock.calls;
     }
 
