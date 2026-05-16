@@ -1,19 +1,19 @@
-"use strict";
+import os from "node:os";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import webpack from "webpack";
+import WebSocket from "ws";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import multiCompilerConfig from "../fixtures/multi-compiler-two-configurations/webpack.config.js";
+import compile from "../helpers/compile.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const os = require("node:os");
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { spyOn } = require("jest-mock");
-const webpack = require("webpack");
-const WebSocket = require("ws");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const multiCompilerConfig = require("../fixtures/multi-compiler-two-configurations/webpack.config");
-const compile = require("../helpers/compile");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["api-plugin"];
-const [portA, portB] = require("../ports-map")["api-plugin-multi"];
+const port = portsMap["api-plugin"];
+const [portA, portB] = portsMap["api-plugin-multi"];
 
 describe("API (plugin)", () => {
   it("should work with plugin API", async (t) => {

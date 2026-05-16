@@ -6,6 +6,7 @@ import fs from "graceful-fs";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
+import compile from "../helpers/compile.js";
 import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
