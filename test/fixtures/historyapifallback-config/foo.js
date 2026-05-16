@@ -1,6 +1,4 @@
-"use strict";
-
-require("./index.html");
-require("./bar.html");
+import "./index.html";
+import "./bar.html";
 
 console.log("Hey.");

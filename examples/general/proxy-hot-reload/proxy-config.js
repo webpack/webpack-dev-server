@@ -1,7 +1,5 @@
-"use strict";
-
 /**/
-module.exports = {
+export default {
   target: "http://jsonplaceholder.typicode.com/",
   pathRewrite: {
     "^/api": "",
@@ -15,7 +13,7 @@ module.exports = {
 
 /**
  * /
- * module.exports = {
+ * export default {
  * target: 'http://reqres.in/'
  * };
  * /*

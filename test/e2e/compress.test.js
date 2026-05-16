@@ -1,12 +1,12 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config-other/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config-other/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["compress-option"];
+const port = portsMap["compress-option"];
 
 describe("compress option", () => {
   describe("enabled by default when not specified", () => {

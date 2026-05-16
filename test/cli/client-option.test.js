@@ -1,9 +1,9 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-client"];
+const port = portsMap["cli-client"];
 
 describe('"client" CLI option', () => {
   it('should work using "--client-web-socket-transport ws"', async () => {

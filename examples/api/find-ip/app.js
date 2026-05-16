@@ -1,6 +1,4 @@
-"use strict";
-
-const WebpackDevServer = require("../../../lib/Server");
+import WebpackDevServer from "../../../lib/Server.js";
 
 const logInternalIPs = async () => {
   const localIPv4 = WebpackDevServer.findIp("v4", false);

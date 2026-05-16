@@ -1,14 +1,15 @@
-"use strict";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import WebsocketServer from "../../lib/servers/WebsocketServer.js";
+import defaultConfig from "../fixtures/provide-plugin-default/webpack.config.js";
+import wsConfig from "../fixtures/provide-plugin-ws-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const WebsocketServer = require("../../lib/servers/WebsocketServer");
-const defaultConfig = require("../fixtures/provide-plugin-default/webpack.config");
-const wsConfig = require("../fixtures/provide-plugin-ws-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["server-and-client-transport"];
+const port = portsMap["server-and-client-transport"];
 
 describe("server and client transport", () => {
   it('should use default web socket server ("ws")', async (t) => {
@@ -202,7 +203,9 @@ describe("server and client transport", () => {
       client: {
         webSocketTransport: "ws",
       },
-      webSocketServer: require.resolve("../../lib/servers/WebsocketServer"),
+      webSocketServer: fileURLToPath(
+        import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+      ),
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -241,7 +244,9 @@ describe("server and client transport", () => {
         webSocketTransport: "ws",
       },
       webSocketServer: {
-        type: require.resolve("../../lib/servers/WebsocketServer"),
+        type: fileURLToPath(
+          import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+        ),
       },
     };
     const server = new Server(devServerOptions, compiler);

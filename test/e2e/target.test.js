@@ -1,22 +1,24 @@
-"use strict";
-
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
 
 // Set up jsdom before loading fixtures that use browser APIs like Worker
-require("../helpers/jsdom-setup");
+import "../helpers/jsdom-setup.js";
 
-const workerConfig = require("../fixtures/worker-config/webpack.config");
-const workerConfigDevServerFalse = require("../fixtures/worker-config-dev-server-false/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").target;
+import workerConfig from "../fixtures/worker-config/webpack.config.js";
+import workerConfigDevServerFalse from "../fixtures/worker-config-dev-server-false/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.target;
 
 const sortByTerm = (data, term) =>
-  data.sort((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
+  data.toSorted((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
 
 describe("target", () => {
   const targets = [

@@ -1,29 +1,26 @@
-"use strict";
-
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
-const { setup } = require("../util");
+import { setup } from "../util.js";
 
-const moduleRuleForPNG = {
-  test: /\.png$/,
-  type: "asset/resource",
-  generator: {
-    filename: "images/[hash][ext][query]",
+export default setup(
+  {
+    context: import.meta.dirname,
+    entry: "./app.js",
+    module: {
+      rules: [
+        {
+          test: /\.less$/,
+          use: ["style-loader", "css-loader", "less-loader"],
+        },
+        {
+          test: /\.(png|svg)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "images/[hash][ext][query]",
+          },
+        },
+      ],
+    },
   },
-};
-
-module.exports = setup({
-  context: __dirname,
-  entry: "./app.js",
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        use: ["style-loader", "css-loader", "less-loader"],
-      },
-      {
-        ...moduleRuleForPNG,
-      },
-    ],
-  },
-});
+  import.meta.url,
+);

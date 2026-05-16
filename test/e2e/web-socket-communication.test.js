@@ -1,14 +1,14 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import webpack from "webpack";
+import WebSocket from "ws";
+import Server from "../../lib/Server.js";
+import WebsocketServer from "../../lib/servers/WebsocketServer.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const webpack = require("webpack");
-const WebSocket = require("ws");
-const Server = require("../../lib/Server");
-const WebsocketServer = require("../../lib/servers/WebsocketServer");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["web-socket-communication"];
+const port = portsMap["web-socket-communication"];
 
 describe("web socket communication", () => {
   const webSocketServers = ["ws"];

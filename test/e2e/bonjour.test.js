@@ -1,14 +1,14 @@
-"use strict";
+import os from "node:os";
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const os = require("node:os");
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { fn } = require("jest-mock");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").bonjour;
+const port = portsMap.bonjour;
 
 describe("bonjour option", () => {
   let mockPublish;

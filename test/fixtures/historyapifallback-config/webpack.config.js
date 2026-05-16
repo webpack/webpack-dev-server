@@ -1,5 +1,7 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const moduleRuleForHTML = {
   test: /\.html$/,
   type: "asset/resource",
@@ -8,7 +10,7 @@ const moduleRuleForHTML = {
   },
 };
 
-module.exports = {
+export default {
   mode: "development",
   context: __dirname,
   stats: "none",

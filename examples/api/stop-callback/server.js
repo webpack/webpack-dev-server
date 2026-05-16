@@ -1,8 +1,6 @@
-"use strict";
-
-const Webpack = require("webpack");
-const WebpackDevServer = require("../../../lib/Server");
-const webpackConfig = require("./webpack.config");
+import Webpack from "webpack";
+import WebpackDevServer from "../../../lib/Server.js";
+import webpackConfig from "./webpack.config.js";
 
 const compiler = Webpack(webpackConfig);
 const devServerOptions = { ...webpackConfig.devServer, open: true };

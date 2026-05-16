@@ -1,19 +1,19 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-
-require("../../helpers/jsdom-setup");
+import "../../helpers/jsdom-setup.js";
 
 describe("'getCurrentScriptSource' function", () => {
   let getCurrentScriptSource;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     globalThis.__webpack_hash__ = "mock-hash";
     globalThis.__resourceQuery = "?protocol=ws&hostname=0.0.0.0";
 
-    getCurrentScriptSource =
-      require("../../../client-src/index").getCurrentScriptSource;
+    const indexUrl = import.meta.resolve("../../../client-src/index.js");
+    ({ getCurrentScriptSource } = await import(
+      `${indexUrl}?t=${Date.now()}-${Math.random()}`
+    ));
   });
 
   afterEach(() => {
