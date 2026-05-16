@@ -2,14 +2,6 @@
 // examples need
 import { setup } from "../util.js";
 
-const moduleRuleForPNG = {
-  test: /\.png$/,
-  type: "asset/resource",
-  generator: {
-    filename: "images/[hash][ext][query]",
-  },
-};
-
 export default setup(
   {
     context: import.meta.dirname,
@@ -21,7 +13,11 @@ export default setup(
           use: ["style-loader", "css-loader", "less-loader"],
         },
         {
-          ...moduleRuleForPNG,
+          test: /\.(png|svg)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "images/[hash][ext][query]",
+          },
         },
       ],
     },

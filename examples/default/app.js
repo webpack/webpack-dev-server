@@ -1,4 +1,5 @@
 import "./style.less";
+import svgUrl from "./svg.svg";
 
 const target = document.querySelector("#target");
 
@@ -6,7 +7,7 @@ target.classList.add("pass");
 target.innerHTML = "Success!";
 
 const img = document.createElement("img");
-img.src = "/svg.svg";
+img.src = svgUrl;
 img.style = "width: 200px;";
 
 document.body.appendChild(img);

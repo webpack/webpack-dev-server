@@ -99,7 +99,8 @@ export function setup(config, callerUrl) {
   }
 
   const output = {
-    path: path.dirname(fileURLToPath(callerUrl)),
+    path: path.join(path.dirname(fileURLToPath(callerUrl)), "dist"),
+    publicPath: "/",
   };
 
   result.output = result.output ? { ...result.output, ...output } : output;
