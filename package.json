@@ -97,7 +97,7 @@
     "css-loader": "^7.1.1",
     "eslint": "^9.30.1",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-config-webpack": "^4.4.0",
+    "eslint-config-webpack": "^4.9.6",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^51.3.4",
     "eslint-plugin-n": "^17.21.0",

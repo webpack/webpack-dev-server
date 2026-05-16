@@ -7,11 +7,6 @@ export default defineConfig([
   {
     extends: [config],
     ignores: ["client-src/**/*", "!client-src/webpack.config.js"],
-    languageOptions: {
-      // ES2025 needed for import attributes (`import(x, { with: ... })`).
-      // eslint-config-webpack pins ecmaVersion to 2024 for Node 22.
-      ecmaVersion: "latest",
-    },
     rules: {
       // TODO fix me
       "prefer-destructuring": "off",
@@ -26,16 +21,7 @@ export default defineConfig([
   {
     files: ["test/**/*"],
     extends: [configs["universal-recommended"]],
-    languageOptions: {
-      // ES2025 needed so `import/*` rules can parse lib/Server.js (uses
-      // import attributes). eslint-config-webpack pins ecmaVersion to 2024.
-      ecmaVersion: "latest",
-    },
     rules: {
-      // Tests use experimental node:test APIs intentionally
-      // (mock.module, mock.timers, snapshot.*). The package's engines field
-      // is wider than where these are stable, so silence the linter here.
-      "n/no-unsupported-features/node-builtins": "off",
       // Test callbacks (it/test/subtest arrow functions) don't need JSDoc.
       "jsdoc/require-jsdoc": "off",
       // Tests legitimately log diagnostics (retry attempts, etc.).

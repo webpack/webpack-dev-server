@@ -18,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.target;
 
 const sortByTerm = (data, term) =>
-  data.sort((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
+  data.toSorted((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
 
 describe("target", () => {
   const targets = [

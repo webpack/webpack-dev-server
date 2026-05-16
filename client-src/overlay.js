@@ -79,16 +79,16 @@ function encode(text) {
 
 /**
  * @typedef {object} Context
- * @property {'warning' | 'error'} level level
- * @property {(string  | Message)[]} messages messages
- * @property {'build' | 'runtime'} messageSource message source
+ * @property {"warning" | "error"} level level
+ * @property {(string | Message)[]} messages messages
+ * @property {"build" | "runtime"} messageSource message source
  */
 
 /** @typedef {{ type: string } & Record<string, EXPECTED_ANY>} Event */
 
 /**
  * @typedef {object} Options
- * @property {{ [state: string]: { on: Record<string, { target: string; actions?: Array<string> }> } }} states states
+ * @property {{ [state: string]: { on: Record<string, { target: string, actions?: string[] }> } }} states states
  * @property {Context} context context
  * @property {string} initial initial
  */
@@ -149,9 +149,9 @@ function createMachine({ states, context, initial }, { actions }) {
 
 /**
  * @typedef {object} ShowOverlayData
- * @property {'warning' | 'error'} level level
- * @property {(string  | Message)[]} messages messages
- * @property {'build' | 'runtime'} messageSource message source
+ * @property {"warning" | "error"} level level
+ * @property {(string | Message)[]} messages messages
+ * @property {"build" | "runtime"} messageSource message source
  */
 
 /**
@@ -390,7 +390,7 @@ const colors = {
 
 ansiHTML.setColors(colors);
 
-/** @typedef {Error & { file?: string, moduleName?: string, moduleIdentifier?: string, loc?: string, message?: string; stack?: string | string[] }} Message */
+/** @typedef {Error & { file?: string, moduleName?: string, moduleIdentifier?: string, loc?: string, message?: string, stack?: string | string[] }} Message */
 
 /**
  * @param {string} type type
@@ -450,7 +450,7 @@ const createOverlay = (options) => {
   let containerElement;
   /** @type {HTMLDivElement | null | undefined} */
   let headerElement;
-  /** @type {Array<(element: HTMLDivElement) => void>} */
+  /** @type {(element: HTMLDivElement) => void[]} */
   let onLoadQueue = [];
   /** @type {Omit<TrustedTypePolicy, "createScript" | "createScriptURL"> | undefined} */
   let overlayTrustedTypesPolicy;
@@ -589,7 +589,7 @@ const createOverlay = (options) => {
    * @param {string} type type
    * @param {(string | Message)[]} messages messages
    * @param {undefined | false | string} trustedTypesPolicyName trusted types policy name
-   * @param {'build' | 'runtime'} messageSource message source
+   * @param {"build" | "runtime"} messageSource message source
    */
   function show(type, messages, trustedTypesPolicyName, messageSource) {
     ensureOverlayExists(() => {

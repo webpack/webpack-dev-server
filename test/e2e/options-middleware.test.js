@@ -94,7 +94,7 @@ describe("handle options-request correctly", () => {
         htmlUrl,
       );
 
-      expect(responseStatus.sort()).toEqual([200, 204]);
+      expect(responseStatus.toSorted()).toEqual([200, 204]);
     } finally {
       await browser.close();
       await server.stop();

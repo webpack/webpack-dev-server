@@ -1,9 +1,9 @@
 import { launch } from "puppeteer";
 import { puppeteerArgs } from "./puppeteer-constants.js";
 
-/** @typedef {import('puppeteer').Browser} Browser */
-/** @typedef {import('puppeteer').Page} Page */
-/** @typedef {import('puppeteer').Device} Device */
+/** @typedef {import("puppeteer").Browser} Browser */
+/** @typedef {import("puppeteer").Page} Page */
+/** @typedef {import("puppeteer").Device} Device */
 
 /**
  * @typedef {object} RunBrowserResult
@@ -67,11 +67,11 @@ export function runPage(browser, device) {
 function runBrowser(device) {
   return new Promise((resolve, reject) => {
     /**
-     * @type {import('puppeteer').Page}
+     * @type {import("puppeteer").Page}
      */
     let page;
     /**
-     * @type {import('puppeteer').Browser}
+     * @type {import("puppeteer").Browser}
      */
     let browser;
 
