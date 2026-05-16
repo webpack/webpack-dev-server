@@ -1,13 +1,13 @@
-"use strict";
+import { after, before, describe, it } from "node:test";
+import * as acorn from "acorn";
+import { expect } from "expect";
+import request from "supertest";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const { after, before, describe, it } = require("node:test");
-const acorn = require("acorn");
-const { expect } = require("expect");
-const request = require("supertest");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const port = require("../ports-map").bundle;
+const port = portsMap.bundle;
 
 describe("bundle", () => {
   describe("main.js bundled output", () => {

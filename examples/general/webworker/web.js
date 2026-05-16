@@ -1,5 +1,3 @@
-"use strict";
-
 /* eslint-env browser */
 
 const worker = new Worker("worker.bundle.js");

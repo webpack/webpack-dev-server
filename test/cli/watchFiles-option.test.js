@@ -1,10 +1,12 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-watch-files"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["cli-watch-files"];
 
 describe('"watchFiles" CLI option', () => {
   it('should work using "--watch-files <value>"', async (t) => {

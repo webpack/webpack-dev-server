@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = (api) => {
+export default (api) => {
   api.cache(true);
 
   return {
@@ -24,7 +22,7 @@ module.exports = (api) => {
             "@babel/preset-env",
             {
               targets: {
-                node: "20.9.0",
+                node: "22.15.0",
               },
             },
           ],

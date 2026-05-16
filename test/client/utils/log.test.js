@@ -1,10 +1,8 @@
-"use strict";
+import "../../helpers/jsdom-setup.js";
 
-require("../../helpers/jsdom-setup");
-
-const { afterEach, beforeEach, describe, it, mock } = require("node:test");
-const { expect } = require("expect");
-const { fn } = require("jest-mock");
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
 
 describe("'log' function", () => {
   let logger;
@@ -17,20 +15,14 @@ describe("'log' function", () => {
     };
     // Mock the intermediate module that log.js imports directly. Mocking the
     // deeper webpack runtime through the re-export chain doesn't propagate;
-    // mocking the file log.js actually requires does.
+    // mocking the file log.js actually imports does.
     loggerMockCtx = mock.module("../../../client-src/modules/logger/index.js", {
       defaultExport: logger,
     });
-    for (const key of Object.keys(require.cache)) {
-      if (key.includes("/client-src/")) delete require.cache[key];
-    }
   });
 
   afterEach(() => {
     loggerMockCtx.restore();
-    for (const key of Object.keys(require.cache)) {
-      if (key.includes("/client-src/")) delete require.cache[key];
-    }
   });
 
   /**
@@ -38,8 +30,8 @@ describe("'log' function", () => {
    * @returns {Promise<typeof import("../../../client-src/utils/log")>} the freshly evaluated log module
    */
   function freshLogModule() {
-    const url = require.resolve("../../../client-src/utils/log");
-    return import(`file://${url}?t=${Date.now()}-${Math.random()}`);
+    const url = import.meta.resolve("../../../client-src/utils/log.js");
+    return import(`${url}?t=${Date.now()}-${Math.random()}`);
   }
 
   it("should set info as the default level and create logger", async () => {

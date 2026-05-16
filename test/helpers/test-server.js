@@ -1,7 +1,5 @@
-"use strict";
-
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
 
 /** @typedef {import("webpack").Configuration} Configuration */
 /** @typedef {import("../../lib/Server").Configuration} DevServerConfiguration */
@@ -54,7 +52,7 @@ function startFullSetup(config, devServerConfig, done) {
  * @param {(err?: Error) => void=} done done callback
  * @returns {Server} server
  */
-function start(config, devServerConfig, done) {
+export function start(config, devServerConfig, done) {
   let readyCount = 0;
 
   const ready = (error) => {
@@ -85,7 +83,7 @@ function start(config, devServerConfig, done) {
 /**
  * @param {() => void} done done callback
  */
-function close(done) {
+export function close(done) {
   if (server) {
     server.stopCallback(() => {
       server = null;
@@ -95,8 +93,3 @@ function close(done) {
     done();
   }
 }
-
-module.exports = {
-  close,
-  start,
-};

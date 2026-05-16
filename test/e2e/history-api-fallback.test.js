@@ -1,16 +1,18 @@
-"use strict";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config2 from "../fixtures/historyapifallback-2-config/webpack.config.js";
+import config3 from "../fixtures/historyapifallback-3-config/webpack.config.js";
+import config from "../fixtures/historyapifallback-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const { spyOn } = require("jest-mock");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config2 = require("../fixtures/historyapifallback-2-config/webpack.config");
-const config3 = require("../fixtures/historyapifallback-3-config/webpack.config");
-const config = require("../fixtures/historyapifallback-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["history-api-fallback-option"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["history-api-fallback-option"];
 
 describe("historyApiFallback option", () => {
   describe("as boolean", () => {

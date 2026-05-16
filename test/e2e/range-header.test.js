@@ -1,12 +1,12 @@
-"use strict";
+import { after, before, describe, it } from "node:test";
+import { expect } from "expect";
+import request from "supertest";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/static-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const { after, before, describe, it } = require("node:test");
-const { expect } = require("expect");
-const request = require("supertest");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
-const port = require("../ports-map")["range-header"];
+const port = portsMap["range-header"];
 
 describe("'Range' header", () => {
   let compiler;

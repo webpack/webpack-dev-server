@@ -1,6 +1,7 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const path = require("path");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const moduleRuleForHTML = {
   test: /\.html$/,
@@ -10,7 +11,7 @@ const moduleRuleForHTML = {
   },
 };
 
-module.exports = [
+export default [
   {
     mode: "development",
     context: __dirname,

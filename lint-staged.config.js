@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = {
+export default {
   "*": [
     "prettier --cache --write --ignore-unknown",
     "cspell --cache --no-must-find-files",

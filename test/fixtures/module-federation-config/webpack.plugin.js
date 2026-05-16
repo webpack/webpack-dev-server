@@ -1,9 +1,12 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import webpack from "webpack";
 
-const ModuleFederationPlugin =
-  require("webpack").container.ModuleFederationPlugin;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = {
+const { ModuleFederationPlugin } = webpack.container;
+
+export default {
   mode: "development",
   target: "node",
   stats: "none",

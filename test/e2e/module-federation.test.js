@@ -1,16 +1,16 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import requireFromString from "require-from-string";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import simpleConfig from "../fixtures/module-federation-config/webpack.config.js";
+import multiConfig from "../fixtures/module-federation-config/webpack.multi.config.js";
+import objectEntryConfig from "../fixtures/module-federation-config/webpack.object-entry.config.js";
+import pluginConfig from "../fixtures/module-federation-config/webpack.plugin.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { afterEach, beforeEach, describe, it } = require("node:test");
-const { expect } = require("expect");
-const requireFromString = require("require-from-string");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const simpleConfig = require("../fixtures/module-federation-config/webpack.config");
-const multiConfig = require("../fixtures/module-federation-config/webpack.multi.config");
-const objectEntryConfig = require("../fixtures/module-federation-config/webpack.object-entry.config");
-const pluginConfig = require("../fixtures/module-federation-config/webpack.plugin");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["module-federation"];
+const port = portsMap["module-federation"];
 
 describe("Module federation", () => {
   describe("should work with simple multi-entry config", () => {
@@ -61,7 +61,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry2");
+      expect(exports.default).toBe("entry2");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -117,7 +117,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry2");
+      expect(exports.default).toBe("entry2");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -147,7 +147,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry1");
+      expect(exports.default).toBe("entry1");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -203,7 +203,7 @@ describe("Module federation", () => {
         exports = requireFromString(textContent);
       }).not.toThrow();
 
-      expect(exports).toBe("entry2");
+      expect(exports.default).toBe("entry2");
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 

@@ -9,7 +9,7 @@ import socket from "./socket.js";
 import { log, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
 
-// eslint-disable-next-line jsdoc/no-restricted-syntax
+// eslint-disable-next-line jsdoc/reject-any-type
 /** @typedef {any} EXPECTED_ANY */
 
 /**

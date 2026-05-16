@@ -1,5 +1,3 @@
-"use strict";
-
 const path = document.location.pathname;
 const target = document.querySelector("#target");
 const style = document.createElement("style");

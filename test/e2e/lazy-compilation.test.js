@@ -1,13 +1,13 @@
-"use strict";
+import { describe, it } from "node:test";
 
-const { describe, it } = require("node:test");
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import lazyCompilationMultipleEntriesConfig from "../fixtures/lazy-compilation-multiple-entries/webpack.config.js";
+import lazyCompilationSingleEntryConfig from "../fixtures/lazy-compilation-single-entry/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilation-multiple-entries/webpack.config");
-const lazyCompilationSingleEntryConfig = require("../fixtures/lazy-compilation-single-entry/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["lazy-compilation"];
+const port = portsMap["lazy-compilation"];
 
 describe("lazy compilation", () => {
   // TODO freezes because webpack doesn't close `eventsource`, uncomment once fixed upstream

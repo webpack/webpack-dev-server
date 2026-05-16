@@ -1,13 +1,13 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import Express from "express";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const Express = require("express");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["options-request-response"];
+const port = portsMap["options-request-response"];
 
 const createWaiting = () => {
   let resolve;
@@ -94,7 +94,7 @@ describe("handle options-request correctly", () => {
         htmlUrl,
       );
 
-      expect(responseStatus.sort()).toEqual([200, 204]);
+      expect(responseStatus.toSorted()).toEqual([200, 204]);
     } finally {
       await browser.close();
       await server.stop();

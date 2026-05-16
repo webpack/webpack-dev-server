@@ -1,14 +1,14 @@
-"use strict";
+import { describe, test } from "node:test";
 
-const { describe, test } = require("node:test");
+import { spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const { spyOn } = require("jest-mock");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").stats;
+const port = portsMap.stats;
 
 spyOn(globalThis.console, "log").mockImplementation();
 

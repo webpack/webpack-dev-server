@@ -1,5 +1,3 @@
-"use strict";
-
-require("./file.custom");
+import "./file.custom";
 
 console.log("Hey.");

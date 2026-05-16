@@ -9,10 +9,12 @@ This mode uses [ws](https://github.com/websockets/ws) as a server.
 **webpack.config.js**
 
 ```js
-module.exports = {
+export default {
   // ...
   devServer: {
-    webSocketServer: "ws",
+    webSocketServer: {
+      type: "ws",
+    },
   },
 };
 ```

@@ -1,5 +1,3 @@
-"use strict";
-
 /* eslint-env worker */
 
 globalThis.onmessage = function onMessage(e) {

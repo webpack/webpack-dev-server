@@ -1,10 +1,8 @@
-"use strict";
-
-const os = require("node:os");
-const path = require("node:path");
-const { describe, it } = require("node:test");
-const { expect } = require("expect");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
+import os from "node:os";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
 
 describe('"ipc" CLI option', () => {
   it('should work using "--ipc"', async (t) => {

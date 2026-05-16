@@ -1,13 +1,15 @@
-"use strict";
-
-const path = require("node:path");
-const fs = require("graceful-fs");
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import fs from "graceful-fs";
 
 /**
  * @returns {Promise<void>}
  */
 async function extendTypes() {
-  const typesPath = path.resolve(__dirname, "../types/lib/Server.d.ts");
+  const typesPath = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../types/lib/Server.d.ts",
+  );
   const content = await fs.promises.readFile(typesPath, "utf8");
   const newContent = `${content}
 // DO NOT REMOVE THIS!
@@ -26,10 +28,4 @@ declare module "webpack" {
   await fs.promises.writeFile(typesPath, newContent);
 }
 
-// eslint-disable-next-line unicorn/prefer-top-level-await
-Promise.resolve().then(
-  () => extendTypes(),
-  (error) => {
-    throw error;
-  },
-);
+await extendTypes();

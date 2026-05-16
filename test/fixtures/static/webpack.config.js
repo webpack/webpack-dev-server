@@ -1,8 +1,9 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const path = require("path");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = {
+export default {
   mode: "development",
   entry: path.resolve(__dirname, "foo.js"),
   devServer: {
