@@ -1,3 +1,53 @@
+exports[`logging > plugin mode > should work and do not log messages about hot and live reloading is enabled 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
+  "Hey.",
+]
+`;
+
+exports[`logging > plugin mode > should work and log errors by default 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Errors while compiling. Reload prevented.",
+  "[webpack-dev-server] ERROR
+Error from compilation",
+]
+`;
+
+exports[`logging > plugin mode > should work and log message about live reloading is enabled 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "Hey.",
+]
+`;
+
+exports[`logging > plugin mode > should work and log messages about hot and live reloading is enabled 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`logging > plugin mode > should work and log warnings by default 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+  "[webpack-dev-server] Warnings while compiling.",
+  "[webpack-dev-server] WARNING
+Warning from compilation",
+]
+`;
+
+exports[`logging > plugin mode > should work when the "client.logging" is "none" 1`] = `
+[
+  "Hey.",
+]
+`;
+
 exports[`logging > should work and do not log messages about hot and live reloading is enabled (ws) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",

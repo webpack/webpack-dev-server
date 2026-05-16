@@ -336,10 +336,6 @@ export type BasicApplication = {
   use: typeof useFn;
 };
 /**
- * @typedef {object} BasicApplication
- * @property {typeof useFn} use
- */
-/**
  * @template {BasicApplication} [A=ExpressApplication]
  * @template {BasicServer} [S=HTTPServer]
  */
@@ -1503,7 +1499,10 @@ declare class Server<
    * @param {Compiler | MultiCompiler} compiler compiler
    */
   constructor(options: Configuration<A, S>, compiler: Compiler | MultiCompiler);
-  compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
+  compiler:
+    | import("webpack").Compiler
+    | import("webpack").MultiCompiler
+    | undefined;
   /**
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
    */
@@ -1532,6 +1531,11 @@ declare class Server<
    * @type {string | undefined}
    */
   private currentHash;
+  /**
+   * @private
+   * @type {boolean}
+   */
+  private isPlugin;
   /**
    * @private
    * @param {Compiler} compiler compiler
@@ -1736,6 +1740,16 @@ declare class Server<
    */
   start(): Promise<void>;
   /**
+   * @private
+   * @returns {Promise<void>}
+   */
+  private setup;
+  /**
+   * @private
+   * @returns {Promise<void>}
+   */
+  private listen;
+  /**
    * @param {((err?: Error) => void)=} callback callback
    */
   startCallback(callback?: ((err?: Error) => void) | undefined): void;
@@ -1747,6 +1761,11 @@ declare class Server<
    * @param {((err?: Error) => void)=} callback callback
    */
   stopCallback(callback?: ((err?: Error) => void) | undefined): void;
+  /**
+   * @param {Compiler | MultiCompiler} compiler compiler
+   * @returns {void}
+   */
+  apply(compiler: Compiler | MultiCompiler): void;
   #private;
 }
 /**
