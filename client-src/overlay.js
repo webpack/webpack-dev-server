@@ -450,7 +450,7 @@ const createOverlay = (options) => {
   let containerElement;
   /** @type {HTMLDivElement | null | undefined} */
   let headerElement;
-  /** @type {(element: HTMLDivElement) => void[]} */
+  /** @type {((element: HTMLDivElement) => void)[]} */
   let onLoadQueue = [];
   /** @type {Omit<TrustedTypePolicy, "createScript" | "createScriptURL"> | undefined} */
   let overlayTrustedTypesPolicy;
