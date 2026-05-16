@@ -1,10 +1,10 @@
-"use strict";
-
-const fs = require("node:fs");
+import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
-const { setup } = require("../../util");
-const proxyConfig = require("./proxy-config");
+import { setup } from "../../util.js";
+import proxyConfig from "./proxy-config.js";
 
 let proxyOptions = {
   context: "/api",
@@ -13,10 +13,12 @@ let proxyOptions = {
   changeOrigin: true,
 };
 
-fs.watch("./proxy-config.js", () => {
-  delete require.cache[require.resolve("./proxy-config")];
+fs.watch("./proxy-config.js", async () => {
   try {
-    const newProxyConfig = require("./proxy-config");
+    const cacheBustingUrl = `${
+      pathToFileURL(path.resolve(import.meta.dirname, "./proxy-config.js")).href
+    }?t=${Date.now()}`;
+    const { default: newProxyConfig } = await import(cacheBustingUrl);
 
     if (proxyOptions.target !== newProxyConfig.target) {
       console.log("Proxy target changed:", newProxyConfig.target);
@@ -32,14 +34,17 @@ fs.watch("./proxy-config.js", () => {
   }
 });
 
-module.exports = setup({
-  context: __dirname,
-  entry: "./app.js",
-  devServer: {
-    proxy: [
-      function proxy() {
-        return proxyOptions;
-      },
-    ],
+export default setup(
+  {
+    context: import.meta.dirname,
+    entry: "./app.js",
+    devServer: {
+      proxy: [
+        function proxy() {
+          return proxyOptions;
+        },
+      ],
+    },
   },
-});
+  import.meta.url,
+);

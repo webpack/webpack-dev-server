@@ -1,5 +1,3 @@
-"use strict";
-
 const target = document.querySelector("#target");
 
 if (globalThis.location.href.endsWith("example1.html")) {
