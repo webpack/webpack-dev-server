@@ -35,8 +35,8 @@ export default class WebSocketClient {
    * @param {(...args: EXPECTED_ANY[]) => void} fn function
    */
   onMessage(fn) {
-    this.client.onmessage = (err) => {
-      fn(err.data);
+    this.client.onmessage = (event) => {
+      fn(event.data);
     };
   }
 }
