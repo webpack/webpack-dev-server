@@ -59,7 +59,7 @@
     "connect-history-api-fallback": "^2.0.0",
     "express": "^5.2.1",
     "graceful-fs": "^4.2.11",
-    "http-proxy-middleware": "^4.0.0-beta.5",
+    "http-proxy-middleware": "^4.0.0",
     "ipaddr.js": "^2.3.0",
     "launch-editor": "^2.13.2",
     "open": "^11.0.0",
