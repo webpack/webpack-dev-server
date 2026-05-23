@@ -1,3 +1,7 @@
+exports[`proxy option > should not log proxy errors for the dev-server HMR upgrade > does not surface any [HPM] error when the HMR client connects 1`] = `
+""
+`;
+
 exports[`proxy option > should work and respect \`logger\` option > target > respects a proxy option when a request path is matched 1`] = `
 "[HPM] Error occurred while proxying request %s to %s [%s] (%s)"
 `;
