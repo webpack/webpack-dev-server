@@ -35,7 +35,7 @@ const listOfTests = {
   "on-listening-option": 1,
   "open-option": 1,
   "port-option": 1,
-  "proxy-option": 4,
+  "proxy-option": 5,
   server: 1,
   "setup-exit-signals-option": 1,
   "static-directory-option": 1,

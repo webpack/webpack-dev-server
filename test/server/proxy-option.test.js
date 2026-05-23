@@ -1,5 +1,6 @@
 "use strict";
 
+const http = require("node:http");
 const path = require("node:path");
 const util = require("node:util");
 const express = require("express");
@@ -8,7 +9,8 @@ const webpack = require("webpack");
 const WebSocket = require("ws");
 const Server = require("../../lib/Server");
 const config = require("../fixtures/proxy-config/webpack.config");
-const [port1, port2, port3, port4] = require("../ports-map")["proxy-option"];
+const [port1, port2, port3, port4, port5] =
+  require("../ports-map")["proxy-option"];
 
 const WebSocketServer = WebSocket.Server;
 const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
@@ -657,6 +659,204 @@ describe("proxy option", () => {
         });
       });
     }
+  });
+
+  describe("should not silently proxy dev-server HMR websocket to a permissive backend", () => {
+    let server;
+    let backend;
+    let backendWss;
+    let backendUpgradeCount;
+
+    const BACKEND_MESSAGE_TYPE = "backend-message";
+
+    beforeAll(async () => {
+      backendUpgradeCount = 0;
+
+      backend = http.createServer();
+      backendWss = new WebSocketServer({ server: backend });
+      backendWss.on("connection", (connection) => {
+        backendUpgradeCount += 1;
+        connection.send(JSON.stringify({ type: BACKEND_MESSAGE_TYPE }));
+      });
+
+      await new Promise((resolve) => {
+        backend.listen(port5, resolve);
+      });
+
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          hot: true,
+          allowedHosts: "all",
+          webSocketServer: "ws",
+          proxy: [
+            {
+              context: "/",
+              target: `http://localhost:${port5}`,
+              ws: true,
+            },
+          ],
+          port: port3,
+        },
+        compiler,
+      );
+
+      await server.start();
+    });
+
+    afterAll(async () => {
+      for (const client of backendWss.clients) {
+        client.terminate();
+      }
+      backendWss.close();
+      // Force-drop any lingering proxy-opened sockets so backend.close() does
+      // not hang when the fix is missing and the proxy is mid-upgrade.
+      backend.closeAllConnections();
+      await server.stop();
+      await new Promise((resolve) => {
+        backend.close(resolve);
+      });
+    });
+
+    it("delivers the HMR control messages and never reaches the proxy target", async () => {
+      const messages = [];
+
+      const ws = new WebSocket(`ws://localhost:${port3}/ws`);
+
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          reject(
+            new Error(
+              `Timed out waiting for HMR message. Got: ${JSON.stringify(messages)}`,
+            ),
+          );
+        }, 3000);
+
+        ws.on("message", (raw) => {
+          const parsed = JSON.parse(raw.toString());
+          messages.push(parsed);
+          if (parsed.type === "hot") {
+            clearTimeout(timer);
+            resolve();
+          }
+        });
+
+        ws.on("error", (err) => {
+          clearTimeout(timer);
+          reject(err);
+        });
+      });
+
+      ws.close();
+
+      // Let the proxy finish its async forwarding so the assertion below sees
+      // the upgrade attempt deterministically.
+      await new Promise((resolve) => {
+        setTimeout(resolve, 300);
+      });
+
+      expect(messages.some((m) => m.type === "hot")).toBe(true);
+      expect(messages.some((m) => m.type === BACKEND_MESSAGE_TYPE)).toBe(false);
+      expect(backendUpgradeCount).toBe(0);
+    });
+  });
+
+  describe("should not log proxy errors for the dev-server HMR upgrade", () => {
+    let server;
+    let backend;
+    let stderrSpy;
+
+    beforeAll(async () => {
+      stderrSpy = jest
+        .spyOn(process.stderr, "write")
+        .mockImplementation(() => true);
+
+      backend = http.createServer();
+      backend.on("upgrade", (req, socket) => {
+        socket.destroy();
+      });
+      await new Promise((resolve) => {
+        backend.listen(port5, resolve);
+      });
+
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          hot: true,
+          allowedHosts: "all",
+          webSocketServer: "ws",
+          proxy: [
+            {
+              context: "/",
+              target: `http://localhost:${port5}`,
+              ws: true,
+            },
+          ],
+          port: port3,
+        },
+        compiler,
+      );
+
+      await server.start();
+    });
+
+    afterAll(async () => {
+      stderrSpy.mockRestore();
+      backend.closeAllConnections();
+      await server.stop();
+      await new Promise((resolve) => {
+        backend.close(resolve);
+      });
+    });
+
+    it("does not surface any [HPM] error when the HMR client connects", async () => {
+      const messages = [];
+
+      const ws = new WebSocket(`ws://localhost:${port3}/ws`);
+
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+          reject(
+            new Error(
+              `Timed out waiting for HMR message. Got: ${JSON.stringify(messages)}`,
+            ),
+          );
+        }, 3000);
+
+        ws.on("message", (raw) => {
+          const parsed = JSON.parse(raw.toString());
+          messages.push(parsed);
+          if (parsed.type === "hot") {
+            clearTimeout(timer);
+            resolve();
+          }
+        });
+
+        ws.on("error", (err) => {
+          clearTimeout(timer);
+          reject(err);
+        });
+      });
+
+      ws.close();
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+
+      const hpmLines = stderrSpy.mock.calls
+        .map((c) => c[0])
+        .join("")
+        .split("\n")
+        .filter((line) => line.includes("[HPM]"))
+        .map((line) => line.replaceAll(/localhost:\d+/g, "localhost:<port>"))
+        .join("\n");
+
+      expect(hpmLines).toBe("");
+      expect(messages.some((m) => m.type === "hot")).toBe(true);
+    });
   });
 
   describe("should supports http methods", () => {
