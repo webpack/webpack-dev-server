@@ -72,7 +72,7 @@ const changelogFunctions = {
         commitFromSummary = commit;
         return "";
       })
-      .replace(/^\s*(?:author|user):\s*@?([^\s]+)/gim, (_, user) => {
+      .replaceAll(/^\s*(?:author|user):\s*@?([^\s]+)/gim, (_, user) => {
         usersFromSummary.push(user);
         return "";
       })

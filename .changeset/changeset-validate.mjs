@@ -1,6 +1,7 @@
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
+/* eslint-disable no-console */
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { simpleGit } from "simple-git";
 import pkgJson from "../package.json" with { type: "json" };
 
@@ -19,7 +20,7 @@ const toLines = (output) =>
     .filter(Boolean);
 
 const isChangeset = (filePath) => {
-  const normalized = filePath.replace(/\\/g, "/");
+  const normalized = filePath.replaceAll("\\", "/");
   return (
     normalized.startsWith(".changeset/") &&
     normalized.endsWith(".md") &&
@@ -113,14 +114,11 @@ const validate = async (filePath) => {
   return errors;
 };
 
-const main = async () => {
-  const changedFiles = await getChangedFiles();
+const changedFiles = await getChangedFiles();
 
-  if (changedFiles.length === 0) {
-    console.log("No changed changeset files found.");
-    return;
-  }
-
+if (changedFiles.size === 0) {
+  console.log("No changed changeset files found.");
+} else {
   const failures = [];
   for (const filePath of changedFiles) {
     const errors = await validate(filePath);
@@ -136,6 +134,4 @@ const main = async () => {
     }
     process.exitCode = 1;
   }
-};
-
-main();
+}
