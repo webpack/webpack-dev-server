@@ -6,19 +6,6 @@ import ansiHTML from "ansi-html-community";
 /** @typedef {import("./index.js").EXPECTED_ANY} EXPECTED_ANY */
 
 /**
- * @type {(input: string, position: number) => number | undefined}
- */
-// @ts-expect-error
-const getCodePoint = String.prototype.codePointAt
-  ? // @ts-expect-error
-    (input, position) => input.codePointAt(position)
-  : (input, position) =>
-      (input.charCodeAt(position) - 0xd800) * 0x400 +
-      input.charCodeAt(position + 1) -
-      0xdc00 +
-      0x10000;
-
-/**
  * @param {string} macroText macro text
  * @param {RegExp} macroRegExp macro reg exp
  * @param {(input: string) => string} macroReplacer macro replacer
@@ -70,7 +57,7 @@ function encode(text) {
     let result = references[/** @type {keyof typeof references} */ (input)];
     if (!result) {
       const code =
-        input.length > 1 ? getCodePoint(input, 0) : input.charCodeAt(0);
+        input.length > 1 ? input.codePointAt(0) : input.charCodeAt(0);
       result = `&#${code};`;
     }
     return result;
