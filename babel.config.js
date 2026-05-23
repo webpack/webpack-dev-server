@@ -2,6 +2,7 @@ export default (api) => {
   api.cache(true);
 
   return {
+    ignore: ["client/**", "node_modules/**"],
     presets: [
       [
         "@babel/preset-env",
@@ -9,26 +10,10 @@ export default (api) => {
           modules: false,
           targets: {
             esmodules: true,
-            node: "0.12",
+            node: "22.15.0",
           },
         },
       ],
     ],
-    plugins: ["@babel/plugin-transform-object-assign"],
-    env: {
-      test: {
-        presets: [
-          [
-            "@babel/preset-env",
-            {
-              targets: {
-                node: "22.15.0",
-              },
-            },
-          ],
-        ],
-        plugins: ["@babel/plugin-transform-runtime"],
-      },
-    },
   };
 };
