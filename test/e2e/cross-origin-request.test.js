@@ -1,5 +1,5 @@
 import http from "node:http";
-import { describe, it } from "node:test";
+import { afterEach, describe, it } from "node:test";
 import { expect } from "expect";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
@@ -236,8 +236,6 @@ describe("cross-origin resource policy header", () => {
   });
 
   function request(url, headers = {}) {
-    const http = require("node:http");
-
     return new Promise((resolve, reject) => {
       const req = http.get(url, { headers }, (res) => {
         let body = "";
