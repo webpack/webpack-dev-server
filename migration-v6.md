@@ -6,6 +6,8 @@ This document serves as a migration guide for `webpack-dev-server@6.0.0`.
 
 - Minimum supported `Node.js` version is `22.15.0`.
 - Minimum supported `webpack` version is `5.101.0`.
+- The package is now published as **ESM-only**. Prefer `import` syntax. CommonJS consumers can still load it via [`require(esm)`](https://nodejs.org/api/modules.html#loading-ecmascript-modules-using-require), which is enabled by default in the supported Node.js versions (>= 22.15.0).
+- The bundled Express has been upgraded to **v5**. This affects `setupMiddlewares`, the `app` option, and any custom middleware integration. Notably: path matching no longer supports the bare `*` wildcard (use `*splat` or named parameters), `req.query` is no longer mutable, and rejected promises in middleware are now forwarded to error handlers automatically. See the [Express 5 migration guide](https://expressjs.com/en/guide/migrating-5) for the full list of breaking changes.
 - Support for **SockJS** in the WebSocket transport has been removed. Now, only **native WebSocket** is supported, or **custom** client and server implementations can be used.
 - The options for passing to the `proxy` have changed. Please refer to the [http-proxy-middleware migration guide](https://github.com/chimurai/http-proxy-middleware/blob/master/MIGRATION.md) for details.
 - Remove support for the spdy server type.Use the http2 server type instead; however, since Express does not work correctly with it, a custom server (e.g., Connect or Hono) should be used.
