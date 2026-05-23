@@ -74,7 +74,8 @@
     "hono",
     "privkey",
     "geomanist",
-    "nodenext"
+    "nodenext",
+    "WHATWG"
   ],
   "ignorePaths": [
     "CHANGELOG.md",
