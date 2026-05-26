@@ -859,6 +859,90 @@ describe("proxy option", () => {
     });
   });
 
+  describe("HMR upgrade path matching tolerates URL variants of the configured path", () => {
+    let server;
+    let backend;
+    let backendUpgradeCount;
+
+    beforeAll(async () => {
+      backendUpgradeCount = 0;
+
+      backend = http.createServer();
+      new WebSocketServer({ server: backend }).on("connection", () => {
+        backendUpgradeCount += 1;
+      });
+
+      await new Promise((resolve) => {
+        backend.listen(port5, resolve);
+      });
+
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          hot: true,
+          allowedHosts: "all",
+          webSocketServer: "ws",
+          proxy: [
+            {
+              context: "/",
+              target: `http://localhost:${port5}`,
+              ws: true,
+            },
+          ],
+          port: port3,
+        },
+        compiler,
+      );
+
+      await server.start();
+    });
+
+    afterAll(async () => {
+      backend.closeAllConnections();
+      await server.stop();
+      await new Promise((resolve) => {
+        backend.close(resolve);
+      });
+    });
+
+    // The HMR server's default path is /ws. These variants should all be
+    // recognized as the HMR socket and not forwarded through the user proxy.
+    const variants = [
+      ["trailing slash", "/ws/"],
+      ["uppercase", "/WS"],
+      ["mixed case", "/wS"],
+      ["percent-encoded path", "/%77%73"],
+      ["leading double slash", "//ws"],
+    ];
+
+    it.each(variants)(
+      "treats %s (%s) as the HMR upgrade path",
+      async (_label, path) => {
+        const before = backendUpgradeCount;
+
+        const ws = new WebSocket(`ws://localhost:${port3}${path}`);
+        ws.on("error", () => {});
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 400);
+        });
+
+        try {
+          ws.close();
+        } catch {
+          // ignore close errors on already-failed sockets
+        }
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 200);
+        });
+
+        expect(backendUpgradeCount).toBe(before);
+      },
+    );
+  });
+
   describe("should supports http methods", () => {
     let server;
     let req;
