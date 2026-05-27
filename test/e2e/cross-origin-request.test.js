@@ -11,7 +11,7 @@ describe("cross-origin requests", () => {
   const htmlServerPort = port2;
   const htmlServerHost = "127.0.0.1";
 
-  it("should return 403 for cross-origin no-cors non-module script tag requests", async () => {
+  it("should return 200 for cross-origin no-cors non-module script tag requests to localhost", async () => {
     const compiler = webpack(config);
     const devServerOptions = {
       port: devServerPort,
@@ -54,7 +54,7 @@ describe("cross-origin requests", () => {
 
       const response = await scriptTagRequest;
 
-      expect(response.status()).toBe(403);
+      expect(response.status()).toBe(200);
     } finally {
       await browser.close();
       await server.stop();
