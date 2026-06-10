@@ -859,7 +859,7 @@ describe("proxy option", () => {
     });
   });
 
-  describe("HMR upgrade path matching tolerates URL variants of the configured path", () => {
+  describe("HMR upgrade path matching is exact when dispatching upgrades", () => {
     let server;
     let backend;
     let backendUpgradeCount;
@@ -906,18 +906,18 @@ describe("proxy option", () => {
       });
     });
 
-    // The HMR server's default path is /ws. These variants should all be
-    // recognized as the HMR socket and not forwarded through the user proxy.
-    const variants = [
-      ["trailing slash", "/ws/"],
-      ["uppercase", "/WS"],
-      ["mixed case", "/wS"],
-      ["percent-encoded path", "/%77%73"],
-      ["leading double slash", "//ws"],
+    // The HMR server's default path is /ws. The dispatch matches the path
+    // exactly, the same way the underlying `ws` server (`shouldHandle`) does, so
+    // only the configured path is recognized as the HMR socket. The query
+    // string is stripped before comparison (again like `ws`), so `/ws?token=1`
+    // is still recognized as the HMR path.
+    const hmrVariants = [
+      ["exact path", "/ws"],
+      ["path with query string", "/ws?token=1"],
     ];
 
-    it.each(variants)(
-      "treats %s (%s) as the HMR upgrade path",
+    it.each(hmrVariants)(
+      "treats %s (%s) as the HMR upgrade path (not forwarded to the proxy)",
       async (_label, path) => {
         const before = backendUpgradeCount;
 
@@ -941,6 +941,216 @@ describe("proxy option", () => {
         expect(backendUpgradeCount).toBe(before);
       },
     );
+
+    // Leading double-slash, case, trailing slash and percent-encoding are all
+    // significant: none equals the configured HMR path under the raw comparison
+    // `ws` uses, so they are forwarded to the user proxy (which is what `ws`
+    // would do — it refuses to serve them).
+    const proxiedVariants = [
+      ["leading double slash", "//ws"],
+      ["trailing slash", "/ws/"],
+      ["uppercase", "/WS"],
+      ["mixed case", "/wS"],
+      ["percent-encoded path", "/%77%73"],
+    ];
+
+    it.each(proxiedVariants)(
+      "forwards %s (%s) to the user proxy",
+      async (_label, path) => {
+        const before = backendUpgradeCount;
+
+        const ws = new WebSocket(`ws://localhost:${port3}${path}`);
+        ws.on("error", () => {});
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 400);
+        });
+
+        try {
+          ws.close();
+        } catch {
+          // ignore close errors on already-failed sockets
+        }
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 200);
+        });
+
+        expect(backendUpgradeCount).toBe(before + 1);
+      },
+    );
+  });
+
+  describe("HMR upgrade path matching honors a custom webSocketServer path", () => {
+    let server;
+    let backend;
+    let backendUpgradeCount;
+
+    beforeAll(async () => {
+      backendUpgradeCount = 0;
+
+      backend = http.createServer();
+      new WebSocketServer({ server: backend }).on("connection", () => {
+        backendUpgradeCount += 1;
+      });
+
+      await new Promise((resolve) => {
+        backend.listen(port5, resolve);
+      });
+
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          hot: true,
+          allowedHosts: "all",
+          webSocketServer: { type: "ws", options: { path: "/custom-hmr" } },
+          proxy: [
+            {
+              context: "/",
+              target: `http://localhost:${port5}`,
+              ws: true,
+            },
+          ],
+          port: port3,
+        },
+        compiler,
+      );
+
+      await server.start();
+    });
+
+    afterAll(async () => {
+      backend.closeAllConnections();
+      await server.stop();
+      await new Promise((resolve) => {
+        backend.close(resolve);
+      });
+    });
+
+    // The dispatch reads the HMR path from the configured `webSocketServer`
+    // options, not a hardcoded `/ws`.
+    it("treats the configured path (/custom-hmr) as the HMR upgrade path (not forwarded to the proxy)", async () => {
+      const before = backendUpgradeCount;
+
+      const ws = new WebSocket(`ws://localhost:${port3}/custom-hmr`);
+      ws.on("error", () => {});
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 400);
+      });
+
+      try {
+        ws.close();
+      } catch {
+        // ignore close errors on already-failed sockets
+      }
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+
+      expect(backendUpgradeCount).toBe(before);
+    });
+
+    // The default `/ws` is no longer special once a custom path is configured,
+    // so it is forwarded to the user proxy like any other path.
+    it("forwards the default path (/ws) to the user proxy when it is not the configured HMR path", async () => {
+      const before = backendUpgradeCount;
+
+      const ws = new WebSocket(`ws://localhost:${port3}/ws`);
+      ws.on("error", () => {});
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 400);
+      });
+
+      try {
+        ws.close();
+      } catch {
+        // ignore close errors on already-failed sockets
+      }
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+
+      expect(backendUpgradeCount).toBe(before + 1);
+    });
+  });
+
+  describe("HMR upgrade path matching is skipped when no webSocketServer is configured", () => {
+    let server;
+    let backend;
+    let backendUpgradeCount;
+
+    beforeAll(async () => {
+      backendUpgradeCount = 0;
+
+      backend = http.createServer();
+      new WebSocketServer({ server: backend }).on("connection", () => {
+        backendUpgradeCount += 1;
+      });
+
+      await new Promise((resolve) => {
+        backend.listen(port5, resolve);
+      });
+
+      const compiler = webpack(config);
+
+      server = new Server(
+        {
+          hot: false,
+          liveReload: false,
+          allowedHosts: "all",
+          webSocketServer: false,
+          proxy: [
+            {
+              context: "/",
+              target: `http://localhost:${port5}`,
+              ws: true,
+            },
+          ],
+          port: port3,
+        },
+        compiler,
+      );
+
+      await server.start();
+    });
+
+    afterAll(async () => {
+      backend.closeAllConnections();
+      await server.stop();
+      await new Promise((resolve) => {
+        backend.close(resolve);
+      });
+    });
+
+    // With no HMR server there is no socket to protect, so the filter never
+    // engages and even `/ws` is forwarded to the user proxy.
+    it("forwards /ws to the user proxy because there is no HMR socket to protect", async () => {
+      const before = backendUpgradeCount;
+
+      const ws = new WebSocket(`ws://localhost:${port3}/ws`);
+      ws.on("error", () => {});
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 400);
+      });
+
+      try {
+        ws.close();
+      } catch {
+        // ignore close errors on already-failed sockets
+      }
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+
+      expect(backendUpgradeCount).toBe(before + 1);
+    });
   });
 
   describe("should supports http methods", () => {
