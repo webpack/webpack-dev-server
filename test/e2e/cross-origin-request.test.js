@@ -1,10 +1,13 @@
-"use strict";
+import http from "node:http";
+import { afterEach, describe, it } from "node:test";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const [port1, port2] = require("../ports-map")["cross-origin-request"];
+const [port1, port2] = portsMap["cross-origin-request"];
 
 describe("cross-origin requests", () => {
   const devServerPort = port1;
@@ -22,7 +25,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("node:http");
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -76,7 +78,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("node:http");
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -127,7 +128,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("node:http");
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -178,7 +178,6 @@ describe("cross-origin requests", () => {
     await server.start();
 
     // Start a separate server for serving the HTML file
-    const http = require("node:http");
 
     const htmlServer = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -237,8 +236,6 @@ describe("cross-origin resource policy header", () => {
   });
 
   function request(url, headers = {}) {
-    const http = require("node:http");
-
     return new Promise((resolve, reject) => {
       const req = http.get(url, { headers }, (res) => {
         let body = "";

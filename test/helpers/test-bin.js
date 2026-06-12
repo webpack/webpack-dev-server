@@ -1,10 +1,11 @@
-"use strict";
+import os from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import util from "node:util";
+import execa from "execa";
+import { Writable } from "readable-stream";
 
-const os = require("node:os");
-const path = require("node:path");
-const util = require("node:util");
-const execa = require("execa");
-const { Writable } = require("readable-stream");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const webpackDevServerPath = path.resolve(
   __dirname,
@@ -27,7 +28,7 @@ const processKill = (process) => {
   // }
 };
 
-const testBin = (testArgs = [], options = {}) => {
+export const testBin = (testArgs = [], options = {}) => {
   const cwd = process.cwd();
   const env = {
     WEBPACK_CLI_HELP_WIDTH: 2048,
@@ -127,7 +128,7 @@ const ipV6 = `
   .replaceAll("\n", "")
   .trim();
 
-const normalizeStderr = (stderr, options = {}) => {
+export const normalizeStderr = (stderr, options = {}) => {
   let normalizedStderr = util.stripVTControlCharacters(stderr);
 
   normalizedStderr = normalizedStderr
@@ -159,7 +160,7 @@ const normalizeStderr = (stderr, options = {}) => {
     // We have deprecation warning on windows in some cases
     normalizedStderr = normalizedStderr.split("\n");
     normalizedStderr = normalizedStderr.filter(
-      (item) => !/Generating SSL Certificate/g.test(item),
+      (item) => !/Generating SSL certificate/gi.test(item),
     );
     normalizedStderr = normalizedStderr.filter(
       (item) =>
@@ -207,5 +208,3 @@ const normalizeStderr = (stderr, options = {}) => {
 
   return normalizedStderr;
 };
-
-module.exports = { normalizeStderr, testBin };

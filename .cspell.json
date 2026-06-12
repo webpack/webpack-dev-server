@@ -10,6 +10,7 @@
     "memfs",
     "execa",
     "networkidle",
+    "bracketless",
     "ipaddr",
     "pageerror",
     "unmock",
@@ -37,6 +38,7 @@
     "FACCA",
     "darkgrey",
     "Consolas",
+    "httpxy",
     "peerigon",
     "Ichigo",
     "Kurosaki",
@@ -72,7 +74,8 @@
     "hono",
     "privkey",
     "geomanist",
-    "nodenext"
+    "nodenext",
+    "WHATWG"
   ],
   "ignorePaths": [
     "CHANGELOG.md",

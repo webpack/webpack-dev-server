@@ -1,10 +1,14 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import sessionSubscribe from "../helpers/session-subscribe.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config-other/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["client-option"];
+const port = portsMap["client-option"];
 
 describe("client option", () => {
   describe("default behaviour", () => {
@@ -21,9 +25,9 @@ describe("client option", () => {
       server = new Server(
         {
           client: {
-            webSocketTransport: "sockjs",
+            webSocketTransport: "ws",
           },
-          webSocketServer: "sockjs",
+          webSocketServer: "ws",
           port,
         },
         compiler,
@@ -42,7 +46,7 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("responds with a 200 status code for /ws path", async () => {
+    it("responds with a 200 status code for / path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -51,20 +55,35 @@ describe("client option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(`http://localhost:${port}/ws`, {
+      const webSocketRequests = [];
+      const session = await page.createCDPSession();
+
+      await session.send("Target.setAutoAttach", {
+        autoAttach: true,
+        flatten: true,
+        waitForDebuggerOnStart: true,
+      });
+
+      await sessionSubscribe(session);
+
+      session.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
+
+      const response = await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
 
       // overlay should be true by default
       expect(server.options.client.overlay).toBe(true);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(webSocketRequests.map((request) => request.url));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -82,16 +101,18 @@ describe("client option", () => {
       server = new Server(
         {
           client: {
-            webSocketTransport: "sockjs",
+            webSocketTransport: "ws",
+            webSocketURL: {
+              pathname: "/foo/test/bar",
+            },
           },
           webSocketServer: {
-            type: "sockjs",
+            type: "ws",
             options: {
-              host: "localhost",
-              port,
               path: "/foo/test/bar",
             },
           },
+          host: "localhost",
           port,
         },
         compiler,
@@ -110,7 +131,7 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("responds with a 200 status code for /foo/test/bar path", async () => {
+    it("responds with a websocket with the /foo/test/bar path", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -119,20 +140,30 @@ describe("client option", () => {
           pageErrors.push(error);
         });
 
-      const response = await page.goto(
-        `http://localhost:${port}/foo/test/bar`,
-        {
-          waitUntil: "networkidle0",
-        },
-      );
+      const webSocketRequests = [];
+      const session = await page.createCDPSession();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      await session.send("Target.setAutoAttach", {
+        autoAttach: true,
+        flatten: true,
+        waitForDebuggerOnStart: true,
+      });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      await sessionSubscribe(session);
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      session.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      t.assert.snapshot(webSocketRequests.map((request) => request.url));
+
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -168,7 +199,7 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("should disable client entry", async () => {
+    it("should disable client entry", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -177,19 +208,34 @@ describe("client option", () => {
           pageErrors.push(error);
         });
 
+      const webSocketRequests = [];
+      const session = await page.createCDPSession();
+
+      await session.send("Target.setAutoAttach", {
+        autoAttach: true,
+        flatten: true,
+        waitForDebuggerOnStart: true,
+      });
+
+      await sessionSubscribe(session);
+
+      session.on("Network.webSocketCreated", (test) => {
+        webSocketRequests.push(test);
+      });
+
       const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(webSocketRequests);
+
+      t.assert.snapshot(response.status());
 
       expect(await response.text()).not.toMatch(/client\/index\.js/);
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -201,14 +247,16 @@ describe("client option", () => {
 
     class OverrideServer extends Server {
       getClientEntry() {
-        return require.resolve(
-          "../fixtures/custom-client/CustomClientEntry.js",
+        return fileURLToPath(
+          import.meta.resolve("../fixtures/custom-client/CustomClientEntry.js"),
         );
       }
 
       getClientHotEntry() {
-        return require.resolve(
-          "../fixtures/custom-client/CustomClientHotEntry.js",
+        return fileURLToPath(
+          import.meta.resolve(
+            "../fixtures/custom-client/CustomClientHotEntry.js",
+          ),
         );
       }
     }
@@ -233,12 +281,12 @@ describe("client option", () => {
       await server.stop();
     });
 
-    it("should disable client entry", async () => {
+    it("should disable client entry", async (t) => {
       const response = await page.goto(`http://localhost:${port}/main.js`, {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
       const content = await response.text();
       expect(content).toContain("CustomClientEntry.js");
@@ -249,14 +297,6 @@ describe("client option", () => {
   describe("webSocketTransport", () => {
     const clientModes = [
       {
-        title: 'as a string ("sockjs")',
-        client: {
-          webSocketTransport: "sockjs",
-        },
-        webSocketServer: "sockjs",
-        shouldThrow: false,
-      },
-      {
         title: 'as a string ("ws")',
         client: {
           webSocketTransport: "ws",
@@ -265,32 +305,14 @@ describe("client option", () => {
         shouldThrow: false,
       },
       {
-        title: 'as a path ("sockjs")',
-        client: {
-          webSocketTransport: require.resolve(
-            "../../client-src/clients/SockJSClient",
-          ),
-        },
-        webSocketServer: "sockjs",
-        shouldThrow: false,
-      },
-      {
         title: 'as a path ("ws")',
         client: {
-          webSocketTransport: require.resolve(
-            "../../client-src/clients/WebSocketClient",
+          webSocketTransport: fileURLToPath(
+            import.meta.resolve("../../client-src/clients/WebSocketClient.js"),
           ),
         },
         webSocketServer: "ws",
         shouldThrow: false,
-      },
-      {
-        title: "as a nonexistent path (sockjs)",
-        client: {
-          webSocketTransport: "/bad/path/to/implementation",
-        },
-        webSocketServer: "sockjs",
-        shouldThrow: true,
       },
       {
         title: "as a nonexistent path (ws)",

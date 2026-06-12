@@ -193,7 +193,7 @@
       "link": "https://webpack.js.org/configuration/dev-server/#websockettransport"
     },
     "ClientWebSocketTransportEnum": {
-      "enum": ["sockjs", "ws"]
+      "enum": ["ws"]
     },
     "ClientWebSocketTransportString": {
       "type": "string",
@@ -529,13 +529,13 @@
       "description": "Allows to set server and options (by default 'http')."
     },
     "ServerType": {
-      "enum": ["http", "https", "spdy", "http2"]
+      "enum": ["http", "https", "http2"]
     },
     "ServerFn": {
       "instanceof": "Function"
     },
     "ServerEnum": {
-      "enum": ["http", "https", "spdy", "http2"],
+      "enum": ["http", "https", "http2"],
       "cli": {
         "exclude": true
       }
@@ -907,7 +907,7 @@
       "link": "https://webpack.js.org/configuration/dev-server/#devserverwebsocketserver"
     },
     "WebSocketServerType": {
-      "enum": ["sockjs", "ws"]
+      "enum": ["ws"]
     },
     "WebSocketServerEnum": {
       "anyOf": [
@@ -918,7 +918,7 @@
           }
         },
         {
-          "enum": ["sockjs", "ws"],
+          "enum": ["ws"],
           "cli": {
             "exclude": true
           }

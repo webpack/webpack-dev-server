@@ -1,46 +1,59 @@
-/**
- * @jest-environment jsdom
- */
+import "../../helpers/jsdom-setup.js";
 
-"use strict";
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
 
 describe("'log' function", () => {
-  let logMock;
-  let setLogLevel;
+  let logger;
+  let loggerMockCtx;
 
   beforeEach(() => {
-    jest.setMock("webpack/lib/logging/runtime", {
-      getLogger: jest.fn(),
-      configureDefaultLogger: jest.fn(),
+    logger = {
+      getLogger: fn(),
+      configureDefaultLogger: fn(),
+    };
+    // Mock the intermediate module that log.js imports directly. Mocking the
+    // deeper webpack runtime through the re-export chain doesn't propagate;
+    // mocking the file log.js actually imports does.
+    loggerMockCtx = mock.module("../../../client-src/modules/logger/index.js", {
+      defaultExport: logger,
     });
-    logMock = require("webpack/lib/logging/runtime");
-
-    setLogLevel = require("../../../client-src/utils/log").setLogLevel;
   });
 
   afterEach(() => {
-    logMock.getLogger.mockClear();
-    logMock.configureDefaultLogger.mockClear();
+    loggerMockCtx.restore();
   });
 
-  it("should set info as the default level and create logger", () => {
-    const { getLogger } = logMock;
-    const { configureDefaultLogger } = logMock;
+  /**
+   * Force a fresh evaluation of log.js so the mocked logger is observed.
+   * @returns {Promise<typeof import("../../../client-src/utils/log")>} the freshly evaluated log module
+   */
+  function freshLogModule() {
+    const url = import.meta.resolve("../../../client-src/utils/log.js");
+    return import(`${url}?t=${Date.now()}-${Math.random()}`);
+  }
 
-    expect(configureDefaultLogger).toHaveBeenCalled();
-    expect(configureDefaultLogger.mock.calls[0][0]).toEqual({
+  it("should set info as the default level and create logger", async () => {
+    await freshLogModule();
+
+    expect(logger.configureDefaultLogger).toHaveBeenCalledWith({
       level: "info",
     });
-
-    expect(getLogger).toHaveBeenCalled();
-    expect(getLogger.mock.calls[0][0]).toBe("webpack-dev-server");
+    expect(logger.getLogger).toHaveBeenCalledWith("webpack-dev-server");
   });
 
-  it("should set log level via setLogLevel", () => {
+  it("should set log level via setLogLevel", async (t) => {
+    const { setLogLevel } = await freshLogModule();
+
+    // Drop the call recorded by the module-load setLogLevel(defaultLevel)
+    // so the snapshot only reflects what this test triggers.
+    logger.configureDefaultLogger.mockClear();
+
     for (const level of ["none", "error", "warn", "info", "log", "verbose"]) {
       setLogLevel(level);
     }
 
-    expect(logMock.configureDefaultLogger.mock.calls).toMatchSnapshot();
+    t.assert.snapshot(logger.configureDefaultLogger.mock.calls);
   });
 });

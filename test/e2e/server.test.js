@@ -1,17 +1,22 @@
-"use strict";
+import https from "node:https";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { spyOn } from "jest-mock";
+import request from "supertest";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/static-config/webpack.config.js";
+import { skipTestOnWindows } from "../helpers/conditional-test.js";
+import customHTTP from "../helpers/custom-http.js";
+import normalizeOptions from "../helpers/normalize-options.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const https = require("node:https");
-const path = require("node:path");
-const fs = require("graceful-fs");
-const request = require("supertest");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
-const { skipTestOnWindows } = require("../helpers/conditional-test");
-const customHTTP = require("../helpers/custom-http");
-const normalizeOptions = require("../helpers/normalize-options");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["server-option"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["server-option"];
 
 const httpsCertificateDirectory = path.resolve(
   __dirname,
@@ -22,8 +27,6 @@ const staticDirectory = path.resolve(
   __dirname,
   "../fixtures/static-config/public",
 );
-
-const [major] = process.versions.node.split(".").map(Number);
 
 describe("server option", () => {
   describe("as string", () => {
@@ -63,7 +66,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -82,15 +85,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toBe("h2");
 
-        expect(response.status()).toMatchSnapshot("response status");
+        t.assert.snapshot(response.status());
 
-        expect(await response.text()).toMatchSnapshot("response text");
+        t.assert.snapshot(await response.text());
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -123,7 +124,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -142,15 +143,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toBe("h2");
 
-        expect(response.status()).toMatchSnapshot("response status");
+        t.assert.snapshot(response.status());
 
-        expect(await response.text()).toMatchSnapshot("response text");
+        t.assert.snapshot(await response.text());
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -183,7 +182,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -202,69 +201,13 @@ describe("server option", () => {
 
         expect(HTTPVersion).not.toBe("h2");
 
-        expect(response.status()).toMatchSnapshot("response status");
+        t.assert.snapshot(response.status());
 
-        expect(await response.text()).toMatchSnapshot("response text");
+        t.assert.snapshot(await response.text());
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        expect(pageErrors).toMatchSnapshot("page errors");
-      });
-    });
-
-    (major >= 24 ? describe.skip : describe)("spdy", () => {
-      beforeEach(async () => {
-        compiler = webpack(config);
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: "spdy",
-            port,
-          },
-          compiler,
-        );
-
-        await server.start();
-
-        ({ page, browser } = await runBrowser());
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      afterEach(async () => {
-        await browser.close();
-        await server.stop();
-      });
-
-      it("should handle GET request to index route (/)", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol,
-        );
-
-        expect(HTTPVersion).toBe("h2");
-        expect(response.status()).toBe(200);
-        expect((await response.text()).trim()).toBe("Heyo.");
-        expect(consoleMessages).toHaveLength(0);
-        expect(pageErrors).toHaveLength(0);
+        t.assert.snapshot(pageErrors);
       });
     });
   });
@@ -282,7 +225,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -328,7 +271,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -341,15 +284,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -365,7 +304,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -419,7 +358,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -432,15 +371,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -456,7 +391,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -508,7 +443,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -521,15 +456,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -545,7 +476,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -606,7 +537,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -619,15 +550,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -643,7 +570,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -681,7 +608,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -694,15 +621,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -718,7 +641,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -756,7 +679,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -769,15 +692,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -797,7 +716,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -870,7 +789,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -924,7 +843,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -937,15 +856,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -961,7 +876,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -1020,7 +935,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -1033,15 +948,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -1057,7 +968,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -1104,7 +1015,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -1117,15 +1028,11 @@ describe("server option", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
 
@@ -1139,7 +1046,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(https, "createServer");
+        createServerSpy = spyOn(https, "createServer");
 
         server = new Server(
           {
@@ -1179,96 +1086,15 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should pass options to the 'https.createServer' method", async () => {
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("https options");
+      it("should pass options to the 'https.createServer' method", async (t) => {
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         const response = await req.get("/");
 
-        expect(response.status).toMatchSnapshot("response status");
-        expect(response.text).toMatchSnapshot("response text");
-      });
-    });
-
-    (major >= 24 ? describe.skip : describe)("spdy server with options", () => {
-      let compiler;
-      let server;
-      let createServerSpy;
-      let page;
-      let browser;
-      let pageErrors;
-      let consoleMessages;
-
-      beforeEach(async () => {
-        compiler = webpack(config);
-
-        createServerSpy = jest.spyOn(require("spdy"), "createServer");
-
-        server = new Server(
-          {
-            static: {
-              directory: staticDirectory,
-              watch: false,
-            },
-            server: {
-              type: "spdy",
-              options: {
-                requestCert: false,
-                ca: [path.join(httpsCertificateDirectory, "ca.pem")],
-                pfx: [path.join(httpsCertificateDirectory, "server.pfx")],
-                key: [path.join(httpsCertificateDirectory, "server.key")],
-                cert: [path.join(httpsCertificateDirectory, "server.crt")],
-                passphrase: "webpack-dev-server",
-              },
-            },
-            port,
-          },
-          compiler,
-        );
-
-        await server.start();
-
-        ({ page, browser } = await runBrowser());
-
-        pageErrors = [];
-        consoleMessages = [];
-      });
-
-      afterEach(async () => {
-        createServerSpy.mockRestore();
-
-        await browser.close();
-        await server.stop();
-      });
-
-      it("should handle GET request to index route (/)", async () => {
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
-
-        const response = await page.goto(`https://localhost:${port}/`, {
-          waitUntil: "networkidle0",
-        });
-
-        const HTTPVersion = await page.evaluate(
-          () => performance.getEntries()[0].nextHopProtocol,
-        );
-
-        const options = normalizeOptions(createServerSpy.mock.calls[0][0]);
-
-        expect(HTTPVersion).toBe("h2");
-        expect(options.spdy).toEqual({ protocols: ["h2", "http/1.1"] });
-        expect(response.status()).toBe(200);
-        expect((await response.text()).trim()).toBe("Heyo.");
-        expect(consoleMessages).toHaveLength(0);
-        expect(pageErrors).toHaveLength(0);
+        t.assert.snapshot(response.status);
+        t.assert.snapshot(response.text);
       });
     });
 
@@ -1284,7 +1110,7 @@ describe("server option", () => {
       beforeEach(async () => {
         compiler = webpack(config);
 
-        createServerSpy = jest.spyOn(customHTTP, "createServer");
+        createServerSpy = spyOn(customHTTP, "createServer");
 
         server = new Server(
           {
@@ -1318,7 +1144,7 @@ describe("server option", () => {
         await server.stop();
       });
 
-      it("should handle GET request to index route (/)", async () => {
+      it("should handle GET request to index route (/)", async (t) => {
         page
           .on("console", (message) => {
             consoleMessages.push(message);
@@ -1336,15 +1162,11 @@ describe("server option", () => {
         );
 
         expect(HTTPVersion).toBe("http/1.1");
-        expect(
-          normalizeOptions(createServerSpy.mock.calls[0][0]),
-        ).toMatchSnapshot("http options");
-        expect(response.status()).toMatchSnapshot("response status");
-        expect(await response.text()).toMatchSnapshot("response text");
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(normalizeOptions(createServerSpy.mock.calls[0][0]));
+        t.assert.snapshot(response.status());
+        t.assert.snapshot(await response.text());
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       });
     });
   });

@@ -1,12 +1,17 @@
-"use strict";
+import os from "node:os";
+import path from "node:path";
+import { after, before, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import connect from "connect";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { spyOn } from "jest-mock";
+import { Volume, createFsFromVolume } from "memfs";
+import webpack from "webpack";
+import Server from "../lib/Server.js";
+import config from "./fixtures/simple-config/webpack.config.js";
 
-const os = require("node:os");
-const path = require("node:path");
-const { readFileSync } = require("graceful-fs");
-const { Volume, createFsFromVolume } = require("memfs");
-const webpack = require("webpack");
-const Server = require("../lib/Server");
-const config = require("./fixtures/simple-config/webpack.config");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const httpsCertificateDirectory = path.join(
   __dirname,
@@ -68,10 +73,7 @@ const tests = {
         },
       },
       {
-        webSocketTransport: "sockjs",
-      },
-      {
-        webSocketTransport: require.resolve("../client/clients/SockJSClient"),
+        webSocketTransport: "ws",
       },
       {
         webSocketURL: "ws://localhost:8080",
@@ -248,16 +250,12 @@ const tests = {
     success: [
       "http",
       "https",
-      "spdy",
       "custom-server.js",
       {
         type: "http",
       },
       {
         type: "https",
-      },
-      {
-        type: "spdy",
       },
       {
         type: "custom-server.js",
@@ -276,18 +274,18 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: readFileSync(
-            path.join(httpsCertificateDirectory, "ca.pem"),
-          ).toString(),
-          pfx: readFileSync(
-            path.join(httpsCertificateDirectory, "server.pfx"),
-          ).toString(),
-          key: readFileSync(
-            path.join(httpsCertificateDirectory, "server.key"),
-          ).toString(),
-          cert: readFileSync(
-            path.join(httpsCertificateDirectory, "server.crt"),
-          ).toString(),
+          ca: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
+            .toString(),
+          pfx: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "server.pfx"))
+            .toString(),
+          key: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "server.key"))
+            .toString(),
+          cert: fs
+            .readFileSync(path.join(httpsCertificateDirectory, "server.crt"))
+            .toString(),
           passphrase: "webpack-dev-server",
         },
       },
@@ -295,24 +293,24 @@ const tests = {
         type: "https",
         options: {
           ca: [
-            readFileSync(
-              path.join(httpsCertificateDirectory, "ca.pem"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))
+              .toString(),
           ],
           pfx: [
-            readFileSync(
-              path.join(httpsCertificateDirectory, "server.pfx"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "server.pfx"))
+              .toString(),
           ],
           key: [
-            readFileSync(
-              path.join(httpsCertificateDirectory, "server.key"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "server.key"))
+              .toString(),
           ],
           cert: [
-            readFileSync(
-              path.join(httpsCertificateDirectory, "server.crt"),
-            ).toString(),
+            fs
+              .readFileSync(path.join(httpsCertificateDirectory, "server.crt"))
+              .toString(),
           ],
           passphrase: "webpack-dev-server",
         },
@@ -320,10 +318,14 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
-          pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
-          key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
-          cert: readFileSync(
+          ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+          pfx: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.pfx"),
+          ),
+          key: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.key"),
+          ),
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
@@ -332,15 +334,15 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: [readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))],
+          ca: [fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem"))],
           pfx: [
-            readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
+            fs.readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
           ],
           key: [
-            readFileSync(path.join(httpsCertificateDirectory, "server.key")),
+            fs.readFileSync(path.join(httpsCertificateDirectory, "server.key")),
           ],
           cert: [
-            readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
+            fs.readFileSync(path.join(httpsCertificateDirectory, "server.crt")),
           ],
           passphrase: "webpack-dev-server",
         },
@@ -360,10 +362,14 @@ const tests = {
         type: "https",
         options: {
           minVersion: "TLSv1.1",
-          ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
-          pfx: readFileSync(path.join(httpsCertificateDirectory, "server.pfx")),
-          key: readFileSync(path.join(httpsCertificateDirectory, "server.key")),
-          cert: readFileSync(
+          ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+          pfx: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.pfx"),
+          ),
+          key: fs.readFileSync(
+            path.join(httpsCertificateDirectory, "server.key"),
+          ),
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
@@ -372,22 +378,22 @@ const tests = {
       {
         type: "https",
         options: {
-          ca: readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
+          ca: fs.readFileSync(path.join(httpsCertificateDirectory, "ca.pem")),
           pfx: [
             {
-              buf: readFileSync(
+              buf: fs.readFileSync(
                 path.join(httpsCertificateDirectory, "server.pfx"),
               ),
             },
           ],
           key: [
             {
-              pem: readFileSync(
+              pem: fs.readFileSync(
                 path.join(httpsCertificateDirectory, "server.key"),
               ),
             },
           ],
-          cert: readFileSync(
+          cert: fs.readFileSync(
             path.join(httpsCertificateDirectory, "server.crt"),
           ),
           passphrase: "webpack-dev-server",
@@ -439,10 +445,10 @@ const tests = {
   },
   app: {
     success: [
-      () => require("connect")(),
+      () => connect(),
       async () =>
         new Promise((resolve) => {
-          resolve(require("connect")());
+          resolve(connect());
         }),
     ],
     failure: ["test", false],
@@ -502,7 +508,6 @@ const tests = {
     success: [
       false,
       "ws",
-      "sockjs",
       {
         type: "ws",
         options: {
@@ -558,11 +563,11 @@ const tests = {
 describe("options", () => {
   let consoleMock;
 
-  beforeAll(() => {
-    consoleMock = jest.spyOn(console, "warn").mockImplementation();
+  before(() => {
+    consoleMock = spyOn(console, "warn").mockImplementation();
   });
 
-  afterAll(() => {
+  after(() => {
     consoleMock.mockRestore();
   });
 
@@ -602,7 +607,7 @@ describe("options", () => {
         type === "success" ? "successfully validate" : "throw an error on"
       } the "${key}" option with '${stringifyValue(
         value,
-      )}' value`, async () => {
+      )}' value`, async (t) => {
         const compiler = webpack(config);
         let thrownError;
 
@@ -617,7 +622,7 @@ describe("options", () => {
           expect(thrownError).toBeUndefined();
         } else {
           expect(thrownError).toBeDefined();
-          expect(thrownError.toString()).toMatchSnapshot();
+          t.assert.snapshot(thrownError.toString());
         }
       });
     }

@@ -1,11 +1,13 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import request from "supertest";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const request = require("supertest");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["headers-option"];
+const port = portsMap["headers-option"];
 
 describe("headers option", () => {
   describe("as a string", () => {
@@ -40,7 +42,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    it("should handle GET request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -53,17 +55,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -108,7 +106,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    it("should handle GET request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -121,21 +119,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -171,7 +163,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers as an array", async () => {
+    it("should handle GET request with headers as an array", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -184,17 +176,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -230,7 +218,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers as a function", async () => {
+    it("should handle GET request with headers as a function", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -243,17 +231,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -298,7 +282,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers", async () => {
+    it("should handle GET request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -311,21 +295,15 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      expect(response.headers()["x-bar"]).toMatchSnapshot(
-        "response headers x-bar",
-      );
+      t.assert.snapshot(response.headers()["x-bar"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -364,7 +342,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle GET request with headers as a function", async () => {
+    it("should handle GET request with headers as a function", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -377,17 +355,13 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
+      t.assert.snapshot(response.headers()["x-foo"]);
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -426,7 +400,7 @@ describe("headers option", () => {
       await server.stop();
     });
 
-    it("should handle HEAD request with headers", async () => {
+    it("should handle HEAD request with headers", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -439,14 +413,10 @@ describe("headers option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.headers()["x-foo"]).toMatchSnapshot(
-        "response headers x-foo",
-      );
-      expect(response.status()).toMatchSnapshot("response status");
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(response.headers()["x-foo"]);
+      t.assert.snapshot(response.status());
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
 
       const responseForHead = await req.get("/");
 

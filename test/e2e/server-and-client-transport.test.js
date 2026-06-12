@@ -1,17 +1,18 @@
-"use strict";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import WebsocketServer from "../../lib/servers/WebsocketServer.js";
+import defaultConfig from "../fixtures/provide-plugin-default/webpack.config.js";
+import wsConfig from "../fixtures/provide-plugin-ws-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const WebsocketServer = require("../../lib/servers/WebsocketServer");
-const customConfig = require("../fixtures/provide-plugin-custom/webpack.config");
-const defaultConfig = require("../fixtures/provide-plugin-default/webpack.config");
-const sockjsConfig = require("../fixtures/provide-plugin-sockjs-config/webpack.config");
-const wsConfig = require("../fixtures/provide-plugin-ws-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["server-and-client-transport"];
+const port = portsMap["server-and-client-transport"];
 
 describe("server and client transport", () => {
-  it('should use default web socket server ("ws")', async () => {
+  it('should use default web socket server ("ws")', async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -38,16 +39,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it('should use "ws" web socket server when specify "ws" value', async () => {
+  it('should use "ws" web socket server when specify "ws" value', async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -75,16 +74,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it('should use "ws" web socket server when specify "ws" value using object', async () => {
+  it('should use "ws" web socket server when specify "ws" value using object', async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -114,92 +111,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it('should use "sockjs" web socket server when specify "sockjs" value', async () => {
-    const compiler = webpack(sockjsConfig);
-    const devServerOptions = {
-      port,
-      webSocketServer: "sockjs",
-    };
-    const server = new Server(devServerOptions, compiler);
-
-    await server.start();
-
-    const { page, browser } = await runBrowser();
-
-    try {
-      const consoleMessages = [];
-
-      page.on("console", (message) => {
-        consoleMessages.push(message);
-      });
-
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const isCorrectTransport = await page.evaluate(
-        () => globalThis.injectedClient === globalThis.expectedClient,
-      );
-
-      expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
-    } finally {
-      await browser.close();
-      await server.stop();
-    }
-  });
-
-  it('should use "sockjs" web socket server when specify "sockjs" value using object', async () => {
-    const compiler = webpack(sockjsConfig);
-    const devServerOptions = {
-      port,
-      webSocketServer: {
-        type: "sockjs",
-      },
-    };
-    const server = new Server(devServerOptions, compiler);
-
-    await server.start();
-
-    const { page, browser } = await runBrowser();
-
-    try {
-      const consoleMessages = [];
-
-      page.on("console", (message) => {
-        consoleMessages.push(message);
-      });
-
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const isCorrectTransport = await page.evaluate(
-        () => globalThis.injectedClient === globalThis.expectedClient,
-      );
-
-      expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
-    } finally {
-      await browser.close();
-      await server.stop();
-    }
-  });
-
-  it("should use custom web socket server when specify class", async () => {
+  it("should use custom web socket server when specify class", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -230,16 +149,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should use custom web socket server when specify class using object", async () => {
+  it("should use custom web socket server when specify class using object", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -272,23 +189,23 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should use custom web socket server when specify path to class", async () => {
+  it("should use custom web socket server when specify path to class", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
       client: {
         webSocketTransport: "ws",
       },
-      webSocketServer: require.resolve("../../lib/servers/WebsocketServer"),
+      webSocketServer: fileURLToPath(
+        import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+      ),
     };
     const server = new Server(devServerOptions, compiler);
 
@@ -312,16 +229,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should use custom web socket server when specify path to class using object", async () => {
+  it("should use custom web socket server when specify path to class using object", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -329,7 +244,9 @@ describe("server and client transport", () => {
         webSocketTransport: "ws",
       },
       webSocketServer: {
-        type: require.resolve("../../lib/servers/WebsocketServer"),
+        type: fileURLToPath(
+          import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+        ),
       },
     };
     const server = new Server(devServerOptions, compiler);
@@ -354,16 +271,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should throw an error on wrong path", async () => {
+  it("should throw an error on wrong path", async (t) => {
     expect.assertions(1);
 
     const compiler = webpack(defaultConfig);
@@ -378,52 +293,13 @@ describe("server and client transport", () => {
     try {
       await server.start();
     } catch (error) {
-      expect(error.message).toMatchSnapshot();
+      t.assert.snapshot(error.message);
     } finally {
       await server.stop();
     }
   });
 
-  it('should use "sockjs" transport, when web socket server is not specify', async () => {
-    const compiler = webpack(sockjsConfig);
-    const devServerOptions = {
-      port,
-      client: {
-        webSocketTransport: "sockjs",
-      },
-    };
-    const server = new Server(devServerOptions, compiler);
-
-    await server.start();
-
-    const { page, browser } = await runBrowser();
-
-    try {
-      const consoleMessages = [];
-
-      page.on("console", (message) => {
-        consoleMessages.push(message);
-      });
-
-      await page.goto(`http://localhost:${port}/main.js`, {
-        waitUntil: "networkidle0",
-      });
-
-      const isCorrectTransport = await page.evaluate(
-        () => globalThis.injectedClient === globalThis.expectedClient,
-      );
-
-      expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
-    } finally {
-      await browser.close();
-      await server.stop();
-    }
-  });
-
-  it('should use "ws" transport, when web socket server is not specify', async () => {
+  it('should use "ws" transport, when web socket server is not specify', async (t) => {
     const compiler = webpack(wsConfig);
     const devServerOptions = {
       port,
@@ -453,56 +329,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it('should use "sockjs" transport and "sockjs" web socket server', async () => {
-    const compiler = webpack(sockjsConfig);
-    const devServerOptions = {
-      port,
-      client: {
-        webSocketTransport: "sockjs",
-      },
-      webSocketServer: "sockjs",
-    };
-    const server = new Server(devServerOptions, compiler);
-
-    await server.start();
-
-    const { page, browser } = await runBrowser();
-
-    try {
-      const consoleMessages = [];
-
-      page.on("console", (message) => {
-        consoleMessages.push(message);
-      });
-
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const isCorrectTransport = await page.evaluate(
-        () => globalThis.injectedClient === globalThis.expectedClient,
-      );
-
-      expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
-    } finally {
-      await browser.close();
-      await server.stop();
-    }
-  });
-
-  it('should use "ws" transport and "ws" web socket server', async () => {
+  it('should use "ws" transport and "ws" web socket server', async (t) => {
     const compiler = webpack(wsConfig);
     const devServerOptions = {
       port,
@@ -533,58 +367,14 @@ describe("server and client transport", () => {
       );
 
       expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it('should use custom transport and "sockjs" web socket server', async () => {
-    const compiler = webpack(customConfig);
-    const devServerOptions = {
-      port,
-      client: {
-        webSocketTransport: require.resolve(
-          "../fixtures/custom-client/CustomSockJSClient",
-        ),
-      },
-      webSocketServer: "sockjs",
-    };
-    const server = new Server(devServerOptions, compiler);
-
-    await server.start();
-
-    const { page, browser } = await runBrowser();
-
-    try {
-      const consoleMessages = [];
-
-      page.on("console", (message) => {
-        consoleMessages.push(message);
-      });
-
-      await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
-
-      const isCorrectTransport = await page.evaluate(
-        () => globalThis.injectedClient === globalThis.expectedClient,
-      );
-
-      expect(isCorrectTransport).toBe(true);
-      expect(
-        consoleMessages.map((message) => message.text()),
-      ).toMatchSnapshot();
-    } finally {
-      await browser.close();
-      await server.stop();
-    }
-  });
-
-  it("should throw an error on invalid path to server transport", async () => {
+  it("should throw an error on invalid path to server transport", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -593,14 +383,17 @@ describe("server and client transport", () => {
       },
     };
     const server = new Server(devServerOptions, compiler);
-    await expect(async () => {
+    try {
       await server.start();
-    }).rejects.toThrowErrorMatchingSnapshot();
-
-    await server.stop();
+      throw new Error("server.start() should have thrown");
+    } catch (error) {
+      t.assert.snapshot(error.message);
+    } finally {
+      await server.stop();
+    }
   });
 
-  it("should throw an error on invalid path to client transport", async () => {
+  it("should throw an error on invalid path to client transport", async (t) => {
     const compiler = webpack(defaultConfig);
     const devServerOptions = {
       port,
@@ -609,10 +402,13 @@ describe("server and client transport", () => {
       },
     };
     const server = new Server(devServerOptions, compiler);
-    await expect(async () => {
+    try {
       await server.start();
-    }).rejects.toThrowErrorMatchingSnapshot();
-
-    await server.stop();
+      throw new Error("server.start() should have thrown");
+    } catch (error) {
+      t.assert.snapshot(error.message);
+    } finally {
+      await server.stop();
+    }
   });
 });

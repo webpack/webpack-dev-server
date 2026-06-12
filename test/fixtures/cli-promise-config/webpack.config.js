@@ -1,8 +1,9 @@
-"use strict";
+import path, { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const { join } = require("path");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = () =>
+export default () =>
   new Promise((resolve) => {
     resolve({
       mode: "development",

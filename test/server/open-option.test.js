@@ -1,48 +1,36 @@
-"use strict";
+import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn, spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const port = require("../ports-map")["open-option"];
+const port = portsMap["open-option"];
 
-const internalIPv4 = Server.internalIPSync("v4");
-
-let open;
-
-const needRequireMock =
-  process.version.startsWith("v18") || process.version.startsWith("v19");
-
-if (needRequireMock) {
-  open = require("open");
-
-  jest.mock("open");
-
-  open.mockImplementation(() => ({
-    catch: jest.fn(),
-  }));
-}
+const internalIPv4 = Server.findIp("v4", false);
 
 describe('"open" option', () => {
   let compiler;
+  let open;
+  let openMock;
 
   beforeEach(async () => {
     compiler = webpack(config);
 
-    if (!needRequireMock) {
-      jest.unstable_mockModule("open", () => ({
-        default: jest.fn(() => Promise.resolve()),
-      }));
+    openMock = mock.module("open", {
+      defaultExport: fn(() => Promise.resolve()),
+    });
 
-      open = (await import("open")).default;
-    }
+    open = (await import("open")).default;
   });
 
   afterEach(async () => {
     open.mockClear();
+    openMock.restore();
   });
 
-  // eslint-disable-next-line jest/no-focused-tests
-  it.only("should work with unspecified host", async () => {
+  it("should work with unspecified host", async () => {
     const server = new Server(
       {
         open: true,
@@ -65,24 +53,6 @@ describe('"open" option', () => {
         open: true,
         port,
         server: "https",
-      },
-      compiler,
-    );
-
-    await server.start();
-    await server.stop();
-
-    expect(open).toHaveBeenCalledWith(`https://localhost:${port}/`, {
-      wait: false,
-    });
-  });
-
-  it("should work with the server: 'spdy' option", async () => {
-    const server = new Server(
-      {
-        open: true,
-        port,
-        server: "spdy",
       },
       compiler,
     );
@@ -735,14 +705,15 @@ describe('"open" option', () => {
   it("should log warning when can't open", async () => {
     open.mockRejectedValue(undefined);
 
-    const loggerWarnSpy = jest.fn();
-    const getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    const loggerWarnSpy = fn();
+    const getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
 
     const server = new Server(
       {
@@ -769,14 +740,15 @@ describe('"open" option', () => {
   it("should log warning when can't open with string", async () => {
     open.mockRejectedValue(undefined);
 
-    const loggerWarnSpy = jest.fn();
-    const getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    const loggerWarnSpy = fn();
+    const getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
 
     const server = new Server(
       {
@@ -803,14 +775,15 @@ describe('"open" option', () => {
   it("should log warning when can't open with object", async () => {
     open.mockRejectedValue(undefined);
 
-    const loggerWarnSpy = jest.fn();
-    const getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    const loggerWarnSpy = fn();
+    const getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
 
     const server = new Server(
       {
@@ -841,14 +814,15 @@ describe('"open" option', () => {
   it("should log warning when can't open with object with the 'app' option with arguments", async () => {
     open.mockRejectedValue(undefined);
 
-    const loggerWarnSpy = jest.fn();
-    const getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    const loggerWarnSpy = fn();
+    const getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
 
     const server = new Server(
       {
@@ -885,14 +859,15 @@ describe('"open" option', () => {
   it("should log warning when can't open with object with the 'app' option with arguments #2", async () => {
     open.mockRejectedValue(undefined);
 
-    const loggerWarnSpy = jest.fn();
-    const getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    const loggerWarnSpy = fn();
+    const getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
 
     const server = new Server(
       {

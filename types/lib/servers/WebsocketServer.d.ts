@@ -1,16 +1,13 @@
-export = WebsocketServer;
-declare class WebsocketServer extends BaseServer {
+/** @typedef {import("../Server.js").WebSocketServerConfiguration} WebSocketServerConfiguration */
+/** @typedef {import("../Server.js").ClientConnection} ClientConnection */
+export default class WebsocketServer extends BaseServer {
   static heartbeatInterval: number;
-  implementation: WebSocket.Server<
-    typeof WebSocket,
+  implementation: import("ws").Server<
+    typeof import("ws").default,
     typeof import("http").IncomingMessage
   >;
 }
-declare namespace WebsocketServer {
-  export { WebSocketServerConfiguration, ClientConnection };
-}
-import BaseServer = require("./BaseServer");
-import WebSocket = require("ws");
-type WebSocketServerConfiguration =
-  import("../Server").WebSocketServerConfiguration;
-type ClientConnection = import("../Server").ClientConnection;
+export type WebSocketServerConfiguration =
+  import("../Server.js").WebSocketServerConfiguration;
+export type ClientConnection = import("../Server.js").ClientConnection;
+import BaseServer from "./BaseServer.js";

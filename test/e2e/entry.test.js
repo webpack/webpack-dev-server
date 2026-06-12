@@ -1,11 +1,15 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 
-const path = require("node:path");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").entry;
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.entry;
 
 const HOT_ENABLED_MESSAGE =
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.";
@@ -32,7 +36,7 @@ describe("entry", () => {
     "../fixtures/client-config/bar.js",
   );
 
-  it("should work with single entry", async () => {
+  it("should work with single entry", async (t) => {
     const compiler = webpack({ ...config, entry: entryFirst });
     const devServerOptions = {
       port,
@@ -59,17 +63,15 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with single array entry", async () => {
+  it("should work with single array entry", async (t) => {
     const compiler = webpack({ ...config, entry: [entryFirst, entrySecond] });
     const devServerOptions = {
       port,
@@ -96,17 +98,15 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with object entry", async () => {
+  it("should work with object entry", async (t) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -138,17 +138,15 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with dynamic entry", async () => {
+  it("should work with dynamic entry", async (t) => {
     const compiler = webpack({ ...config, entry: () => entryFirst });
     const devServerOptions = {
       port,
@@ -175,17 +173,15 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with dynamic async entry", async () => {
+  it("should work with dynamic async entry", async (t) => {
     const compiler = webpack({
       ...config,
       entry: () =>
@@ -218,17 +214,15 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with multiple entries", async () => {
+  it("should work with multiple entries", async (t) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -269,15 +263,15 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://localhost:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with multiple entries #2", async () => {
+  it("should work with multiple entries #2", async (t) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -318,15 +312,15 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://localhost:${port}/bar.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it('should work with multiple entries and "dependOn"', async () => {
+  it('should work with multiple entries and "dependOn"', async (t) => {
     const compiler = webpack({
       ...config,
       entry: {
@@ -365,15 +359,15 @@ describe("entry", () => {
       await page.addScriptTag({ url: `http://localhost:${port}/foo.js` });
       await waitForConsoleLogFinished(consoleMessages);
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with empty", async () => {
+  it("should work with empty", async (t) => {
     const compiler = webpack({
       ...config,
       entry: {},
@@ -408,10 +402,8 @@ describe("entry", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

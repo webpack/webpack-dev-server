@@ -1,22 +1,17 @@
-/**
- * @jest-environment jsdom
- */
+import "../../helpers/jsdom-setup.js";
 
-"use strict";
-
-const sendMessage = require("../../../client-src/utils/sendMessage").default;
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import sendMessage from "../../../client-src/utils/sendMessage.js";
 
 describe("'sendMessage' function", () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  it("should run self.postMessage", () => {
-    jest.spyOn(globalThis, "postMessage").mockImplementation();
+  it("should run self.postMessage", (t) => {
+    spyOn(globalThis, "postMessage").mockImplementation();
 
     sendMessage("foo", "bar");
 
     expect(self.postMessage).toHaveBeenCalled();
-    expect(self.postMessage.mock.calls[0]).toMatchSnapshot();
+    t.assert.snapshot(self.postMessage.mock.calls[0]);
   });
 });

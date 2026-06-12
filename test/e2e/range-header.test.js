@@ -1,16 +1,18 @@
-"use strict";
+import { after, before, describe, it } from "node:test";
+import { expect } from "expect";
+import request from "supertest";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/static-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const request = require("supertest");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
-const port = require("../ports-map")["range-header"];
+const port = portsMap["range-header"];
 
 describe("'Range' header", () => {
   let compiler;
   let server;
 
-  beforeAll(async () => {
+  before(async () => {
     compiler = webpack(config);
 
     server = new Server({ port }, compiler);
@@ -18,7 +20,7 @@ describe("'Range' header", () => {
     await server.start();
   });
 
-  afterAll(async () => {
+  after(async () => {
     await server.stop();
   });
 

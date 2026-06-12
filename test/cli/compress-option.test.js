@@ -1,7 +1,9 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const { testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-compress"];
+const port = portsMap["cli-compress"];
 
 describe('"compress" CLI option', () => {
   it('should work using "--compress"', async () => {

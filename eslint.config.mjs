@@ -21,5 +21,19 @@ export default defineConfig([
   {
     files: ["test/**/*"],
     extends: [configs["universal-recommended"]],
+    rules: {
+      // Test callbacks (it/test/subtest arrow functions) don't need JSDoc.
+      "jsdoc/require-jsdoc": "off",
+      // Tests legitimately log diagnostics (retry attempts, etc.).
+      "no-console": "off",
+      // node:test callbacks receive `t` (TestContext) as a parameter.
+      "id-length": "off",
+    },
+  },
+  {
+    files: ["scripts/node-test-setup.mjs", "scripts/run-tests.mjs"],
+    rules: {
+      "n/no-unsupported-features/node-builtins": "off",
+    },
   },
 ]);

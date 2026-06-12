@@ -1,16 +1,24 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
 
-const path = require("node:path");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const workerConfig = require("../fixtures/worker-config/webpack.config");
-const workerConfigDevServerFalse = require("../fixtures/worker-config-dev-server-false/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").target;
+// Set up jsdom before loading fixtures that use browser APIs like Worker
+import "../helpers/jsdom-setup.js";
+
+import workerConfig from "../fixtures/worker-config/webpack.config.js";
+import workerConfigDevServerFalse from "../fixtures/worker-config-dev-server-false/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.target;
 
 const sortByTerm = (data, term) =>
-  data.sort((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
+  data.toSorted((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
 
 describe("target", () => {
   const targets = [
@@ -30,7 +38,7 @@ describe("target", () => {
   ];
 
   for (const target of targets) {
-    it(`should work using "${target}" target`, async () => {
+    it(`should work using "${target}" target`, async (t) => {
       const compiler = webpack({
         ...config,
         target,
@@ -62,9 +70,7 @@ describe("target", () => {
           waitUntil: "networkidle0",
         });
 
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
         if (
           target === "node" ||
@@ -82,7 +88,7 @@ describe("target", () => {
 
           expect(hasRequireOrGlobalError).toBe(true);
         } else {
-          expect(pageErrors).toMatchSnapshot("page errors");
+          t.assert.snapshot(pageErrors);
         }
       } finally {
         await browser.close();
@@ -91,7 +97,7 @@ describe("target", () => {
     });
   }
 
-  it("should work using multi compiler mode with `web` and `webworker` targets", async () => {
+  it("should work using multi compiler mode with `web` and `webworker` targets", async (t) => {
     const compiler = webpack(workerConfig);
     const server = new Server({ port }, compiler);
 
@@ -115,21 +121,21 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
+      t.assert.snapshot(
         sortByTerm(
           consoleMessages.map((message) => message.text()),
           "Worker said:",
         ),
-      ).toMatchSnapshot("console messages");
+      );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work using multi compiler mode with `web` and `webworker` targets with `devServer: false`", async () => {
+  it("should work using multi compiler mode with `web` and `webworker` targets with `devServer: false`", async (t) => {
     const compiler = webpack(workerConfigDevServerFalse);
     const server = new Server(
       {
@@ -164,14 +170,14 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(
+      t.assert.snapshot(
         sortByTerm(
           consoleMessages.map((message) => message.text()),
           "Worker said:",
         ),
-      ).toMatchSnapshot("console messages");
+      );
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

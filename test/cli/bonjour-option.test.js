@@ -1,9 +1,11 @@
-"use strict";
+import fs from "node:fs";
+import { beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import Server from "../../lib/Server.js";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const fs = require("node:fs");
-const Server = require("../../lib/Server");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-bonjour"];
+const port = portsMap["cli-bonjour"];
 
 const defaultCertificateDir = Server.findCacheDir();
 
@@ -12,16 +14,16 @@ describe('"bonjour" CLI option', () => {
     fs.rmSync(defaultCertificateDir, { recursive: true, force: true });
   });
 
-  it('should work using "--bonjour"', async () => {
+  it('should work using "--bonjour"', async (t) => {
     const { exitCode, stderr } = await testBin(["--port", port, "--bonjour"], {
       outputKillStr: /Broadcasting/,
     });
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
-  it('should work using "--bonjour and --server-type=https"', async () => {
+  it('should work using "--bonjour and --server-type=https"', async (t) => {
     const { exitCode, stderr } = await testBin(
       ["--port", port, "--bonjour", "--server-type=https"],
       {
@@ -30,12 +32,10 @@ describe('"bonjour" CLI option', () => {
     );
 
     expect(exitCode).toBe(0);
-    expect(
-      normalizeStderr(stderr, { ipv6: true, https: true }),
-    ).toMatchSnapshot();
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true, https: true }));
   });
 
-  it('should work using "--no-bonjour"', async () => {
+  it('should work using "--no-bonjour"', async (t) => {
     const { exitCode, stderr } = await testBin([
       "--port",
       port,
@@ -43,6 +43,6 @@ describe('"bonjour" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot();
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 });

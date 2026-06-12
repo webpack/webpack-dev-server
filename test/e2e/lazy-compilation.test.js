@@ -1,16 +1,17 @@
-"use strict";
+import { describe, it } from "node:test";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const lazyCompilationMultipleEntriesConfig = require("../fixtures/lazy-compilation-multiple-entries/webpack.config");
-const lazyCompilationSingleEntryConfig = require("../fixtures/lazy-compilation-single-entry/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["lazy-compilation"];
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import lazyCompilationMultipleEntriesConfig from "../fixtures/lazy-compilation-multiple-entries/webpack.config.js";
+import lazyCompilationSingleEntryConfig from "../fixtures/lazy-compilation-single-entry/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-/* eslint-disable jest/no-disabled-tests */
+const port = portsMap["lazy-compilation"];
+
 describe("lazy compilation", () => {
-  // TODO jest freeze due webpack do not close `eventsource`, we should uncomment this after fix it on webpack side
-  it.skip("should work with single entry", async () => {
+  // TODO freezes because webpack doesn't close `eventsource`, uncomment once fixed upstream
+  it.skip("should work with single entry", async (t) => {
     const compiler = webpack(lazyCompilationSingleEntryConfig);
     const server = new Server({ port }, compiler);
 
@@ -43,15 +44,15 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it.skip("should work with multiple entries", async () => {
+  it.skip("should work with multiple entries", async (t) => {
     const compiler = webpack(lazyCompilationMultipleEntriesConfig);
     const server = new Server({ port }, compiler);
 
@@ -99,8 +100,8 @@ describe("lazy compilation", () => {
         }, 100);
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

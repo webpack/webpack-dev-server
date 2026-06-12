@@ -1,24 +1,27 @@
-"use strict";
+import http from "node:http";
+import net from "node:net";
+import os from "node:os";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+// eslint-disable-next-line import/no-unresolved
+import * as httpProxy from "httpxy";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import sessionSubscribe from "../helpers/session-subscribe.js";
+import portsMap from "../ports-map.js";
 
-const http = require("node:http");
-const net = require("node:net");
-const os = require("node:os");
-const path = require("node:path");
-const httpProxy = require("http-proxy");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const sessionSubscribe = require("../helpers/session-subscribe");
-const port1 = require("../ports-map").ipc;
+const port1 = portsMap.ipc;
 
-const webSocketServers = ["ws", "sockjs"];
+const webSocketServers = ["ws"];
 
 describe("web socket server URL", () => {
   for (const webSocketServer of webSocketServers) {
-    const websocketURLProtocol = webSocketServer === "ws" ? "ws" : "http";
+    const websocketURLProtocol = webSocketServer;
 
-    it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "ipc" option using "true" value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "localhost";
       const proxyHost = devServerHost;
       const proxyPort = port1;
@@ -72,27 +75,19 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+        const session = await page.createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+        await session.send("Target.setAutoAttach", {
+          autoAttach: true,
+          flatten: true,
+          waitForDebuggerOnStart: true,
+        });
 
-          await session.send("Target.setAutoAttach", {
-            autoAttach: true,
-            flatten: true,
-            waitForDebuggerOnStart: true,
-          });
+        await sessionSubscribe(session);
 
-          sessionSubscribe(session);
-        } else {
-          page.on("request", (request) => {
-            if (/\/ws\//.test(request.url())) {
-              webSocketRequests.push({ url: request.url() });
-            }
-          });
-        }
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -103,10 +98,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -115,7 +108,7 @@ describe("web socket server URL", () => {
       }
     });
 
-    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async () => {
+    it(`should work with the "ipc" option using "string" value ("${webSocketServer}")`, async (t) => {
       const isWindows = process.platform === "win32";
       const pipePrefix = isWindows ? "\\\\.\\pipe\\" : os.tmpdir();
       const pipeName = `webpack-dev-server.${process.pid}-1.sock`;
@@ -174,27 +167,19 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+        const session = await page.createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+        await session.send("Target.setAutoAttach", {
+          autoAttach: true,
+          flatten: true,
+          waitForDebuggerOnStart: true,
+        });
 
-          await session.send("Target.setAutoAttach", {
-            autoAttach: true,
-            flatten: true,
-            waitForDebuggerOnStart: true,
-          });
+        await sessionSubscribe(session);
 
-          sessionSubscribe(session);
-        } else {
-          page.on("request", (request) => {
-            if (/\/ws\//.test(request.url())) {
-              webSocketRequests.push({ url: request.url() });
-            }
-          });
-        }
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -205,10 +190,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 
@@ -218,8 +201,8 @@ describe("web socket server URL", () => {
     });
 
     // TODO un skip after implement new API
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async () => {
+
+    it.skip(`should work with the "ipc" option using "string" value and remove old ("${webSocketServer}")`, async (t) => {
       const isWindows = process.platform === "win32";
       const localRelative = path.relative(process.cwd(), `${os.tmpdir()}/`);
       const pipePrefix = isWindows ? "\\\\.\\pipe\\" : localRelative;
@@ -294,27 +277,19 @@ describe("web socket server URL", () => {
 
         const webSocketRequests = [];
 
-        if (webSocketServer === "ws") {
-          const session = await page.target().createCDPSession();
+        const session = await page.createCDPSession();
 
-          session.on("Network.webSocketCreated", (test) => {
-            webSocketRequests.push(test);
-          });
+        await session.send("Target.setAutoAttach", {
+          autoAttach: true,
+          flatten: true,
+          waitForDebuggerOnStart: true,
+        });
 
-          await session.send("Target.setAutoAttach", {
-            autoAttach: true,
-            flatten: true,
-            waitForDebuggerOnStart: true,
-          });
+        await sessionSubscribe(session);
 
-          sessionSubscribe(session);
-        } else {
-          page.on("request", (request) => {
-            if (/\/ws\//.test(request.url())) {
-              webSocketRequests.push({ url: request.url() });
-            }
-          });
-        }
+        session.on("Network.webSocketCreated", (test) => {
+          webSocketRequests.push(test);
+        });
 
         await page.goto(`http://${proxyHost}:${proxyPort}/`, {
           waitUntil: "networkidle0",
@@ -325,10 +300,8 @@ describe("web socket server URL", () => {
         expect(webSocketRequest.url).toContain(
           `${websocketURLProtocol}://${devServerHost}:${proxyPort}/ws`,
         );
-        expect(
-          consoleMessages.map((message) => message.text()),
-        ).toMatchSnapshot("console messages");
-        expect(pageErrors).toMatchSnapshot("page errors");
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+        t.assert.snapshot(pageErrors);
       } finally {
         proxy.close();
 

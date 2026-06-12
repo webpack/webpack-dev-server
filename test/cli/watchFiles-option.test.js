@@ -1,11 +1,15 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-watch-files"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["cli-watch-files"];
 
 describe('"watchFiles" CLI option', () => {
-  it('should work using "--watch-files <value>"', async () => {
+  it('should work using "--watch-files <value>"', async (t) => {
     const watchDirectory = path.resolve(__dirname, "../fixtures/static/static");
 
     const { exitCode, stderr } = await testBin([
@@ -16,10 +20,10 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
-  it('should work using "--watch-files <value> --watch-files <other-value>"', async () => {
+  it('should work using "--watch-files <value> --watch-files <other-value>"', async (t) => {
     const watchDirectory = path.resolve(__dirname, "../fixtures/static/static");
     const watchOtherDirectory = path.resolve(
       __dirname,
@@ -36,10 +40,10 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 
-  it('should work using "--watch-files-reset --watch-files <static>"', async () => {
+  it('should work using "--watch-files-reset --watch-files <static>"', async (t) => {
     const watchDirectory = path.resolve(__dirname, "../fixtures/static/static");
 
     const { exitCode, stderr } = await testBin([
@@ -51,6 +55,6 @@ describe('"watchFiles" CLI option', () => {
     ]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr, { ipv6: true })).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
   });
 });

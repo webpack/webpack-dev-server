@@ -1,18 +1,18 @@
-"use strict";
-
-const os = require("node:os");
-const path = require("node:path");
-const { normalizeStderr, testBin } = require("../helpers/test-bin");
+import os from "node:os";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { normalizeStderr, testBin } from "../helpers/test-bin.js";
 
 describe('"ipc" CLI option', () => {
-  it('should work using "--ipc"', async () => {
+  it('should work using "--ipc"', async (t) => {
     const { exitCode, stderr } = await testBin(["--ipc"]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 
-  it('should work using "--ipc=<string>"', async () => {
+  it('should work using "--ipc=<string>"', async (t) => {
     const isWindows = process.platform === "win32";
     const pipePrefix = isWindows ? "\\\\.\\pipe\\" : os.tmpdir();
     const pipeName = "webpack-dev-server.cli.sock";
@@ -21,6 +21,6 @@ describe('"ipc" CLI option', () => {
     const { exitCode, stderr } = await testBin(["--ipc", ipc]);
 
     expect(exitCode).toBe(0);
-    expect(normalizeStderr(stderr)).toMatchSnapshot("stderr");
+    t.assert.snapshot(normalizeStderr(stderr));
   });
 });

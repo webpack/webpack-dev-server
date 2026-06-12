@@ -1,12 +1,16 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import reloadConfig from "../fixtures/reload-config-2/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const reloadConfig = require("../fixtures/reload-config-2/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").progress;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.progress;
 
 const cssFilePath = path.resolve(
   __dirname,

@@ -1,19 +1,20 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 
-const path = require("node:path");
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").logging;
+import fs from "graceful-fs";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap.logging;
 
 describe("logging", () => {
-  const webSocketServers = [
-    { webSocketServer: "ws" },
-    { webSocketServer: "sockjs" },
-  ];
+  const webSocketServers = [{ webSocketServer: "ws" }];
 
   const cases = [
     {
@@ -192,7 +193,7 @@ describe("logging", () => {
     for (const testCase of cases) {
       it(`${testCase.title} (${
         webSocketServer.webSocketServer || "default"
-      })`, async () => {
+      })`, async (t) => {
         const compiler = webpack({ ...config, ...testCase.webpackOptions });
         const devServerOptions = {
           port,
@@ -226,7 +227,7 @@ describe("logging", () => {
             });
           }
 
-          expect(
+          t.assert.snapshot(
             consoleMessages.map((message) =>
               message
                 .text()
@@ -236,7 +237,7 @@ describe("logging", () => {
                   "<cwd>",
                 ),
             ),
-          ).toMatchSnapshot();
+          );
         } finally {
           await browser.close();
           await server.stop();

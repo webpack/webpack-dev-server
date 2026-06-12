@@ -1,7 +1,9 @@
-"use strict";
+import { describe, it } from "node:test";
+import { expect } from "expect";
+import { testBin } from "../helpers/test-bin.js";
+import portsMap from "../ports-map.js";
 
-const { testBin } = require("../helpers/test-bin");
-const port = require("../ports-map")["cli-web-socket-server"];
+const port = portsMap["cli-web-socket-server"];
 
 describe('"webSocketServer" CLI option', () => {
   it('should work using "--web-socket-server-type ws"', async () => {
@@ -10,17 +12,6 @@ describe('"webSocketServer" CLI option', () => {
       port,
       "--web-socket-server-type",
       "ws",
-    ]);
-
-    expect(exitCode).toBe(0);
-  });
-
-  it('should work using "--web-socket-server-type sockjs"', async () => {
-    const { exitCode } = await testBin([
-      "--port",
-      port,
-      "--web-socket-server-type",
-      "sockjs",
     ]);
 
     expect(exitCode).toBe(0);

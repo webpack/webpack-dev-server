@@ -1,23 +1,22 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import webpack from "webpack";
+import { merge } from "webpack-merge";
 
-const path = require("node:path");
-const webpack = require("webpack");
-const { merge } = require("webpack-merge");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const library = {
   library: {
-    // type: "module",
-    type: "commonjs",
+    type: "module",
   },
 };
 
 const baseForModules = {
   devtool: false,
   mode: "development",
-  // TODO enable this in future after fix bug with `eval` in webpack
-  // experiments: {
-  //   outputModule: true,
-  // },
+  experiments: {
+    outputModule: true,
+  },
   output: {
     path: path.resolve(__dirname, "../client/modules"),
     ...library,
@@ -37,7 +36,7 @@ const baseForModules = {
   },
 };
 
-module.exports = [
+export default [
   merge(baseForModules, {
     entry: path.join(__dirname, "modules/logger/index.js"),
     output: {
@@ -68,14 +67,5 @@ module.exports = [
         path.join(__dirname, "modules/logger/tapable.js"),
       ),
     ],
-  }),
-  merge(baseForModules, {
-    entry: path.join(__dirname, "modules/sockjs-client/index.js"),
-    output: {
-      filename: "sockjs-client/index.js",
-      library: "SockJS",
-      libraryTarget: "umd",
-      globalObject: "(typeof self !== 'undefined' ? self : this)",
-    },
   }),
 ];

@@ -1,6 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`stats should work and respect the "ignoreWarnings" option 1`] = `
+exports[`stats > should work and respect the "ignoreWarnings" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -8,7 +6,7 @@ exports[`stats should work and respect the "ignoreWarnings" option 1`] = `
 ]
 `;
 
-exports[`stats should work using "{ assets: false }" value for the "stats" option 1`] = `
+exports[`stats > should work using "errors-only" value for the "stats" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -16,7 +14,7 @@ exports[`stats should work using "{ assets: false }" value for the "stats" optio
 ]
 `;
 
-exports[`stats should work using "{ assets: false }" value for the "stats" option 2`] = `
+exports[`stats > should work using "false" value for the "stats" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -24,7 +22,7 @@ exports[`stats should work using "{ assets: false }" value for the "stats" optio
 ]
 `;
 
-exports[`stats should work using "{ warningsFilter: 'test' }" value for the "stats" option 1`] = `
+exports[`stats > should work using "undefined" value for the "stats" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -32,7 +30,7 @@ exports[`stats should work using "{ warningsFilter: 'test' }" value for the "sta
 ]
 `;
 
-exports[`stats should work using "{}" value for the "stats" option 1`] = `
+exports[`stats > should work using "{ assets: false }" value for the "stats" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -40,7 +38,7 @@ exports[`stats should work using "{}" value for the "stats" option 1`] = `
 ]
 `;
 
-exports[`stats should work using "errors-only" value for the "stats" option 1`] = `
+exports[`stats > should work using "{ assets: false }" value for the "stats" option 2`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -48,7 +46,7 @@ exports[`stats should work using "errors-only" value for the "stats" option 1`] 
 ]
 `;
 
-exports[`stats should work using "false" value for the "stats" option 1`] = `
+exports[`stats > should work using "{ warningsFilter: 'test' }" value for the "stats" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -56,7 +54,7 @@ exports[`stats should work using "false" value for the "stats" option 1`] = `
 ]
 `;
 
-exports[`stats should work using "undefined" value for the "stats" option 1`] = `
+exports[`stats > should work using "{}" value for the "stats" option 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -64,7 +62,7 @@ exports[`stats should work using "undefined" value for the "stats" option 1`] = 
 ]
 `;
 
-exports[`stats should work when "stats" is not specified 1`] = `
+exports[`stats > should work when "stats" is not specified 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",

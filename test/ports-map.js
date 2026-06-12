@@ -1,5 +1,3 @@
-"use strict";
-
 // important: new port mappings must be added to the bottom of this list
 const listOfTests = {
   // CLI tests
@@ -7,7 +5,6 @@ const listOfTests = {
   "cli-port-option": 1,
   // e2e tests
   bundle: 1,
-  "sockjs-client": 1,
   "web-socket-client": 1,
   "hot-and-live-reload": 1,
   logging: 1,
@@ -43,7 +40,6 @@ const listOfTests = {
   "stats-option": 1,
   "watch-files-option": 1,
   "web-socket-server-option": 1,
-  "sockjs-server": 1,
   "web-socket-server": 1,
   routes: 1,
   "web-socket-communication": 1,
@@ -100,7 +96,7 @@ for (const key of Object.keys(listOfTests)) {
 
 const busy = {};
 
-module.exports = new Proxy(ports, {
+export default new Proxy(ports, {
   get(target, name) {
     if (!target[name]) {
       throw new Error(

@@ -1,17 +1,21 @@
-"use strict";
+import path from "node:path";
+import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import oneWebTargetConfiguration from "../fixtures/multi-compiler-one-configuration/webpack.config.js";
+import twoWebTargetConfiguration from "../fixtures/multi-compiler-two-configurations/webpack.config.js";
+import universalConfiguration from "../fixtures/universal-compiler-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const oneWebTargetConfiguration = require("../fixtures/multi-compiler-one-configuration/webpack.config");
-const twoWebTargetConfiguration = require("../fixtures/multi-compiler-two-configurations/webpack.config");
-const universalConfiguration = require("../fixtures/universal-compiler-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["multi-compiler"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["multi-compiler"];
 
 describe("multi compiler", () => {
-  it("should work with one web target configuration and do nothing", async () => {
+  it("should work with one web target configuration and do nothing", async (t) => {
     const compiler = webpack(oneWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -38,15 +42,15 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with web target configurations and do nothing", async () => {
+  it("should work with web target configurations and do nothing", async (t) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -74,8 +78,8 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -84,15 +88,15 @@ describe("multi compiler", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
     }
   });
 
-  it("should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries", async () => {
+  it("should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries", async (t) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -144,8 +148,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -158,8 +162,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -169,7 +173,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries", async () => {
+  it("should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries", async (t) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -221,8 +225,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -235,8 +239,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -246,7 +250,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with web target configurations when only live reload is enabled, and do live reload when changing own entries", async () => {
+  it("should work with web target configurations when only live reload is enabled, and do live reload when changing own entries", async (t) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -290,8 +294,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -304,8 +308,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -315,7 +319,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with web target configurations when only live reload is enabled and do live reload when changing other entries", async () => {
+  it("should work with web target configurations when only live reload is enabled and do live reload when changing other entries", async (t) => {
     const compiler = webpack(twoWebTargetConfiguration);
     const devServerOptions = {
       port,
@@ -359,8 +363,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -373,8 +377,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -384,7 +388,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with universal configuration and do nothing", async () => {
+  it("should work with universal configuration and do nothing", async (t) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -426,11 +430,11 @@ describe("multi compiler", () => {
       await server.stop();
     }
 
-    expect(consoleMessages).toMatchSnapshot("console messages");
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(consoleMessages);
+    t.assert.snapshot(pageErrors);
   });
 
-  it("should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed", async () => {
+  it("should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed", async (t) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -497,8 +501,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -508,7 +512,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed", async () => {
+  it("should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed", async (t) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -570,8 +574,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -580,7 +584,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries", async () => {
+  it("should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries", async (t) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -639,8 +643,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -656,8 +660,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();
@@ -667,7 +671,7 @@ describe("multi compiler", () => {
     }
   });
 
-  it("should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries", async () => {
+  it("should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries", async (t) => {
     const compiler = webpack(universalConfiguration);
     const devServerOptions = {
       port,
@@ -726,8 +730,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
 
       pageErrors = [];
       consoleMessages = [];
@@ -743,8 +747,8 @@ describe("multi compiler", () => {
 
       await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
       await server.stop();

@@ -1,56 +1,85 @@
-/**
- * @jest-environment jsdom
- */
+import "../helpers/jsdom-setup.js";
 
-"use strict";
+import { beforeEach, describe, it, mock } from "node:test";
+import { expect } from "expect";
+import { fn } from "jest-mock";
+
+/**
+ * Build a fresh mock WebSocketClient class. Each `new MockClient(url)`
+ * registers the instance and arguments on the static `.mock` so tests can
+ * assert on them.
+ * @returns {new (url: string) => unknown} mock client constructor
+ */
+function createMockClient() {
+  class MockClient {
+    constructor(url) {
+      MockClient.mock.instances.push(this);
+      MockClient.mock.calls.push([url]);
+      this.onOpen = fn();
+      this.onClose = fn();
+      this.onMessage = fn();
+    }
+  }
+  MockClient.mock = { instances: [], calls: [] };
+  return MockClient;
+}
 
 describe("socket", () => {
   beforeEach(() => {
-    jest.resetAllMocks();
-    jest.resetModules();
+    delete globalThis.__webpack_dev_server_client__;
   });
 
-  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", () => {
-    jest.mock("../../client/clients/WebSocketClient");
-
-    const socket = require("../../client/socket").default;
-    const WebsocketClient =
-      require("../../client/clients/WebSocketClient").default;
-
-    const mockHandler = jest.fn();
-
-    socket("my.url", {
-      example: mockHandler,
-    });
-
-    const [mockClientInstance] = WebsocketClient.mock.instances;
-
-    // this simulates receiving a message from the server and passing it
-    // along to the callback of onMessage
-    mockClientInstance.onMessage.mock.calls[0][0](
-      JSON.stringify({
-        type: "example",
-        data: "hello world",
-        params: { foo: "bar" },
-      }),
+  it("should default to WebsocketClient when no __webpack_dev_server_client__ set", async (t) => {
+    const MockClient = createMockClient();
+    const webSocketClientMock = mock.module(
+      "../../client-src/clients/WebSocketClient.js",
+      {
+        defaultExport: MockClient,
+      },
     );
 
-    expect(WebsocketClient.mock.calls[0]).toMatchSnapshot();
-    expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
-    expect(mockHandler.mock.calls).toMatchSnapshot();
+    try {
+      const freshSocket = (
+        await import(`../../client-src/socket.js?t=${Date.now()}`)
+      ).default;
+
+      const mockHandler = fn();
+
+      freshSocket("my.url", {
+        example: mockHandler,
+      });
+
+      const [mockClientInstance] = MockClient.mock.instances;
+
+      mockClientInstance.onMessage.mock.calls[0][0](
+        JSON.stringify({
+          type: "example",
+          data: "hello world",
+          params: { foo: "bar" },
+        }),
+      );
+
+      t.assert.snapshot(MockClient.mock.calls[0]);
+      t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
+      t.assert.snapshot(mockClientInstance.onClose.mock.calls);
+      t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
+      t.assert.snapshot(mockHandler.mock.calls);
+    } finally {
+      webSocketClientMock.restore();
+    }
   });
 
-  it("should use __webpack_dev_server_client__ when set", () => {
-    jest.mock("../../client/clients/WebSocketClient");
+  it("should use __webpack_dev_server_client__ when set", async (t) => {
+    const MockClient = createMockClient();
+    globalThis.__webpack_dev_server_client__ = MockClient;
 
-    const socket = require("../../client/socket").default;
+    const socket = (
+      await import(
+        `../../client-src/socket.js?t=${Date.now()}-${Math.random()}`
+      )
+    ).default;
 
-    globalThis.__webpack_dev_server_client__ =
-      require("../../client/clients/WebSocketClient").default;
-
-    const mockHandler = jest.fn();
+    const mockHandler = fn();
 
     socket("my.url", {
       example: mockHandler,
@@ -59,8 +88,6 @@ describe("socket", () => {
     const [mockClientInstance] =
       globalThis.__webpack_dev_server_client__.mock.instances;
 
-    // this simulates receiving a message from the server and passing it
-    // along to the callback of onMessage
     mockClientInstance.onMessage.mock.calls[0][0](
       JSON.stringify({
         type: "example",
@@ -69,25 +96,25 @@ describe("socket", () => {
       }),
     );
 
-    expect(
-      globalThis.__webpack_dev_server_client__.mock.calls[0],
-    ).toMatchSnapshot();
-    expect(mockClientInstance.onOpen.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onClose.mock.calls).toMatchSnapshot();
-    expect(mockClientInstance.onMessage.mock.calls).toMatchSnapshot();
-    expect(mockHandler.mock.calls).toMatchSnapshot();
+    t.assert.snapshot(globalThis.__webpack_dev_server_client__.mock.calls[0]);
+    t.assert.snapshot(mockClientInstance.onOpen.mock.calls);
+    t.assert.snapshot(mockClientInstance.onClose.mock.calls);
+    t.assert.snapshot(mockClientInstance.onMessage.mock.calls);
+    t.assert.snapshot(mockHandler.mock.calls);
   });
 
-  it("should export initialized client", () => {
-    const socket = require("../../client/socket").default;
+  it("should export initialized client", async () => {
+    const MockClient = createMockClient();
+    globalThis.__webpack_dev_server_client__ = MockClient;
 
-    const nonInitializedInstance = require("../../client/socket").client;
-
-    expect(nonInitializedInstance).toBeNull();
+    const socketMod = await import(
+      `../../client-src/socket.js?t=${Date.now()}-${Math.random()}`
+    );
+    const socket = socketMod.default;
 
     socket("my.url", {});
 
-    const initializedInstance = require("../../client/socket").client;
+    const initializedInstance = socketMod.client;
 
     expect(initializedInstance).not.toBeNull();
     expect(typeof initializedInstance.onClose).toBe("function");

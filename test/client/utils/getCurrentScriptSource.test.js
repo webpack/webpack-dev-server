@@ -1,18 +1,19 @@
-/**
- * @jest-environment jsdom
- */
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
 
-"use strict";
+import "../../helpers/jsdom-setup.js";
 
 describe("'getCurrentScriptSource' function", () => {
   let getCurrentScriptSource;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     globalThis.__webpack_hash__ = "mock-hash";
     globalThis.__resourceQuery = "?protocol=ws&hostname=0.0.0.0";
 
-    getCurrentScriptSource =
-      require("../../../client-src/index").getCurrentScriptSource;
+    const indexUrl = import.meta.resolve("../../../client-src/index.js");
+    ({ getCurrentScriptSource } = await import(
+      `${indexUrl}?t=${Date.now()}-${Math.random()}`
+    ));
   });
 
   afterEach(() => {
@@ -26,11 +27,11 @@ describe("'getCurrentScriptSource' function", () => {
     });
   });
 
-  it("should fail when 'document.currentScript' doesn't exist and no 'script' tags", () => {
+  it("should fail when 'document.currentScript' doesn't exist and no 'script' tags", (t) => {
     try {
       getCurrentScriptSource();
     } catch (error) {
-      expect(error).toMatchSnapshot();
+      t.assert.snapshot(error);
     }
   });
 
@@ -46,7 +47,7 @@ describe("'getCurrentScriptSource' function", () => {
     expect(getCurrentScriptSource()).toBe("foo");
   });
 
-  it("should fail when 'document.scripts' doesn't exist and no scripts", () => {
+  it("should fail when 'document.scripts' doesn't exist and no scripts", (t) => {
     Object.defineProperty(document, "scripts", {
       value: undefined,
       writable: true,
@@ -55,7 +56,7 @@ describe("'getCurrentScriptSource' function", () => {
     try {
       getCurrentScriptSource();
     } catch (error) {
-      expect(error).toMatchSnapshot();
+      t.assert.snapshot(error);
     }
   });
 
@@ -75,7 +76,7 @@ describe("'getCurrentScriptSource' function", () => {
     expect(getCurrentScriptSource()).toBe("bar");
   });
 
-  it("should fail when no scripts with the 'scr' attribute", () => {
+  it("should fail when no scripts with the 'scr' attribute", (t) => {
     const elements = ["foo", "bar"].map(() => document.createElement("script"));
 
     Object.defineProperty(document, "scripts", {
@@ -85,7 +86,7 @@ describe("'getCurrentScriptSource' function", () => {
     try {
       getCurrentScriptSource();
     } catch (error) {
-      expect(error).toMatchSnapshot();
+      t.assert.snapshot(error);
     }
   });
 });

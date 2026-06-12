@@ -20,5 +20,5 @@ declare module "ansi-html-community" {
     function setColors(colors: Record<string, string | string[]>): void;
   }
 
-  export = ansiHtmlCommunity;
+  export default ansiHtmlCommunity;
 }

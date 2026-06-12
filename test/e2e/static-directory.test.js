@@ -1,13 +1,18 @@
-"use strict";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/static-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import * as testServer from "../helpers/test-server.js";
+import portsMap from "../ports-map.js";
 
-const path = require("node:path");
-const fs = require("graceful-fs");
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/static-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const testServer = require("../helpers/test-server");
-const port = require("../ports-map")["static-directory-option"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = portsMap["static-directory-option"];
 
 const staticDirectory = path.resolve(__dirname, "../fixtures/static-config");
 const publicDirectory = path.resolve(staticDirectory, "public");
@@ -52,7 +57,7 @@ describe("static.directory option", () => {
       fs.truncateSync(nestedFile);
     });
 
-    it("should handle request to index route", async () => {
+    it("should handle request to index route", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -65,18 +70,16 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to other file", async () => {
+    it("should handle request to other file", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -89,51 +92,55 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("watches folder recursively", (done) => {
-      // chokidar emitted a change,
-      // meaning it watched the file correctly
-      server.staticWatchers[0].on("change", (filepath) => {
-        expect(typeof filepath).toBe("string");
-        done();
-      });
+    it("watches folder recursively", () =>
+      new Promise((resolve) => {
+        // chokidar emitted a change,
+        // meaning it watched the file correctly
+        server.staticWatchers[0].on("change", (filepath) => {
+          expect(typeof filepath).toBe("string");
+          resolve();
+        });
 
-      // change a file manually
-      setTimeout(() => {
-        fs.writeFileSync(nestedFile, "Heyo", "utf8");
-      }, 1000);
-    });
+        // change a file manually
+        setTimeout(() => {
+          fs.writeFileSync(nestedFile, "Heyo", "utf8");
+        }, 1000);
+      }));
 
-    it("watches node_modules", (done) => {
-      const filePath = path.join(publicDirectory, "node_modules", "index.html");
+    it("watches node_modules", () =>
+      new Promise((resolve) => {
+        const filePath = path.join(
+          publicDirectory,
+          "node_modules",
+          "index.html",
+        );
 
-      fs.writeFileSync(filePath, "foo", "utf8");
+        fs.writeFileSync(filePath, "foo", "utf8");
 
-      // chokidar emitted a change,
-      // meaning it watched the file correctly
-      server.staticWatchers[0].on("change", (filepath) => {
-        expect(typeof filepath).toBe("string");
+        // chokidar emitted a change,
+        // meaning it watched the file correctly
+        server.staticWatchers[0].on("change", (filepath) => {
+          expect(typeof filepath).toBe("string");
 
-        fs.unlinkSync(filePath);
+          fs.unlinkSync(filePath);
 
-        done();
-      });
+          resolve();
+        });
 
-      // change a file manually
-      setTimeout(() => {
-        fs.writeFileSync(filePath, "bar", "utf8");
-      }, 1000);
-    });
+        // change a file manually
+        setTimeout(() => {
+          fs.writeFileSync(filePath, "bar", "utf8");
+        }, 1000);
+      }));
   });
 
   describe("test listing files in folders without index.html using the option static.serveIndex: false", () => {
@@ -172,7 +179,7 @@ describe("static.directory option", () => {
       await server.stop();
     });
 
-    it("should not list the files inside the assets folder (404)", async () => {
+    it("should not list the files inside the assets folder (404)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -185,18 +192,16 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -209,15 +214,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -257,7 +260,7 @@ describe("static.directory option", () => {
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    it("should list the files inside the assets folder (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -272,19 +275,17 @@ describe("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -297,15 +298,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -344,7 +343,7 @@ describe("static.directory option", () => {
       await server.stop();
     });
 
-    it("should list the files inside the assets folder (200)", async () => {
+    it("should list the files inside the assets folder (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -359,19 +358,17 @@ describe("static.directory option", () => {
 
       const text = await response.text();
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
       expect(text).toContain("example.txt");
       expect(text).toContain("other.txt");
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should show Heyo. because bar has index.html inside it (200)", async () => {
+    it("should show Heyo. because bar has index.html inside it (200)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -384,15 +381,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -428,7 +423,7 @@ describe("static.directory option", () => {
       await server.stop();
     });
 
-    it("should handle request first directory", async () => {
+    it("should handle request first directory", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -441,18 +436,16 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
 
-    it("should handle request to second directory", async () => {
+    it("should handle request to second directory", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -465,113 +458,122 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
   describe("testing single & multiple external paths", () => {
     let server;
 
-    afterEach((done) => {
-      testServer.close(() => {
-        done();
-      });
-    });
+    afterEach(
+      () =>
+        new Promise((resolve) => {
+          testServer.close(() => {
+            resolve();
+          });
+        }),
+    );
 
-    it("should throw exception (external url)", (done) => {
-      expect.assertions(1);
+    it("should throw exception (external url)", () =>
+      new Promise((resolve) => {
+        expect.assertions(1);
 
-      server = testServer.start(
-        config,
-        {
-          static: "https://example.com/",
-        },
-        (error) => {
-          expect(error.message).toBe(
-            "Using a URL as static.directory is not supported",
-          );
-
-          server.stopCallback(done);
-        },
-      );
-    });
-
-    it("should not throw exception (local path with lower case first character)", (done) => {
-      testServer.start(
-        config,
-        {
-          static: {
-            directory:
-              publicDirectory.charAt(0).toLowerCase() +
-              publicDirectory.slice(1),
-            watch: true,
+        server = testServer.start(
+          config,
+          {
+            static: "https://example.com/",
           },
-          port,
-        },
-        (error) => {
-          expect(error).toBeUndefined();
-          done(error);
-        },
-      );
-    });
+          (error) => {
+            expect(error.message).toBe(
+              "Using a URL as static.directory is not supported",
+            );
 
-    it("should not throw exception (local path with lower case first character & has '-')", (done) => {
-      testServer.start(
-        config,
-        {
-          static: {
-            directory: "c:\\absolute\\path\\to\\content-base",
-            watch: true,
+            server.stopCallback(resolve);
           },
-          port,
-        },
-        (error) => {
-          expect(error).toBeUndefined();
-          done(error);
-        },
-      );
-    });
+        );
+      }));
 
-    it("should not throw exception (local path with upper case first character & has '-')", (done) => {
-      testServer.start(
-        config,
-        {
-          static: {
-            directory: "C:\\absolute\\path\\to\\content-base",
-            watch: true,
+    it("should not throw exception (local path with lower case first character)", () =>
+      new Promise((resolve, reject) => {
+        testServer.start(
+          config,
+          {
+            static: {
+              directory:
+                publicDirectory.charAt(0).toLowerCase() +
+                publicDirectory.slice(1),
+              watch: true,
+            },
+            port,
           },
-          port,
-        },
-        (error) => {
-          expect(error).toBeUndefined();
-          done(error);
-        },
-      );
-    });
+          (error) => {
+            expect(error).toBeUndefined();
+            if (error) reject(error);
+            else resolve();
+          },
+        );
+      }));
 
-    it("should throw exception (array with absolute url)", (done) => {
-      server = testServer.start(
-        config,
-        {
-          static: [publicDirectory, "https://example.com/"],
-        },
-        (error) => {
-          expect(error.message).toBe(
-            "Using a URL as static.directory is not supported",
-          );
+    it("should not throw exception (local path with lower case first character & has '-')", () =>
+      new Promise((resolve, reject) => {
+        testServer.start(
+          config,
+          {
+            static: {
+              directory: "c:\\absolute\\path\\to\\content-base",
+              watch: true,
+            },
+            port,
+          },
+          (error) => {
+            expect(error).toBeUndefined();
+            if (error) reject(error);
+            else resolve();
+          },
+        );
+      }));
 
-          server.stopCallback(done);
-        },
-      );
-    });
+    it("should not throw exception (local path with upper case first character & has '-')", () =>
+      new Promise((resolve, reject) => {
+        testServer.start(
+          config,
+          {
+            static: {
+              directory: "C:\\absolute\\path\\to\\content-base",
+              watch: true,
+            },
+            port,
+          },
+          (error) => {
+            expect(error).toBeUndefined();
+            if (error) reject(error);
+            else resolve();
+          },
+        );
+      }));
+
+    it("should throw exception (array with absolute url)", () =>
+      new Promise((resolve) => {
+        server = testServer.start(
+          config,
+          {
+            static: [publicDirectory, "https://example.com/"],
+          },
+          (error) => {
+            expect(error.message).toBe(
+              "Using a URL as static.directory is not supported",
+            );
+
+            server.stopCallback(resolve);
+          },
+        );
+      }));
   });
 
   describe("defaults to PWD", () => {
@@ -583,9 +585,9 @@ describe("static.directory option", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      jest
-        .spyOn(process, "cwd")
-        .mockImplementation(() => path.resolve(staticDirectory));
+      spyOn(process, "cwd").mockImplementation(() =>
+        path.resolve(staticDirectory),
+      );
       compiler = webpack(config);
 
       server = new Server(
@@ -609,7 +611,7 @@ describe("static.directory option", () => {
       await server.stop();
     });
 
-    it("should handle request to /index.html", async () => {
+    it("should handle request to /index.html", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -622,15 +624,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 
@@ -645,7 +645,7 @@ describe("static.directory option", () => {
     beforeEach(async () => {
       // This is a somewhat weird test, but it is important that we mock
       // the PWD here, and test if /other.html in our "fake" PWD really is not requested.
-      jest.spyOn(process, "cwd").mockImplementation(() => publicDirectory);
+      spyOn(process, "cwd").mockImplementation(() => publicDirectory);
 
       compiler = webpack(config);
 
@@ -670,7 +670,7 @@ describe("static.directory option", () => {
       await server.stop();
     });
 
-    it("should not handle request to /other.html (404)", async () => {
+    it("should not handle request to /other.html (404)", async (t) => {
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -683,15 +683,13 @@ describe("static.directory option", () => {
         waitUntil: "networkidle0",
       });
 
-      expect(response.status()).toMatchSnapshot("response status");
+      t.assert.snapshot(response.status());
 
-      expect(await response.text()).toMatchSnapshot("response text");
+      t.assert.snapshot(await response.text());
 
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
+      t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(pageErrors);
     });
   });
 });

@@ -1,8 +1,10 @@
-"use strict";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import HTMLGeneratorPlugin from "../../helpers/html-generator-plugin.js";
 
-const HTMLGeneratorPlugin = require("../../helpers/html-generator-plugin");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = [
+export default [
   {
     target: "web",
     mode: "development",

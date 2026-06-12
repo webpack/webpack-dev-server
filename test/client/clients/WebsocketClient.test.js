@@ -1,45 +1,60 @@
-/**
- * @jest-environment jsdom
- * @jest-environment-options { "customExportConditions": ["main"] }
- */
+import "../../helpers/jsdom-setup.js";
 
-"use strict";
+import http from "node:http";
+import { after, before, describe, it } from "node:test";
+import { expect } from "expect";
+import express from "express";
+import { spyOn } from "jest-mock";
+import WebSocket, { WebSocketServer } from "ws";
+import WebSocketClient from "../../../client-src/clients/WebSocketClient.js";
+import { log } from "../../../client-src/utils/log.js";
+import portsMap from "../../ports-map.js";
 
-const http = require("node:http");
-const express = require("express");
-const ws = require("ws");
-const port = require("../../ports-map")["web-socket-client"];
+// jsdom's built-in WebSocket stays in CONNECTING for unreachable URLs (good
+// for silencing other client tests) but doesn't fully drive open/close
+// against a real local server. Use Node's `ws` library here so this test
+// can talk to the express+ws server below. WebSocketClient only reads the
+// global at construction time, so assigning after import is safe.
+globalThis.WebSocket = WebSocket;
 
-jest.setMock("../../../client-src/utils/log", {
-  log: {
-    error: jest.fn(),
-  },
-});
+const port = portsMap["web-socket-client"];
 
 describe("WebsocketClient", () => {
-  const WebSocketClient =
-    require("../../../client-src/clients/WebSocketClient").default;
-  const { log } = require("../../../client-src/utils/log");
-
   let socketServer;
   let server;
+  let logErrorSpy;
 
-  beforeAll((done) => {
-    // eslint-disable-next-line new-cap
-    const app = new express();
+  before(
+    () =>
+      new Promise((resolve) => {
+        // eslint-disable-next-line new-cap
+        const app = new express();
 
-    server = http.createServer(app);
-    server.listen(port, "localhost", () => {
-      socketServer = new ws.Server({
-        server,
-        path: "/ws-server",
-      });
-      done();
-    });
-  });
+        server = http.createServer(app);
+        server.listen(port, "localhost", () => {
+          socketServer = new WebSocketServer({
+            server,
+            path: "/ws-server",
+          });
+          resolve();
+        });
+      }),
+  );
+
+  after(
+    () =>
+      new Promise((resolve) => {
+        logErrorSpy.mockRestore();
+        server.close(() => {
+          resolve();
+        });
+      }),
+  );
 
   describe("client", () => {
-    it("should open, receive message, and close", (done) => {
+    it("should open, receive message, and close", async (t) => {
+      logErrorSpy = spyOn(log, "error").mockImplementation();
+
       socketServer.on("connection", (connection) => {
         connection.send("hello world");
 
@@ -68,17 +83,11 @@ describe("WebsocketClient", () => {
       expect(log.error.mock.calls).toHaveLength(1);
       expect(log.error.mock.calls[0]).toEqual([testError]);
 
-      setTimeout(() => {
-        expect(data).toMatchSnapshot();
+      await new Promise((resolve) => {
+        setTimeout(resolve, 3000);
+      });
 
-        done();
-      }, 3000);
-    });
-  });
-
-  afterAll((done) => {
-    server.close(() => {
-      done();
+      t.assert.snapshot(data);
     });
   });
 });

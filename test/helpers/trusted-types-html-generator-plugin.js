@@ -1,5 +1,3 @@
-"use strict";
-
 const HTMLContentForIndex = `
 <!DOCTYPE html>
 <html>
@@ -35,7 +33,7 @@ const HTMLContentForTest = `
 </html>
 `;
 
-module.exports = class HTMLGeneratorPlugin {
+export default class HTMLGeneratorPlugin {
   apply(compiler) {
     const pluginName = "html-generator-plugin";
 
@@ -78,4 +76,4 @@ module.exports = class HTMLGeneratorPlugin {
       }
     });
   }
-};
+}

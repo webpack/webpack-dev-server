@@ -1,10 +1,12 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["setup-middlewares-option"];
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
+
+const port = portsMap["setup-middlewares-option"];
 
 describe("setupMiddlewares option", () => {
   let compiler;
@@ -82,7 +84,7 @@ describe("setupMiddlewares option", () => {
     await server.stop();
   });
 
-  it("should handle GET request to /setup-middleware/some/path route", async () => {
+  it("should handle GET request to /setup-middleware/some/path route", async (t) => {
     page
       .on("console", (message) => {
         consoleMessages.push(message);
@@ -98,31 +100,25 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
-    expect(response.status()).toMatchSnapshot("response status");
-    expect(await response.text()).toMatchSnapshot("response text");
+    t.assert.snapshot(response.headers()["content-type"]);
+    t.assert.snapshot(response.status());
+    t.assert.snapshot(await response.text());
 
     const response1 = await page.goto(`http://localhost:${port}/foo/bar`, {
       waitUntil: "networkidle0",
     });
 
-    expect(response1.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
-    expect(response1.status()).toMatchSnapshot("response status");
-    expect(await response1.text()).toMatchSnapshot("response text");
+    t.assert.snapshot(response1.headers()["content-type"]);
+    t.assert.snapshot(response1.status());
+    t.assert.snapshot(await response1.text());
 
     const response2 = await page.goto(`http://localhost:${port}/foo/bar/baz`, {
       waitUntil: "networkidle0",
     });
 
-    expect(response2.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
-    expect(response2.status()).toMatchSnapshot("response status");
-    expect(await response2.text()).toMatchSnapshot("response text");
+    t.assert.snapshot(response2.headers()["content-type"]);
+    t.assert.snapshot(response2.status());
+    t.assert.snapshot(await response2.text());
 
     const response3 = await page.goto(
       `http://localhost:${port}/setup-middleware/unknown`,
@@ -131,19 +127,15 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response3.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
-    expect(response3.status()).toMatchSnapshot("response status");
-    expect(await response3.text()).toMatchSnapshot("response text");
+    t.assert.snapshot(response3.headers()["content-type"]);
+    t.assert.snapshot(response3.status());
+    t.assert.snapshot(await response3.text());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
+    t.assert.snapshot(pageErrors);
   });
 
-  it("should handle POST request to /setup-middleware/some/path route", async () => {
+  it("should handle POST request to /setup-middleware/some/path route", async (t) => {
     await page.setRequestInterception(true);
 
     page
@@ -166,14 +158,10 @@ describe("setupMiddlewares option", () => {
       },
     );
 
-    expect(response.headers()["content-type"]).toMatchSnapshot(
-      "response headers content-type",
-    );
-    expect(response.status()).toMatchSnapshot("response status");
-    expect(await response.text()).toMatchSnapshot("response text");
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(response.headers()["content-type"]);
+    t.assert.snapshot(response.status());
+    t.assert.snapshot(await response.text());
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
+    t.assert.snapshot(pageErrors);
   });
 });

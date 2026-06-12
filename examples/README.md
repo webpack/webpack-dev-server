@@ -16,6 +16,27 @@ An example should be as minimal as possible and consists of at least:
 API examples can be found in the `api` directory. These examples demonstrate how
 to access and run `webpack-dev-server` directly in your application / script.
 
+## Module format
+
+Examples are written as ES modules (`import` / `export`) because the project's
+`package.json` sets `"type": "module"`. The shared helper `util.js` exports a
+`setup` function that each `webpack.config.js` calls like this:
+
+```js
+import { setup } from "../util.js";
+
+export default setup(
+  {
+    context: import.meta.dirname,
+    entry: "./app.js",
+  },
+  import.meta.url,
+);
+```
+
+If you still need a CommonJS configuration, see [`default-cjs/`](./default-cjs)
+for a minimal CJS example using a `.cjs` extension.
+
 ## Notes
 
 - Each example's `webpack` config is wrapped with `util.setup`; a helper function

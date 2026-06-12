@@ -1,18 +1,21 @@
-"use strict";
+import http from "node:http";
+import path from "node:path";
+import { after, before, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import express from "express";
+import { spyOn } from "jest-mock";
+import request from "supertest";
+import webpack from "webpack";
+import WebSocket, { WebSocketServer } from "ws";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/proxy-config/webpack.config.js";
+import portsMap from "../ports-map.js";
 
-const http = require("node:http");
-const path = require("node:path");
-const util = require("node:util");
-const express = require("express");
-const request = require("supertest");
-const webpack = require("webpack");
-const WebSocket = require("ws");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/proxy-config/webpack.config");
-const [port1, port2, port3, port4, port5] =
-  require("../ports-map")["proxy-option"];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const WebSocketServer = WebSocket.Server;
+const [port1, port2, port3, port4, port5] = portsMap["proxy-option"];
+
 const staticDirectory = path.resolve(__dirname, "../fixtures/proxy-config");
 
 const proxyOptionPathsAsProperties = [
@@ -21,51 +24,14 @@ const proxyOptionPathsAsProperties = [
     target: `http://localhost:${port1}`,
   },
   {
-    context: "/api/proxy2",
+    path: "/api/proxy2",
     target: `http://localhost:${port2}`,
     pathRewrite: { "^/api": "" },
   },
   {
-    context: "/foo",
-    bypass(req) {
-      if (/\.html$/.test(req.path || req.url)) {
-        return "/index.html";
-      }
-
-      return null;
-    },
-  },
-  {
-    context: "proxyfalse",
-    bypass(req) {
-      if (/\/proxyfalse$/.test(req.path || req.url)) {
-        return false;
-      }
-    },
-  },
-  {
-    context: "/proxy/async",
-    bypass(req, res) {
-      if (/\/proxy\/async$/.test(req.path || req.url)) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            res.end("proxy async response");
-            resolve(true);
-          }, 10);
-        });
-      }
-    },
-  },
-  {
-    context: "/bypass-with-target",
-    target: `http://localhost:${port1}`,
-    changeOrigin: true,
-    secure: false,
-    bypass(req) {
-      if (/\.(html)$/i.test(req.path || req.url)) {
-        return req.url;
-      }
-    },
+    pathFilter: ["/foo/*.html", "/baz/*.html", "/bypass-with-target/*.html"],
+    pathRewrite: () => "/index.html",
+    router: () => `http://localhost:${port3}`,
   },
 ];
 
@@ -79,7 +45,7 @@ const proxyOption = [
 let maxServerListeners = 0;
 const proxyOptionOfArray = [
   { context: "/proxy1", target: `http://localhost:${port1}` },
-  function proxy(req, res, next) {
+  function proxy(req) {
     if (req) {
       const socket = req.socket || req.connection;
       const server = socket ? socket.server : null;
@@ -94,19 +60,6 @@ const proxyOptionOfArray = [
       context: "/api/proxy2",
       target: `http://localhost:${port2}`,
       pathRewrite: { "^/api": "" },
-      bypass: () => {
-        if (req) {
-          const resolveUrl = new URL(req.url, `http://${req.headers.host}`);
-          const params = new URLSearchParams(resolveUrl.search);
-          const foo = params.get("foo");
-
-          if (foo) {
-            res.end(`foo+${next.name}+${typeof next}`);
-
-            return false;
-          }
-        }
-      },
     };
   },
 ];
@@ -142,6 +95,23 @@ describe("proxy option", () => {
   let proxyServer1;
   let proxyServer2;
 
+  function getStderrOutput(stderrSpy) {
+    return stderrSpy.mock.calls
+      .map((call) => call[0])
+      .filter((output) => !output.includes("DeprecationWarning"))
+      .join("")
+      .replaceAll(/127\.0\.0\.1:\d+/g, "127.0.0.1:<port>")
+      .replaceAll(/\[ENOTFOUND\]|\[EAI_AGAIN\]/g, "[<DNS_ERROR>]");
+  }
+
+  function getConsoleErrorOutput(consoleSpy) {
+    return consoleSpy.mock.calls
+      .map((call) => call[0])
+      .join("\n")
+      .replaceAll(/127\.0\.0\.1:\d+/g, "127.0.0.1:<port>")
+      .replaceAll(/\[ENOTFOUND\]|\[EAI_AGAIN\]/g, "[<DNS_ERROR>]");
+  }
+
   async function listenProxyServers() {
     const proxyApp1 = express();
     const proxyApp2 = express();
@@ -151,6 +121,9 @@ describe("proxy option", () => {
     });
     proxyApp1.get("/api", (req, res) => {
       res.send("api response from proxy1");
+    });
+    proxyApp1.get("/index.html", (req, res) => {
+      res.send("Hello");
     });
     proxyApp2.get("/proxy2", (req, res) => {
       res.send("from proxy2");
@@ -187,7 +160,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -209,7 +182,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -232,68 +205,48 @@ describe("proxy option", () => {
       });
     });
 
-    describe("bypass", () => {
-      it("should log deprecation warning when bypass is used", async () => {
-        const utilSpy = jest.spyOn(util, "deprecate");
-
-        const response = await req.get("/foo/bar.html");
-
-        expect(response.status).toBe(200);
-        expect(response.text).toContain("Hello");
-
-        const lastCall = utilSpy.mock.calls[utilSpy.mock.calls.length - 1];
-
-        expect(lastCall[1]).toBe(
-          "Using the 'bypass' option is deprecated. Please use the 'router' or 'context' options. Read more at https://github.com/chimurai/http-proxy-middleware/tree/v2.0.6#http-proxy-middleware-options",
-        );
-        expect(lastCall[2]).toBe(
-          "DEP_WEBPACK_DEV_SERVER_PROXY_BYPASS_ARGUMENT",
-        );
-
-        utilSpy.mockRestore();
-      });
-
-      it("can rewrite a request path", async () => {
+    describe("pathFilter and pathRewrite", () => {
+      it("should rewrite matching paths using pathFilter", async () => {
         const response = await req.get("/foo/bar.html");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
-      it("can rewrite a request path regardless of the target defined a bypass option", async () => {
+      it("should rewrite paths using pathRewrite function", async () => {
         const response = await req.get("/baz/hoge.html");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
       });
 
-      it("should pass through a proxy when a bypass function returns null", async () => {
+      it("should proxy requests that don't match pathFilter", async () => {
         const response = await req.get("/foo.js");
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hey");
       });
 
-      it("should not pass through a proxy when a bypass function returns false", async () => {
+      it("should serve static files when not matching proxy rules", async () => {
+        const response = await req.get("/index.html");
+
+        expect(response.status).toBe(200);
+        expect(response.text).toContain("Hello");
+      });
+
+      it("should return 404 for unmatched paths", async () => {
         const response = await req.get("/proxyfalse");
 
         expect(response.status).toBe(404);
       });
 
-      it("should wait if bypass returns promise", async () => {
-        const response = await req.get("/proxy/async");
-
-        expect(response.status).toBe(200);
-        expect(response.text).toContain("proxy async response");
-      });
-
-      it("should work with the 'target' option", async () => {
+      it("should handle pathFilter with router option", async () => {
         const response = await req.get("/bypass-with-target/foo.js");
 
         expect(response.status).toBe(404);
       });
 
-      it("should work with the 'target' option #2", async () => {
+      it("should rewrite matching pathFilter patterns with router", async () => {
         const response = await req.get("/bypass-with-target/index.html");
 
         expect(response.status).toBe(200);
@@ -306,7 +259,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -324,7 +277,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -341,7 +294,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -359,7 +312,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -376,7 +329,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -394,7 +347,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -411,7 +364,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -429,7 +382,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -446,7 +399,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -464,7 +417,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -483,13 +436,6 @@ describe("proxy option", () => {
       expect(response.text).toContain("from proxy2");
     });
 
-    it("should allow req, res, and next", async () => {
-      const response = await req.get("/api/proxy2?foo=true");
-
-      expect(response.statusCode).toBe(200);
-      expect(response.text).toBe("foo+next+function");
-    });
-
     it("should not exist multiple close events registered", async () => {
       expect(maxServerListeners).toBeLessThanOrEqual(1);
     });
@@ -499,7 +445,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -517,7 +463,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -535,7 +481,7 @@ describe("proxy option", () => {
     let req;
     let listener;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -559,7 +505,7 @@ describe("proxy option", () => {
 
       const proxy = express();
 
-      proxy.get("*", (proxyReq, res) => {
+      proxy.get("*slug", (proxyReq, res) => {
         res.send("from proxy");
       });
 
@@ -568,7 +514,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await new Promise((resolve) => {
         listener.close(() => {
@@ -598,12 +544,12 @@ describe("proxy option", () => {
     let webSocketServer;
     let responseMessage;
 
-    const webSocketServerTypes = ["sockjs", "ws"];
+    const webSocketServerTypes = ["ws"];
 
     for (const webSocketServerType of webSocketServerTypes) {
       // eslint-disable-next-line no-loop-func
       describe(`with webSocketServerType: ${webSocketServerType}`, () => {
-        beforeAll(async () => {
+        before(async () => {
           const compiler = webpack(config);
 
           server = new Server(
@@ -631,20 +577,23 @@ describe("proxy option", () => {
           });
         });
 
-        beforeEach((done) => {
-          ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
+        beforeEach(
+          () =>
+            new Promise((resolve) => {
+              ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
 
-          ws.on("message", (message) => {
-            responseMessage = message.toString();
-            done();
-          });
+              ws.on("message", (message) => {
+                responseMessage = message.toString();
+                resolve();
+              });
 
-          ws.on("open", () => {
-            ws.send("foo");
-          });
-        });
+              ws.on("open", () => {
+                ws.send("foo");
+              });
+            }),
+        );
 
-        afterAll(async () => {
+        after(async () => {
           webSocketServer.close();
 
           for (const client of webSocketServer.clients) {
@@ -669,7 +618,7 @@ describe("proxy option", () => {
 
     const BACKEND_MESSAGE_TYPE = "backend-message";
 
-    beforeAll(async () => {
+    before(async () => {
       backendUpgradeCount = 0;
 
       backend = http.createServer();
@@ -705,7 +654,7 @@ describe("proxy option", () => {
       await server.start();
     });
 
-    afterAll(async () => {
+    after(async () => {
       for (const client of backendWss.clients) {
         client.terminate();
       }
@@ -767,10 +716,8 @@ describe("proxy option", () => {
     let backend;
     let stderrSpy;
 
-    beforeAll(async () => {
-      stderrSpy = jest
-        .spyOn(process.stderr, "write")
-        .mockImplementation(() => true);
+    before(async () => {
+      stderrSpy = spyOn(process.stderr, "write").mockImplementation(() => true);
 
       backend = http.createServer();
       backend.on("upgrade", (req, socket) => {
@@ -802,7 +749,7 @@ describe("proxy option", () => {
       await server.start();
     });
 
-    afterAll(async () => {
+    after(async () => {
       stderrSpy.mockRestore();
       backend.closeAllConnections();
       await server.stop();
@@ -948,22 +895,16 @@ describe("proxy option", () => {
 
     // Behavior shared by every WebSocket server implementation: the HMR socket
     // is served locally and never forwarded, while any path the HMR server does
-    // not own falls through to the user proxy. SockJS serves its transport under
-    // `/<prefix>/<server>/<session>/websocket`, not the bare `/ws`.
+    // not own falls through to the user proxy.
     const serverTypes = [
       { type: "ws", hmrPath: "/ws", nonHmrPath: "/not-hmr" },
-      {
-        type: "sockjs",
-        hmrPath: "/ws/000/abcd1234/websocket",
-        nonHmrPath: "/not-hmr",
-      },
     ];
 
     for (const { type, hmrPath, nonHmrPath } of serverTypes) {
       describe(`with webSocketServerType: ${type}`, () => {
-        beforeAll(() => setup({ webSocketServer: type }));
+        before(() => setup({ webSocketServer: type }));
 
-        afterAll(teardown);
+        after(teardown);
 
         it("serves the HMR upgrade locally and does not forward it to the proxy", async () => {
           const { opened, forwarded } = await probe(hmrPath);
@@ -984,42 +925,46 @@ describe("proxy option", () => {
     // `WebSocketServer#shouldHandle` does, so only the configured path (query
     // stripped) is the HMR socket; every other variant is forwarded.
     describe("with the `ws` server, path matching is exact", () => {
-      beforeAll(() => setup({ webSocketServer: "ws" }));
+      before(() => setup({ webSocketServer: "ws" }));
 
-      afterAll(teardown);
+      after(teardown);
 
-      it.each([
+      for (const [label, path] of [
         ["exact path", "/ws"],
         ["path with query string", "/ws?token=1"],
-      ])("treats %s (%s) as the HMR upgrade path", async (_label, path) => {
-        const { forwarded } = await probe(path);
+      ]) {
+        it(`treats ${label} (${path}) as the HMR upgrade path`, async () => {
+          const { forwarded } = await probe(path);
 
-        expect(forwarded).toBe(false);
-      });
+          expect(forwarded).toBe(false);
+        });
+      }
 
-      it.each([
+      for (const [label, path] of [
         ["leading double slash", "//ws"],
         ["trailing slash", "/ws/"],
         ["uppercase", "/WS"],
         ["mixed case", "/wS"],
         ["percent-encoded path", "/%77%73"],
-      ])("forwards %s (%s) to the user proxy", async (_label, path) => {
-        const { forwarded } = await probe(path);
+      ]) {
+        it(`forwards ${label} (${path}) to the user proxy`, async () => {
+          const { forwarded } = await probe(path);
 
-        expect(forwarded).toBe(true);
-      });
+          expect(forwarded).toBe(true);
+        });
+      }
     });
 
     // The HMR path is read from the configured `webSocketServer` options, not a
     // hardcoded `/ws`.
     describe("with a custom `ws` path", () => {
-      beforeAll(() =>
+      before(() =>
         setup({
           webSocketServer: { type: "ws", options: { path: "/custom-hmr" } },
         }),
       );
 
-      afterAll(teardown);
+      after(teardown);
 
       it("treats the configured path (/custom-hmr) as the HMR upgrade path", async () => {
         const { forwarded } = await probe("/custom-hmr");
@@ -1037,11 +982,11 @@ describe("proxy option", () => {
     // With no HMR server there is no socket to protect, so the filter never
     // engages and even `/ws` is forwarded to the user proxy.
     describe("without a webSocketServer", () => {
-      beforeAll(() =>
+      before(() =>
         setup({ hot: false, liveReload: false, webSocketServer: false }),
       );
 
-      afterAll(teardown);
+      after(teardown);
 
       it("forwards /ws to the user proxy because there is no HMR socket to protect", async () => {
         const { forwarded } = await probe("/ws");
@@ -1056,7 +1001,7 @@ describe("proxy option", () => {
     let req;
     let listener;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack(config);
 
       server = new Server(
@@ -1084,7 +1029,7 @@ describe("proxy option", () => {
 
       // This forces Express to try to decode URLs, which is needed for the test
       // associated with the middleware below.
-      proxy.all("*", (_req, res, next) => {
+      proxy.all("*slug", (_req, res, next) => {
         next();
       });
       // We must define all 4 params in order for this to be detected as an
@@ -1123,7 +1068,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
 
       await new Promise((resolve) => {
@@ -1187,7 +1132,7 @@ describe("proxy option", () => {
     let server;
     let req;
 
-    beforeAll(async () => {
+    before(async () => {
       const compiler = webpack([config, config]);
 
       server = new Server(
@@ -1210,7 +1155,7 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
       await server.stop();
       await closeProxyServers();
     });
@@ -1223,19 +1168,13 @@ describe("proxy option", () => {
     });
   });
 
-  describe("should work and respect `logProvider` and `logLevel` options", () => {
+  describe("should work and respect `logger` option", () => {
     let server;
     let req;
-    let customLogProvider;
+    let consoleSpy;
 
-    beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
+    before(async () => {
+      consoleSpy = spyOn(console, "error").mockImplementation(() => {});
 
       const compiler = webpack([config, config]);
 
@@ -1245,8 +1184,7 @@ describe("proxy option", () => {
             {
               context: "/my-path",
               target: "http://unknown:1234",
-              logProvider: () => customLogProvider,
-              logLevel: "error",
+              logger: console,
             },
           ],
           port: port3,
@@ -1261,68 +1199,17 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
+      consoleSpy.mockRestore();
       await server.stop();
       await closeProxyServers();
     });
 
     describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
+      it("respects a proxy option when a request path is matched", async (t) => {
         await req.get("/my-path");
 
-        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
-      });
-    });
-  });
-
-  describe("should work and respect the `logLevel` option with `silent` value", () => {
-    let server;
-    let req;
-    let customLogProvider;
-
-    beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
-
-      const compiler = webpack([config, config]);
-
-      server = new Server(
-        {
-          proxy: [
-            {
-              context: "my-path",
-              target: "http://unknown:1234",
-              logProvider: () => customLogProvider,
-              logLevel: "silent",
-            },
-          ],
-          port: port3,
-        },
-        compiler,
-      );
-
-      await server.start();
-
-      await listenProxyServers();
-
-      req = request(server.app);
-    });
-
-    afterAll(async () => {
-      await server.stop();
-      await closeProxyServers();
-    });
-
-    describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
-        await req.get("/my-path");
-
-        expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+        t.assert.snapshot(getConsoleErrorOutput(consoleSpy));
       });
     });
   });
@@ -1330,20 +1217,14 @@ describe("proxy option", () => {
   describe("should work and respect the `infrastructureLogging.level` option", () => {
     let server;
     let req;
-    let customLogProvider;
+    let stderrSpy;
 
-    beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
+    before(async () => {
+      stderrSpy = spyOn(process.stderr, "write").mockImplementation(() => true);
 
       const compiler = webpack({
         ...config,
-        infrastructureLogging: { level: "error" },
+        infrastructureLogging: { colors: false, level: "error" },
       });
 
       server = new Server(
@@ -1352,7 +1233,6 @@ describe("proxy option", () => {
             {
               context: "/my-path",
               target: "http://unknown:1234",
-              logProvider: () => customLogProvider,
             },
           ],
           port: port3,
@@ -1367,16 +1247,17 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
+      stderrSpy.mockRestore();
       await server.stop();
       await closeProxyServers();
     });
 
     describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
+      it("respects a proxy option when a request path is matched", async (t) => {
         await req.get("/my-path");
 
-        expect(customLogProvider.error).toHaveBeenCalledTimes(1);
+        t.assert.snapshot(getStderrOutput(stderrSpy));
       });
     });
   });
@@ -1384,16 +1265,10 @@ describe("proxy option", () => {
   describe("should work and respect the `infrastructureLogging.level` option with `none` value", () => {
     let server;
     let req;
-    let customLogProvider;
+    let stderrSpy;
 
-    beforeAll(async () => {
-      customLogProvider = {
-        log: jest.fn(),
-        debug: jest.fn(),
-        info: jest.fn(),
-        warn: jest.fn(),
-        error: jest.fn(),
-      };
+    before(async () => {
+      stderrSpy = spyOn(process.stderr, "write").mockImplementation(() => true);
 
       const compiler = webpack({
         ...config,
@@ -1406,7 +1281,6 @@ describe("proxy option", () => {
             {
               context: "/my-path",
               target: "http://unknown:1234",
-              logProvider: () => customLogProvider,
             },
           ],
           port: port3,
@@ -1419,15 +1293,16 @@ describe("proxy option", () => {
       req = request(server.app);
     });
 
-    afterAll(async () => {
+    after(async () => {
+      stderrSpy.mockRestore();
       await server.stop();
     });
 
     describe("target", () => {
-      it("respects a proxy option when a request path is matched", async () => {
+      it("respects a proxy option when a request path is matched", async (t) => {
         await req.get("/my-path");
 
-        expect(customLogProvider.error).toHaveBeenCalledTimes(0);
+        t.assert.snapshot(getStderrOutput(stderrSpy));
       });
     });
   });

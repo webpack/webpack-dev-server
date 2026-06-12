@@ -1,21 +1,22 @@
-/**
- * @jest-environment node
- */
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { expect } from "expect";
+import fs from "graceful-fs";
+import { fn, spyOn } from "jest-mock";
+import webpack from "webpack";
+import WebSocket from "ws";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import multiCompilerConfig from "../fixtures/multi-compiler-one-configuration/webpack.config.js";
+import reloadConfig from "../fixtures/reload-config/webpack.config.js";
+import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-"use strict";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const path = require("node:path");
-const fs = require("graceful-fs");
-const SockJS = require("sockjs-client");
-const webpack = require("webpack");
-const WebSocket = require("ws");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const multiCompilerConfig = require("../fixtures/multi-compiler-one-configuration/webpack.config");
-const reloadConfig = require("../fixtures/reload-config/webpack.config");
-const HTMLGeneratorPlugin = require("../helpers/html-generator-plugin");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["hot-and-live-reload"];
+const port = portsMap["hot-and-live-reload"];
 
 const cssFilePath = path.resolve(
   __dirname,
@@ -25,7 +26,6 @@ const cssFilePath = path.resolve(
 const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
 
 describe("hot and live reload", () => {
-  // "sockjs" client cannot add additional headers
   const modes = [
     {
       title: "should work and refresh content using hot module replacement",
@@ -133,70 +133,6 @@ describe("hot and live reload", () => {
         hot: true,
       },
     },
-    // "sockjs" web socket serve
-    {
-      title:
-        "should work and refresh content using hot module replacement when hot enabled",
-      options: {
-        allowedHosts: "all",
-
-        webSocketServer: "sockjs",
-        hot: true,
-      },
-    },
-    {
-      title:
-        "should work and refresh content using hot module replacement when live reload enabled",
-      options: {
-        allowedHosts: "all",
-
-        webSocketServer: "sockjs",
-        liveReload: true,
-      },
-    },
-    {
-      title: "should not refresh content when hot and no live reload disabled",
-      options: {
-        allowedHosts: "all",
-
-        webSocketServer: "sockjs",
-        hot: false,
-        liveReload: false,
-      },
-    },
-    {
-      title:
-        "should work and refresh content using hot module replacement when live reload disabled and hot enabled",
-      options: {
-        allowedHosts: "all",
-
-        webSocketServer: "sockjs",
-        liveReload: false,
-        hot: true,
-      },
-    },
-    {
-      title:
-        "should work and refresh content using live reload when live reload disabled and hot enabled",
-      options: {
-        allowedHosts: "all",
-
-        webSocketServer: "sockjs",
-        liveReload: true,
-        hot: false,
-      },
-    },
-    {
-      title:
-        "should work and refresh content using hot module replacement when live reload and hot enabled",
-      options: {
-        allowedHosts: "all",
-
-        webSocketServer: "sockjs",
-        liveReload: true,
-        hot: true,
-      },
-    },
     {
       title:
         'should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false"',
@@ -229,8 +165,10 @@ describe("hot and live reload", () => {
       title: "should work with manual client setup",
       webpackOptions: {
         entry: [
-          require.resolve("../../client-src/index.js"),
-          require.resolve("../fixtures/reload-config/foo.js"),
+          fileURLToPath(import.meta.resolve("../../client-src/index.js")),
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -246,8 +184,10 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           "webpack/hot/dev-server",
-          `${require.resolve("../../client-src/index.js")}?hot=true`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=true`,
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
         plugins: [
           new webpack.HotModuleReplacementPlugin(),
@@ -265,8 +205,10 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable hot module replacement",
       webpackOptions: {
         entry: [
-          `${require.resolve("../../client-src/index.js")}?hot=false`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=false`,
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -280,8 +222,10 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to enable live reload",
       webpackOptions: {
         entry: [
-          `${require.resolve("../../client-src/index.js")}?live-reload=true`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=true`,
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -295,8 +239,10 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable live reload",
       webpackOptions: {
         entry: [
-          `${require.resolve("../../client-src/index.js")}?live-reload=false`,
-          require.resolve("../fixtures/reload-config/foo.js"),
+          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=false`,
+          fileURLToPath(
+            import.meta.resolve("../fixtures/reload-config/foo.js"),
+          ),
         ],
       },
       options: {
@@ -333,7 +279,7 @@ describe("hot and live reload", () => {
         : "default";
 
     // eslint-disable-next-line no-loop-func
-    it(`${mode.title} (${webSocketServerTitle})`, async () => {
+    it(`${mode.title} (${webSocketServerTitle})`, async (t) => {
       const webpackOptions = { ...reloadConfig, ...mode.webpackOptions };
       const compiler = webpack(webpackOptions);
       const testDevServerOptions = mode.options || {};
@@ -347,89 +293,44 @@ describe("hot and live reload", () => {
         testDevServerOptions.webSocketServer !== false;
 
       await new Promise((resolve) => {
-        const webSocketTransport =
-          typeof testDevServerOptions.webSocketServer !== "undefined" &&
-          testDevServerOptions.webSocketServer !== false
-            ? testDevServerOptions.webSocketServer
-            : "ws";
+        const ws = new WebSocket(`ws://localhost:${devServerOptions.port}/ws`, {
+          headers: {
+            host: `localhost:${devServerOptions.port}`,
+            origin: `http://localhost:${devServerOptions.port}`,
+          },
+        });
 
-        if (webSocketTransport === "ws") {
-          const ws = new WebSocket(
-            `ws://localhost:${devServerOptions.port}/ws`,
-            {
-              headers: {
-                host: `localhost:${devServerOptions.port}`,
-                origin: `http://localhost:${devServerOptions.port}`,
-              },
-            },
-          );
+        let opened = false;
+        let received = false;
+        let errored = false;
 
-          let opened = false;
-          let received = false;
-          let errored = false;
+        ws.on("error", (_error) => {
+          errored = true;
 
-          ws.on("error", (_error) => {
-            errored = true;
+          ws.close();
+        });
+
+        ws.on("open", () => {
+          opened = true;
+        });
+
+        ws.on("message", (data) => {
+          const message = JSON.parse(data);
+
+          if (message.type === "ok") {
+            received = true;
 
             ws.close();
-          });
+          }
+        });
 
-          ws.on("open", () => {
-            opened = true;
-          });
-
-          ws.on("message", (data) => {
-            const message = JSON.parse(data);
-
-            if (message.type === "ok") {
-              received = true;
-
-              ws.close();
-            }
-          });
-
-          ws.on("close", () => {
-            if (opened && received && !errored) {
-              resolve();
-            } else if (!webSocketServerLaunched && errored) {
-              resolve();
-            }
-          });
-        } else {
-          const sockjs = new SockJS(
-            `http://localhost:${devServerOptions.port}/ws`,
-          );
-
-          let opened = false;
-          let received = false;
-          let errored = false;
-
-          sockjs.onerror = () => {
-            errored = true;
-          };
-
-          sockjs.onopen = () => {
-            opened = true;
-          };
-
-          sockjs.onmessage = ({ data }) => {
-            const message = JSON.parse(data);
-
-            if (message.type === "ok") {
-              received = true;
-
-              sockjs.close();
-            }
-          };
-
-          sockjs.onclose = (event) => {
-            if (opened && received && !errored) {
-              resolve();
-            } else if (event && event.reason === "Cannot connect to server") {
-              resolve();
-            }
-          };
-        }
+        ws.on("close", () => {
+          if (opened && received && !errored) {
+            resolve();
+          } else if (!webSocketServerLaunched && errored) {
+            resolve();
+          }
+        });
       });
 
       const launched = await runBrowser();
@@ -563,8 +464,8 @@ describe("hot and live reload", () => {
         expect(backgroundColorAfter).toBe("rgb(255, 0, 0)");
       }
 
-      expect(consoleMessages).toMatchSnapshot("console messages");
-      expect(pageErrors).toMatchSnapshot("page errors");
+      t.assert.snapshot(consoleMessages);
+      t.assert.snapshot(pageErrors);
     });
   }
 });
@@ -594,7 +495,7 @@ describe("simple hot config HMR plugin", () => {
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  it("should register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -625,13 +526,11 @@ describe("simple hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -660,7 +559,7 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  it("should register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -692,13 +591,11 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -715,15 +612,16 @@ describe("simple config with already added HMR plugin", () => {
       plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],
     });
 
-    loggerWarnSpy = jest.fn();
+    loggerWarnSpy = fn();
 
-    getInfrastructureLoggerSpy = jest
-      .spyOn(compiler, "getInfrastructureLogger")
-      .mockImplementation(() => ({
-        warn: loggerWarnSpy,
-        info: () => {},
-        log: () => {},
-      }));
+    getInfrastructureLoggerSpy = spyOn(
+      compiler,
+      "getInfrastructureLogger",
+    ).mockImplementation(() => ({
+      warn: loggerWarnSpy,
+      info: () => {},
+      log: () => {},
+    }));
   });
 
   afterEach(() => {
@@ -790,7 +688,7 @@ describe("multi compiler hot config HMR plugin", () => {
     await server.stop();
   });
 
-  it("should register the HMR plugin before compilation is complete", async () => {
+  it("should register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.compilers[0].hooks.compilation.intercept({
@@ -821,13 +719,11 @@ describe("multi compiler hot config HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });
 
@@ -853,7 +749,7 @@ describe("hot disabled HMR plugin", () => {
     await server.stop();
   });
 
-  it("should NOT register the HMR plugin before compilation is complete", async () => {
+  it("should NOT register the HMR plugin before compilation is complete", async (t) => {
     let pluginFound = false;
 
     compiler.hooks.compilation.intercept({
@@ -884,12 +780,10 @@ describe("hot disabled HMR plugin", () => {
       waitUntil: "networkidle0",
     });
 
-    expect(response.status()).toMatchSnapshot("response status");
+    t.assert.snapshot(response.status());
 
-    expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-      "console messages",
-    );
+    t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-    expect(pageErrors).toMatchSnapshot("page errors");
+    t.assert.snapshot(pageErrors);
   });
 });

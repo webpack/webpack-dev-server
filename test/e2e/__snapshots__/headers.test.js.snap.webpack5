@@ -1,39 +1,13 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`headers option as a function returning an array should handle GET request with headers: console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`headers option as a function returning an array should handle GET request with headers: page errors 1`] = `[]`;
-
-exports[`headers option as a function returning an array should handle GET request with headers: response headers x-bar 1`] = `"value2"`;
-
-exports[`headers option as a function returning an array should handle GET request with headers: response headers x-foo 1`] = `"value1"`;
-
-exports[`headers option as a function returning an array should handle GET request with headers: response status 1`] = `200`;
-
-exports[`headers option as a function should handle GET request with headers as a function: console messages 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`headers option as a function should handle GET request with headers as a function: page errors 1`] = `[]`;
-
-exports[`headers option as a function should handle GET request with headers as a function: response headers x-bar 1`] = `
+exports[`headers option > as a function > should handle GET request with headers as a function 1`] = `
 "key1=value1
 key2=value2"
 `;
 
-exports[`headers option as a function should handle GET request with headers as a function: response status 1`] = `200`;
+exports[`headers option > as a function > should handle GET request with headers as a function 2`] = `
+200
+`;
 
-exports[`headers option as a string and support HEAD request should handle HEAD request with headers: console messages 1`] = `
+exports[`headers option > as a function > should handle GET request with headers as a function 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -41,13 +15,23 @@ exports[`headers option as a string and support HEAD request should handle HEAD 
 ]
 `;
 
-exports[`headers option as a string and support HEAD request should handle HEAD request with headers: page errors 1`] = `[]`;
+exports[`headers option > as a function > should handle GET request with headers as a function 4`] = `
+[]
+`;
 
-exports[`headers option as a string and support HEAD request should handle HEAD request with headers: response headers x-foo 1`] = `"dev-server headers"`;
+exports[`headers option > as a function returning an array > should handle GET request with headers 1`] = `
+"value1"
+`;
 
-exports[`headers option as a string and support HEAD request should handle HEAD request with headers: response status 1`] = `200`;
+exports[`headers option > as a function returning an array > should handle GET request with headers 2`] = `
+"value2"
+`;
 
-exports[`headers option as a string should handle GET request with headers: console messages 1`] = `
+exports[`headers option > as a function returning an array > should handle GET request with headers 3`] = `
+200
+`;
+
+exports[`headers option > as a function returning an array > should handle GET request with headers 4`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -55,13 +39,19 @@ exports[`headers option as a string should handle GET request with headers: cons
 ]
 `;
 
-exports[`headers option as a string should handle GET request with headers: page errors 1`] = `[]`;
+exports[`headers option > as a function returning an array > should handle GET request with headers 5`] = `
+[]
+`;
 
-exports[`headers option as a string should handle GET request with headers: response headers x-foo 1`] = `"dev-server headers"`;
+exports[`headers option > as a string > should handle GET request with headers 1`] = `
+"dev-server headers"
+`;
 
-exports[`headers option as a string should handle GET request with headers: response status 1`] = `200`;
+exports[`headers option > as a string > should handle GET request with headers 2`] = `
+200
+`;
 
-exports[`headers option as an array of objects should handle GET request with headers: console messages 1`] = `
+exports[`headers option > as a string > should handle GET request with headers 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -69,15 +59,19 @@ exports[`headers option as an array of objects should handle GET request with he
 ]
 `;
 
-exports[`headers option as an array of objects should handle GET request with headers: page errors 1`] = `[]`;
+exports[`headers option > as a string > should handle GET request with headers 4`] = `
+[]
+`;
 
-exports[`headers option as an array of objects should handle GET request with headers: response headers x-bar 1`] = `"value2"`;
+exports[`headers option > as a string and support HEAD request > should handle HEAD request with headers 1`] = `
+"dev-server headers"
+`;
 
-exports[`headers option as an array of objects should handle GET request with headers: response headers x-foo 1`] = `"value1"`;
+exports[`headers option > as a string and support HEAD request > should handle HEAD request with headers 2`] = `
+200
+`;
 
-exports[`headers option as an array of objects should handle GET request with headers: response status 1`] = `200`;
-
-exports[`headers option as an array should handle GET request with headers as an array: console messages 1`] = `
+exports[`headers option > as a string and support HEAD request > should handle HEAD request with headers 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -85,16 +79,20 @@ exports[`headers option as an array should handle GET request with headers as an
 ]
 `;
 
-exports[`headers option as an array should handle GET request with headers as an array: page errors 1`] = `[]`;
+exports[`headers option > as a string and support HEAD request > should handle HEAD request with headers 4`] = `
+[]
+`;
 
-exports[`headers option as an array should handle GET request with headers as an array: response headers x-bar 1`] = `
+exports[`headers option > as an array > should handle GET request with headers as an array 1`] = `
 "key1=value1
 key2=value2"
 `;
 
-exports[`headers option as an array should handle GET request with headers as an array: response status 1`] = `200`;
+exports[`headers option > as an array > should handle GET request with headers as an array 2`] = `
+200
+`;
 
-exports[`headers option dev middleware headers take precedence for dev middleware output files should handle GET request with headers as a function: console messages 1`] = `
+exports[`headers option > as an array > should handle GET request with headers as an array 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -102,8 +100,50 @@ exports[`headers option dev middleware headers take precedence for dev middlewar
 ]
 `;
 
-exports[`headers option dev middleware headers take precedence for dev middleware output files should handle GET request with headers as a function: page errors 1`] = `[]`;
+exports[`headers option > as an array > should handle GET request with headers as an array 4`] = `
+[]
+`;
 
-exports[`headers option dev middleware headers take precedence for dev middleware output files should handle GET request with headers as a function: response headers x-foo 1`] = `"dev-middleware-headers"`;
+exports[`headers option > as an array of objects > should handle GET request with headers 1`] = `
+"value1"
+`;
 
-exports[`headers option dev middleware headers take precedence for dev middleware output files should handle GET request with headers as a function: response status 1`] = `200`;
+exports[`headers option > as an array of objects > should handle GET request with headers 2`] = `
+"value2"
+`;
+
+exports[`headers option > as an array of objects > should handle GET request with headers 3`] = `
+200
+`;
+
+exports[`headers option > as an array of objects > should handle GET request with headers 4`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`headers option > as an array of objects > should handle GET request with headers 5`] = `
+[]
+`;
+
+exports[`headers option > dev middleware headers take precedence for dev middleware output files > should handle GET request with headers as a function 1`] = `
+"dev-middleware-headers"
+`;
+
+exports[`headers option > dev middleware headers take precedence for dev middleware output files > should handle GET request with headers as a function 2`] = `
+200
+`;
+
+exports[`headers option > dev middleware headers take precedence for dev middleware output files > should handle GET request with headers as a function 3`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`headers option > dev middleware headers take precedence for dev middleware output files > should handle GET request with headers as a function 4`] = `
+[]
+`;

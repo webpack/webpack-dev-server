@@ -1,10 +1,13 @@
-"use strict";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { expect } from "expect";
+import { spyOn } from "jest-mock";
+import webpack from "webpack";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const webpack = require("webpack");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/simple-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map")["setup-exit-signals-option"];
+const port = portsMap["setup-exit-signals-option"];
 
 describe("setupExitSignals option", () => {
   describe("should handle 'SIGINT' and 'SIGTERM' signals", () => {
@@ -41,18 +44,18 @@ describe("setupExitSignals option", () => {
       consoleMessages = [];
       doExit = false;
 
-      exitSpy = jest.spyOn(process, "exit").mockImplementation(() => {
+      exitSpy = spyOn(process, "exit").mockImplementation(() => {
         doExit = true;
       });
 
-      stdinResumeSpy = jest
-        .spyOn(process.stdin, "resume")
-        .mockImplementation(() => {});
+      stdinResumeSpy = spyOn(process.stdin, "resume").mockImplementation(
+        () => {},
+      );
 
-      stopCallbackSpy = jest.spyOn(server, "stopCallback");
+      stopCallbackSpy = spyOn(server, "stopCallback");
 
       if (server.compiler.close) {
-        closeCallbackSpy = jest.spyOn(server.compiler, "close");
+        closeCallbackSpy = spyOn(server.compiler, "close");
       }
     });
 
@@ -67,52 +70,53 @@ describe("setupExitSignals option", () => {
       await server.stop();
     });
 
-    it.each(signals)("should close and exit on %s", async (signal) => {
-      page
-        .on("console", (message) => {
-          consoleMessages.push(message);
-        })
-        .on("pageerror", (error) => {
-          pageErrors.push(error);
+    for (const signal of signals) {
+      // eslint-disable-next-line no-loop-func
+      it(`should close and exit on ${signal}`, async (t) => {
+        page
+          .on("console", (message) => {
+            consoleMessages.push(message);
+          })
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          });
+
+        const response = await page.goto(`http://localhost:${port}/`, {
+          waitUntil: "networkidle0",
         });
 
-      const response = await page.goto(`http://localhost:${port}/`, {
-        waitUntil: "networkidle0",
-      });
+        t.assert.snapshot(response.status());
 
-      expect(response.status()).toMatchSnapshot("response status");
+        process.emit(signal);
 
-      process.emit(signal);
+        await new Promise((resolve) => {
+          const interval = setInterval(() => {
+            if (doExit) {
+              expect(stopCallbackSpy.mock.calls).toHaveLength(1);
 
-      await new Promise((resolve) => {
-        const interval = setInterval(() => {
-          if (doExit) {
-            expect(stopCallbackSpy.mock.calls).toHaveLength(1);
+              if (server.compiler.close) {
+                expect(closeCallbackSpy.mock.calls).toHaveLength(1);
+              }
 
-            if (server.compiler.close) {
-              expect(closeCallbackSpy.mock.calls).toHaveLength(1);
+              clearInterval(interval);
+
+              resolve();
             }
+          }, 100);
+        });
 
-            clearInterval(interval);
+        consoleMessages = consoleMessages.filter(
+          (message) =>
+            !(
+              message.text().includes("Trying to reconnect...") ||
+              message.text().includes("Disconnected")
+            ),
+        );
 
-            resolve();
-          }
-        }, 100);
+        t.assert.snapshot(consoleMessages.map((message) => message.text()));
+
+        t.assert.snapshot(pageErrors);
       });
-
-      consoleMessages = consoleMessages.filter(
-        (message) =>
-          !(
-            message.text().includes("Trying to reconnect...") ||
-            message.text().includes("Disconnected")
-          ),
-      );
-
-      expect(consoleMessages.map((message) => message.text())).toMatchSnapshot(
-        "console messages",
-      );
-
-      expect(pageErrors).toMatchSnapshot("page errors");
-    });
+    }
   });
 });

@@ -1,13 +1,24 @@
-"use strict";
+import fs from "node:fs";
+import { createSecureServer } from "node:http2";
+import { createServer as createHttpsServer } from "node:https";
+import path from "node:path";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
+import { createAdaptorServer } from "@hono/node-server";
+import connect from "connect";
+import { expect } from "expect";
+import express from "express";
+import { Hono } from "hono";
+import webpack from "webpack";
+import wdm from "webpack-dev-middleware";
+import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
+import runBrowser from "../helpers/run-browser.js";
+import portsMap from "../ports-map.js";
 
-const fs = require("node:fs");
-const path = require("node:path");
-const webpack = require("webpack");
-const wdm = require("webpack-dev-middleware");
-const Server = require("../../lib/Server");
-const config = require("../fixtures/client-config/webpack.config");
-const runBrowser = require("../helpers/run-browser");
-const port = require("../ports-map").app;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const port = portsMap.app;
 
 const staticDirectory = path.resolve(
   __dirname,
@@ -15,17 +26,17 @@ const staticDirectory = path.resolve(
 );
 
 const apps = [
-  ["express", () => require("express")(), "http"],
-  ["express", () => require("express")(), "https"],
-  ["connect", () => require("connect")(), "http"],
-  ["connect", () => require("connect")(), "https"],
-  ["connect", () => require("connect")(), "http2"],
-  ["connect (async)", () => require("connect")(), "http"],
+  ["express", () => express(), "http"],
+  ["express", () => express(), "https"],
+  ["connect", () => connect(), "http"],
+  ["connect", () => connect(), "https"],
+  ["connect", () => connect(), "http2"],
+  ["connect (async)", () => connect(), "http"],
   [
     "hono",
-    () => new (require("hono").Hono)(),
+    () => new Hono(),
     (options, app) =>
-      require("@hono/node-server").createAdaptorServer({
+      createAdaptorServer({
         fetch: app.fetch,
       }),
     (_, devServer) => [
@@ -37,11 +48,11 @@ const apps = [
   ],
   [
     "hono",
-    () => new (require("hono").Hono)(),
+    () => new Hono(),
     (_, app) =>
-      require("@hono/node-server").createAdaptorServer({
+      createAdaptorServer({
         fetch: app.fetch,
-        createServer: require("node:https").createServer,
+        createServer: createHttpsServer,
         serverOptions: {
           key: fs.readFileSync(
             path.resolve(__dirname, "../fixtures/ssl/localhost-privkey.pem"),
@@ -60,12 +71,12 @@ const apps = [
   ],
   [
     "hono",
-    () => new (require("hono").Hono)(),
+    () => new Hono(),
     {
       type: (options, app) =>
-        require("@hono/node-server").createAdaptorServer({
+        createAdaptorServer({
           fetch: app.fetch,
-          createServer: require("node:http2").createSecureServer,
+          createServer: createSecureServer,
           serverOptions: options,
         }),
       options: {
@@ -86,15 +97,6 @@ const apps = [
     ],
   ],
 ];
-
-const [major] = process.versions.node.split(".").map(Number);
-
-if (major < 24) {
-  apps.push(
-    ["express", () => require("express")(), "spdy"],
-    ["connect", () => require("connect")(), "spdy"],
-  );
-}
 
 describe("app option", () => {
   for (const [appName, app, server, setupMiddlewares] of apps) {
@@ -166,7 +168,6 @@ describe("app option", () => {
         );
 
         if (
-          server === "spdy" ||
           server === "http2" ||
           (server.options && server.options.allowHTTP1)
         ) {
