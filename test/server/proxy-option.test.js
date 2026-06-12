@@ -859,6 +859,198 @@ describe("proxy option", () => {
     });
   });
 
+  describe("HMR upgrade dispatching to user proxies", () => {
+    let server;
+    let backend;
+    let backendWss;
+    let backendUpgradeCount;
+
+    // Start a backend WebSocket server (the user proxy target) and a dev-server
+    // proxying everything to it, with the given dev-server options merged in.
+    const setup = async (devServerOptions) => {
+      backendUpgradeCount = 0;
+
+      backend = http.createServer();
+      backendWss = new WebSocketServer({ server: backend });
+      backendWss.on("connection", () => {
+        backendUpgradeCount += 1;
+      });
+
+      await new Promise((resolve) => {
+        backend.listen(port5, resolve);
+      });
+
+      server = new Server(
+        {
+          hot: true,
+          allowedHosts: "all",
+          proxy: [
+            {
+              context: "/",
+              target: `http://localhost:${port5}`,
+              ws: true,
+            },
+          ],
+          port: port3,
+          ...devServerOptions,
+        },
+        webpack(config),
+      );
+
+      await server.start();
+    };
+
+    const teardown = async () => {
+      for (const client of backendWss.clients) {
+        client.terminate();
+      }
+      backendWss.close();
+      backend.closeAllConnections();
+      await server.stop();
+      await new Promise((resolve) => {
+        backend.close(resolve);
+      });
+    };
+
+    // Open a WebSocket to `path` and report whether the dev-server completed the
+    // handshake (`opened`) and whether the upgrade was forwarded to the backend
+    // proxy (`forwarded`).
+    const probe = async (path) => {
+      const before = backendUpgradeCount;
+
+      const ws = new WebSocket(`ws://localhost:${port3}${path}`);
+
+      // Resolve as soon as the socket reaches a terminal state instead of
+      // waiting a fixed delay: `open` means the handshake completed, `error`
+      // means it was rejected. The timeout is only a fallback in case neither
+      // event ever fires, so it can be generous without slowing the happy path.
+      const opened = await new Promise((resolve) => {
+        const timer = setTimeout(() => resolve(false), 2000);
+
+        ws.once("open", () => {
+          clearTimeout(timer);
+          resolve(true);
+        });
+        ws.once("error", () => {
+          clearTimeout(timer);
+          resolve(false);
+        });
+      });
+
+      try {
+        ws.close();
+      } catch {
+        // ignore close errors on already-failed sockets
+      }
+
+      return { opened, forwarded: backendUpgradeCount > before };
+    };
+
+    // Behavior shared by every WebSocket server implementation: the HMR socket
+    // is served locally and never forwarded, while any path the HMR server does
+    // not own falls through to the user proxy. SockJS serves its transport under
+    // `/<prefix>/<server>/<session>/websocket`, not the bare `/ws`.
+    const serverTypes = [
+      { type: "ws", hmrPath: "/ws", nonHmrPath: "/not-hmr" },
+      {
+        type: "sockjs",
+        hmrPath: "/ws/000/abcd1234/websocket",
+        nonHmrPath: "/not-hmr",
+      },
+    ];
+
+    for (const { type, hmrPath, nonHmrPath } of serverTypes) {
+      describe(`with webSocketServerType: ${type}`, () => {
+        beforeAll(() => setup({ webSocketServer: type }));
+
+        afterAll(teardown);
+
+        it("serves the HMR upgrade locally and does not forward it to the proxy", async () => {
+          const { opened, forwarded } = await probe(hmrPath);
+
+          expect(opened).toBe(true);
+          expect(forwarded).toBe(false);
+        });
+
+        it("forwards a non-HMR upgrade to the user proxy", async () => {
+          const { forwarded } = await probe(nonHmrPath);
+
+          expect(forwarded).toBe(true);
+        });
+      });
+    }
+
+    // `ws`-specific: the dispatch compares the path exactly the same way
+    // `WebSocketServer#shouldHandle` does, so only the configured path (query
+    // stripped) is the HMR socket; every other variant is forwarded.
+    describe("with the `ws` server, path matching is exact", () => {
+      beforeAll(() => setup({ webSocketServer: "ws" }));
+
+      afterAll(teardown);
+
+      it.each([
+        ["exact path", "/ws"],
+        ["path with query string", "/ws?token=1"],
+      ])("treats %s (%s) as the HMR upgrade path", async (_label, path) => {
+        const { forwarded } = await probe(path);
+
+        expect(forwarded).toBe(false);
+      });
+
+      it.each([
+        ["leading double slash", "//ws"],
+        ["trailing slash", "/ws/"],
+        ["uppercase", "/WS"],
+        ["mixed case", "/wS"],
+        ["percent-encoded path", "/%77%73"],
+      ])("forwards %s (%s) to the user proxy", async (_label, path) => {
+        const { forwarded } = await probe(path);
+
+        expect(forwarded).toBe(true);
+      });
+    });
+
+    // The HMR path is read from the configured `webSocketServer` options, not a
+    // hardcoded `/ws`.
+    describe("with a custom `ws` path", () => {
+      beforeAll(() =>
+        setup({
+          webSocketServer: { type: "ws", options: { path: "/custom-hmr" } },
+        }),
+      );
+
+      afterAll(teardown);
+
+      it("treats the configured path (/custom-hmr) as the HMR upgrade path", async () => {
+        const { forwarded } = await probe("/custom-hmr");
+
+        expect(forwarded).toBe(false);
+      });
+
+      it("forwards the default path (/ws) once it is no longer the HMR path", async () => {
+        const { forwarded } = await probe("/ws");
+
+        expect(forwarded).toBe(true);
+      });
+    });
+
+    // With no HMR server there is no socket to protect, so the filter never
+    // engages and even `/ws` is forwarded to the user proxy.
+    describe("without a webSocketServer", () => {
+      beforeAll(() =>
+        setup({ hot: false, liveReload: false, webSocketServer: false }),
+      );
+
+      afterAll(teardown);
+
+      it("forwards /ws to the user proxy because there is no HMR socket to protect", async () => {
+        const { forwarded } = await probe("/ws");
+
+        expect(forwarded).toBe(true);
+      });
+    });
+  });
+
   describe("should supports http methods", () => {
     let server;
     let req;

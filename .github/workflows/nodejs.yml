@@ -64,12 +64,13 @@ jobs:
         run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
   test:
-    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})
+    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version == '24.15' && '24.x' || matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18.x, 20.x, 22.x, 24.x]
+        # 24.15 is pinned on purpose: Node 24.16 is broken for Puppeteer. Do not bump to 24.x.
+        node-version: [18.x, 20.x, 22.x, 24.15]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
 
