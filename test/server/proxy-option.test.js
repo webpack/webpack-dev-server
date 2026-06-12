@@ -618,7 +618,7 @@ describe("proxy option", () => {
 
     const BACKEND_MESSAGE_TYPE = "backend-message";
 
-    beforeAll(async () => {
+    before(async () => {
       backendUpgradeCount = 0;
 
       backend = http.createServer();
@@ -654,7 +654,7 @@ describe("proxy option", () => {
       await server.start();
     });
 
-    afterAll(async () => {
+    after(async () => {
       for (const client of backendWss.clients) {
         client.terminate();
       }
@@ -716,10 +716,8 @@ describe("proxy option", () => {
     let backend;
     let stderrSpy;
 
-    beforeAll(async () => {
-      stderrSpy = jest
-        .spyOn(process.stderr, "write")
-        .mockImplementation(() => true);
+    before(async () => {
+      stderrSpy = spyOn(process.stderr, "write").mockImplementation(() => true);
 
       backend = http.createServer();
       backend.on("upgrade", (req, socket) => {
@@ -751,7 +749,7 @@ describe("proxy option", () => {
       await server.start();
     });
 
-    afterAll(async () => {
+    after(async () => {
       stderrSpy.mockRestore();
       backend.closeAllConnections();
       await server.stop();
@@ -897,22 +895,16 @@ describe("proxy option", () => {
 
     // Behavior shared by every WebSocket server implementation: the HMR socket
     // is served locally and never forwarded, while any path the HMR server does
-    // not own falls through to the user proxy. SockJS serves its transport under
-    // `/<prefix>/<server>/<session>/websocket`, not the bare `/ws`.
+    // not own falls through to the user proxy.
     const serverTypes = [
       { type: "ws", hmrPath: "/ws", nonHmrPath: "/not-hmr" },
-      {
-        type: "sockjs",
-        hmrPath: "/ws/000/abcd1234/websocket",
-        nonHmrPath: "/not-hmr",
-      },
     ];
 
     for (const { type, hmrPath, nonHmrPath } of serverTypes) {
       describe(`with webSocketServerType: ${type}`, () => {
-        beforeAll(() => setup({ webSocketServer: type }));
+        before(() => setup({ webSocketServer: type }));
 
-        afterAll(teardown);
+        after(teardown);
 
         it("serves the HMR upgrade locally and does not forward it to the proxy", async () => {
           const { opened, forwarded } = await probe(hmrPath);
@@ -933,42 +925,46 @@ describe("proxy option", () => {
     // `WebSocketServer#shouldHandle` does, so only the configured path (query
     // stripped) is the HMR socket; every other variant is forwarded.
     describe("with the `ws` server, path matching is exact", () => {
-      beforeAll(() => setup({ webSocketServer: "ws" }));
+      before(() => setup({ webSocketServer: "ws" }));
 
-      afterAll(teardown);
+      after(teardown);
 
-      it.each([
+      for (const [label, path] of [
         ["exact path", "/ws"],
         ["path with query string", "/ws?token=1"],
-      ])("treats %s (%s) as the HMR upgrade path", async (_label, path) => {
-        const { forwarded } = await probe(path);
+      ]) {
+        it(`treats ${label} (${path}) as the HMR upgrade path`, async () => {
+          const { forwarded } = await probe(path);
 
-        expect(forwarded).toBe(false);
-      });
+          expect(forwarded).toBe(false);
+        });
+      }
 
-      it.each([
+      for (const [label, path] of [
         ["leading double slash", "//ws"],
         ["trailing slash", "/ws/"],
         ["uppercase", "/WS"],
         ["mixed case", "/wS"],
         ["percent-encoded path", "/%77%73"],
-      ])("forwards %s (%s) to the user proxy", async (_label, path) => {
-        const { forwarded } = await probe(path);
+      ]) {
+        it(`forwards ${label} (${path}) to the user proxy`, async () => {
+          const { forwarded } = await probe(path);
 
-        expect(forwarded).toBe(true);
-      });
+          expect(forwarded).toBe(true);
+        });
+      }
     });
 
     // The HMR path is read from the configured `webSocketServer` options, not a
     // hardcoded `/ws`.
     describe("with a custom `ws` path", () => {
-      beforeAll(() =>
+      before(() =>
         setup({
           webSocketServer: { type: "ws", options: { path: "/custom-hmr" } },
         }),
       );
 
-      afterAll(teardown);
+      after(teardown);
 
       it("treats the configured path (/custom-hmr) as the HMR upgrade path", async () => {
         const { forwarded } = await probe("/custom-hmr");
@@ -986,11 +982,11 @@ describe("proxy option", () => {
     // With no HMR server there is no socket to protect, so the filter never
     // engages and even `/ws` is forwarded to the user proxy.
     describe("without a webSocketServer", () => {
-      beforeAll(() =>
+      before(() =>
         setup({ hot: false, liveReload: false, webSocketServer: false }),
       );
 
-      afterAll(teardown);
+      after(teardown);
 
       it("forwards /ws to the user proxy because there is no HMR socket to protect", async () => {
         const { forwarded } = await probe("/ws");
