@@ -862,6 +862,7 @@ describe("proxy option", () => {
   describe("HMR upgrade dispatching to user proxies", () => {
     let server;
     let backend;
+    let backendWss;
     let backendUpgradeCount;
 
     // Start a backend WebSocket server (the user proxy target) and a dev-server
@@ -870,7 +871,8 @@ describe("proxy option", () => {
       backendUpgradeCount = 0;
 
       backend = http.createServer();
-      new WebSocketServer({ server: backend }).on("connection", () => {
+      backendWss = new WebSocketServer({ server: backend });
+      backendWss.on("connection", () => {
         backendUpgradeCount += 1;
       });
 
@@ -899,6 +901,10 @@ describe("proxy option", () => {
     };
 
     const teardown = async () => {
+      for (const client of backendWss.clients) {
+        client.terminate();
+      }
+      backendWss.close();
       backend.closeAllConnections();
       await server.stop();
       await new Promise((resolve) => {
@@ -912,15 +918,23 @@ describe("proxy option", () => {
     const probe = async (path) => {
       const before = backendUpgradeCount;
 
-      let opened = false;
       const ws = new WebSocket(`ws://localhost:${port3}${path}`);
-      ws.on("open", () => {
-        opened = true;
-      });
-      ws.on("error", () => {});
 
-      await new Promise((resolve) => {
-        setTimeout(resolve, 400);
+      // Resolve as soon as the socket reaches a terminal state instead of
+      // waiting a fixed delay: `open` means the handshake completed, `error`
+      // means it was rejected. The timeout is only a fallback in case neither
+      // event ever fires, so it can be generous without slowing the happy path.
+      const opened = await new Promise((resolve) => {
+        const timer = setTimeout(() => resolve(false), 2000);
+
+        ws.once("open", () => {
+          clearTimeout(timer);
+          resolve(true);
+        });
+        ws.once("error", () => {
+          clearTimeout(timer);
+          resolve(false);
+        });
       });
 
       try {
@@ -928,10 +942,6 @@ describe("proxy option", () => {
       } catch {
         // ignore close errors on already-failed sockets
       }
-
-      await new Promise((resolve) => {
-        setTimeout(resolve, 200);
-      });
 
       return { opened, forwarded: backendUpgradeCount > before };
     };
