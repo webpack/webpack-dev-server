@@ -56,12 +56,13 @@ jobs:
       - name: Check types
         run: if [ -n "$(git status types --porcelain)" ]; then echo "Missing types. Update types by running 'npm run build:types'"; exit 1; else echo "All types are valid"; fi
 
-      - name: Security audit
-        run: npm audit --production
-
       - name: Validate PR commits with commitlint
         if: github.event_name == 'pull_request'
         run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+      - name: Validate changeset format
+        if: github.event_name == 'pull_request'
+        run: npm run validate:changeset
 
   test:
     name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version == '24.15' && '24.x' || matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})

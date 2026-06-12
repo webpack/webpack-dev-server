@@ -29,6 +29,8 @@ Following these guidelines helps to communicate that you respect the time of the
 
 - Make sure your PR's description contains GitHub's special keyword references that automatically close the related issue when the PR is merged. ([More info](https://github.com/blog/1506-closing-issues-via-pull-requests))
 
+- Add a [changeset](#changesets) if your change affects the published package (a feature, fix, or breaking change). Changes that don't affect users (tests, internal refactors, CI, docs) don't need one.
+
 ## Setting Up a Local Copy
 
 1. Clone the repo with `git clone https://github.com/webpack/webpack-dev-server`.
@@ -95,6 +97,25 @@ refactor: remove stdin option
 
 BREAKING CHANGE: stdin option was removed
 ```
+
+## Changesets
+
+Versioning, the changelog, and publishing to npm are automated with [changesets](https://github.com/changesets/changesets) and run from CI. If your pull request changes the published package, add a changeset so your change shows up in the release notes:
+
+1. Run `npx changeset` in the root of the repo.
+
+2. Choose the bump type when prompted:
+   - **patch** — a bug fix or other backwards-compatible change.
+   - **minor** — a new feature.
+   - **major** — a breaking change.
+
+3. Write a short summary. This is what appears in the changelog, so describe the change from a user's point of view.
+
+4. Commit the generated file in `.changeset/` along with the rest of your changes.
+
+You can add more than one changeset to a single pull request if it includes several independent changes.
+
+When changesets are merged into `main`, a release pull request is opened automatically. Merging that pull request bumps the version, updates `CHANGELOG.md`, and publishes to npm.
 
 ## Testing a Pull Request
 
