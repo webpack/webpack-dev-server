@@ -3,11 +3,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { simpleGit } from "simple-git";
-import pkgJson from "../package.json" with { type: "json" };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootPath = path.join(__dirname, "..");
 const git = simpleGit(rootPath);
+
+const pkgJson = JSON.parse(
+  await fs.readFile(path.join(rootPath, "package.json"), "utf8"),
+);
 
 const VALID_BUMPS = new Set(["major", "minor", "patch"]);
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/;
