@@ -253,7 +253,7 @@ describe("API (plugin)", () => {
     const compiler = webpack(config);
     // Using a URL as `static.directory` throws inside `normalizeOptions`
     // during `setup()`. The rejection should bubble out through the
-    // `beforeCompile.tapPromise` handler and reach `compiler.watch()`'s
+    // `watchRun.tapPromise` handler and reach `compiler.watch()`'s
     // user callback as an error.
     const server = new Server({
       port,
