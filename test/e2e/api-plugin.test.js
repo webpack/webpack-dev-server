@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, it } from "node:test";
@@ -130,6 +131,46 @@ describe("API (plugin)", () => {
 
     setupSpy.mockRestore();
     listenSpy.mockRestore();
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should serve from the in-memory file system, not the real disk", async () => {
+    // Point output at a real (but non-existent) tmp dir so we can assert that
+    // nothing is flushed to it. The plugin must hand the compiler
+    // webpack-dev-middleware's in-memory file system before the first build
+    // writes anything.
+    const outputPath = path.join(os.tmpdir(), `wds-plugin-memfs-${Date.now()}`);
+    const compiler = webpack({
+      ...config,
+      output: {
+        ...config.output,
+        path: outputPath,
+      },
+    });
+    const server = new Server({ port });
+
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    // `outputFileSystem` was swapped, so it is never the Node.js `fs`.
+    expect(compiler.outputFileSystem).not.toBe(fs);
+
+    // Assets live in memory...
+    const inMemoryFiles = compiler.outputFileSystem.readdirSync(outputPath);
+    expect(inMemoryFiles).toContain("main.js");
+    expect(inMemoryFiles).toContain("index.html");
+
+    // ...and the real disk stays untouched.
+    expect(fs.existsSync(outputPath)).toBe(false);
+
+    // It is also reachable over HTTP, proving the server reads from that same
+    // in-memory file system.
+    const response = await fetch(`http://127.0.0.1:${port}/main.js`);
+    expect(response.status).toBe(200);
+
     await new Promise((resolve) => {
       compiler.close(resolve);
     });
