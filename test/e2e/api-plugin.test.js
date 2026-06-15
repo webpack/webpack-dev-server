@@ -327,10 +327,21 @@ describe("API (plugin)", () => {
       }
     });
 
-    it("should work with output.clean: true", async (t) => {
+    it("should serve rebuilt assets from memory with output.clean: true", async () => {
+      // A dedicated, editable entry so a rebuild produces observably different
+      // output. `output.clean` wipes the output directory before each build, so
+      // this exercises that the fresh assets are written back to the in-memory
+      // file system (and the stale ones are gone) rather than the real disk.
+      const entryPath = path.join(
+        os.tmpdir(),
+        `wds-clean-entry-${Date.now()}.js`,
+      );
+      fs.writeFileSync(entryPath, 'globalThis.MARKER = "before-rebuild";\n');
+
       const server = new Server({ port });
       const compiler = webpack({
         ...config,
+        entry: entryPath,
         output: {
           ...config.output,
           clean: true,
@@ -340,32 +351,48 @@ describe("API (plugin)", () => {
 
       await compile(compiler, port);
 
-      const { page, browser } = await runBrowser();
-
       try {
-        const pageErrors = [];
-        const consoleMessages = [];
+        const fetchBundle = async () => {
+          const response = await fetch(`http://127.0.0.1:${port}/main.js`);
+          return response.text();
+        };
 
-        page
-          .on("console", (message) => {
-            consoleMessages.push(message);
-          })
-          .on("pageerror", (error) => {
-            pageErrors.push(error);
-          });
+        // The first build is served from the in-memory file system.
+        expect(await fetchBundle()).toContain("before-rebuild");
 
-        const response = await page.goto(`http://127.0.0.1:${port}/`, {
-          waitUntil: "networkidle0",
+        // Edit the source and let the watcher rebuild it under `output.clean`.
+        fs.writeFileSync(entryPath, 'globalThis.MARKER = "after-rebuild";\n');
+        await new Promise((resolve, reject) => {
+          const start = Date.now();
+          const interval = setInterval(async () => {
+            let bundle;
+            try {
+              bundle = await fetchBundle();
+            } catch {
+              return;
+            }
+            if (bundle.includes("after-rebuild")) {
+              clearInterval(interval);
+              resolve();
+            } else if (Date.now() - start > 30000) {
+              clearInterval(interval);
+              reject(new Error("rebuild was not served in time"));
+            }
+          }, 200);
         });
 
-        expect(response.status()).toBe(200);
-        t.assert.snapshot(consoleMessages.map((message) => message.text()));
-        t.assert.snapshot(pageErrors);
+        // The rebuilt bundle is served fresh and the stale build is gone.
+        const rebuilt = await fetchBundle();
+        expect(rebuilt).toContain("after-rebuild");
+        expect(rebuilt).not.toContain("before-rebuild");
+
+        // ...and it still lives in the in-memory file system, not the disk.
+        expect(compiler.outputFileSystem).not.toBe(fs);
       } finally {
-        await browser.close();
         await new Promise((resolve) => {
           compiler.close(resolve);
         });
+        fs.unlinkSync(entryPath);
       }
     });
   });
