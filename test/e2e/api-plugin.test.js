@@ -289,6 +289,42 @@ describe("API (plugin)", () => {
     });
   });
 
+  it("should log a listen() failure instead of throwing", async () => {
+    // The server is started from the `done` hook, which is a `SyncHook`, so
+    // `listen()` runs detached. A failure there must be logged, not surface as
+    // an unhandled rejection.
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    const listenError = new Error("listen failed");
+    const listenSpy = spyOn(server, "listen").mockImplementation(() =>
+      Promise.reject(listenError),
+    );
+    const errorSpy = spyOn(server.logger, "error");
+
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(
+        () => reject(new Error("listen error was not logged")),
+        30000,
+      );
+      errorSpy.mockImplementation(() => {
+        clearTimeout(timer);
+        resolve();
+      });
+      compiler.watch({}, () => {});
+    });
+
+    expect(errorSpy).toHaveBeenCalledTimes(1);
+    expect(errorSpy).toHaveBeenCalledWith(listenError);
+
+    listenSpy.mockRestore();
+    errorSpy.mockRestore();
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
   describe("plugin in webpack config", () => {
     it("should work when added to webpack config plugins array", async (t) => {
       const server = new Server({ port });
