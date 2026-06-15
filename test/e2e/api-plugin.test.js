@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { describe, it } from "node:test";
+import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import { spyOn } from "jest-mock";
 import webpack from "webpack";
@@ -9,12 +10,20 @@ import WebSocket from "ws";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
 import multiCompilerConfig from "../fixtures/multi-compiler-two-configurations/webpack.config.js";
+import reloadConfig from "../fixtures/reload-config/webpack.config.js";
 import compile from "../helpers/compile.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const port = portsMap["api-plugin"];
 const [portA, portB] = portsMap["api-plugin-multi"];
+
+const cssFilePath = path.resolve(
+  __dirname,
+  "../fixtures/reload-config/main.css",
+);
 
 describe("API (plugin)", () => {
   it("should work with plugin API", async (t) => {
@@ -477,6 +486,85 @@ describe("API (plugin)", () => {
           { waitUntil: "networkidle0" },
         );
         expect(responseB.status()).toBe(200);
+      } finally {
+        await browser.close();
+        await new Promise((resolve) => {
+          compiler.close(resolve);
+        });
+      }
+    });
+  });
+
+  describe("hot module replacement", () => {
+    beforeEach(() => {
+      fs.writeFileSync(
+        cssFilePath,
+        "body { background-color: rgb(0, 0, 255); }",
+      );
+    });
+
+    afterEach(() => {
+      fs.unlinkSync(cssFilePath);
+    });
+
+    it("should apply hot module replacement updates", async () => {
+      const server = new Server({ port, hot: true });
+      const compiler = webpack({
+        ...reloadConfig,
+        plugins: [...reloadConfig.plugins, server],
+      });
+
+      await compile(compiler, port);
+
+      const { page, browser } = await runBrowser();
+
+      try {
+        const pageErrors = [];
+        let doneHotUpdate = false;
+
+        page
+          .on("pageerror", (error) => {
+            pageErrors.push(error);
+          })
+          .on("request", (request) => {
+            if (/\.hot-update\.json$/.test(request.url())) {
+              doneHotUpdate = true;
+            }
+          });
+
+        await page.goto(`http://127.0.0.1:${port}/`, {
+          waitUntil: "networkidle0",
+        });
+
+        const backgroundColorBefore = await page.evaluate(
+          () => getComputedStyle(document.body)["background-color"],
+        );
+
+        expect(backgroundColorBefore).toBe("rgb(0, 0, 255)");
+
+        fs.writeFileSync(
+          cssFilePath,
+          "body { background-color: rgb(255, 0, 0); }",
+        );
+
+        // The change must arrive through HMR (a `.hot-update.json` fetch),
+        // not a full page reload.
+        await page.waitForFunction(
+          () =>
+            getComputedStyle(document.body)["background-color"] ===
+            "rgb(255, 0, 0)",
+        );
+
+        expect(doneHotUpdate).toBe(true);
+        expect(pageErrors).toEqual([]);
+
+        // The hot-update delta is served from webpack-dev-middleware's in-memory
+        // file system, never the real disk.
+        expect(compiler.outputFileSystem).not.toBe(fs);
+        const outputFiles = compiler.outputFileSystem.readdirSync("/");
+        expect(
+          outputFiles.some((file) => /\.hot-update\.json$/.test(file)),
+        ).toBe(true);
       } finally {
         await browser.close();
         await new Promise((resolve) => {
