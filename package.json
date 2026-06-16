@@ -12,6 +12,15 @@
   "license": "MIT",
   "author": "Tobias Koppers @sokra",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./types/lib/Server.d.ts",
+      "default": "./lib/Server.js"
+    },
+    "./lib/*": "./lib/*",
+    "./client/*": "./client/*",
+    "./package.json": "./package.json"
+  },
   "main": "lib/Server.js",
   "types": "types/lib/Server.d.ts",
   "bin": "bin/webpack-dev-server.js",
