@@ -19,7 +19,6 @@
       "require": "./dist/Server.js",
       "default": "./lib/Server.js"
     },
-    "./lib/*": "./lib/*",
     "./client/*": "./client/*",
     "./package.json": "./package.json"
   },
