@@ -640,4 +640,19 @@ describe("normalize options", () => {
       }
     });
   }
+
+  it("should default options to an empty object when omitted", async () => {
+    const webpackConfig = require("./fixtures/simple-config/webpack.config");
+
+    const compiler = webpack(webpackConfig);
+    const server = new Server(undefined, compiler);
+
+    expect(server.options).toEqual({});
+
+    try {
+      await server.start();
+    } finally {
+      await server.stop();
+    }
+  });
 });
