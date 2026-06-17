@@ -15,18 +15,22 @@
   "exports": {
     ".": {
       "types": "./types/lib/Server.d.ts",
+      "import": "./lib/Server.js",
+      "require": "./dist/Server.js",
       "default": "./lib/Server.js"
     },
     "./lib/*": "./lib/*",
     "./client/*": "./client/*",
     "./package.json": "./package.json"
   },
-  "main": "lib/Server.js",
+  "main": "./dist/Server.js",
+  "module": "./lib/Server.js",
   "types": "types/lib/Server.d.ts",
   "bin": "bin/webpack-dev-server.js",
   "files": [
     "bin",
     "lib",
+    "dist",
     "client",
     "types"
   ],
@@ -43,6 +47,7 @@
     "fix": "npm-run-all -l fix:code fix:prettier",
     "commitlint": "commitlint --from=main",
     "validate:changeset": "node .changeset/changeset-validate.mjs",
+    "build:cjs": "rimraf -g ./dist/* && babel lib --out-dir dist --env-name cjs --copy-files --no-copy-ignored && node ./scripts/finalize-cjs-build.mjs",
     "build:client": "rimraf -g ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
     "build:types": "rimraf -g ./types/* && tsc --declaration --emitDeclarationOnly --outDir types && node ./scripts/extend-webpack-types.js && prettier \"types/**/*.ts\" --write && prettier \"types/**/*.ts\" --write",
     "build": "npm-run-all -p \"build:**\"",
@@ -102,6 +107,7 @@
     "@types/trusted-types": "^2.0.7",
     "acorn": "^8.14.0",
     "babel-loader": "^10.0.0",
+    "babel-plugin-transform-import-meta": "^2.3.3",
     "connect": "^3.7.0",
     "core-js": "^3.38.1",
     "cspell": "^8.15.5",
