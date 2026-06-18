@@ -3,7 +3,7 @@ import config from "eslint-config-webpack";
 import configs from "eslint-config-webpack/configs.js";
 
 export default defineConfig([
-  globalIgnores(["client/**/*", "examples/**/*"]),
+  globalIgnores(["client/**/*", "dist/**/*", "examples/**/*"]),
   {
     extends: [config],
     ignores: ["client-src/**/*", "!client-src/webpack.config.js"],

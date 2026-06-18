@@ -9,6 +9,7 @@ client
 !/test/client
 
 examples/**/dist
+dist
 
 coverage
 node_modules
