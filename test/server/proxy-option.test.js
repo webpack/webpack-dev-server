@@ -33,6 +33,29 @@ const proxyOptionPathsAsProperties = [
     pathRewrite: () => "/index.html",
     router: () => `http://localhost:${port3}`,
   },
+  {
+    context: "/send-data",
+    target: `http://localhost:${port1}`,
+    pathRewrite: (path, req, res) => {
+      res.end("data sent from pathRewrite");
+
+      return path;
+    },
+  },
+  {
+    context: "/async-send-data",
+    target: `http://localhost:${port1}`,
+    pathRewrite: async (path, req, res) => {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          res.end("async data sent from pathRewrite");
+          resolve();
+        }, 10);
+      });
+
+      return path;
+    },
+  },
 ];
 
 const proxyOption = [
@@ -251,6 +274,20 @@ describe("proxy option", () => {
 
         expect(response.status).toBe(200);
         expect(response.text).toContain("Hello");
+      });
+
+      it("should allow sending a response directly from pathRewrite", async () => {
+        const response = await req.get("/send-data");
+
+        expect(response.status).toBe(200);
+        expect(response.text).toBe("data sent from pathRewrite");
+      });
+
+      it("should wait for an async pathRewrite that sends a response", async () => {
+        const response = await req.get("/async-send-data");
+
+        expect(response.status).toBe(200);
+        expect(response.text).toBe("async data sent from pathRewrite");
       });
     });
   });
