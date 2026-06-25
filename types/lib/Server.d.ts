@@ -1495,7 +1495,7 @@ declare class Server<
   /**
    * @private
    * @param {Compiler} compiler compiler
-   * @returns {boolean} true when target is `web`, otherwise false
+   * @returns {boolean} true when target is `web` or `universal`, otherwise false
    */
   private static isWebTarget;
   /**
