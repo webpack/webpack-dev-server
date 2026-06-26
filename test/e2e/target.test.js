@@ -76,6 +76,20 @@ describe("target", () => {
           waitUntil: "networkidle0",
         });
 
+        // ESM bundles load deferred, so wait for the entry to run
+        if (compiler.options.output.module) {
+          const deadline = Date.now() + 10000;
+
+          while (
+            !consoleMessages.some((message) => message.text() === "Hey.") &&
+            Date.now() < deadline
+          ) {
+            await new Promise((resolve) => {
+              setTimeout(resolve, 100);
+            });
+          }
+        }
+
         t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
         if (
