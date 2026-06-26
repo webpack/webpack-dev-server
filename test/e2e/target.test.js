@@ -20,6 +20,11 @@ const port = portsMap.target;
 const sortByTerm = (data, term) =>
   data.toSorted((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
 
+// `"universal"` and combined `["web", "node"]` targets emit ESM and are only
+// available since webpack `5.108.0`, but `peerDependencies` allows `^5.101.0`.
+const [major, minor] = webpack.version.split(".").map(Number);
+const supportsUniversalTarget = major > 5 || (major === 5 && minor >= 108);
+
 describe("target", () => {
   const targets = [
     false,
@@ -35,6 +40,7 @@ describe("target", () => {
     "node-webkit",
     "es5",
     ["web", "es5"],
+    ...(supportsUniversalTarget ? ["universal", ["web", "node"]] : []),
   ];
 
   for (const target of targets) {
