@@ -1,5 +1,5 @@
 import http from "node:http";
-import { afterEach, describe, it } from "node:test";
+import { afterEach, beforeEach, describe, it } from "node:test";
 import { expect } from "expect";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
@@ -367,5 +367,177 @@ describe("cross-origin resource policy header", () => {
 
     expect(res.status).toBe(200);
     expect(res.headers["cross-origin-resource-policy"]).toBeUndefined();
+  });
+});
+
+// State-changing internal endpoints must reject cross-site requests so a page
+// the developer visits cannot trigger them (CSRF).
+describe("cross-site request forgery on state-changing endpoints", () => {
+  const devServerPort = port1;
+
+  let server;
+
+  beforeEach(async () => {
+    const compiler = webpack(config);
+    server = new Server(
+      { port: devServerPort, allowedHosts: "auto" },
+      compiler,
+    );
+
+    await server.start();
+  });
+
+  afterEach(async () => {
+    if (server) {
+      await server.stop();
+      // Allow the port to be fully released before the next test
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
+      server = null;
+    }
+  });
+
+  function request(path, headers = {}) {
+    return new Promise((resolve, reject) => {
+      const req = http.get(
+        `http://localhost:${devServerPort}${path}`,
+        { headers },
+        (res) => {
+          let body = "";
+          res.on("data", (chunk) => {
+            body += chunk;
+          });
+          res.on("end", () => {
+            resolve({ status: res.statusCode, body });
+          });
+        },
+      );
+      req.on("error", reject);
+    });
+  }
+
+  for (const endpoint of [
+    "/webpack-dev-server/invalidate",
+    "/webpack-dev-server/open-editor",
+  ]) {
+    it(`should block cross-site requests to ${endpoint}`, async () => {
+      const res = await request(endpoint, {
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "cross-site",
+      });
+
+      expect(res.status).toBe(403);
+    });
+
+    it(`should allow same-origin requests to ${endpoint}`, async () => {
+      const res = await request(endpoint, {
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+      });
+
+      expect(res.status).toBe(200);
+    });
+
+    it(`should allow user-initiated navigations to ${endpoint}`, async () => {
+      const res = await request(endpoint, { "sec-fetch-site": "none" });
+
+      expect(res.status).toBe(200);
+    });
+  }
+
+  it("should block requests with a cross-origin Origin and no Sec-Fetch metadata", async () => {
+    const res = await request("/webpack-dev-server/invalidate", {
+      origin: "http://evil.example",
+    });
+
+    expect(res.status).toBe(403);
+  });
+
+  it("should allow requests without Sec-Fetch metadata or Origin (e.g. curl)", async () => {
+    const res = await request("/webpack-dev-server/invalidate");
+
+    expect(res.status).toBe(200);
+  });
+});
+
+// Same as above, but driven by a real browser so the cross-site requests carry
+// browser-generated `Sec-Fetch-*` metadata (and the same-origin GET `fetch`
+// omits the `Origin` header, exactly like the overlay client).
+describe("cross-site request forgery on state-changing endpoints (browser)", () => {
+  const devServerPort = port1;
+  const htmlServerPort = port2;
+  const htmlServerHost = "127.0.0.1";
+
+  const openEditorUrl = `http://localhost:${devServerPort}/webpack-dev-server/open-editor`;
+  const invalidateUrl = `http://localhost:${devServerPort}/webpack-dev-server/invalidate`;
+
+  let server;
+  let htmlServer;
+  let page;
+  let browser;
+
+  beforeEach(async () => {
+    const compiler = webpack(config);
+    server = new Server(
+      { port: devServerPort, allowedHosts: "auto" },
+      compiler,
+    );
+
+    await server.start();
+
+    htmlServer = http.createServer((req, res) => {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end("<!doctype html><html><body></body></html>");
+    });
+
+    await new Promise((resolve) => {
+      htmlServer.listen(htmlServerPort, htmlServerHost, resolve);
+    });
+
+    ({ page, browser } = await runBrowser());
+  });
+
+  afterEach(async () => {
+    await browser.close();
+    htmlServer.close();
+    await server.stop();
+  });
+
+  it("should block a cross-site iframe navigation to /open-editor", async () => {
+    await page.goto(`http://${htmlServerHost}:${htmlServerPort}/`);
+
+    const responsePromise = page.waitForResponse(openEditorUrl);
+    await page.evaluate((url) => {
+      const iframe = document.createElement("iframe");
+      iframe.src = url;
+      document.body.append(iframe);
+    }, openEditorUrl);
+
+    expect((await responsePromise).status()).toBe(403);
+  });
+
+  it("should block a cross-site iframe navigation to /invalidate", async () => {
+    await page.goto(`http://${htmlServerHost}:${htmlServerPort}/`);
+
+    const responsePromise = page.waitForResponse(invalidateUrl);
+    await page.evaluate((url) => {
+      const iframe = document.createElement("iframe");
+      iframe.src = url;
+      document.body.append(iframe);
+    }, invalidateUrl);
+
+    expect((await responsePromise).status()).toBe(403);
+  });
+
+  it("should allow the same-origin overlay fetch to /open-editor", async () => {
+    await page.goto(`http://localhost:${devServerPort}/`);
+
+    const responsePromise = page.waitForResponse(openEditorUrl);
+    await page.evaluate(() => {
+      fetch("/webpack-dev-server/open-editor").catch(() => {});
+    });
+
+    expect((await responsePromise).status()).toBe(200);
   });
 });
