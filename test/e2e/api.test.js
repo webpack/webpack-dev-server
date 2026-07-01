@@ -81,8 +81,17 @@ describe("API", () => {
 
       expect(server.options).toEqual({});
 
-      await server.start();
-      await server.stop();
+      try {
+        await server.start();
+      } finally {
+        await server.stop();
+      }
+    });
+
+    it("should reject `null` options via schema validation", () => {
+      const compiler = webpack(config);
+
+      expect(() => new Server(null, compiler)).toThrow(/Invalid options object/);
     });
   });
 
