@@ -1495,11 +1495,11 @@ declare class Server<
    */
   private static isWebTarget;
   /**
-   * @param {Configuration<A, S>} options options
+   * @param {Configuration<A, S> | undefined} options options
    * @param {(Compiler | MultiCompiler)=} compiler compiler, omitted when the server is used as a plugin via `apply()`
    */
   constructor(
-    options: Configuration<A, S>,
+    options: Configuration<A, S> | undefined,
     compiler?: (Compiler | MultiCompiler) | undefined,
   );
   compiler:
