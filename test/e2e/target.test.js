@@ -20,6 +20,11 @@ const port = portsMap.target;
 const sortByTerm = (data, term) =>
   data.toSorted((a, b) => (a.indexOf(term) < b.indexOf(term) ? -1 : 1));
 
+// `"universal"` and combined `["web", "node"]` targets emit ESM and are only
+// available since webpack `5.108.0`, but `peerDependencies` allows `^5.101.0`.
+const [major, minor] = webpack.version.split(".").map(Number);
+const supportsUniversalTarget = major > 5 || (major === 5 && minor >= 108);
+
 describe("target", () => {
   const targets = [
     false,
@@ -35,6 +40,7 @@ describe("target", () => {
     "node-webkit",
     "es5",
     ["web", "es5"],
+    ...(supportsUniversalTarget ? ["universal", ["web", "node"]] : []),
   ];
 
   for (const target of targets) {
@@ -69,6 +75,20 @@ describe("target", () => {
         await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
+
+        // ESM bundles load deferred, so wait for the entry to run
+        if (compiler.options.output.module) {
+          const deadline = Date.now() + 10000;
+
+          while (
+            !consoleMessages.some((message) => message.text() === "Hey.") &&
+            Date.now() < deadline
+          ) {
+            await new Promise((resolve) => {
+              setTimeout(resolve, 100);
+            });
+          }
+        }
 
         t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
