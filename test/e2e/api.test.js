@@ -74,6 +74,18 @@ describe("API", () => {
     });
   });
 
+  describe("constructor options", () => {
+    it("should default `undefined` options to `{}`", async () => {
+      const compiler = webpack(config);
+      const server = new Server(undefined, compiler);
+
+      expect(server.options).toEqual({});
+
+      await server.start();
+      await server.stop();
+    });
+  });
+
   describe("latest async API", () => {
     it("should work with async API", async (t) => {
       const compiler = webpack(config);
