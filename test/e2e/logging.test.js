@@ -6,6 +6,7 @@ import fs from "graceful-fs";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
+import compile from "../helpers/compile.js";
 import HTMLGeneratorPlugin from "../helpers/html-generator-plugin.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
@@ -245,4 +246,124 @@ describe("logging", () => {
       });
     }
   }
+
+  describe("plugin mode", () => {
+    const pluginCases = [
+      {
+        title:
+          "should work and log messages about hot and live reloading is enabled",
+        devServerOptions: {
+          hot: true,
+        },
+      },
+      {
+        title: "should work and log message about live reloading is enabled",
+        devServerOptions: {
+          hot: false,
+        },
+      },
+      {
+        title:
+          "should work and do not log messages about hot and live reloading is enabled",
+        devServerOptions: {
+          liveReload: false,
+          hot: false,
+        },
+      },
+      {
+        title: "should work and log warnings by default",
+        webpackOptions: {
+          plugins: [
+            {
+              apply(compiler) {
+                compiler.hooks.thisCompilation.tap(
+                  "warnings-webpack-plugin",
+                  (compilation) => {
+                    compilation.warnings.push(
+                      new Error("Warning from compilation"),
+                    );
+                  },
+                );
+              },
+            },
+            new HTMLGeneratorPlugin(),
+          ],
+        },
+      },
+      {
+        title: "should work and log errors by default",
+        webpackOptions: {
+          plugins: [
+            {
+              apply(compiler) {
+                compiler.hooks.thisCompilation.tap(
+                  "warnings-webpack-plugin",
+                  (compilation) => {
+                    compilation.errors.push(
+                      new Error("Error from compilation"),
+                    );
+                  },
+                );
+              },
+            },
+            new HTMLGeneratorPlugin(),
+          ],
+        },
+      },
+      {
+        title: 'should work when the "client.logging" is "none"',
+        devServerOptions: {
+          client: {
+            logging: "none",
+          },
+        },
+      },
+    ];
+
+    for (const testCase of pluginCases) {
+      it(`${testCase.title}`, async (t) => {
+        const compiler = webpack({ ...config, ...testCase.webpackOptions });
+        const devServerOptions = {
+          port,
+          ...testCase.devServerOptions,
+        };
+        const server = new Server(devServerOptions);
+
+        server.apply(compiler);
+
+        await compile(compiler, port);
+
+        const { page, browser } = await runBrowser();
+
+        try {
+          const consoleMessages = [];
+
+          page.on("console", (message) => {
+            consoleMessages.push(message);
+          });
+
+          await page.goto(`http://127.0.0.1:${port}/`, {
+            waitUntil: "networkidle0",
+          });
+
+          t.assert.snapshot(
+            consoleMessages.map((message) =>
+              message
+                .text()
+                .replaceAll("\\", "/")
+                .replaceAll(
+                  new RegExp(process.cwd().replaceAll("\\", "/"), "g"),
+                  "<cwd>",
+                ),
+            ),
+          );
+        } finally {
+          await browser.close();
+          await new Promise((resolve) => {
+            compiler.close(resolve);
+          });
+        }
+      });
+    }
+  });
 });
