@@ -1,0 +1,47 @@
+exports[`API (plugin) > MultiCompiler > should work with plugin API 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "one",
+]
+`;
+
+exports[`API (plugin) > MultiCompiler > should work with plugin API 2`] = `
+[]
+`;
+
+exports[`API (plugin) > plugin in webpack config > should work when added to webpack config plugins array 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) > plugin in webpack config > should work when added to webpack config plugins array 2`] = `
+[]
+`;
+
+exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 2`] = `
+[]
+`;
+
+exports[`API (plugin) > should work with plugin API 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) > should work with plugin API 2`] = `
+[]
+`;
