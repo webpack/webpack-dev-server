@@ -5,12 +5,12 @@ on:
     branches:
       - main
       - next
-      - v4
+      - v5
   pull_request:
     branches:
       - main
       - next
-      - v4
+      - v5
 
 permissions:
   contents: read
