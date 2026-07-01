@@ -1496,9 +1496,12 @@ declare class Server<
   private static isWebTarget;
   /**
    * @param {Configuration<A, S>} options options
-   * @param {Compiler | MultiCompiler} compiler compiler
+   * @param {(Compiler | MultiCompiler)=} compiler compiler, omitted when the server is used as a plugin via `apply()`
    */
-  constructor(options: Configuration<A, S>, compiler: Compiler | MultiCompiler);
+  constructor(
+    options: Configuration<A, S>,
+    compiler?: (Compiler | MultiCompiler) | undefined,
+  );
   compiler:
     | import("webpack").Compiler
     | import("webpack").MultiCompiler
