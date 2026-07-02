@@ -109,6 +109,23 @@ describe("API (plugin)", () => {
     stopSpy.mockRestore();
   });
 
+  it("should tear down without error when the compiler is closed", async () => {
+    // In plugin mode the host owns `watching`, so `stop()` must not call
+    // `middleware.close()` — otherwise `compiler.close` surfaces a TypeError.
+    const compiler = webpack(config);
+    const server = new Server({ port });
+
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    const closeError = await new Promise((resolve) => {
+      compiler.close((error) => resolve(error));
+    });
+
+    expect(closeError).toBeFalsy();
+  });
+
   it("should stay passive in build mode (compiler.run)", async () => {
     // The shared fixture writes output to "/", which would be unwritable
     // outside of webpack-dev-middleware's in-memory FS. Use a tmp dir so the
