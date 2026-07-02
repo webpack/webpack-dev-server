@@ -1173,10 +1173,13 @@ declare class Server<
    */
   private static isWebTarget;
   /**
-   * @param {Configuration<A, S>} options options
+   * @param {Configuration<A, S> | undefined} options options
    * @param {Compiler | MultiCompiler} compiler compiler
    */
-  constructor(options: Configuration<A, S>, compiler: Compiler | MultiCompiler);
+  constructor(
+    options: Configuration<A, S> | undefined,
+    compiler: Compiler | MultiCompiler,
+  );
   compiler: import("webpack").Compiler | import("webpack").MultiCompiler;
   /**
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}

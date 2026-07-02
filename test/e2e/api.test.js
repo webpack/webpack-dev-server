@@ -71,6 +71,29 @@ describe("API", () => {
     });
   });
 
+  describe("constructor options", () => {
+    it("should default `undefined` options to `{}`", async () => {
+      const compiler = webpack(config);
+      const server = new Server(undefined, compiler);
+
+      expect(server.options).toEqual({});
+
+      try {
+        await server.start();
+      } finally {
+        await server.stop();
+      }
+    });
+
+    it("should reject `null` options via schema validation", () => {
+      const compiler = webpack(config);
+
+      expect(() => new Server(null, compiler)).toThrow(
+        /Invalid options object/,
+      );
+    });
+  });
+
   describe("latest async API", () => {
     it("should work with async API", async () => {
       const compiler = webpack(config);
