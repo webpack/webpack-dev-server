@@ -62,7 +62,7 @@
     "graceful-fs": "^4.2.6",
     "http-proxy-middleware": "^2.0.9",
     "ipaddr.js": "^2.1.0",
-    "launch-editor": "^2.6.1",
+    "launch-editor": "^2.14.1",
     "open": "^10.0.3",
     "p-retry": "^6.2.0",
     "schema-utils": "^4.2.0",
