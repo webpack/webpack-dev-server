@@ -91,7 +91,9 @@ describe("API", () => {
     it("should reject `null` options via schema validation", () => {
       const compiler = webpack(config);
 
-      expect(() => new Server(null, compiler)).toThrow(/Invalid options object/);
+      expect(() => new Server(null, compiler)).toThrow(
+        /Invalid options object/,
+      );
     });
   });
 
