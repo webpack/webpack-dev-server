@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.2.6
+
+### Patch Changes
+
+- fix: allow `undefined` as the `Server` constructor `options` argument again (by [@bjohansebas](https://github.com/bjohansebas) in [#5695](https://github.com/webpack/webpack-dev-server/pull/5695))
+
+  Restores accepting `undefined` (defaulting it to `{}`) for the `options`
+  argument, so passing a webpack config's optional `devServer` field type-checks and works as before.
+
+- Protect the built-in state-changing routes (`/webpack-dev-server/invalidate` and `/webpack-dev-server/open-editor`) against cross-site request forgery. Requests are now checked with `Sec-Fetch-Site` (falling back to an `Origin`/`Host` comparison when it is absent), so a cross-site page can no longer trigger a rebuild or open a file in the editor. Same-origin requests, user-initiated navigations, and non-browser clients (e.g. curl) are unaffected. (by [@bjohansebas](https://github.com/bjohansebas) in [#5698](https://github.com/webpack/webpack-dev-server/pull/5698))
+
+- Handle malformed `Host` and `Origin` header values gracefully when validating requests. (by [@bjohansebas](https://github.com/bjohansebas) in [#5699](https://github.com/webpack/webpack-dev-server/pull/5699))
+
 ## 5.2.5
 
 ### Patch Changes
