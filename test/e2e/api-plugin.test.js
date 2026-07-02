@@ -340,6 +340,39 @@ describe("API (plugin)", () => {
     });
   });
 
+  it("should invoke the callback after `server.invalidate()` rebuilds in plugin mode", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    // The callback fires once the invalidated build finishes.
+    await new Promise((resolve) => {
+      server.invalidate(resolve);
+    });
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should invoke the callback when `server.invalidate()` runs with no active watching", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    // No `compiler.watch()` — there is no `watching`, so invalidate is a no-op
+    // that still calls the callback.
+    await new Promise((resolve) => {
+      server.invalidate(resolve);
+    });
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
   it("should use constructor options instead of compiler.options.devServer", async () => {
     // Plugin reads its options from its constructor argument; values on
     // `compiler.options.devServer` are intentionally ignored. This protects
