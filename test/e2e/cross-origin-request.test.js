@@ -463,3 +463,105 @@ describe("cross-site request forgery on state-changing endpoints", () => {
     expect(res.status).toBe(200);
   });
 });
+
+describe("malformed Host/Origin headers", () => {
+  const devServerPort = port1;
+
+  let server;
+
+  afterEach(async () => {
+    if (server) {
+      await server.stop();
+      // Allow the port to be fully released before the next test
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
+      server = null;
+    }
+  });
+
+  it("should reject a WebSocket upgrade with a malformed Origin header without crashing", async () => {
+    const WebSocket = require("ws");
+    const http = require("node:http");
+
+    const compiler = webpack(config);
+    server = new Server(
+      { port: devServerPort, allowedHosts: "auto" },
+      compiler,
+    );
+
+    await server.start();
+
+    // A malformed `Origin` (invalid IPv6 literal) used to throw while being
+    // parsed and take down the whole dev-server process.
+    await new Promise((resolve) => {
+      const ws = new WebSocket(`ws://localhost:${devServerPort}/ws`, {
+        headers: {
+          host: `localhost:${devServerPort}`,
+          origin: "http://[::1/",
+        },
+      });
+
+      ws.on("close", resolve);
+      ws.on("error", resolve);
+    });
+
+    // The server must still be alive: a normal request still succeeds.
+    const status = await new Promise((resolve, reject) => {
+      http
+        .get(`http://localhost:${devServerPort}/main.js`, (res) => {
+          res.resume();
+          resolve(res.statusCode);
+        })
+        .on("error", reject);
+    });
+
+    expect(status).toBe(200);
+  });
+
+  it("should reject a request with a malformed Host header without crashing", async () => {
+    const net = require("node:net");
+    const http = require("node:http");
+
+    const compiler = webpack(config);
+    server = new Server(
+      { port: devServerPort, allowedHosts: "auto" },
+      compiler,
+    );
+
+    await server.start();
+
+    // A malformed `Host` (invalid IPv6 literal) sent on a plain request used to
+    // throw while being parsed and take down the whole dev-server process. Sent
+    // over a raw socket so the malformed value reaches the server as-is.
+    await new Promise((resolve) => {
+      const socket = net.connect(devServerPort, "127.0.0.1", () => {
+        socket.write(
+          [
+            "GET /main.js HTTP/1.1",
+            "Host: [::1",
+            "Connection: close",
+            "",
+            "",
+          ].join("\r\n"),
+        );
+      });
+
+      socket.on("data", () => {});
+      socket.on("close", resolve);
+      socket.on("error", resolve);
+    });
+
+    // The server must still be alive: a normal request still succeeds.
+    const status = await new Promise((resolve, reject) => {
+      http
+        .get(`http://localhost:${devServerPort}/main.js`, (res) => {
+          res.resume();
+          resolve(res.statusCode);
+        })
+        .on("error", reject);
+    });
+
+    expect(status).toBe(200);
+  });
+});
