@@ -114,14 +114,15 @@ describe("cjs", () => {
     expect(serverSource).toMatch(/exports\.default = /);
     expect(serverSource).toMatch(/module\.exports = exports\.default;/);
 
-    // No executable dynamic `import()` or `import.meta` survives in the CJS
-    // build. Strip comments first since JSDoc type annotations legitimately
-    // reference `import("pkg")` and `[S=import("http").Server]`.
+    // Relative `import("./…")` becomes `require()` and `import.meta` is gone,
+    // but bare `import("pkg")` stays native for ESM-only deps. Strip comments
+    // first (JSDoc legitimately references `import("pkg")`).
     const executableCode = serverSource
       .replaceAll(/\/\*[\s\S]*?\*\//g, "")
       .replaceAll(/^\s*\/\/.*$/gm, "");
 
-    expect(executableCode).not.toMatch(/import\(/);
+    expect(executableCode).not.toMatch(/import\(\s*["']\.\.?\//); // no relative
+    expect(executableCode).toMatch(/import\(\s*["']p-retry["']\)/); // bare stays
     expect(executableCode).not.toMatch(/import\.meta/);
   });
 
