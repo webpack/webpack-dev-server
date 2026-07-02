@@ -12,13 +12,26 @@ export default ({ types: t }) => ({
 
       // a string-literal relative specifier (`./` or `../`) = an internal module
       if (t.isStringLiteral(arg) && /^\.\.?\//.test(arg.value)) {
+        // `Promise.resolve().then(() => require(x))`: require runs in the
+        // callback so a load failure rejects (like `import()`), not throws.
         path.replaceWith(
           t.callExpression(
             t.memberExpression(
-              t.identifier("Promise"),
-              t.identifier("resolve"),
+              t.callExpression(
+                t.memberExpression(
+                  t.identifier("Promise"),
+                  t.identifier("resolve"),
+                ),
+                [],
+              ),
+              t.identifier("then"),
             ),
-            [t.callExpression(t.identifier("require"), [arg])],
+            [
+              t.arrowFunctionExpression(
+                [],
+                t.callExpression(t.identifier("require"), [arg]),
+              ),
+            ],
           ),
         );
       }
