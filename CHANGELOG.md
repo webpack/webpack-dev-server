@@ -1,5 +1,57 @@
 # Changelog
 
+## 6.0.0
+
+### Major Changes
+
+- Bump Express to v5. See the [Express 5 migration guide](https://expressjs.com/en/guide/migrating-5.html) for the full list of breaking changes. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Bump the `webpack` peer dependency range from `^5.0.0` to `^5.101.0`. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Drop support for Node.js < 22.15.0. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Convert the source to native ES modules. The package keeps `"type": "module"` and now exposes both an ESM and a CommonJS build via the `exports` field: ESM consumers `import` the native `lib/`, while CommonJS consumers `require()` a transpiled `dist/` build — so the package works from both ESM and CommonJS, including environments where `require(ESM)` is not supported. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Remove CLI flags. Use the `serve` command from `webpack-cli` together with a configuration file or the programmatic API instead. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Remove the `internalIP` and `internalIPSync` static methods from `Server`. Resolve the local IP yourself if you need it. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Remove the `bypass` option from proxy configuration. Use the `router` or `context` options provided by `http-proxy-middleware` instead. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Remove SockJS support. The `webSocketServer` option no longer accepts `"sockjs"`; use the default `"ws"` transport instead. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Remove the `spdy` dependency. Use the built-in `node:http2` module via the `server` option for HTTP/2 support. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Update `http-proxy-middleware` to v4. See the [http-proxy-middleware v3 release notes](https://github.com/chimurai/http-proxy-middleware/releases/tag/v3.0.0) and [v4 release notes](https://github.com/chimurai/http-proxy-middleware/releases/tag/v4.0.0) for the full list of breaking changes. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Update `webpack-dev-middleware` to v8 and sync `originalUrl` for middleware compatibility. `server.middleware.getFilenameFromUrl()` is now asynchronous and resolves to `{ filename, extra: { stats, outputFileSystem } }`. See the [webpack-dev-middleware v8 release notes](https://github.com/webpack/webpack-dev-middleware/releases/tag/v8.0.0) for details. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+### Minor Changes
+
+- Add plugin support. `webpack-dev-server` can now be used as a webpack plugin, integrating with the compiler lifecycle without explicitly passing a compiler, preventing multiple server starts on recompilation, ensuring clean shutdown, and supporting `MultiCompiler` setups with multiple independent plugin servers. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Enable the compression middleware for HTTP/2 connections. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Remove the `colorette` dependency in favor of native ANSI styling. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Update `chokidar` to v5 and extend `watchFiles.options.ignored` to support glob string patterns via `tinyglobby`. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Use `compiler.platform` to determine the target environment instead of inspecting the resolved `target` string. Universal targets (`"universal"` or `["web", "node"]`, where `compiler.platform.universal` is `true` since webpack `5.108.0`) are treated as web targets so the client runtime is injected. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Use the WHATWG `URL` API instead of the deprecated `url.parse`. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+### Patch Changes
+
+- Bump production dependencies, notably `open` to v11 and `p-retry` to v8. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Reject cross-site requests to the internal `open-editor` and `invalidate` endpoints. They performed state-changing actions (opening a file in the editor, forcing a recompilation) on any GET request, so a page the developer visited could trigger them. They now require a same-origin request, validated via `Sec-Fetch-Site` with an `Origin`/`Host` fallback. (by [@bjohansebas](https://github.com/bjohansebas) in [#5691](https://github.com/webpack/webpack-dev-server/pull/5691))
+
+- Treat loopback aliases (`127.0.0.1`, `::1`, `localhost`) as equivalent in `isSameOrigin` so the WebSocket client does not reject valid same-origin connections. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Migrate the test suite from Jest to `node:test` and set up the jsdom environment. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
+- Update `webpack-cli` to v7.0.2. (by [@bjohansebas](https://github.com/bjohansebas) in [#5674](https://github.com/webpack/webpack-dev-server/pull/5674))
+
 ## 5.2.5
 
 ### Patch Changes
