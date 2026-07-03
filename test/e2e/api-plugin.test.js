@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import http from "node:http";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
@@ -107,6 +108,23 @@ describe("API (plugin)", () => {
 
     expect(stopSpy).toHaveBeenCalledTimes(1);
     stopSpy.mockRestore();
+  });
+
+  it("should tear down without error when the compiler is closed", async () => {
+    // In plugin mode the host owns `watching`, so `stop()` must not call
+    // `middleware.close()` — otherwise `compiler.close` surfaces a TypeError.
+    const compiler = webpack(config);
+    const server = new Server({ port });
+
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    const closeError = await new Promise((resolve) => {
+      compiler.close((error) => resolve(error));
+    });
+
+    expect(closeError).toBeFalsy();
   });
 
   it("should stay passive in build mode (compiler.run)", async () => {
@@ -221,6 +239,134 @@ describe("API (plugin)", () => {
     });
 
     expect(sawInvalid).toBe(true);
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should trigger a rebuild via `server.invalidate()` in plugin mode", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    const sawInvalid = await new Promise((resolve, reject) => {
+      let initialOkSeen = false;
+      const ws = new WebSocket(`ws://127.0.0.1:${port}/ws`, {
+        headers: {
+          host: `127.0.0.1:${port}`,
+          origin: `http://127.0.0.1:${port}`,
+        },
+      });
+
+      ws.on("error", reject);
+      ws.on("message", (raw) => {
+        const { type } = JSON.parse(raw.toString());
+
+        if (!initialOkSeen && type === "ok") {
+          initialOkSeen = true;
+          // Must invalidate the host's `watching` (the middleware has none in
+          // plugin mode) instead of throwing.
+          server.invalidate();
+          return;
+        }
+
+        if (type === "invalid") {
+          ws.close();
+          resolve(true);
+        }
+      });
+    });
+
+    expect(sawInvalid).toBe(true);
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should trigger a rebuild via the /webpack-dev-server/invalidate route in plugin mode", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    const sawInvalid = await new Promise((resolve, reject) => {
+      let initialOkSeen = false;
+      const ws = new WebSocket(`ws://127.0.0.1:${port}/ws`, {
+        headers: {
+          host: `127.0.0.1:${port}`,
+          origin: `http://127.0.0.1:${port}`,
+        },
+      });
+
+      ws.on("error", reject);
+      ws.on("message", (raw) => {
+        const { type } = JSON.parse(raw.toString());
+
+        if (!initialOkSeen && type === "ok") {
+          initialOkSeen = true;
+          // Hit the route as a browser would (same-origin, so it passes the
+          // cross-origin check) — it must trigger a rebuild, not crash.
+          http
+            .get(
+              `http://127.0.0.1:${port}/webpack-dev-server/invalidate`,
+              {
+                headers: {
+                  host: `127.0.0.1:${port}`,
+                  origin: `http://127.0.0.1:${port}`,
+                },
+              },
+              (res) => res.resume(),
+            )
+            .on("error", reject);
+          return;
+        }
+
+        if (type === "invalid") {
+          ws.close();
+          resolve(true);
+        }
+      });
+    });
+
+    expect(sawInvalid).toBe(true);
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should invoke the callback after `server.invalidate()` rebuilds in plugin mode", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    await compile(compiler, port);
+
+    // The callback fires once the invalidated build finishes.
+    await new Promise((resolve) => {
+      server.invalidate(resolve);
+    });
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+  });
+
+  it("should invoke the callback when `server.invalidate()` runs with no active watching", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port });
+    server.apply(compiler);
+
+    // No `compiler.watch()` — there is no `watching`, so invalidate is a no-op
+    // that still calls the callback.
+    await new Promise((resolve) => {
+      server.invalidate(resolve);
+    });
 
     await new Promise((resolve) => {
       compiler.close(resolve);
