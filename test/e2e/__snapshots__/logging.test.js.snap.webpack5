@@ -42,7 +42,7 @@ Warning from compilation",
 ]
 `;
 
-exports[`logging > plugin mode > should work when the "client.logging" is "none" 1`] = `
+exports[`logging > plugin mode > should work when the \"client.logging\" is \"none\" 1`] = `
 [
   "Hey.",
 ]
@@ -149,7 +149,7 @@ Warning from compilation",
 ]
 `;
 
-exports[`logging > should work when the "client.logging" is "info" (ws) 1`] = `
+exports[`logging > should work when the \"client.logging\" is \"info\" (ws) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -157,7 +157,7 @@ exports[`logging > should work when the "client.logging" is "info" (ws) 1`] = `
 ]
 `;
 
-exports[`logging > should work when the "client.logging" is "log" (ws) 1`] = `
+exports[`logging > should work when the \"client.logging\" is \"log\" (ws) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -165,13 +165,13 @@ exports[`logging > should work when the "client.logging" is "log" (ws) 1`] = `
 ]
 `;
 
-exports[`logging > should work when the "client.logging" is "none" (ws) 1`] = `
+exports[`logging > should work when the \"client.logging\" is \"none\" (ws) 1`] = `
 [
   "Hey.",
 ]
 `;
 
-exports[`logging > should work when the "client.logging" is "verbose" (ws) 1`] = `
+exports[`logging > should work when the \"client.logging\" is \"verbose\" (ws) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",

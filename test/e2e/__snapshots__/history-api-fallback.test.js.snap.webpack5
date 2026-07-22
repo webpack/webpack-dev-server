@@ -166,45 +166,45 @@ exports[`historyApiFallback option > as object with static set to false > histor
 []
 `;
 
-exports[`historyApiFallback option > as object with the "logger" option > request to directory and log 1`] = `
+exports[`historyApiFallback option > as object with the \"logger\" option > request to directory and log 1`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`historyApiFallback option > as object with the "logger" option > request to directory and log 2`] = `
+exports[`historyApiFallback option > as object with the \"logger\" option > request to directory and log 2`] = `
 200
 `;
 
-exports[`historyApiFallback option > as object with the "logger" option > request to directory and log 3`] = `
+exports[`historyApiFallback option > as object with the \"logger\" option > request to directory and log 3`] = `
 "Foobar
 "
 `;
 
-exports[`historyApiFallback option > as object with the "logger" option > request to directory and log 4`] = `
+exports[`historyApiFallback option > as object with the \"logger\" option > request to directory and log 4`] = `
 []
 `;
 
-exports[`historyApiFallback option > as object with the "logger" option > request to directory and log 5`] = `
+exports[`historyApiFallback option > as object with the \"logger\" option > request to directory and log 5`] = `
 []
 `;
 
-exports[`historyApiFallback option > as object with the "verbose" option > request to directory and log 1`] = `
+exports[`historyApiFallback option > as object with the \"verbose\" option > request to directory and log 1`] = `
 "text/html; charset=utf-8"
 `;
 
-exports[`historyApiFallback option > as object with the "verbose" option > request to directory and log 2`] = `
+exports[`historyApiFallback option > as object with the \"verbose\" option > request to directory and log 2`] = `
 200
 `;
 
-exports[`historyApiFallback option > as object with the "verbose" option > request to directory and log 3`] = `
+exports[`historyApiFallback option > as object with the \"verbose\" option > request to directory and log 3`] = `
 "Foobar
 "
 `;
 
-exports[`historyApiFallback option > as object with the "verbose" option > request to directory and log 4`] = `
+exports[`historyApiFallback option > as object with the \"verbose\" option > request to directory and log 4`] = `
 []
 `;
 
-exports[`historyApiFallback option > as object with the "verbose" option > request to directory and log 5`] = `
+exports[`historyApiFallback option > as object with the \"verbose\" option > request to directory and log 5`] = `
 []
 `;
 
