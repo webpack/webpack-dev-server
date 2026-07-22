@@ -542,16 +542,16 @@ exports[`server option > as object > custom server with options > should handle 
 []
 `;
 
-exports[`server option > as object > should support the "requestCert" option > should handle GET request to index route (/) 1`] = `
+exports[`server option > as object > should support the \"requestCert\" option > should handle GET request to index route (/) 1`] = `
 200
 `;
 
-exports[`server option > as object > should support the "requestCert" option > should handle GET request to index route (/) 2`] = `
+exports[`server option > as object > should support the \"requestCert\" option > should handle GET request to index route (/) 2`] = `
 "Heyo.
 "
 `;
 
-exports[`server option > as object > should support the "requestCert" option > should pass options to the 'https.createServer' method 1`] = `
+exports[`server option > as object > should support the \"requestCert\" option > should pass options to the 'https.createServer' method 1`] = `
 {
   "cert": "<Buffer>",
   "key": "<Buffer>",

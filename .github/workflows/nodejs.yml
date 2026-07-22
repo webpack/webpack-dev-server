@@ -65,13 +65,12 @@ jobs:
         run: npm run validate:changeset
 
   test:
-    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version == '24.15' && '24.x' || matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})
+    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        # 24.15 is pinned on purpose: Node 24.16 is broken for Puppeteer. Do not bump to 24.x.
-        node-version: [22.x, 24.15, 25.x]
+        node-version: [22.x, 24.x, 25.x, 26.x]
         shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
 
@@ -93,6 +92,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build
+        run: npm run build
+
+      - name: Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
+
       - name: Setup firefox
         if: matrix.os != 'windows-latest'
         uses: browser-actions/setup-firefox@0bc507ddf224827e3b1af68e014d5e42ab93e795 # v1.7.2
@@ -110,7 +115,31 @@ jobs:
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
         run: npm run test:coverage -- --test-shard=${{ matrix.shard }}
 
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage-${{ matrix.os }}-${{ matrix.node-version }}-${{ strategy.job-index }}
+          path: coverage/lcov.info
+          if-no-files-found: error
+
+  upload-coverage:
+    name: Upload coverage to codecov
+
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: coverage-*
+          path: coverage
+
       - name: Submit coverage data to codecov
         uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage

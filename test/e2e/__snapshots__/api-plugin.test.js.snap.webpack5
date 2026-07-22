@@ -22,18 +22,6 @@ exports[`API (plugin) > plugin in webpack config > should work when added to web
 []
 `;
 
-exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 1`] = `
-[
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "Hey.",
-]
-`;
-
-exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 2`] = `
-[]
-`;
-
 exports[`API (plugin) > should work with plugin API 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
@@ -43,5 +31,17 @@ exports[`API (plugin) > should work with plugin API 1`] = `
 `;
 
 exports[`API (plugin) > should work with plugin API 2`] = `
+[]
+`;
+
+exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 1`] = `
+[
+  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[HMR] Waiting for update signal from WDS...",
+  "Hey.",
+]
+`;
+
+exports[`API (plugin) > plugin in webpack config > should work with output.clean: true 2`] = `
 []
 `;

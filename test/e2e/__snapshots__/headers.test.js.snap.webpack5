@@ -1,6 +1,5 @@
 exports[`headers option > as a function > should handle GET request with headers as a function 1`] = `
-"key1=value1
-key2=value2"
+"key1=value1, key2=value2"
 `;
 
 exports[`headers option > as a function > should handle GET request with headers as a function 2`] = `
@@ -84,8 +83,7 @@ exports[`headers option > as a string and support HEAD request > should handle H
 `;
 
 exports[`headers option > as an array > should handle GET request with headers as an array 1`] = `
-"key1=value1
-key2=value2"
+"key1=value1, key2=value2"
 `;
 
 exports[`headers option > as an array > should handle GET request with headers as an array 2`] = `

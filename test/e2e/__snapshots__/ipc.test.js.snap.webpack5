@@ -1,4 +1,4 @@
-exports[`web socket server URL > should work with the "ipc" option using "string" value ("ws") 1`] = `
+exports[`web socket server URL > should work with the \"ipc\" option using \"string\" value (\"ws\") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -6,11 +6,11 @@ exports[`web socket server URL > should work with the "ipc" option using "string
 ]
 `;
 
-exports[`web socket server URL > should work with the "ipc" option using "string" value ("ws") 2`] = `
+exports[`web socket server URL > should work with the \"ipc\" option using \"string\" value (\"ws\") 2`] = `
 []
 `;
 
-exports[`web socket server URL > should work with the "ipc" option using "true" value ("ws") 1`] = `
+exports[`web socket server URL > should work with the \"ipc\" option using \"true\" value (\"ws\") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -18,6 +18,6 @@ exports[`web socket server URL > should work with the "ipc" option using "true" 
 ]
 `;
 
-exports[`web socket server URL > should work with the "ipc" option using "true" value ("ws") 2`] = `
+exports[`web socket server URL > should work with the \"ipc\" option using \"true\" value (\"ws\") 2`] = `
 []
 `;

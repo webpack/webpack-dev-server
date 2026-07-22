@@ -20,7 +20,7 @@ exports[`hot and live reload > should not refresh content when hot and no live r
 []
 `;
 
-exports[`hot and live reload > should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false" (default) 1`] = `
+exports[`hot and live reload > should work and allow to disable hot module replacement and live reload using the \"webpack-dev-server-hot=false&webpack-dev-server-live-reload=false\" (default) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -28,11 +28,11 @@ exports[`hot and live reload > should work and allow to disable hot module repla
 ]
 `;
 
-exports[`hot and live reload > should work and allow to disable hot module replacement and live reload using the "webpack-dev-server-hot=false&webpack-dev-server-live-reload=false" (default) 2`] = `
+exports[`hot and live reload > should work and allow to disable hot module replacement and live reload using the \"webpack-dev-server-hot=false&webpack-dev-server-live-reload=false\" (default) 2`] = `
 []
 `;
 
-exports[`hot and live reload > should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false" (default) 1`] = `
+exports[`hot and live reload > should work and allow to disable hot module replacement using the \"webpack-dev-server-hot=false\" (default) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -43,18 +43,18 @@ exports[`hot and live reload > should work and allow to disable hot module repla
 ]
 `;
 
-exports[`hot and live reload > should work and allow to disable hot module replacement using the "webpack-dev-server-hot=false" (default) 2`] = `
+exports[`hot and live reload > should work and allow to disable hot module replacement using the \"webpack-dev-server-hot=false\" (default) 2`] = `
 []
 `;
 
-exports[`hot and live reload > should work and allow to disable live reload using the "webpack-dev-server-live-reload=false" (default) 1`] = `
+exports[`hot and live reload > should work and allow to disable live reload using the \"webpack-dev-server-live-reload=false\" (default) 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[webpack-dev-server] App updated. Recompiling...",
 ]
 `;
 
-exports[`hot and live reload > should work and allow to disable live reload using the "webpack-dev-server-live-reload=false" (default) 2`] = `
+exports[`hot and live reload > should work and allow to disable live reload using the \"webpack-dev-server-live-reload=false\" (default) 2`] = `
 []
 `;
 

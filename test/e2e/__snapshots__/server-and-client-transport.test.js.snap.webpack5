@@ -10,28 +10,28 @@ exports[`server and client transport > should throw an error on wrong path 1`] =
 "webSocketServer (webSocketServer.type) must be a string denoting a default implementation (e.g. 'ws'), a resolvable module specifier or absolute file path which exports a class extending BaseServer (webpack-dev-server/lib/servers/BaseServer.js), or the class itself which extends BaseServer"
 `;
 
-exports[`server and client transport > should use "ws" transport and "ws" web socket server 1`] = `
+exports[`server and client transport > should use \"ws\" transport and \"ws\" web socket server 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
 ]
 `;
 
-exports[`server and client transport > should use "ws" transport, when web socket server is not specify 1`] = `
+exports[`server and client transport > should use \"ws\" transport, when web socket server is not specify 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
 ]
 `;
 
-exports[`server and client transport > should use "ws" web socket server when specify "ws" value 1`] = `
+exports[`server and client transport > should use \"ws\" web socket server when specify \"ws\" value 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
 ]
 `;
 
-exports[`server and client transport > should use "ws" web socket server when specify "ws" value using object 1`] = `
+exports[`server and client transport > should use \"ws\" web socket server when specify \"ws\" value using object 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -66,7 +66,7 @@ exports[`server and client transport > should use custom web socket server when 
 ]
 `;
 
-exports[`server and client transport > should use default web socket server ("ws") 1`] = `
+exports[`server and client transport > should use default web socket server (\"ws\") 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",

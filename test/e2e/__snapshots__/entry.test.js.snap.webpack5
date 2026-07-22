@@ -58,7 +58,7 @@ exports[`entry > should work with multiple entries 2`] = `
 []
 `;
 
-exports[`entry > should work with multiple entries and "dependOn" 1`] = `
+exports[`entry > should work with multiple entries and \"dependOn\" 1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -67,7 +67,7 @@ exports[`entry > should work with multiple entries and "dependOn" 1`] = `
 ]
 `;
 
-exports[`entry > should work with multiple entries and "dependOn" 2`] = `
+exports[`entry > should work with multiple entries and \"dependOn\" 2`] = `
 []
 `;
 

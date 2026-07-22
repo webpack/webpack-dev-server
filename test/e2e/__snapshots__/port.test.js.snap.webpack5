@@ -1,4 +1,4 @@
-exports[`port > should work using "0" port  1`] = `
+exports[`port > should work using \"0\" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -6,11 +6,11 @@ exports[`port > should work using "0" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "0" port  2`] = `
+exports[`port > should work using \"0\" port  2`] = `
 []
 `;
 
-exports[`port > should work using "8160" port  1`] = `
+exports[`port > should work using \"8160\" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -18,11 +18,11 @@ exports[`port > should work using "8160" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "8160" port  2`] = `
+exports[`port > should work using \"8160\" port  2`] = `
 []
 `;
 
-exports[`port > should work using "8160" port  3`] = `
+exports[`port > should work using \"8160\" port  3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -30,11 +30,11 @@ exports[`port > should work using "8160" port  3`] = `
 ]
 `;
 
-exports[`port > should work using "8160" port  4`] = `
+exports[`port > should work using \"8160\" port  4`] = `
 []
 `;
 
-exports[`port > should work using "<not-specified>" port  1`] = `
+exports[`port > should work using \"<not-specified>\" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -42,11 +42,11 @@ exports[`port > should work using "<not-specified>" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "<not-specified>" port  2`] = `
+exports[`port > should work using \"<not-specified>\" port  2`] = `
 []
 `;
 
-exports[`port > should work using "auto" port  1`] = `
+exports[`port > should work using \"auto\" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -54,11 +54,11 @@ exports[`port > should work using "auto" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "auto" port  2`] = `
+exports[`port > should work using \"auto\" port  2`] = `
 []
 `;
 
-exports[`port > should work using "undefined" port  1`] = `
+exports[`port > should work using \"undefined\" port  1`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -66,6 +66,6 @@ exports[`port > should work using "undefined" port  1`] = `
 ]
 `;
 
-exports[`port > should work using "undefined" port  2`] = `
+exports[`port > should work using \"undefined\" port  2`] = `
 []
 `;

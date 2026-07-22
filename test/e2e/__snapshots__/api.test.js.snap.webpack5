@@ -30,15 +30,15 @@ exports[`API > Invalidate callback > should use the provided \`callback\` functi
 []
 `;
 
-exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object 1`] = `
+exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the \"option.client.webSocketURL\" is object 1`] = `
 "ws://test.host:8157/ws"
 `;
 
-exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object 2`] = `
+exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the \"option.client.webSocketURL\" is object 2`] = `
 200
 `;
 
-exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object 3`] = `
+exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the \"option.client.webSocketURL\" is object 3`] = `
 [
   "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "[HMR] Waiting for update signal from WDS...",
@@ -50,7 +50,7 @@ exports[`API > Server.checkHostHeader > should allow URLs with scheme for checki
 ]
 `;
 
-exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the "option.client.webSocketURL" is object 4`] = `
+exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the \"option.client.webSocketURL\" is object 4`] = `
 []
 `;
 
