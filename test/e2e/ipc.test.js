@@ -40,14 +40,27 @@ describe("web socket server URL", () => {
           target: { socketPath: server.options.ipc },
         });
 
+        // Sockets can be reset abruptly (e.g. while the browser is closing),
+        // don't let those errors crash the test process.
+        proxy.on("error", () => {});
+
         const proxyServer = http.createServer((request, response) => {
           // You can define here your custom logic to handle the request
           // and then proxy the request.
-          proxy.web(request, response);
+          proxy.web(request, response).catch(() => {
+            if (!response.headersSent) {
+              response.statusCode = 502;
+            }
+
+            response.end();
+          });
         });
 
         proxyServer.on("upgrade", (request, socket, head) => {
-          proxy.ws(request, socket, head);
+          socket.on("error", () => {});
+          proxy.ws(request, socket, head).catch(() => {
+            socket.destroy();
+          });
         });
 
         return proxyServer.listen(proxyPort, proxyHost, callback);
@@ -101,9 +114,10 @@ describe("web socket server URL", () => {
         t.assert.snapshot(consoleMessages.map((message) => message.text()));
         t.assert.snapshot(pageErrors);
       } finally {
-        proxy.close();
-
         await browser.close();
+        await new Promise((resolve) => {
+          proxy.close(resolve);
+        });
         await server.stop();
       }
     });
@@ -132,14 +146,27 @@ describe("web socket server URL", () => {
           target: { socketPath: ipc },
         });
 
+        // Sockets can be reset abruptly (e.g. while the browser is closing),
+        // don't let those errors crash the test process.
+        proxy.on("error", () => {});
+
         const proxyServer = http.createServer((request, response) => {
           // You can define here your custom logic to handle the request
           // and then proxy the request.
-          proxy.web(request, response);
+          proxy.web(request, response).catch(() => {
+            if (!response.headersSent) {
+              response.statusCode = 502;
+            }
+
+            response.end();
+          });
         });
 
         proxyServer.on("upgrade", (request, socket, head) => {
-          proxy.ws(request, socket, head);
+          socket.on("error", () => {});
+          proxy.ws(request, socket, head).catch(() => {
+            socket.destroy();
+          });
         });
 
         return proxyServer.listen(proxyPort, proxyHost, callback);
@@ -193,9 +220,10 @@ describe("web socket server URL", () => {
         t.assert.snapshot(consoleMessages.map((message) => message.text()));
         t.assert.snapshot(pageErrors);
       } finally {
-        proxy.close();
-
         await browser.close();
+        await new Promise((resolve) => {
+          proxy.close(resolve);
+        });
         await server.stop();
       }
     });
@@ -242,14 +270,27 @@ describe("web socket server URL", () => {
           target: { socketPath: ipc },
         });
 
+        // Sockets can be reset abruptly (e.g. while the browser is closing),
+        // don't let those errors crash the test process.
+        proxy.on("error", () => {});
+
         const proxyServer = http.createServer((request, response) => {
           // You can define here your custom logic to handle the request
           // and then proxy the request.
-          proxy.web(request, response);
+          proxy.web(request, response).catch(() => {
+            if (!response.headersSent) {
+              response.statusCode = 502;
+            }
+
+            response.end();
+          });
         });
 
         proxyServer.on("upgrade", (request, socket, head) => {
-          proxy.ws(request, socket, head);
+          socket.on("error", () => {});
+          proxy.ws(request, socket, head).catch(() => {
+            socket.destroy();
+          });
         });
 
         return proxyServer.listen(proxyPort, proxyHost, callback);
