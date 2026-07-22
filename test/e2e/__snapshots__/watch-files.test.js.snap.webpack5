@@ -644,3 +644,63 @@ exports[`watchFiles option > should work with string and path to file > should r
 exports[`watchFiles option > should work with string and path to file > should reload when file content is changed 3`] = `
 []
 `;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":false,\"interval\":200,\"poll\":400} > should reload when file content is changed 1`] = `
+{
+  "alwaysStat": true,
+  "atomic": false,
+  "awaitWriteFinish": false,
+  "binaryInterval": 300,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": [],
+  "interval": 200,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":true,\"interval\":200,\"poll\":400} > should reload when file content is changed 1`] = `
+{
+  "alwaysStat": true,
+  "atomic": false,
+  "awaitWriteFinish": false,
+  "binaryInterval": 300,
+  "followSymlinks": false,
+  "ignoreInitial": true,
+  "ignorePermissionErrors": true,
+  "ignored": [],
+  "interval": 200,
+  "persistent": true,
+  "usePolling": true,
+}
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":false,\"interval\":200,\"poll\":400} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":true,\"interval\":200,\"poll\":400} > should reload when file content is changed 2`] = `
+200
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":false,\"interval\":200,\"poll\":400} > should reload when file content is changed 3`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":true,\"interval\":200,\"poll\":400} > should reload when file content is changed 3`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":false,\"interval\":200,\"poll\":400} > should reload when file content is changed 4`] = `
+[]
+`;
+
+exports[`watchFiles option > should work with options > {\"usePolling\":true,\"interval\":200,\"poll\":400} > should reload when file content is changed 4`] = `
+[]
+`;
