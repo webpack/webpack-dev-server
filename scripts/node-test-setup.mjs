@@ -4,6 +4,7 @@ import { format } from "pretty-format";
 import webpack from "webpack";
 
 process.env.CHOKIDAR_USEPOLLING = "true";
+process.env.WATCHPACK_POLLING = "true";
 
 // Normalize "\r\n" and "\r" to "\n" so snapshots are platform-agnostic,
 // and "[object Event]"-style console text (Puppeteer >= 25) to "JSHandle@object".
