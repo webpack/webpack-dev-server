@@ -30,6 +30,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Build
+        run: npm run build
+
+      - name: Check client build exists
+        run: if [ ! -f client/index.js ]; then echo "Missing client build. 'npm run build' did not generate client/index.js"; exit 1; fi
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
