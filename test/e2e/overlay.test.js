@@ -1,5 +1,5 @@
 import path from "node:path";
-import { describe, it, mock } from "node:test";
+import { afterEach, describe, it, mock } from "node:test";
 import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import fs from "graceful-fs";
@@ -15,6 +15,11 @@ import portsMap from "../ports-map.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.overlay;
+const pathToOverlayFixture = path.resolve(
+  __dirname,
+  "../fixtures/overlay-config/foo.js",
+);
+const overlayFixtureCode = fs.readFileSync(pathToOverlayFixture);
 
 class ErrorPlugin {
   constructor(message, skipCounter) {
@@ -75,6 +80,17 @@ const delay = (ms) =>
   });
 
 describe("overlay", () => {
+  // Several tests below break this fixture on purpose so that the compiler
+  // emits an error, then repair it once they are done. Repairing it here too
+  // means an assertion that fails in between cannot leave the fixture broken
+  // on disk, where it used to make every following test compile the broken
+  // file and turn a single mismatch into a cascade of failures.
+  afterEach(() => {
+    if (!fs.readFileSync(pathToOverlayFixture).equals(overlayFixtureCode)) {
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
+    }
+  });
+
   it("should show a warning for initial compilation", async (t) => {
     const compiler = webpack(config);
 
@@ -333,13 +349,7 @@ describe("overlay", () => {
         }),
       );
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js",
-      );
-      const originalCode = fs.readFileSync(pathToFile);
-
-      fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToOverlayFixture, "`;");
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
@@ -362,7 +372,7 @@ describe("overlay", () => {
         }),
       );
 
-      fs.writeFileSync(pathToFile, originalCode);
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
       await page.waitForSelector("#webpack-dev-server-client-overlay", {
         hidden: true,
@@ -409,13 +419,7 @@ describe("overlay", () => {
         }),
       );
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js",
-      );
-      const originalCode = fs.readFileSync(pathToFile);
-
-      fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToOverlayFixture, "`;");
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
@@ -438,7 +442,7 @@ describe("overlay", () => {
         }),
       );
 
-      fs.writeFileSync(pathToFile, "`;a");
+      fs.writeFileSync(pathToOverlayFixture, "`;a");
 
       await page.waitForSelector("#webpack-dev-server-client-overlay", {
         hidden: true,
@@ -462,7 +466,7 @@ describe("overlay", () => {
         }),
       );
 
-      fs.writeFileSync(pathToFile, originalCode);
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
       await page.waitForSelector("#webpack-dev-server-client-overlay", {
         hidden: true,
@@ -509,13 +513,7 @@ describe("overlay", () => {
         }),
       );
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js",
-      );
-      const originalCode = fs.readFileSync(pathToFile);
-
-      fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToOverlayFixture, "`;");
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
@@ -560,7 +558,7 @@ describe("overlay", () => {
         }),
       );
 
-      fs.writeFileSync(pathToFile, originalCode);
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
     } finally {
       await browser.close();
       await server.stop();
@@ -588,13 +586,7 @@ describe("overlay", () => {
         waitUntil: "networkidle0",
       });
 
-      const pathToFile = path.resolve(
-        __dirname,
-        "../fixtures/overlay-config/foo.js",
-      );
-      const originalCode = fs.readFileSync(pathToFile);
-
-      fs.writeFileSync(pathToFile, "`;");
+      fs.writeFileSync(pathToOverlayFixture, "`;");
 
       await page.waitForSelector("#webpack-dev-server-client-overlay");
 
@@ -610,7 +602,7 @@ describe("overlay", () => {
         expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
       });
 
-      fs.writeFileSync(pathToFile, originalCode);
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
     } finally {
       await browser.close();
       await server.stop();
