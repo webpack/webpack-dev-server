@@ -6,6 +6,7 @@ import Server from "../../lib/Server.js";
 import WebsocketServer from "../../lib/servers/WebsocketServer.js";
 import config from "../fixtures/client-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
+import waitFor from "../helpers/wait-for.js";
 import portsMap from "../ports-map.js";
 
 const port = portsMap["web-socket-communication"];
@@ -45,17 +46,14 @@ describe("web socket communication", () => {
         });
 
         await server.stop();
-        await new Promise((resolve) => {
-          const interval = setInterval(() => {
-            if (
-              consoleMessages.includes("[webpack-dev-server] Disconnected!")
-            ) {
-              clearInterval(interval);
-
-              resolve();
-            }
-          }, 100);
-        });
+        // Wait for the last message the client logs when the connection drops.
+        // Waiting only for "Disconnected!" would race with the reconnect line
+        // that the snapshot also records.
+        await waitFor(() =>
+          consoleMessages.includes(
+            "[webpack-dev-server] Trying to reconnect...",
+          ),
+        );
 
         t.assert.snapshot(consoleMessages);
         t.assert.snapshot(pageErrors);
@@ -93,18 +91,25 @@ describe("web socket communication", () => {
         await page.goto(`http://localhost:${port}/`, {
           waitUntil: "networkidle0",
         });
+        // Tearing down the browser below makes the client log "Disconnected!"
+        // and "Trying to reconnect...", and those can still reach the console
+        // listener before the CDP connection goes away. Record what the page
+        // logged while it was alive first, so the teardown cannot race into
+        // the snapshot.
+        const loadedConsoleMessages = consoleMessages.map((message) =>
+          message.text(),
+        );
+        const loadedPageErrors = [...pageErrors];
+
         await browser.close();
 
-        // Wait heartbeat
-        await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve();
-          }, 200);
-        });
+        // Wait for the heartbeat to notice the client is gone. Polling keeps
+        // this quick on a fast machine without being too short on a slow one.
+        await waitFor(() => server.webSocketServer.clients.length === 0);
 
         expect(server.webSocketServer.clients).toHaveLength(0);
-        t.assert.snapshot(consoleMessages.map((message) => message.text()));
-        t.assert.snapshot(pageErrors);
+        t.assert.snapshot(loadedConsoleMessages);
+        t.assert.snapshot(loadedPageErrors);
       } finally {
         await server.stop();
       }

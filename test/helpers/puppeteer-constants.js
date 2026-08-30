@@ -3,6 +3,12 @@ export const completeReloadDelay = 10000;
 export const initConsoleDelay = 3000;
 export const awaitServerCloseDelay = 1000;
 export const beforeBrowserCloseDelay = 3000;
+// Puppeteer defaults to 30s. That is not enough headroom on a cold or
+// contended CI runner (Windows especially), where a navigation that normally
+// takes a second has been observed taking tens of seconds, and the whole run
+// then fails on an unrelated-looking `TimeoutError`. Node's own per-test
+// timeout (400s) still catches a genuine hang.
+export const navigationTimeout = 120000;
 export const puppeteerArgs = [
   "--disable-background-timer-throttling",
   "--disable-breakpad",

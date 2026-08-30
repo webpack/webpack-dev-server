@@ -1,5 +1,5 @@
 import { launch } from "puppeteer";
-import { puppeteerArgs } from "./puppeteer-constants.js";
+import { navigationTimeout, puppeteerArgs } from "./puppeteer-constants.js";
 
 /** @typedef {import("puppeteer").Browser} Browser */
 /** @typedef {import("puppeteer").Page} Page */
@@ -35,10 +35,13 @@ export function runPage(browser, device) {
     .then(() => browser.newPage())
     .then((newPage) => {
       page = newPage;
-      page.emulate(options);
 
-      return page.setRequestInterception(true);
+      page.setDefaultNavigationTimeout(navigationTimeout);
+      page.setDefaultTimeout(navigationTimeout);
+
+      return page.emulate(options);
     })
+    .then(() => page.setRequestInterception(true))
     .then(() => {
       page.on("request", (interceptedRequest) => {
         if (interceptedRequest.isInterceptResolutionHandled()) return;

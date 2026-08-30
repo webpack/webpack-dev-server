@@ -12,6 +12,7 @@ import "../helpers/jsdom-setup.js";
 import workerConfig from "../fixtures/worker-config/webpack.config.js";
 import workerConfigDevServerFalse from "../fixtures/worker-config-dev-server-false/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
+import waitFor from "../helpers/wait-for.js";
 import portsMap from "../ports-map.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -141,6 +142,16 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
+      // The worker posts its messages after the navigation has settled, so
+      // wait for both of them instead of snapshotting whichever ones happened
+      // to arrive first.
+      await waitFor(
+        () =>
+          consoleMessages.filter((message) =>
+            message.text().includes("Worker said:"),
+          ).length === 2,
+      );
+
       t.assert.snapshot(
         sortByTerm(
           consoleMessages.map((message) => message.text()),
@@ -189,6 +200,16 @@ describe("target", () => {
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
       });
+
+      // The worker posts its messages after the navigation has settled, so
+      // wait for both of them instead of snapshotting whichever ones happened
+      // to arrive first.
+      await waitFor(
+        () =>
+          consoleMessages.filter((message) =>
+            message.text().includes("Worker said:"),
+          ).length === 2,
+      );
 
       t.assert.snapshot(
         sortByTerm(
