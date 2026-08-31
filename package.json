@@ -20,6 +20,12 @@
       "default": "./lib/Server.js"
     },
     "./client/*": "./client/*",
+    "./lib/servers/BaseServer.js": {
+      "types": "./types/lib/servers/BaseServer.d.ts",
+      "import": "./lib/servers/BaseServer.js",
+      "require": "./dist/servers/BaseServer.js",
+      "default": "./lib/servers/BaseServer.js"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/Server.js",

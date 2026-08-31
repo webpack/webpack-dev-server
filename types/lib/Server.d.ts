@@ -157,7 +157,9 @@ export type WebSocketServerConfiguration = {
   /**
    * type
    */
-  type?: ("ws" | string | (() => WebSocketServerConfiguration)) | undefined;
+  type?:
+    | ("ws" | string | typeof import("./servers/BaseServer.js").default)
+    | undefined;
   /**
    * options
    */
