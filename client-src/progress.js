@@ -38,9 +38,7 @@ export function defineProgressElement() {
       (this.shadowRoot).innerHTML = innerHTML;
 
       const progressValue = this.getAttribute("progress");
-      this.initialProgress = progressValue ? Number(progressValue) : 0;
-
-      this.#update(this.initialProgress);
+      this.#update(progressValue ? Number(progressValue) : 0);
     }
 
     static #circularTemplate() {
@@ -98,6 +96,11 @@ export function defineProgressElement() {
         .hidden {
             display: none;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            :host { transition: none; }
+            .disappear { animation: none; }
+        }
         </style>
         <svg id="progress" class="hidden noselect" viewBox="0 0 80 80">
         <circle cx="50%" cy="50%" r="35"></circle>
@@ -123,7 +126,7 @@ export function defineProgressElement() {
             z-index: 2147483645;
         }
 
-        #bar {
+        #progress {
             width: 0%;
             height: 4px;
             background-color: rgb(186, 223, 172);
@@ -143,13 +146,26 @@ export function defineProgressElement() {
         .hidden {
             display: none;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .disappear { animation: none; }
+        }
         </style>
         <div id="progress"></div>
         `;
     }
 
     connectedCallback() {
+      this.setAttribute("role", "progressbar");
+      this.setAttribute("aria-label", "Compilation progress");
+      this.setAttribute("aria-valuemin", "0");
+      this.setAttribute("aria-valuemax", "100");
       this.#reset();
+    }
+
+    disconnectedCallback() {
+      clearTimeout(this.animationTimer);
+      this.animationTimer = null;
     }
 
     static get observedAttributes() {
@@ -162,6 +178,10 @@ export function defineProgressElement() {
      * @param {string} newValue new value
      */
     attributeChangedCallback(name, oldValue, newValue) {
+      if (!this.isConnected || oldValue === newValue) {
+        return;
+      }
+
       if (name === "progress") {
         this.#update(Number(newValue));
       } else if (name === "type") {
@@ -173,6 +193,8 @@ export function defineProgressElement() {
      * @param {number} percent percent
      */
     #update(percent) {
+      // cspell:ignore valuenow
+      this.setAttribute("aria-valuenow", String(percent));
       const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
       const element =
         /** @type {HTMLElement} */
@@ -194,43 +216,36 @@ export function defineProgressElement() {
 
       if (percent >= 100) {
         this.#hide();
-      } else if (percent > 0) {
+      } else {
         this.#show();
       }
     }
 
     #show() {
+      clearTimeout(this.animationTimer);
+      this.animationTimer = null;
       const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
       const element =
         /** @type {HTMLElement} */
         (shadowRoot.querySelector("#progress"));
-      element.classList.remove("hidden");
+      element.classList.remove("hidden", "disappear");
     }
 
     #hide() {
+      if (this.animationTimer !== null) {
+        return;
+      }
+
       const shadowRoot = /** @type {ShadowRoot} */ (this.shadowRoot);
       const element =
         /** @type {HTMLElement} */
         (shadowRoot.querySelector("#progress"));
-      if (this.type === "circular") {
-        element.classList.add("disappear");
-        element.addEventListener(
-          "animationend",
-          () => {
-            element.classList.add("hidden");
-            this.#update(0);
-          },
-          { once: true },
-        );
-      } else if (this.type === "linear") {
-        element.classList.add("disappear");
-        this.animationTimer = setTimeout(() => {
-          element.classList.remove("disappear");
-          element.classList.add("hidden");
-          element.style.width = "0%";
-          this.animationTimer = null;
-        }, 800);
-      }
+      element.classList.add("disappear");
+      this.animationTimer = setTimeout(() => {
+        element.classList.remove("disappear");
+        element.classList.add("hidden");
+        this.animationTimer = null;
+      }, 800);
     }
   }
 
