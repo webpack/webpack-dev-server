@@ -248,13 +248,14 @@ export type ClientConfiguration = {
             warnings?: OverlayMessageOptions;
             errors?: OverlayMessageOptions;
             runtimeErrors?: OverlayMessageOptions;
+            trustedTypesPolicyName?: string;
           }
       )
     | undefined;
   /**
    * progress
    */
-  progress?: boolean | undefined;
+  progress?: (boolean | "linear" | "circular") | undefined;
   /**
    * reconnect
    */

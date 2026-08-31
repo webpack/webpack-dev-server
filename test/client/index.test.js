@@ -191,6 +191,39 @@ describe("index", () => {
     });
   });
 
+  it("should send only overlay messages accepted by a filter", () => {
+    onSocketMessage.overlay({
+      warnings: (warning) => warning === "visible warning",
+      errors: (error) => error === "visible error",
+    });
+
+    onSocketMessage.warnings(["hidden warning", "visible warning"]);
+    expect(overlay.send).toHaveBeenLastCalledWith({
+      type: "BUILD_ERROR",
+      level: "warning",
+      messages: ["visible warning"],
+    });
+
+    onSocketMessage.errors(["hidden error", "visible error"]);
+    expect(overlay.send).toHaveBeenLastCalledWith({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: ["visible error"],
+    });
+  });
+
+  it("should ignore malformed resource query parameters", async () => {
+    socket.mockReset();
+    log.setLogLevel.mockReset();
+    globalThis.__resourceQuery = "?%ZZ=x&logging=warn&overlay=%ZZ";
+
+    const indexUrl = import.meta.resolve("../../client-src/index.js");
+    await import(`${indexUrl}?t=${Date.now()}-${Math.random()}`);
+
+    expect(socket).toHaveBeenCalledTimes(1);
+    expect(log.setLogLevel).toHaveBeenCalledWith("warn");
+  });
+
   it("should parse overlay options from resource query", async () => {
     // Re-evaluate client-src/index.js fresh after mutating __resourceQuery so
     // top-level option parsing runs again.

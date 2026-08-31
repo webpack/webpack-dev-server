@@ -34,7 +34,7 @@ import sendMessage from "./utils/sendMessage.js";
  * @typedef {object} Options
  * @property {boolean} hot true when hot enabled, otherwise false
  * @property {boolean} liveReload true when live reload enabled, otherwise false
- * @property {boolean} progress true when need to show progress, otherwise false
+ * @property {boolean | "linear" | "circular"} progress progress display mode
  * @property {boolean | OverlayOptions} overlay overlay options
  * @property {LogLevel=} logging logging level
  * @property {number=} reconnect count of allowed reconnection
@@ -129,10 +129,17 @@ const parseURL = (resourceQuery) => {
     const searchParams = resourceQuery.slice(1).split("&");
 
     for (let i = 0; i < searchParams.length; i++) {
-      const pair = searchParams[i].split("=");
+      const parameter = searchParams[i].replace(/\+/g, " ");
+      const separator = parameter.indexOf("=");
+      const key = separator === -1 ? parameter : parameter.slice(0, separator);
+      const value = separator === -1 ? "" : parameter.slice(separator + 1);
 
-      /** @type {EXPECTED_ANY} */
-      (result)[pair[0]] = decodeURIComponent(pair[1]);
+      try {
+        /** @type {EXPECTED_ANY} */
+        (result)[decodeURIComponent(key)] = decodeURIComponent(value);
+      } catch {
+        // Ignore malformed percent escapes without preventing client startup.
+      }
     }
   } else {
     // Else, get the url from the <script> this file was called with.
@@ -189,8 +196,15 @@ if (parsedResourceQuery["live-reload"] === "true") {
   enabledFeatures["Live Reloading"] = true;
 }
 
-if (parsedResourceQuery.progress === "true") {
-  options.progress = true;
+if (
+  parsedResourceQuery.progress === "true" ||
+  parsedResourceQuery.progress === "linear" ||
+  parsedResourceQuery.progress === "circular"
+) {
+  options.progress =
+    parsedResourceQuery.progress === "true"
+      ? true
+      : parsedResourceQuery.progress;
   enabledFeatures.Progress = true;
 }
 
@@ -440,7 +454,7 @@ const onSocketMessage = {
     options.reconnect = value;
   },
   /**
-   * @param {boolean} value progress value
+   * @param {boolean | "linear" | "circular"} value progress value
    */
   progress(value) {
     options.progress = value;
@@ -534,7 +548,7 @@ const onSocketMessage = {
         overlay.send({
           type: "BUILD_ERROR",
           level: "warning",
-          messages: warnings,
+          messages: warningsToDisplay,
         });
       }
     }
@@ -578,7 +592,7 @@ const onSocketMessage = {
         overlay.send({
           type: "BUILD_ERROR",
           level: "error",
-          messages: errors,
+          messages: errorsToDisplay,
         });
       }
     }
@@ -710,16 +724,30 @@ const createSocketURL = (parsedURL) => {
 
   let socketURLAuth = "";
 
+  /**
+   * @param {string} value credential
+   * @returns {string} decoded credential
+   */
+  const decodeAuth = (value) => {
+    if (!parsedURL.fromCurrentScript) return value;
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      // URL accepts literal percent signs that are not valid escape sequences.
+      return value;
+    }
+  };
+
   // `new URL(urlString, [baseURLstring])` doesn't have `auth` property
   // Parse authentication credentials in case we need them
   if (parsedURL.username) {
-    socketURLAuth = parsedURL.username;
+    socketURLAuth = decodeAuth(parsedURL.username);
 
     // Since HTTP basic authentication does not allow empty username,
     // we only include password if the username is not empty.
     if (parsedURL.password) {
       // Result: <username>:<password>
-      socketURLAuth = socketURLAuth.concat(":", parsedURL.password);
+      socketURLAuth = socketURLAuth.concat(":", decodeAuth(parsedURL.password));
     }
   }
 

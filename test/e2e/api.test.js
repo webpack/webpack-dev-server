@@ -927,28 +927,25 @@ describe("API", () => {
         session.on("Network.webSocketCreated", (test) => {
           webSocketRequests.push(test);
         });
+        const webSocketClosed = new Promise((resolve) => {
+          session.once("Network.webSocketClosed", resolve);
+        });
 
         try {
           const response = await page.goto(`http://localhost:${port}/`, {
             waitUntil: "networkidle0",
           });
+          await webSocketClosed;
 
           if (!server.isValidHost(headers, "origin")) {
             throw new Error("Validation didn't fail");
           }
 
-          await new Promise((resolve) => {
-            const interval = setInterval(() => {
-              const needFinish = consoleMessages.filter((message) =>
-                /Trying to reconnect/.test(message.text()),
-              );
-
-              if (needFinish.length > 0) {
-                clearInterval(interval);
-                resolve();
-              }
-            }, 100);
-          });
+          expect(
+            consoleMessages.some((message) =>
+              /Trying to reconnect/.test(message.text()),
+            ),
+          ).toBe(false);
 
           t.assert.snapshot(webSocketRequests[0].url);
 
