@@ -31,7 +31,7 @@ npx webpack --watch
 
 ## What should happen
 
-1. Open `http://localhost:8080/` in your preferred browser.
+1. Open `http://localhost:8090/` in your preferred browser.
 2. You should see the text on the page itself change to read `Success!`.
 3. Press `Ctrl+C` in the terminal — `webpack-cli` closes the compiler, which
    fires the plugin's `shutdown` hook, stopping the dev server cleanly.

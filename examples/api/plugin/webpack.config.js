@@ -1,20 +1,21 @@
-"use strict";
-
-const WebpackDevServer = require("../../../lib/Server");
+import WebpackDevServer from "../../../lib/Server.js";
 // our setup function adds behind-the-scenes bits to the config that all of our
 // examples need
-const { setup } = require("../../util");
+import { setup } from "../../util.js";
 
-const config = setup({
-  context: __dirname,
-  entry: "./app.js",
-  output: {
-    filename: "bundle.js",
+const config = setup(
+  {
+    context: import.meta.dirname,
+    entry: "./app.js",
+    output: {
+      filename: "bundle.js",
+    },
+    stats: {
+      colors: true,
+    },
   },
-  stats: {
-    colors: true,
-  },
-});
+  import.meta.url,
+);
 
 // `setup()` populates `config.devServer.setupMiddlewares` so that the example
 // layout assets (CSS, favicon, icons under `.assets/`) are served by the dev
@@ -24,4 +25,4 @@ config.plugins.push(
   new WebpackDevServer({ ...config.devServer, port: 8090, open: true }),
 );
 
-module.exports = config;
+export default config;

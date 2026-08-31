@@ -11,7 +11,7 @@ if (!globalThis.fetch) {
     })
     .then((res) => res.text())
     .then((res) => {
-      if (res.includes("console.log('webpack-dev-server/server');")) {
+      if (res.includes("webpack-dev-server/server")) {
         target.classList.add("pass");
         target.innerHTML = "[client.js, server.js]: Success!";
       }
