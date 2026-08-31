@@ -2,7 +2,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, it, mock } from "node:test";
 import { fileURLToPath } from "node:url";
 import { expect } from "expect";
-import { fn } from "jest-mock";
+import { fn, spyOn } from "jest-mock";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
@@ -191,6 +191,43 @@ describe("API", () => {
           resolve();
         });
       });
+    });
+
+    it("should clean up initialized resources when listening fails", async () => {
+      const compiler = webpack(config);
+      const server = new Server({ port }, compiler);
+      const listenError = new Error("listen failed");
+      const listenSpy = spyOn(server, "listen").mockRejectedValue(listenError);
+      const stopSpy = spyOn(server, "stop");
+
+      await expect(server.start()).rejects.toBe(listenError);
+
+      expect(stopSpy).toHaveBeenCalledTimes(1);
+      expect(server.server).toBeUndefined();
+
+      listenSpy.mockRestore();
+      stopSpy.mockRestore();
+    });
+
+    it("should clean up initialized resources when setup fails", async () => {
+      const compiler = webpack(config);
+      const server = new Server({ port }, compiler);
+      const setupError = new Error("setup failed");
+      const close = fn((callback) => callback());
+      const setupSpy = spyOn(server, "setup").mockImplementation(async () => {
+        server.server = { close };
+        throw setupError;
+      });
+      const stopSpy = spyOn(server, "stop");
+
+      await expect(server.start()).rejects.toBe(setupError);
+
+      expect(stopSpy).toHaveBeenCalledTimes(1);
+      expect(close).toHaveBeenCalledTimes(1);
+      expect(server.server).toBeUndefined();
+
+      setupSpy.mockRestore();
+      stopSpy.mockRestore();
     });
 
     it("should work when using configured manually", async (t) => {
