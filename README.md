@@ -55,6 +55,12 @@ or
 pnpm add -D webpack-dev-server
 ```
 
+or
+
+```console
+bun add -D webpack-dev-server
+```
+
 _Note: While you can install and run webpack-dev-server globally, we recommend
 installing it locally. webpack-dev-server will always use a local installation
 over a global one._
@@ -70,6 +76,12 @@ The easiest way to use it is with the [webpack CLI](https://webpack.js.org/api/c
 
 ```console
 npx webpack serve
+```
+
+or
+
+```console
+bunx webpack serve
 ```
 
 Following options are available with `webpack serve`:
