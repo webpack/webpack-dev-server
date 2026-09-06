@@ -45,12 +45,6 @@ const formatProblem = (type, item) => {
 
 /** @typedef {{ type: "DISMISS" } | { type: "BUILD_ERROR", level: "warning" | "error", messages: (string | Message)[] }} OverlayEvent */
 
-// The middleware wraps non-Error throws without `cause`. Preserve the original
-// value for dev-server's runtimeErrors filters, including rejected objects.
-/** @type {unknown} */
-let runtimeErrorCause;
-let captureRuntimeErrorCause = false;
-
 /**
  * @typedef {object} CreateOverlayOptions
  * @property {(false | string)=} trustedTypesPolicyName trusted types policy name
@@ -62,43 +56,12 @@ let captureRuntimeErrorCause = false;
  * @returns {{ send: (event: OverlayEvent) => void }} overlay
  */
 const createOverlay = (options) => {
-  if (
-    !captureRuntimeErrorCause &&
-    typeof options.catchRuntimeError === "function"
-  ) {
-    window.addEventListener(
-      "error",
-      (event) => {
-        runtimeErrorCause = event.error;
-      },
-      true,
-    );
-    window.addEventListener(
-      "unhandledrejection",
-      (event) => {
-        runtimeErrorCause = event.reason;
-      },
-      true,
-    );
-    captureRuntimeErrorCause = true;
-  }
-
   const sharedOverlay = configureOverlay({
     trustedTypesPolicyName:
       options.trustedTypesPolicyName || "webpack-dev-server#overlay",
     openEditorEndpoint: "/webpack-dev-server/open-editor",
     paginate: true,
-    catchRuntimeError: (error) => {
-      const cause = runtimeErrorCause;
-      runtimeErrorCause = undefined;
-      return typeof options.catchRuntimeError === "function"
-        ? options.catchRuntimeError(
-            cause instanceof Error
-              ? error
-              : new Error(error.message, { cause }),
-          )
-        : Boolean(options.catchRuntimeError);
-    },
+    catchRuntimeError: options.catchRuntimeError || (() => false),
   });
 
   /** @type {Document | null | undefined} */

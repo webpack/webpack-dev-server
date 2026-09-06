@@ -171,8 +171,9 @@ describe("createOverlay", () => {
     });
   }
 
-  it("should preserve the cause of a rejected value for runtime error filters", () => {
-    const reason = { error: new Error("Rejected object") };
+  it("should pass a rejected Error and its cause to runtime error filters", () => {
+    const cause = { error: new Error("Rejected object") };
+    const reason = new Error("Rejected promise", { cause });
     let received;
     createOverlay({
       catchRuntimeError: (error) => {
@@ -183,7 +184,8 @@ describe("createOverlay", () => {
     const event = new Event("unhandledrejection");
     event.reason = reason;
     globalThis.dispatchEvent(event);
-    expect(received.cause).toBe(reason);
+    expect(received).toBe(reason);
+    expect(received.cause).toBe(cause);
     expect(document.querySelector(selector)).toBeNull();
   });
 

@@ -1859,7 +1859,7 @@ describe("overlay", () => {
     }
   });
 
-  it("should not show filtered promise rejection with specific error cause", async () => {
+  it("should not show filtered promise rejection with an explicit error cause", async () => {
     const compiler = webpack(config);
 
     const server = new Server(
@@ -1887,7 +1887,9 @@ describe("overlay", () => {
       await page.addScriptTag({
         content: `(function throwError() {
         setTimeout(function () {
-          Promise.reject({ error: new Error('Injected async error') });
+          Promise.reject(new Error('Rejected promise', {
+            cause: { error: new Error('Injected async error') }
+          }));
         }, 0);
       })();`,
       });
