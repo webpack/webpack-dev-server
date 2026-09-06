@@ -78,6 +78,34 @@ describe("shared overlay", () => {
     overlay.send({ type: "DISMISS" });
   });
 
+  it("should replace build problems without retaining dismissed messages", () => {
+    const overlay = createOverlay({ catchRuntimeError: false });
+    overlay.send({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: ["First failure"],
+    });
+    overlay.send({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: ["Latest failure"],
+    });
+    const frameDocument = document.querySelector(selector).contentDocument;
+    expect(frameDocument.body.textContent).toContain("Latest failure");
+    expect(frameDocument.body.textContent).not.toContain("First failure");
+
+    frameDocument.querySelector('[aria-label="Close"]').click();
+    overlay.send({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: ["New failure"],
+    });
+    expect(
+      document.querySelector(selector).contentDocument.body.textContent,
+    ).not.toContain("Latest failure");
+    overlay.send({ type: "DISMISS" });
+  });
+
   it("should preserve problems reported by another client on a clean build", () => {
     showProblems("errors", ["Other client error"], "other-client");
     const overlay = createOverlay({ catchRuntimeError: false });

@@ -875,7 +875,7 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
           "
           >ERROR</span
         >
-        in Warning from compilation</span
+        in First compilation error</span
       >
       <div
         style="
@@ -903,7 +903,7 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
           "
         >
           ‹</button
-        ><span style="color: rgb(242, 242, 242)">1 / 5</span
+        ><span style="color: rgb(242, 242, 242)">1 / 3</span
         ><button
           type="button"
           aria-label="Next problem"
@@ -1021,7 +1021,7 @@ exports[`overlay > should show a warning and error for initial compilation 3`] =
           "
           >ERROR</span
         >
-        in Warning from compilation</span
+        in Second compilation error</span
       >
       <div
         style="
@@ -1049,7 +1049,7 @@ exports[`overlay > should show a warning and error for initial compilation 3`] =
           "
         >
           ‹</button
-        ><span style="color: rgb(242, 242, 242)">2 / 5</span
+        ><span style="color: rgb(242, 242, 242)">2 / 3</span
         ><button
           type="button"
           aria-label="Next problem"
@@ -1171,75 +1171,17 @@ exports[`overlay > should show a warning and error for initial compilation and p
     >
       ×
     </button>
-    <div
-      style="
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 16px;
-        padding-right: 28px;
-      "
-    >
+    <div style="margin-bottom: 20px">
       <span
-        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
-        ><span
-          style="
-            background-color: rgb(255, 51, 72);
-            color: rgb(0, 0, 0);
-            padding: 3px 6px;
-            border-radius: 4px;
-          "
-          >ERROR</span
-        >
-        in &lt;strong&gt;strong&lt;/strong&gt;</span
-      >
-      <div
         style="
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 13px;
-          color: rgb(153, 153, 153);
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <button
-          type="button"
-          aria-label="Previous problem"
-          style="
-            border-width: medium;
-            border-style: none;
-            border-color: currentcolor;
-            border-image: none;
-            background: transparent;
-            color: rgb(255, 51, 72);
-            cursor: pointer;
-            font-size: 16px;
-            line-height: 1;
-            padding: 0px;
-          "
-        >
-          ‹</button
-        ><span style="color: rgb(242, 242, 242)">1 / 2</span
-        ><button
-          type="button"
-          aria-label="Next problem"
-          style="
-            border-width: medium;
-            border-style: none;
-            border-color: currentcolor;
-            border-image: none;
-            background: transparent;
-            color: rgb(255, 51, 72);
-            cursor: pointer;
-            font-size: 16px;
-            line-height: 1;
-            padding: 0px;
-          "
-        >
-          ›
-        </button>
-      </div>
+      in &lt;strong&gt;strong&lt;/strong&gt;
     </div>
     <div
       style="
@@ -1250,8 +1192,7 @@ exports[`overlay > should show a warning and error for initial compilation and p
         font-size: 13px;
       "
     >
-      Use ‹ › or the arrow keys to navigate. Click outside, press Esc, or fix
-      the code to dismiss.
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2579,7 +2520,8 @@ exports[`overlay > should show error for uncaught promise rejection 1`] = `
         "
         >ERROR</span
       >
-      in Async error at &lt;anonymous&gt;:3:26
+      in Uncaught runtime error: Async error Error: Async error at
+      &lt;anonymous&gt;:3:26
     </div>
     <div
       style="
@@ -2666,8 +2608,8 @@ exports[`overlay > should show error for uncaught runtime error 1`] = `
         "
         >ERROR</span
       >
-      in Injected error at throwError (&lt;anonymous&gt;:2:15) at
-      &lt;anonymous&gt;:3:9
+      in Uncaught runtime error: Injected error Error: Injected error at
+      throwError (&lt;anonymous&gt;:2:15) at &lt;anonymous&gt;:3:9
     </div>
     <div
       style="

@@ -190,9 +190,9 @@ describe("overlay", () => {
 
     new WarningPlugin().apply(compiler);
     new WarningPlugin().apply(compiler);
-    new ErrorPlugin().apply(compiler);
-    new ErrorPlugin().apply(compiler);
-    new ErrorPlugin().apply(compiler);
+    new ErrorPlugin("First compilation error").apply(compiler);
+    new ErrorPlugin("Second compilation error").apply(compiler);
+    new ErrorPlugin("Third compilation error").apply(compiler);
 
     const devServerOptions = {
       port,

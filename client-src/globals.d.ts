@@ -18,6 +18,7 @@ declare module "webpack-dev-middleware/client/overlay" {
     trustedTypesPolicyName?: string;
     openEditorEndpoint?: string;
     paginate?: boolean;
+    catchRuntimeError?: boolean | ((error: Error) => boolean);
   }): {
     showProblems(
       type: "errors" | "warnings",
