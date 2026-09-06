@@ -35,6 +35,49 @@ describe("shared overlay", () => {
     expect(globalThis.document.querySelector(selector)).toBeNull();
   });
 
+  it("should paginate problems with buttons and arrow keys and resolve each page's editor links", () => {
+    const overlay = createOverlay({ catchRuntimeError: false });
+    overlay.send({
+      type: "BUILD_ERROR",
+      level: "error",
+      messages: [
+        {
+          moduleName: "./first.js",
+          moduleIdentifier: "/project/first.js",
+          loc: "1:1",
+          message: "First problem",
+        },
+        {
+          moduleName: "./second.js",
+          moduleIdentifier: "/project/second.js",
+          loc: "2:3",
+          message: "Second problem",
+        },
+      ],
+    });
+    const frameDocument = document.querySelector(selector).contentDocument;
+    expect(frameDocument.body.textContent).toContain("1 / 2");
+    expect(frameDocument.body.textContent).toContain("First problem");
+    expect(frameDocument.body.textContent).not.toContain("Second problem");
+
+    frameDocument.querySelector('[aria-label="Next problem"]').click();
+    expect(frameDocument.body.textContent).toContain("2 / 2");
+    expect(frameDocument.body.textContent).toContain("Second problem");
+    expect(frameDocument.body.textContent).not.toContain("First problem");
+    expect(
+      frameDocument.querySelector("[data-open-file]").dataset.openFile,
+    ).toBe("/project/second.js:2:3");
+
+    frameDocument.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "ArrowLeft" }),
+    );
+    expect(frameDocument.body.textContent).toContain("1 / 2");
+    expect(
+      frameDocument.querySelector("[data-open-file]").dataset.openFile,
+    ).toBe("/project/first.js:1:1");
+    overlay.send({ type: "DISMISS" });
+  });
+
   it("should preserve problems reported by another client on a clean build", () => {
     showProblems("errors", ["Other client error"], "other-client");
     const overlay = createOverlay({ catchRuntimeError: false });

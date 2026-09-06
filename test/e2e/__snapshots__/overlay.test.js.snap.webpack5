@@ -854,65 +854,75 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
     >
       ×
     </button>
-    <div style="margin-bottom: 20px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-right: 28px;
+      "
+    >
       <span
-        style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
-        "
-        >ERROR</span
+        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+        ><span
+          style="
+            background-color: rgb(255, 51, 72);
+            color: rgb(0, 0, 0);
+            padding: 3px 6px;
+            border-radius: 4px;
+          "
+          >ERROR</span
+        >
+        in Warning from compilation</span
       >
-      in Warning from compilation
-    </div>
-    <div style="margin-bottom: 20px">
-      <span
+      <div
         style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 13px;
+          color: rgb(153, 153, 153);
         "
-        >ERROR</span
       >
-      in Warning from compilation
-    </div>
-    <div style="margin-bottom: 20px">
-      <span
-        style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
-        "
-        >ERROR</span
-      >
-      in Error from compilation. Can't find 'test' module.
-    </div>
-    <div style="margin-bottom: 20px">
-      <span
-        style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
-        "
-        >ERROR</span
-      >
-      in Error from compilation. Can't find 'test' module.
-    </div>
-    <div style="margin-bottom: 20px">
-      <span
-        style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
-        "
-        >ERROR</span
-      >
-      in Error from compilation. Can't find 'test' module.
+        <button
+          type="button"
+          aria-label="Previous problem"
+          style="
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
+          "
+        >
+          ‹</button
+        ><span style="color: rgb(242, 242, 242)">1 / 5</span
+        ><button
+          type="button"
+          aria-label="Next problem"
+          style="
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
+          "
+        >
+          ›
+        </button>
+      </div>
     </div>
     <div
       style="
@@ -923,7 +933,154 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
         font-size: 13px;
       "
     >
-      Click outside, press Esc, or fix the code to dismiss.
+      Use ‹ › or the arrow keys to navigate. Click outside, press Esc, or fix
+      the code to dismiss.
+    </div>
+  </div>
+</body>
+"
+`;
+
+exports[`overlay > should show a warning and error for initial compilation 3`] = `
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
+  <div
+    id="webpack-dev-middleware-hot-overlay-card"
+    style="
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
+      overflow: auto;
+      direction: ltr;
+      text-align: left;
+    "
+  >
+    <button
+      type="button"
+      aria-label="Close"
+      style="
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
+      "
+    >
+      ×
+    </button>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-right: 28px;
+      "
+    >
+      <span
+        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+        ><span
+          style="
+            background-color: rgb(255, 51, 72);
+            color: rgb(0, 0, 0);
+            padding: 3px 6px;
+            border-radius: 4px;
+          "
+          >ERROR</span
+        >
+        in Warning from compilation</span
+      >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 13px;
+          color: rgb(153, 153, 153);
+        "
+      >
+        <button
+          type="button"
+          aria-label="Previous problem"
+          style="
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
+          "
+        >
+          ‹</button
+        ><span style="color: rgb(242, 242, 242)">2 / 5</span
+        ><button
+          type="button"
+          aria-label="Next problem"
+          style="
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
+          "
+        >
+          ›
+        </button>
+      </div>
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Use ‹ › or the arrow keys to navigate. Click outside, press Esc, or fix
+      the code to dismiss.
     </div>
   </div>
 </body>
@@ -1014,29 +1171,75 @@ exports[`overlay > should show a warning and error for initial compilation and p
     >
       ×
     </button>
-    <div style="margin-bottom: 20px">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-right: 28px;
+      "
+    >
       <span
-        style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
-        "
-        >ERROR</span
+        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+        ><span
+          style="
+            background-color: rgb(255, 51, 72);
+            color: rgb(0, 0, 0);
+            padding: 3px 6px;
+            border-radius: 4px;
+          "
+          >ERROR</span
+        >
+        in &lt;strong&gt;strong&lt;/strong&gt;</span
       >
-      in &lt;strong&gt;strong&lt;/strong&gt;
-    </div>
-    <div style="margin-bottom: 20px">
-      <span
+      <div
         style="
-          background-color: rgb(255, 51, 72);
-          color: rgb(0, 0, 0);
-          padding: 3px 6px;
-          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 13px;
+          color: rgb(153, 153, 153);
         "
-        >ERROR</span
       >
-      in &lt;strong&gt;strong&lt;/strong&gt;
+        <button
+          type="button"
+          aria-label="Previous problem"
+          style="
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
+          "
+        >
+          ‹</button
+        ><span style="color: rgb(242, 242, 242)">1 / 2</span
+        ><button
+          type="button"
+          aria-label="Next problem"
+          style="
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
+          "
+        >
+          ›
+        </button>
+      </div>
     </div>
     <div
       style="
@@ -1047,7 +1250,8 @@ exports[`overlay > should show a warning and error for initial compilation and p
         font-size: 13px;
       "
     >
-      Click outside, press Esc, or fix the code to dismiss.
+      Use ‹ › or the arrow keys to navigate. Click outside, press Esc, or fix
+      the code to dismiss.
     </div>
   </div>
 </body>

@@ -282,7 +282,7 @@ const createOverlay = (options) => {
     trustedTypesPolicyName:
       options.trustedTypesPolicyName || "webpack-dev-server#overlay",
     openEditorEndpoint: "/webpack-dev-server/open-editor",
-    paginate: false,
+    paginate: true,
   });
 
   /** @type {(event: KeyboardEvent) => void} */
@@ -297,6 +297,35 @@ const createOverlay = (options) => {
     sharedOverlay.clear("webpack-dev-server");
   };
 
+  /** @type {Document | null | undefined} */
+  let overlayDocument;
+  /** @type {(string | Message)[]} */
+  let overlayMessages = [];
+
+  // Pagination renders new links. Resolve them after mouse or keyboard
+  // navigation as well as when compiler messages first arrive.
+  const updateEditorLinks = () => {
+    const links = overlayDocument?.querySelectorAll("[data-open-file]");
+    links?.forEach((link) => {
+      const file = link.getAttribute("data-open-file") || "";
+      overlayMessages.forEach((message) => {
+        if (typeof message === "string" || !message.moduleIdentifier) {
+          return;
+        }
+        const name = (message.moduleName || message.file || "").replace(
+          /^(\s|\S)*!/,
+          "",
+        );
+        if (name && file.indexOf(`${name}:`) === 0) {
+          link.setAttribute(
+            "data-open-file",
+            `${message.moduleIdentifier.replace(/^[^|]*\|/, "").replace(/^(\s|\S)*!/, "")}${file.slice(name.length)}`,
+          );
+        }
+      });
+    });
+  };
+
   const overlayService = createOverlayMachine({
     showOverlay: ({ level = "error", messages }) => {
       sharedOverlay.showProblems(
@@ -309,31 +338,16 @@ const createOverlay = (options) => {
         "webpack-dev-server",
       );
 
-      // The shared renderer links display paths. Resolve those links to the
-      // compiler's module identifiers, which can be outside the server cwd.
+      overlayMessages = messages;
       const frame = /** @type {HTMLIFrameElement | null} */ (
         document.getElementById("webpack-dev-middleware-hot-overlay")
       );
-      const links =
-        frame?.contentDocument?.querySelectorAll("[data-open-file]");
-      links?.forEach((link) => {
-        const file = link.getAttribute("data-open-file") || "";
-        messages.forEach((message) => {
-          if (typeof message === "string" || !message.moduleIdentifier) {
-            return;
-          }
-          const name = (message.moduleName || message.file || "").replace(
-            /^(\s|\S)*!/,
-            "",
-          );
-          if (name && file.indexOf(`${name}:`) === 0) {
-            link.setAttribute(
-              "data-open-file",
-              `${message.moduleIdentifier.replace(/^[^|]*\|/, "").replace(/^(\s|\S)*!/, "")}${file.slice(name.length)}`,
-            );
-          }
-        });
-      });
+      if (frame?.contentDocument !== overlayDocument) {
+        overlayDocument = frame?.contentDocument;
+        overlayDocument?.addEventListener("click", updateEditorLinks);
+        overlayDocument?.addEventListener("keydown", updateEditorLinks);
+      }
+      updateEditorLinks();
     },
     hideOverlay: hideOverlayWithEscCleanup,
   });

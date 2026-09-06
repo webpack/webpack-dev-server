@@ -230,6 +230,18 @@ describe("overlay", () => {
           parser: "html",
         }),
       );
+      await overlayFrame.click('[aria-label="Next problem"]');
+      const nextPageHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
+      t.assert.snapshot(await format(nextPageHtml, { parser: "html" }));
+
+      await overlayFrame.click('[aria-label="Previous problem"]');
+      expect(await overlayFrame.evaluate(() => document.body.outerHTML)).toBe(
+        overlayHtml,
+      );
     } finally {
       await browser.close();
       await server.stop();
