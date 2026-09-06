@@ -4,7 +4,7 @@ import hotEmitter from "webpack/hot/emitter.js";
 // @ts-expect-error
 import webpackHotLog from "webpack/hot/log.js";
 import { createOverlay, formatProblem } from "./overlay.js";
-import { defineProgressElement, isProgressSupported } from "./progress.js";
+import { hideProgress, showProgress } from "./progress.js";
 import socket from "./socket.js";
 import { log, setLogLevel } from "./utils/log.js";
 import sendMessage from "./utils/sendMessage.js";
@@ -189,7 +189,11 @@ if (parsedResourceQuery["live-reload"] === "true") {
   enabledFeatures["Live Reloading"] = true;
 }
 
-if (parsedResourceQuery.progress === "true") {
+if (
+  parsedResourceQuery.progress === "true" ||
+  parsedResourceQuery.progress === "linear" ||
+  parsedResourceQuery.progress === "circular"
+) {
   options.progress = true;
   enabledFeatures.Progress = true;
 }
@@ -444,6 +448,10 @@ const onSocketMessage = {
    */
   progress(value) {
     options.progress = value;
+
+    if (!value) {
+      hideProgress();
+    }
   },
   /**
    * @param {{ pluginName?: string, percent: string, msg: string }} data date with progress
@@ -457,20 +465,14 @@ const onSocketMessage = {
       );
     }
 
-    if (isProgressSupported() && typeof options.progress === "string") {
-      let progress = document.querySelector("wds-progress");
-      if (!progress) {
-        defineProgressElement();
-        progress = document.createElement("wds-progress");
-        document.body.appendChild(progress);
-      }
-      progress.setAttribute("progress", data.percent);
-      progress.setAttribute("type", options.progress);
+    if (options.progress) {
+      showProgress(Number(data.percent), data.msg);
     }
 
     sendMessage("Progress", data);
   },
   "still-ok": function stillOk() {
+    hideProgress();
     log.info("Nothing changed.");
 
     if (options.overlay) {
@@ -480,6 +482,7 @@ const onSocketMessage = {
     sendMessage("StillOk");
   },
   ok() {
+    hideProgress();
     sendMessage("Ok");
 
     if (options.overlay) {
@@ -505,6 +508,7 @@ const onSocketMessage = {
    * @param {{ preventReloading: boolean }=} params extra params
    */
   warnings(warnings, params) {
+    hideProgress();
     log.warn("Warnings while compiling.");
 
     const printableWarnings = warnings.map((error) => {
@@ -549,6 +553,7 @@ const onSocketMessage = {
    * @param {Error[]} errors errors
    */
   errors(errors) {
+    hideProgress();
     log.error("Errors while compiling. Reload prevented.");
 
     const printableErrors = errors.map((error) => {
@@ -590,6 +595,7 @@ const onSocketMessage = {
     log.error(error);
   },
   close() {
+    hideProgress();
     log.info("Disconnected!");
 
     if (options.overlay) {

@@ -114,11 +114,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -159,11 +161,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -208,11 +212,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -255,11 +261,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -301,11 +309,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -340,7 +350,7 @@ describe("overlay", () => {
       });
 
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
-      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      let overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -351,15 +361,17 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, "`;");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -374,12 +386,12 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay", {
         hidden: true,
       });
 
       pageHtml = await page.evaluate(() => document.body.outerHTML);
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -410,7 +422,7 @@ describe("overlay", () => {
       });
 
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
-      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      let overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -421,15 +433,17 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, "`;");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       let overlayFrame = await overlayHandle.contentFrame();
-      let overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      let overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -444,16 +458,18 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, "`;a");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay", {
         hidden: true,
       });
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       overlayFrame = await overlayHandle.contentFrame();
-      overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
+      overlayHtml = (await overlayFrame.evaluate(() => document.body.outerHTML))
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -468,12 +484,12 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay", {
         hidden: true,
       });
 
       pageHtml = await page.evaluate(() => document.body.outerHTML);
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -504,7 +520,7 @@ describe("overlay", () => {
       });
 
       let pageHtml = await page.evaluate(() => document.body.outerHTML);
-      let overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      let overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -515,15 +531,17 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, "`;");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       pageHtml = await page.evaluate(() => document.body.outerHTML);
 
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -538,18 +556,18 @@ describe("overlay", () => {
 
       const frame = await page
         .frames()
-        .find((item) => item.name() === "webpack-dev-server-client-overlay");
+        .find((item) => item.name() === "webpack-dev-middleware-hot-overlay");
 
       const buttonHandle = await frame.$("button");
 
       await buttonHandle.click();
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay", {
         hidden: true,
       });
 
       pageHtml = await page.evaluate(() => document.body.outerHTML);
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -588,13 +606,13 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, "`;");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
       const frame = page
         .frames()
-        .find((item) => item.name() === "webpack-dev-server-client-overlay");
+        .find((item) => item.name() === "webpack-dev-middleware-hot-overlay");
 
-      const errorHandle = await frame.$("[data-can-open]");
+      const errorHandle = await frame.$("[data-open-file]");
 
       await errorHandle.click();
 
@@ -636,7 +654,7 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -678,7 +696,7 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -725,7 +743,7 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
     } finally {
@@ -764,11 +782,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -812,11 +832,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -862,11 +884,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -912,11 +936,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -960,7 +986,7 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -1002,7 +1028,7 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
@@ -1050,7 +1076,7 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
     } finally {
@@ -1089,11 +1115,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1137,11 +1165,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1193,11 +1223,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       expect(
         consoleMessages.filter((item) =>
@@ -1260,11 +1292,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       await page.goto(`http://localhost:${port}/`, {
         waitUntil: "networkidle0",
@@ -1319,7 +1353,7 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       expect(overlayHandle).toBeNull();
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1360,11 +1394,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1410,11 +1446,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1459,11 +1497,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1537,14 +1577,16 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1596,14 +1638,16 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      await page.waitForSelector("#webpack-dev-middleware-hot-overlay");
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
@@ -1649,11 +1693,13 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(overlayHtml, {
@@ -1699,7 +1745,7 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
     } finally {
@@ -1738,11 +1784,13 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(overlayHtml, {
@@ -1790,7 +1838,7 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
     } finally {
@@ -1835,7 +1883,7 @@ describe("overlay", () => {
       // Delay for the overlay to appear
       await delay(1000);
 
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
 
       expect(overlayHandle).toBeNull();
     } finally {
@@ -1879,11 +1927,13 @@ describe("overlay", () => {
       await delay(1000);
 
       const pageHtml = await page.evaluate(() => document.body.outerHTML);
-      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayHandle = await page.$("#webpack-dev-middleware-hot-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
-      const overlayHtml = await overlayFrame.evaluate(
-        () => document.body.outerHTML,
-      );
+      const overlayHtml = (
+        await overlayFrame.evaluate(() => document.body.outerHTML)
+      )
+        .replaceAll(config.context.replaceAll("\\", "/"), "<FIXTURE_PATH>")
+        .replaceAll(config.context, "<FIXTURE_PATH>");
 
       t.assert.snapshot(
         await format(pageHtml, {
