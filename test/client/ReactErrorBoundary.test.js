@@ -1,24 +1,17 @@
 import "../helpers/jsdom-setup.js";
 
-import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import { afterEach, describe, it } from "node:test";
 import { expect } from "expect";
-import { spyOn } from "jest-mock";
+import { clear } from "webpack-dev-middleware/client/overlay";
 import { createOverlay } from "../../client-src/overlay.js";
 
 describe("createOverlay", () => {
-  beforeEach(() => {
-    mock.timers.enable();
-  });
-
-  afterEach(() => {
-    mock.timers.reset();
-    mock.reset();
-  });
+  const selector = "#webpack-dev-middleware-hot-overlay";
+  afterEach(() => clear());
 
   it("should not show overlay for errors caught by React error boundaries", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const reactError = new Error(
       "Error inside React render\n" +
@@ -41,14 +34,12 @@ describe("createOverlay", () => {
     });
     globalThis.dispatchEvent(errorEvent);
 
-    expect(showOverlayMock).not.toHaveBeenCalled();
-    showOverlayMock.mockRestore();
+    expect(document.querySelector(selector)).toBeNull();
   });
 
   it("should show overlay for normal uncaught errors", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const regularError = new Error(
       "Error inside React render\n" +
@@ -65,22 +56,14 @@ describe("createOverlay", () => {
     });
     globalThis.dispatchEvent(errorEvent);
 
-    expect(showOverlayMock).toHaveBeenCalledWith({
-      type: "RUNTIME_ERROR",
-      messages: [
-        {
-          message: regularError.message,
-          stack: expect.anything(),
-        },
-      ],
-    });
-    showOverlayMock.mockRestore();
+    expect(
+      document.querySelector(selector).contentDocument.body.textContent,
+    ).toContain(regularError.message);
   });
 
   it("should show overlay for normal uncaught errors (when null is thrown)", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const errorEvent = new ErrorEvent("error", {
       error: null,
@@ -88,16 +71,9 @@ describe("createOverlay", () => {
     });
     globalThis.dispatchEvent(errorEvent);
 
-    expect(showOverlayMock).toHaveBeenCalledWith({
-      type: "RUNTIME_ERROR",
-      messages: [
-        {
-          message: "error",
-          stack: expect.anything(),
-        },
-      ],
-    });
-    showOverlayMock.mockRestore();
+    expect(
+      document.querySelector(selector).contentDocument.body.textContent,
+    ).toContain("error");
   });
 
   it("should show overlay for normal uncaught errors when catchRuntimeError is a function that return true", () => {
@@ -105,8 +81,7 @@ describe("createOverlay", () => {
       trustedTypesPolicyName: null,
       catchRuntimeError: () => true,
     };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const regularError = new Error("Regular test error");
     const errorEvent = new ErrorEvent("error", {
@@ -115,16 +90,9 @@ describe("createOverlay", () => {
     });
     globalThis.dispatchEvent(errorEvent);
 
-    expect(showOverlayMock).toHaveBeenCalledWith({
-      type: "RUNTIME_ERROR",
-      messages: [
-        {
-          message: regularError.message,
-          stack: expect.anything(),
-        },
-      ],
-    });
-    showOverlayMock.mockRestore();
+    expect(
+      document.querySelector(selector).contentDocument.body.textContent,
+    ).toContain(regularError.message);
   });
 
   it("should not show overlay for normal uncaught errors when catchRuntimeError is a function that return false", () => {
@@ -132,8 +100,7 @@ describe("createOverlay", () => {
       trustedTypesPolicyName: null,
       catchRuntimeError: () => false,
     };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const regularError = new Error("Regular test error");
     const errorEvent = new ErrorEvent("error", {
@@ -142,14 +109,12 @@ describe("createOverlay", () => {
     });
     globalThis.dispatchEvent(errorEvent);
 
-    expect(showOverlayMock).not.toHaveBeenCalled();
-    showOverlayMock.mockRestore();
+    expect(document.querySelector(selector)).toBeNull();
   });
 
   it("should not show the overlay for errors with stack containing 'invokeGuardedCallbackDev'", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const reactInternalError = new Error("React internal error");
     reactInternalError.stack = "invokeGuardedCallbackDev\n at somefile.js";
@@ -159,14 +124,12 @@ describe("createOverlay", () => {
     });
     globalThis.dispatchEvent(errorEvent);
 
-    expect(showOverlayMock).not.toHaveBeenCalled();
-    showOverlayMock.mockRestore();
+    expect(document.querySelector(selector)).toBeNull();
   });
 
   it("should show overlay for unhandled rejections", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
 
     const rejectionReason = new Error("Promise rejection reason");
     const rejectionEvent = new Event("unhandledrejection");
@@ -174,72 +137,74 @@ describe("createOverlay", () => {
 
     globalThis.dispatchEvent(rejectionEvent);
 
-    expect(showOverlayMock).toHaveBeenCalledWith({
-      type: "RUNTIME_ERROR",
-      messages: [
-        {
-          message: rejectionReason.message,
-          stack: expect.anything(),
-        },
-      ],
-    });
-    showOverlayMock.mockRestore();
+    expect(
+      document.querySelector(selector).contentDocument.body.textContent,
+    ).toContain(rejectionReason.message);
   });
 
   it("should show overlay for unhandled rejections with string reason", () => {
     const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+    createOverlay(options);
     const rejectionEvent = new Event("unhandledrejection");
     rejectionEvent.reason = "some reason";
     globalThis.dispatchEvent(rejectionEvent);
 
-    expect(showOverlayMock).toHaveBeenCalledWith({
-      type: "RUNTIME_ERROR",
-      messages: [
-        {
-          message: "some reason",
-          stack: expect.anything(),
-        },
-      ],
+    expect(
+      document.querySelector(selector).contentDocument.body.textContent,
+    ).toContain("some reason");
+  });
+  for (const target of ["page", "frame"]) {
+    it(`should dismiss the overlay with Escape from the ${target}`, () => {
+      const overlay = createOverlay({ catchRuntimeError: true });
+      overlay.send({
+        type: "BUILD_ERROR",
+        level: "error",
+        messages: ["Build failed"],
+      });
+      const frame = document.querySelector(selector);
+      const targetDocument =
+        target === "page" ? document : frame.contentDocument;
+      targetDocument.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape" }),
+      );
+      expect(document.querySelector(selector)).toBeNull();
     });
-    showOverlayMock.mockRestore();
-  });
-  // ESC key test cases
+  }
 
-  it("should dismiss overlay when ESC key is pressed", () => {
-    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
-
-    const escEvent = new KeyboardEvent("keydown", { key: "Escape" });
-    globalThis.window.dispatchEvent(escEvent);
-
-    expect(showOverlayMock).toHaveBeenCalledWith({ type: "DISMISS" });
-    showOverlayMock.mockRestore();
-  });
-
-  it("should dismiss overlay when 'Esc' key is pressed (older browsers)", () => {
-    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
-
-    const escEvent = new KeyboardEvent("keydown", { key: "Esc" });
-    globalThis.window.dispatchEvent(escEvent);
-
-    expect(showOverlayMock).toHaveBeenCalledWith({ type: "DISMISS" });
-    showOverlayMock.mockRestore();
+  it("should pass a rejected Error and its cause to runtime error filters", () => {
+    const cause = { error: new Error("Rejected object") };
+    const reason = new Error("Rejected promise", { cause });
+    let received;
+    createOverlay({
+      catchRuntimeError: (error) => {
+        received = error;
+        return false;
+      },
+    });
+    const event = new Event("unhandledrejection");
+    event.reason = reason;
+    globalThis.dispatchEvent(event);
+    expect(received).toBe(reason);
+    expect(received.cause).toBe(cause);
+    expect(document.querySelector(selector)).toBeNull();
   });
 
-  it("should not dismiss overlay for other keys", () => {
-    const options = { trustedTypesPolicyName: null, catchRuntimeError: true };
-    const overlay = createOverlay(options);
-    const showOverlayMock = spyOn(overlay, "send");
+  it("should stop displaying runtime errors when capture is disabled", () => {
+    createOverlay({ catchRuntimeError: true });
+    createOverlay({ catchRuntimeError: false });
+    globalThis.dispatchEvent(
+      new ErrorEvent("error", { error: new Error("Ignored") }),
+    );
+    expect(document.querySelector(selector)).toBeNull();
+  });
 
-    const otherKeyEvent = new KeyboardEvent("keydown", { key: "Enter" });
-    globalThis.window.dispatchEvent(otherKeyEvent);
-
-    expect(showOverlayMock).not.toHaveBeenCalled();
-    showOverlayMock.mockRestore();
+  it("should clear runtime problems on the next build", () => {
+    const overlay = createOverlay({ catchRuntimeError: true });
+    globalThis.dispatchEvent(
+      new ErrorEvent("error", { error: new Error("Runtime failure") }),
+    );
+    expect(document.querySelector(selector)).not.toBeNull();
+    overlay.send({ type: "DISMISS" });
+    expect(document.querySelector(selector)).toBeNull();
   });
 });

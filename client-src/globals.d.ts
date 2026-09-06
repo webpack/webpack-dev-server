@@ -13,12 +13,23 @@ declare const __webpack_dev_server_client__:
   | { default: CommunicationClientConstructor }
   | undefined;
 
-declare module "ansi-html-community" {
-  function ansiHtmlCommunity(str: string): string;
+declare module "webpack-dev-middleware/client/overlay" {
+  export default function configureOverlay(options: {
+    trustedTypesPolicyName?: string;
+    openEditorEndpoint?: string;
+    paginate?: boolean;
+    catchRuntimeError?: boolean | ((error: Error) => boolean);
+  }): {
+    showProblems(
+      type: "errors" | "warnings",
+      lines: string[],
+      source?: string,
+    ): void;
+    clear(source?: string): void;
+  };
+}
 
-  namespace ansiHtmlCommunity {
-    function setColors(colors: Record<string, string | string[]>): void;
-  }
-
-  export default ansiHtmlCommunity;
+declare module "webpack-dev-middleware/client/indicator" {
+  export function show(text?: string, percent?: number, source?: string): void;
+  export function hide(source?: string): void;
 }
