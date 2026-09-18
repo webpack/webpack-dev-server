@@ -11,6 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["cli-basic"];
 
 const isMacOS = process.platform === "darwin";
+const isWindows = process.platform === "win32";
 
 describe("basic", () => {
   describe("should output help", () => {
@@ -76,136 +77,114 @@ describe("basic", () => {
       t.assert.snapshot(normalizeStderr(stderr, { ipv6: true }));
     });
 
-    it("should exit the process when SIGINT is detected", () =>
-      new Promise((resolve) => {
-        const cliPath = path.resolve(
-          __dirname,
-          "../../bin/webpack-dev-server.js",
-        );
-        const examplePath = path.resolve(
-          __dirname,
-          "../../examples/client/web-socket-url",
-        );
-        const cp = execa("node", ["--port", port, cliPath], {
-          cwd: examplePath,
-          reject: false,
-        });
+    const examplePath = path.resolve(
+      __dirname,
+      "../../examples/client/web-socket-url",
+    );
+    const fixturePath = path.resolve(__dirname, "../fixtures/cli");
 
-        cp.stdout.on("data", (data) => {
-          const bits = data.toString();
+    // These four drive the CLI's own shutdown paths, so they spawn it directly
+    // rather than through `testBin`. `reject: false` keeps a subprocess we
+    // signal from rejecting, which also means one that never started settles
+    // exactly like a healthy one — so each of them asserts that its trigger
+    // fired and that the subprocess ended the way the path under test ends.
+    function startCli(args, cwd) {
+      const cliPath = path.resolve(
+        __dirname,
+        "../../bin/webpack-dev-server.js",
+      );
 
-          if (/main.js/.test(bits)) {
-            expect(cp.pid).not.toBe(0);
+      // `cliPath` goes first: after a node option like `--port`, node takes it
+      // as one of its own and exits 9 with "bad option" before the CLI loads.
+      return execa("node", [cliPath, ...args], { cwd, reject: false });
+    }
 
-            cp.kill("SIGINT");
-          }
-        });
+    // Runs `action` on the first chunk of stdout matching `regexp`, and only
+    // once. A `null` regexp fires on the first chunk, whatever it says, which
+    // is how the "before the compilation is done" cases get in early.
+    function onFirstOutput(subprocess, regexp, action) {
+      const trigger = { fired: false };
 
-        // `execa` subprocesses are not event emitters, so the promise settling
-        // is what reports the exit.
-        cp.then(() => {
-          resolve();
-        });
-      }));
+      subprocess.stdout.on("data", (data) => {
+        if (trigger.fired || (regexp && !regexp.test(data.toString()))) {
+          return;
+        }
 
-    it("should exit the process when SIGINT is detected, even before the compilation is done", () =>
-      new Promise((resolve) => {
-        const cliPath = path.resolve(
-          __dirname,
-          "../../bin/webpack-dev-server.js",
-        );
-        const cwd = path.resolve(__dirname, "../fixtures/cli");
-        const cp = execa("node", ["--port", port, cliPath], {
-          cwd,
-          reject: false,
-        });
+        trigger.fired = true;
+        action();
+      });
 
-        let killed = false;
+      return trigger;
+    }
 
-        cp.stdout.on("data", () => {
-          if (!killed) {
-            expect(cp.pid).not.toBe(0);
+    // The CLI traps SIGINT and shuts down gracefully, so a clean exit is the
+    // evidence the trap ran. Windows has no POSIX signals — `kill("SIGINT")`
+    // terminates the subprocess outright — so there the trap never runs and
+    // the trigger having fired is all there is to assert.
+    function expectGracefulExitAfterSignal(result) {
+      if (isWindows) {
+        return;
+      }
 
-            cp.kill("SIGINT");
-          }
+      expect(result.exitCode).toBe(0);
+    }
 
-          killed = true;
-        });
+    it("should exit the process when SIGINT is detected", async () => {
+      const cp = startCli(["--port", port], examplePath);
+      const trigger = onFirstOutput(cp, /main\.js/, () => cp.kill("SIGINT"));
+      const result = await cp;
 
-        cp.then(() => {
-          resolve();
-        });
-      }));
+      expect(trigger.fired).toBe(true);
+      expectGracefulExitAfterSignal(result);
+    });
 
-    it("should exit the process when stdin ends if --watch-options-stdin", () =>
-      new Promise((resolve) => {
-        const cliPath = path.resolve(
-          __dirname,
-          "../../bin/webpack-dev-server.js",
-        );
-        const examplePath = path.resolve(
-          __dirname,
-          "../../examples/client/web-socket-url",
-        );
-        const cp = execa(
-          "node",
-          [cliPath, "--port", port, "--watch-options-stdin"],
-          {
-            cwd: examplePath,
-            reject: false,
-          },
-        );
+    it("should exit the process when SIGINT is detected, even before the compilation is done", async () => {
+      const cp = startCli(["--port", port], fixturePath);
+      const trigger = onFirstOutput(cp, null, () => cp.kill("SIGINT"));
+      const result = await cp;
 
-        cp.stdout.on("data", (data) => {
-          const bits = data.toString();
+      expect(trigger.fired).toBe(true);
+      expectGracefulExitAfterSignal(result);
+    });
 
-          if (/main.js/.test(bits)) {
-            expect(cp.pid).not.toBe(0);
+    it("should exit the process when stdin ends if --watch-options-stdin", async () => {
+      const cp = startCli(
+        ["--port", port, "--watch-options-stdin"],
+        examplePath,
+      );
 
-            cp.stdin.write("hello");
-            cp.stdin.end("world");
-          }
-        });
+      // The subprocess can be gone before the write lands, and an unhandled
+      // `error` on the stream would take this process down with it. Its result
+      // is the verdict either way.
+      cp.stdin.on("error", () => {});
 
-        cp.then(() => {
-          resolve();
-        });
-      }));
+      const trigger = onFirstOutput(cp, /main\.js/, () => {
+        cp.stdin.write("hello");
+        cp.stdin.end("world");
+      });
+      const result = await cp;
 
-    it("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", () =>
-      new Promise((resolve, reject) => {
-        const cliPath = path.resolve(
-          __dirname,
-          "../../bin/webpack-dev-server.js",
-        );
-        const cwd = path.resolve(__dirname, "../fixtures/cli");
-        const cp = execa(
-          "node",
-          [cliPath, "--port", port, "--watch-options-stdin"],
-          { cwd, reject: false },
-        );
+      expect(trigger.fired).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
 
-        let killed = false;
+    it("should exit the process when stdin ends if --watch-options-stdin, even before the compilation is done", async () => {
+      const cp = startCli(
+        ["--port", port, "--watch-options-stdin"],
+        fixturePath,
+      );
 
-        cp.stdin.on("error", (error) => {
-          reject(error);
-        });
+      cp.stdin.on("error", () => {});
 
-        cp.stdout.on("data", () => {
-          if (!killed) {
-            expect(cp.pid).not.toBe(0);
+      const trigger = onFirstOutput(cp, null, () => {
+        cp.stdin.write("hello");
+        cp.stdin.end("world");
+      });
+      const result = await cp;
 
-            cp.stdin.write("hello");
-            cp.stdin.end("world");
-          }
-
-          killed = true;
-        });
-
-        cp.then(() => {
-          resolve();
-        });
-      }));
+      expect(trigger.fired).toBe(true);
+      expect(result.exitCode).toBe(0);
+    });
 
     it("should add dev server entry points to a single entry point", async () => {
       const { exitCode, stdout } = await testBin(
