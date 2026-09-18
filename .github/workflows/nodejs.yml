@@ -12,6 +12,16 @@ on:
       - next
       - v4
 
+# A new commit supersedes the previous one's jobs, so stop paying for them: the
+# matrix below fans out to 48 test jobs (three operating systems, four Node.js
+# versions, four shards). Runs for the branches this also builds on push
+# (`main`, `next`, `v4`) are never cancelled — they publish the coverage later
+# comparisons are measured against, and a cancelled one would hide a breakage
+# that is already on the branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
 
@@ -28,10 +38,6 @@ jobs:
         node-version: [lts/*]
 
     runs-on: ${{ matrix.os }}
-
-    concurrency:
-      group: lint-${{ matrix.os }}-v${{ matrix.node-version }}-${{ github.ref }}
-      cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -75,10 +81,6 @@ jobs:
         webpack-version: [latest]
 
     runs-on: ${{ matrix.os }}
-
-    concurrency:
-      group: test-${{ matrix.os }}-v${{ matrix.node-version }}-${{ matrix.webpack-version }}-${{ matrix.shard }}-${{ github.ref }}
-      cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
