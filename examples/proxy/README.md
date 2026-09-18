@@ -5,14 +5,45 @@ Proxying some URLs can be useful when you have a separate API backend developmen
 **webpack.config.js**
 
 ```js
-module.exports = {
+import { once } from "node:events";
+import express from "express";
+
+function listenProxyServer() {
+  const proxyApp = express();
+
+  proxyApp.get("/proxy", (req, res) => {
+    res.send("response from proxy");
+  });
+
+  return proxyApp.listen(0, "127.0.0.1");
+}
+
+let proxyServer;
+let proxyServerReady;
+
+export default {
   // ...
   devServer: {
-    proxy: {
-      "/proxy": {
-        target: "http://localhost:5000",
-      },
+    setupMiddlewares: (middlewares, devServer) => {
+      proxyServer = listenProxyServer();
+      proxyServerReady = once(proxyServer, "listening");
+      devServer.server.once("close", () => {
+        proxyServer.close();
+        proxyServer.closeAllConnections();
+      });
+      return middlewares;
     },
+    proxy: [
+      {
+        context: "/proxy",
+        target: "http://127.0.0.1",
+        router: async () => {
+          await proxyServerReady;
+          const { port } = proxyServer.address();
+          return `http://127.0.0.1:${port}`;
+        },
+      },
+    ],
   },
 };
 ```
@@ -25,6 +56,6 @@ npx webpack serve --open
 
 ## What Should Happen
 
-1. The script start a proxy server on `http://localhost:5000/` and open `http://localhost:8080/` in your default browser.
+1. The script starts a backend on an available loopback port and opens `http://localhost:8080/` in your default browser. The example's `router` function directs proxy requests to that backend, avoiding conflicts with services already using port 5000.
 2. You should see the text on the page itself change to read `Success! Now visit /proxy`.
 3. Now visit the `/proxy` route by clicking on the `/proxy` text, you should see the text on the page itself change to read `response from proxy`.

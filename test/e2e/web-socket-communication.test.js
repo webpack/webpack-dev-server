@@ -173,6 +173,13 @@ describe("web socket communication", () => {
 
     await server.start();
 
+    // The sweep terminates a client that has not ponged within 100ms, and a
+    // compilation can block the event loop for longer than that, so let the
+    // build settle before connecting rather than racing it.
+    await new Promise((resolve) => {
+      server.middleware.waitUntilValid(resolve);
+    });
+
     server.webSocketServer.heartbeatInterval = 100;
 
     let opened = false;

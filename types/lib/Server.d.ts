@@ -157,7 +157,9 @@ export type WebSocketServerConfiguration = {
   /**
    * type
    */
-  type?: ("ws" | string | (() => WebSocketServerConfiguration)) | undefined;
+  type?:
+    | ("ws" | string | typeof import("./servers/BaseServer.js").default)
+    | undefined;
   /**
    * options
    */
@@ -248,13 +250,14 @@ export type ClientConfiguration = {
             warnings?: OverlayMessageOptions;
             errors?: OverlayMessageOptions;
             runtimeErrors?: OverlayMessageOptions;
+            trustedTypesPolicyName?: string;
           }
       )
     | undefined;
   /**
    * progress
    */
-  progress?: boolean | undefined;
+  progress?: (boolean | "linear" | "circular") | undefined;
   /**
    * reconnect
    */

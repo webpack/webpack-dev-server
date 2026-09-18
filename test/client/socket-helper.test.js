@@ -121,4 +121,31 @@ describe("socket", () => {
     expect(typeof initializedInstance.onMessage).toBe("function");
     expect(typeof initializedInstance.onOpen).toBe("function");
   });
+
+  it("should honor a zero reconnect limit before the initial connection opens", async () => {
+    const MockClient = createMockClient();
+    const webSocketClientMock = mock.module(
+      "../../client-src/clients/WebSocketClient.js",
+      {
+        defaultExport: MockClient,
+      },
+    );
+
+    try {
+      const freshSocket = (
+        await import(
+          `../../client-src/socket.js?t=${Date.now()}-${Math.random()}`
+        )
+      ).default;
+      const close = fn();
+
+      freshSocket("my.url", { close }, 0);
+      MockClient.mock.instances[0].onClose.mock.calls[0][0]();
+
+      expect(close).toHaveBeenCalledTimes(1);
+      expect(MockClient.mock.calls).toHaveLength(1);
+    } finally {
+      webSocketClientMock.restore();
+    }
+  });
 });

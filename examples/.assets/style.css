@@ -3,8 +3,8 @@
   font-style: normal;
   font-weight: 600;
   src:
-    url("assets/geomanist-medium.woff2") format("woff2"),
-    url("assets/geomanist-medium.woff") format("woff");
+    url("geomanist-medium.woff2") format("woff2"),
+    url("geomanist-medium.woff") format("woff");
 }
 
 html,
@@ -27,8 +27,8 @@ body {
 }
 
 a {
-  color: #2086d7;
-  text-decoration: none;
+  color: #1a6aab;
+  text-decoration: underline;
   transition: color 250ms;
 }
 
@@ -36,7 +36,19 @@ a:hover {
   color: #1a6aab;
 }
 
+a:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
+}
+
 main {
+  box-sizing: border-box;
   width: 100%;
   max-width: 94.2rem;
   margin: 0px auto;
@@ -91,7 +103,7 @@ code {
   background: #dcf2fd;
   border: 0.1rem solid #618ca0;
   border-radius: 0.3rem;
-  color: #618ca0;
+  color: #356074;
   margin: 2rem 0;
   padding: 2rem;
 }
@@ -105,7 +117,7 @@ code {
 #target.pass {
   background: #f2f9f4;
   border: 0.1rem solid #4db277;
-  color: #4db277;
+  color: #287847;
 }
 
 #target.fail {

@@ -8,10 +8,8 @@ const connect = require("connect");
 module.exports = {
   // ...
   devServer: {
-    server: {
-      server: "http2",
-      app: () => connect(),
-    },
+    server: "http2",
+    app: () => connect(),
   },
 };
 ```

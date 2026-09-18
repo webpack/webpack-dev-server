@@ -12,6 +12,15 @@ export default setup(
     stats: {
       colors: true,
     },
+    devServer: {
+      setupMiddlewares: (middlewares) => {
+        middlewares.unshift((req, res, next) => {
+          console.log(`Using middleware for ${req.url}`);
+          next();
+        });
+        return middlewares;
+      },
+    },
   },
   import.meta.url,
 );

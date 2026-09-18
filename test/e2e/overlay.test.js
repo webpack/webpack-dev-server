@@ -1906,4 +1906,162 @@ describe("overlay", () => {
       await server.stop();
     }
   });
+
+  it("should allow dismissing with Escape more than once", async () => {
+    const compiler = webpack(config);
+    const server = new Server({ port }, compiler);
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      fs.writeFileSync(pathToOverlayFixture, "`;");
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      await page.keyboard.press("Escape");
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
+
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
+      await delay(1000);
+      fs.writeFileSync(pathToOverlayFixture, "`;");
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      // Dismissing used to remove the key handler for good, so the second
+      // overlay of a session could not be closed with the keyboard at all.
+      await page.keyboard.press("Escape");
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
+
+      expect(await page.$("#webpack-dev-server-client-overlay")).toBeNull();
+
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
+  it("should reopen when a Trusted Types policy name is enforced", async () => {
+    const compiler = webpack(trustedTypesConfig);
+    const server = new Server(
+      {
+        port,
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            // Without `allow-duplicates`, asking for a policy name twice is a
+            // TypeError, so the overlay must keep the one it already made.
+            value: "trusted-types webpack webpack#dev-overlay",
+          },
+        ],
+        client: {
+          overlay: { trustedTypesPolicyName: "webpack#dev-overlay" },
+        },
+      },
+      compiler,
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      const pageErrors = [];
+
+      page.on("pageerror", (error) => {
+        pageErrors.push(error);
+      });
+
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      fs.writeFileSync(pathToOverlayFixture, "`;");
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      await page.keyboard.press("Escape");
+      await page.waitForSelector("#webpack-dev-server-client-overlay", {
+        hidden: true,
+      });
+
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
+      await delay(1000);
+      fs.writeFileSync(pathToOverlayFixture, "`;");
+
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+
+      expect(
+        await overlayFrame.evaluate(() => document.body.textContent),
+      ).toContain("Compiled with problems");
+      expect(
+        pageErrors.filter((error) =>
+          /trusted type policy/i.test(error.message),
+        ),
+      ).toHaveLength(0);
+
+      fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
+  it("should render only the overlay messages a filter accepts", async () => {
+    const compiler = webpack(config);
+
+    new WarningPlugin("Shown warning").apply(compiler);
+    new WarningPlugin("Hidden warning").apply(compiler);
+
+    const server = new Server(
+      {
+        port,
+        client: {
+          overlay: {
+            warnings: (error) => {
+              const message = typeof error === "string" ? error : error.message;
+              return message !== "Hidden warning";
+            },
+          },
+        },
+      },
+      compiler,
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      await page.waitForSelector("#webpack-dev-server-client-overlay");
+
+      const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+      const overlayFrame = await overlayHandle.contentFrame();
+      const overlayText = await overlayFrame.evaluate(
+        () => document.body.textContent,
+      );
+
+      expect(overlayText).toContain("Shown warning");
+      // The filter used to decide only whether to open the overlay; every
+      // message was then rendered, filtered out or not.
+      expect(overlayText).not.toContain("Hidden warning");
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
 });

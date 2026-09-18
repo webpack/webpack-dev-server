@@ -5,50 +5,6 @@ import ansiHTML from "ansi-html-community";
 
 /** @typedef {import("./index.js").EXPECTED_ANY} EXPECTED_ANY */
 
-/**
- * @type {(input: string, position: number) => number | undefined}
- */
-// @ts-expect-error
-const getCodePoint = String.prototype.codePointAt
-  ? // @ts-expect-error
-    (input, position) => input.codePointAt(position)
-  : (input, position) =>
-      (input.charCodeAt(position) - 0xd800) * 0x400 +
-      input.charCodeAt(position + 1) -
-      0xdc00 +
-      0x10000;
-
-/**
- * @param {string} macroText macro text
- * @param {RegExp} macroRegExp macro reg exp
- * @param {(input: string) => string} macroReplacer macro replacer
- * @returns {string} result
- */
-const replaceUsingRegExp = (macroText, macroRegExp, macroReplacer) => {
-  macroRegExp.lastIndex = 0;
-  let replaceMatch = macroRegExp.exec(macroText);
-  let replaceResult;
-  if (replaceMatch) {
-    replaceResult = "";
-    let replaceLastIndex = 0;
-    do {
-      if (replaceLastIndex !== replaceMatch.index) {
-        replaceResult += macroText.slice(replaceLastIndex, replaceMatch.index);
-      }
-      const replaceInput = replaceMatch[0];
-      replaceResult += macroReplacer(replaceInput);
-      replaceLastIndex = replaceMatch.index + replaceInput.length;
-    } while ((replaceMatch = macroRegExp.exec(macroText)));
-
-    if (replaceLastIndex !== macroText.length) {
-      replaceResult += macroText.slice(replaceLastIndex);
-    }
-  } else {
-    replaceResult = macroText;
-  }
-  return replaceResult;
-};
-
 const references = {
   "<": "&lt;",
   ">": "&gt;",
@@ -66,15 +22,10 @@ function encode(text) {
     return "";
   }
 
-  return replaceUsingRegExp(text, /[<>'"&]/g, (input) => {
-    let result = references[/** @type {keyof typeof references} */ (input)];
-    if (!result) {
-      const code =
-        input.length > 1 ? getCodePoint(input, 0) : input.charCodeAt(0);
-      result = `&#${code};`;
-    }
-    return result;
-  });
+  return text.replace(
+    /[<>'"&]/g,
+    (input) => references[/** @type {keyof typeof references} */ (input)],
+  );
 }
 
 /**
@@ -450,8 +401,10 @@ const createOverlay = (options) => {
   let containerElement;
   /** @type {HTMLDivElement | null | undefined} */
   let headerElement;
-  /** @type {((element: HTMLDivElement) => void)[]} */
-  let onLoadQueue = [];
+  /** @type {((element: HTMLDivElement) => void) | undefined} */
+  let onLoad;
+  /** @type {Element | null | undefined} */
+  let previousActiveElement;
   /** @type {Omit<TrustedTypePolicy, "createScript" | "createScriptURL"> | undefined} */
   let overlayTrustedTypesPolicy;
 
@@ -474,7 +427,7 @@ const createOverlay = (options) => {
    */
   function createContainer(trustedTypesPolicyName) {
     // Enable Trusted Types if they are available in the current browser.
-    if (window.trustedTypes) {
+    if (window.trustedTypes && !overlayTrustedTypesPolicy) {
       overlayTrustedTypesPolicy = window.trustedTypes.createPolicy(
         trustedTypesPolicyName || "webpack-dev-server#overlay",
         {
@@ -485,8 +438,13 @@ const createOverlay = (options) => {
 
     iframeContainerElement = document.createElement("iframe");
     iframeContainerElement.id = "webpack-dev-server-client-overlay";
+    iframeContainerElement.title = "Webpack development server errors";
     iframeContainerElement.src = "about:blank";
     applyStyle(iframeContainerElement, iframeStyle);
+
+    previousActiveElement = document.activeElement;
+    // eslint-disable-next-line no-use-before-define
+    window.addEventListener("keydown", handleEscapeKey);
 
     iframeContainerElement.onload = () => {
       const contentElement =
@@ -531,10 +489,21 @@ const createOverlay = (options) => {
         (iframeContainerElement).contentDocument
       ).body.appendChild(contentElement);
 
-      onLoadQueue.forEach((onLoad) => {
-        onLoad(/** @type {HTMLDivElement} */ (contentElement));
-      });
-      onLoadQueue = [];
+      const iframeDocument = /** @type {Document} */ (
+        /** @type {HTMLIFrameElement} */ (iframeContainerElement)
+          .contentDocument
+      );
+      iframeDocument.documentElement.lang =
+        document.documentElement.lang || "en";
+      // eslint-disable-next-line no-use-before-define
+      iframeDocument.addEventListener("keydown", handleEscapeKey);
+
+      if (onLoad) {
+        onLoad(contentElement);
+        onLoad = undefined;
+      }
+
+      closeButtonElement.focus();
 
       /** @type {HTMLIFrameElement} */
       (iframeContainerElement).onload = null;
@@ -559,7 +528,8 @@ const createOverlay = (options) => {
       return;
     }
 
-    onLoadQueue.push(callback);
+    // Each callback renders the complete current message list.
+    onLoad = callback;
 
     if (iframeContainerElement) {
       return;
@@ -578,10 +548,24 @@ const createOverlay = (options) => {
     }
 
     // Clean up and reset internal state.
+    iframeContainerElement.onload = null;
+    iframeContainerElement.contentDocument?.removeEventListener(
+      "keydown",
+      // eslint-disable-next-line no-use-before-define
+      handleEscapeKey,
+    );
+    const restoreFocus = document.activeElement === iframeContainerElement;
     document.body.removeChild(iframeContainerElement);
 
     iframeContainerElement = null;
     containerElement = null;
+    headerElement = null;
+    onLoad = undefined;
+
+    if (restoreFocus && previousActiveElement instanceof HTMLElement) {
+      previousActiveElement.focus();
+    }
+    previousActiveElement = null;
   }
 
   // Compilation with errors (e.g. syntax error or missing modules).
@@ -608,19 +592,29 @@ const createOverlay = (options) => {
           padding: "1rem 1rem 1.5rem 1rem",
         });
 
-        const typeElement = document.createElement("div");
+        const canOpen = typeof message !== "string" && message.moduleIdentifier;
+        const typeElement = document.createElement(canOpen ? "button" : "div");
         const { header, body } = formatProblem(type, message);
 
         typeElement.innerText = header;
         applyStyle(typeElement, msgTypeStyle);
 
-        if (typeof message !== "string" && message.moduleIdentifier) {
-          applyStyle(typeElement, { cursor: "pointer" });
+        if (canOpen) {
+          typeElement.setAttribute("type", "button");
+          applyStyle(typeElement, {
+            cursor: "pointer",
+            background: "none",
+            border: "none",
+            padding: "0",
+            textAlign: "left",
+            display: "block",
+            lineHeight: "inherit",
+          });
           // element.dataset not supported in IE
           typeElement.setAttribute("data-can-open", "true");
           typeElement.addEventListener("click", () => {
             fetch(
-              `/webpack-dev-server/open-editor?fileName=${message.moduleIdentifier}`,
+              `/webpack-dev-server/open-editor?fileName=${encodeURIComponent(canOpen)}`,
             );
           });
         }

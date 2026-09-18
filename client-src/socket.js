@@ -39,6 +39,10 @@ let timeout;
  * @param {number=} reconnect count of reconnections
  */
 function socket(url, handlers, reconnect) {
+  if (typeof reconnect !== "undefined") {
+    maxRetries = reconnect;
+  }
+
   client = new Client(url);
 
   client.onOpen(() => {
@@ -46,10 +50,6 @@ function socket(url, handlers, reconnect) {
 
     if (timeout) {
       clearTimeout(timeout);
-    }
-
-    if (typeof reconnect !== "undefined") {
-      maxRetries = reconnect;
     }
   });
 

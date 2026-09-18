@@ -20,6 +20,16 @@ describe("'createSocketURL' function", () => {
     ["?protocol=http:", "https://example.com", "ws://example.com/ws"],
     ["?hostname=example.com", "http://example.com", "ws://example.com/ws"],
     [
+      "?%68%6f%73%74%6e%61%6d%65=example.com&username=first+last&password=a%3Db%2Bc",
+      "http://example.com",
+      "ws://first%20last:a%3Db%2Bc@example.com/ws",
+    ],
+    [
+      "?hostname=example.com&username=user&password=a=b",
+      "http://example.com",
+      "ws://user:a%3Db@example.com/ws",
+    ],
+    [
       "?username=username&password=password",
       "http://example.com",
       "ws://username:password@example.com/ws",
@@ -91,6 +101,11 @@ describe("'createSocketURL' function", () => {
       null,
       "http://user:password@localhost:8080/",
       "ws://user:password@localhost:8080/ws",
+    ],
+    [
+      null,
+      "http://user%40name:p%3Dword@localhost/",
+      "ws://user%40name:p%3Dword@localhost/ws",
     ],
     [null, "https://localhost:8080", "wss://localhost:8080/ws"],
     [null, "http://127.0.0.1", "ws://127.0.0.1/ws"],
