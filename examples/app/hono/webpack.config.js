@@ -36,8 +36,12 @@ export default setup(
             const headers = context.env.incoming.headers;
             const headerName = headers[":authority"] ? ":authority" : "host";
 
+            if (devServer.isValidHost(headers, headerName, false)) {
+              await next();
+              return;
+            }
+
             if (
-              !devServer.isValidHost(headers, headerName, false) &&
               headers["sec-fetch-mode"] === "no-cors" &&
               headers["sec-fetch-site"] === "cross-site"
             ) {
