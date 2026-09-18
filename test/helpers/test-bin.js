@@ -2,7 +2,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import util from "node:util";
-import execa from "execa";
+import { execa } from "execa";
 import { Writable } from "readable-stream";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

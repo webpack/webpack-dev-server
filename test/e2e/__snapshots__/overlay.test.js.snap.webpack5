@@ -153,10 +153,10 @@ exports[`overlay > should not show initially, then show on an error and allow to
             font-family: Menlo, Consolas, monospace;
           "
         >
-          Module parse failed: Unterminated template (1:1) You may need an
-          appropriate loader to handle this file type, currently no loaders are
-          configured to process this file. See
-          https://webpack.js.org/concepts#loaders &gt; \`;
+          Module parse failed: Unterminated template (1:1) File was parsed as
+          module type 'javascript/esm'. You may need an appropriate loader to
+          handle this file type, currently no loaders are configured to process
+          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`; | ^
         </div>
       </div>
     </div>
@@ -296,10 +296,10 @@ exports[`overlay > should not show initially, then show on an error, then hide o
             font-family: Menlo, Consolas, monospace;
           "
         >
-          Module parse failed: Unterminated template (1:1) You may need an
-          appropriate loader to handle this file type, currently no loaders are
-          configured to process this file. See
-          https://webpack.js.org/concepts#loaders &gt; \`;
+          Module parse failed: Unterminated template (1:1) File was parsed as
+          module type 'javascript/esm'. You may need an appropriate loader to
+          handle this file type, currently no loaders are configured to process
+          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`; | ^
         </div>
       </div>
     </div>
@@ -439,10 +439,10 @@ exports[`overlay > should not show initially, then show on an error, then show o
             font-family: Menlo, Consolas, monospace;
           "
         >
-          Module parse failed: Unterminated template (1:1) You may need an
-          appropriate loader to handle this file type, currently no loaders are
-          configured to process this file. See
-          https://webpack.js.org/concepts#loaders &gt; \`;
+          Module parse failed: Unterminated template (1:1) File was parsed as
+          module type 'javascript/esm'. You may need an appropriate loader to
+          handle this file type, currently no loaders are configured to process
+          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`; | ^
         </div>
       </div>
     </div>
@@ -566,10 +566,11 @@ exports[`overlay > should not show initially, then show on an error, then show o
             font-family: Menlo, Consolas, monospace;
           "
         >
-          Module parse failed: Unterminated template (1:1) You may need an
-          appropriate loader to handle this file type, currently no loaders are
-          configured to process this file. See
-          https://webpack.js.org/concepts#loaders &gt; \`;a
+          Module parse failed: Unterminated template (1:1) File was parsed as
+          module type 'javascript/esm'. You may need an appropriate loader to
+          handle this file type, currently no loaders are configured to process
+          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`;a |
+          ^
         </div>
       </div>
     </div>

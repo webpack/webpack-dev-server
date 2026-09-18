@@ -36,4 +36,12 @@ export default defineConfig([
       "n/no-unsupported-features/node-builtins": "off",
     },
   },
+  {
+    // `@changesets/get-github-info` is ESM-only and exposes itself through an
+    // `exports` map with no `main`, which the import resolver cannot follow.
+    files: [".changeset/changelog-generator.mjs"],
+    rules: {
+      "import/no-unresolved": "off",
+    },
+  },
 ]);

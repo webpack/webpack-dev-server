@@ -80,6 +80,7 @@ const listOfTests = {
   "cross-origin-request": 2,
   "api-plugin": 1,
   "api-plugin-multi": 2,
+  "harness-server-cleanup": 1,
 };
 
 let startPort = 8089;

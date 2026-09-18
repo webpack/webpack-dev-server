@@ -254,9 +254,8 @@ describe("client option", () => {
 
       getClientHotEntry() {
         return fileURLToPath(
-          import.meta.resolve(
-            "../fixtures/custom-client/CustomClientHotEntry.js",
-          ),
+          import.meta
+            .resolve("../fixtures/custom-client/CustomClientHotEntry.js"),
         );
       }
     }

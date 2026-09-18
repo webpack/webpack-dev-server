@@ -4,7 +4,7 @@ export default class WebsocketServer extends BaseServer {
   static heartbeatInterval: number;
   implementation: import("ws").Server<
     typeof import("ws").default,
-    typeof import("http").IncomingMessage
+    typeof import("node:http").IncomingMessage
   >;
 }
 export type WebSocketServerConfiguration =
