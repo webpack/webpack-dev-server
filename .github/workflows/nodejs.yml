@@ -65,19 +65,18 @@ jobs:
         run: npm run validate:changeset
 
   test:
-    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }} (${{ matrix.shard }})
+    name: Test - ${{ matrix.os }} - Node v${{ matrix.node-version }}, Webpack ${{ matrix.webpack-version }}
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [22.x, 24.x, 25.x, 26.x]
-        shard: ["1/4", "2/4", "3/4", "4/4"]
         webpack-version: [latest]
 
     runs-on: ${{ matrix.os }}
 
     concurrency:
-      group: test-${{ matrix.os }}-v${{ matrix.node-version }}-${{ matrix.webpack-version }}-${{ matrix.shard }}-${{ github.ref }}
+      group: test-${{ matrix.os }}-v${{ matrix.node-version }}-${{ matrix.webpack-version }}-${{ github.ref }}
       cancel-in-progress: true
 
     steps:
@@ -113,12 +112,12 @@ jobs:
           cp -R tmp-client client
 
       - name: Run tests for webpack version ${{ matrix.webpack-version }}
-        run: npm run test:coverage -- --test-shard=${{ matrix.shard }}
+        run: npm run test:coverage
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: coverage-${{ matrix.os }}-${{ matrix.node-version }}-${{ strategy.job-index }}
+          name: coverage-${{ matrix.os }}-${{ matrix.node-version }}-${{ matrix.webpack-version }}
           path: coverage/lcov.info
           if-no-files-found: error
 
