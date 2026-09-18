@@ -12,6 +12,18 @@ on:
       - next
       - v4
 
+# A new commit supersedes the previous one's jobs, so stop paying for them
+# across the whole matrix below. Only pull request runs share a group; every
+# other run gets a group of its own (`github.run_id`), because a group holds
+# at most one pending run and a later push would otherwise evict the one
+# waiting — `cancel-in-progress` protects the running run, not the queued one.
+# The branches this also builds on push (`main`, `next`, `v4`) publish the
+# coverage later comparisons are measured against, and losing one of those runs
+# would also hide a breakage that is already on the branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
 
@@ -28,10 +40,6 @@ jobs:
         node-version: [lts/*]
 
     runs-on: ${{ matrix.os }}
-
-    concurrency:
-      group: lint-${{ matrix.os }}-v${{ matrix.node-version }}-${{ github.ref }}
-      cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -74,10 +82,6 @@ jobs:
         webpack-version: [latest]
 
     runs-on: ${{ matrix.os }}
-
-    concurrency:
-      group: test-${{ matrix.os }}-v${{ matrix.node-version }}-${{ matrix.webpack-version }}-${{ github.ref }}
-      cancel-in-progress: true
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
