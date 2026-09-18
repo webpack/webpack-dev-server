@@ -14,12 +14,15 @@ on:
 
 # A new commit supersedes the previous one's jobs, so stop paying for them: the
 # matrix below fans out to 48 test jobs (three operating systems, four Node.js
-# versions, four shards). Runs for the branches this also builds on push
-# (`main`, `next`, `v4`) are never cancelled — they publish the coverage later
-# comparisons are measured against, and a cancelled one would hide a breakage
-# that is already on the branch.
+# versions, four shards). Only pull request runs share a group; every other run
+# gets a group of its own (`github.run_id`), because a group holds at most one
+# pending run and a later push would otherwise evict the one waiting —
+# `cancel-in-progress` protects the running run, not the queued one. The
+# branches this also builds on push (`main`, `next`, `v4`) publish the coverage
+# later comparisons are measured against, and losing one of those runs would
+# also hide a breakage that is already on the branch.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
