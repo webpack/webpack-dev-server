@@ -17,6 +17,33 @@ const watchDir = path.resolve(
   "../fixtures/watch-files-config/public",
 );
 
+// `page.waitForNavigation()` only sees a navigation that begins after it is
+// called. Waiting for the watcher first and asking for the navigation inside
+// that handler therefore loses the race whenever the server gets its reload in
+// first, and the test then hangs for the whole timeout instead of failing. Both
+// waits below are armed before the write that triggers them.
+const onceChange = (watcher) =>
+  new Promise((resolve) => {
+    watcher.once("change", resolve);
+  });
+
+// Resolves with the paths of the next `count` changes the watcher reports.
+const collectChanges = (watcher, count) =>
+  new Promise((resolve) => {
+    const changedPaths = [];
+
+    const onChange = (changedPath) => {
+      changedPaths.push(changedPath);
+
+      if (changedPaths.length === count) {
+        watcher.off("change", onChange);
+        resolve(changedPaths);
+      }
+    };
+
+    watcher.on("change", onChange);
+  });
+
 describe("watchFiles option", () => {
   describe("should work with string and path to file", () => {
     const file = path.join(watchDir, "assets/example.txt");
@@ -71,19 +98,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
   });
 
@@ -140,19 +164,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
   });
 
@@ -209,19 +230,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
   });
 
@@ -280,19 +298,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
   });
 
@@ -355,19 +370,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
 
     it("should not reload when a non-matching file is changed", async (t) => {
@@ -468,19 +480,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
 
     it("should not reload when an ignored glob file is changed", async (t) => {
@@ -579,19 +588,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
 
     it("should not reload when an ignored glob file is changed", async (t) => {
@@ -689,24 +695,22 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
 
-          expect(changedPath).toBe(nonExistFile);
-          resolve();
-        });
-
-        // create file content
+      // create file content
+      setTimeout(() => {
+        fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
+        // change file content
         setTimeout(() => {
           fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
-          // change file content
-          setTimeout(() => {
-            fs.writeFileSync(nonExistFile, "Kurosaki Ichigo", "utf8");
-          }, 1000);
         }, 1000);
-      });
+      }, 1000);
+
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
+
+      expect(changedPath).toBe(nonExistFile);
     });
   });
 
@@ -763,19 +767,16 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
       // change file content
       fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-      await new Promise((resolve) => {
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
+      // page reload
+      const [changedPath] = await Promise.all([change, navigation]);
 
-          expect(changedPath).toBe(file);
-
-          resolve();
-        });
-      });
+      expect(changedPath).toBe(file);
     });
   });
 
@@ -834,27 +835,20 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      // Two writes back to back can be served by a single reload, so the page
+      // is only required to navigate once. What is under test is that the
+      // watcher reports both paths.
+      const changes = collectChanges(server.staticWatchers[0], 2);
+
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
       fs.writeFileSync(other, "bar", "utf8");
 
-      await new Promise((resolve) => {
-        const expected = [file, other];
-        let changed = 0;
+      // page reload
+      const [changedPaths] = await Promise.all([changes, navigation]);
 
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
-
-          expect(expected.includes(changedPath)).toBeTruthy();
-
-          changed += 1;
-
-          if (changed === 2) {
-            resolve();
-          }
-        });
-      });
+      expect(changedPaths.toSorted()).toEqual([file, other].toSorted());
     });
   });
 
@@ -913,38 +907,25 @@ describe("watchFiles option", () => {
 
       t.assert.snapshot(pageErrors);
 
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      // As above, one reload can serve both writes; each watcher reporting its
+      // own path is what this config is being tested for.
+      const changeOne = onceChange(server.staticWatchers[0]);
+      const changeTwo = onceChange(server.staticWatchers[1]);
+
       // change file content
       fs.writeFileSync(file, "foo", "utf8");
       fs.writeFileSync(other, "bar", "utf8");
 
-      await new Promise((resolve) => {
-        let changed = 0;
+      // page reload
+      const [changedOne, changedTwo] = await Promise.all([
+        changeOne,
+        changeTwo,
+        navigation,
+      ]);
 
-        server.staticWatchers[0].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
-
-          expect(changedPath).toBe(file);
-
-          changed += 1;
-
-          if (changed === 2) {
-            resolve();
-          }
-        });
-        server.staticWatchers[1].on("change", async (changedPath) => {
-          // page reload
-          await page.waitForNavigation({ waitUntil: "networkidle0" });
-
-          expect(changedPath).toBe(other);
-
-          changed += 1;
-
-          if (changed === 2) {
-            resolve();
-          }
-        });
-      });
+      expect(changedOne).toBe(file);
+      expect(changedTwo).toBe(other);
     });
   });
 
@@ -1075,19 +1056,18 @@ describe("watchFiles option", () => {
 
           t.assert.snapshot(pageErrors);
 
+          const navigation = page.waitForNavigation({
+            waitUntil: "networkidle0",
+          });
+          const change = onceChange(server.staticWatchers[0]);
+
           // change file content
           fs.writeFileSync(file, "Kurosaki Ichigo", "utf8");
 
-          await new Promise((resolve) => {
-            server.staticWatchers[0].on("change", async (changedPath) => {
-              // page reload
-              await page.waitForNavigation({ waitUntil: "networkidle0" });
+          // page reload
+          const [changedPath] = await Promise.all([change, navigation]);
 
-              expect(changedPath).toBe(file);
-
-              resolve();
-            });
-          });
+          expect(changedPath).toBe(file);
         });
       });
     }
