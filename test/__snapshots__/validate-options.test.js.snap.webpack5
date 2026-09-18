@@ -114,19 +114,19 @@ exports[`options > validate > should throw an error on the \"client\" option wit
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverclient
    Details:
     * options.client.overlay should be one of these:
-      boolean | object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }
+      boolean | object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName?: string }
       Details:
        * options.client.overlay should be a boolean.
          -> Enables a full-screen overlay in the browser when there are compiler errors or warnings.
          -> Read more at https://webpack.js.org/configuration/dev-server/#overlay
        * options.client.overlay should be an object:
-         object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }"
+         object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName?: string }"
 `;
 
 exports[`options > validate > should throw an error on the \"client\" option with '{\"overlay\":{\"arbitrary\":\"\"}}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.client.overlay has an unknown property 'arbitrary'. These properties are valid:
-   object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName? }"
+   object { errors?, warnings?, runtimeErrors?, trustedTypesPolicyName?: string }"
 `;
 
 exports[`options > validate > should throw an error on the \"client\" option with '{\"overlay\":{\"errors\":\"\"}}' value 1`] = `
@@ -276,12 +276,12 @@ exports[`options > validate > should throw an error on the \"devMiddleware\" opt
 exports[`options > validate > should throw an error on the \"headers\" option with '1' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
-   [object { key?, value? }, ...] (should not have fewer than 1 item) | object { … } | function
+   [object { key?: string, value?: string }, ...] (should not have fewer than 1 item) | object { … } | function
    -> Allows to set custom headers on response.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverheaders
    Details:
     * options.headers should be an array:
-      [object { key?, value? }, ...] (should not have fewer than 1 item)
+      [object { key?: string, value?: string }, ...] (should not have fewer than 1 item)
     * options.headers should be an object:
       object { … }
     * options.headers should be an instance of function."
@@ -295,18 +295,18 @@ exports[`options > validate > should throw an error on the \"headers\" option wi
 exports[`options > validate > should throw an error on the \"headers\" option with '[{\"foo\":\"bar\"}]' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers[0] has an unknown property 'foo'. These properties are valid:
-   object { key?, value? }"
+   object { key?: string, value?: string }"
 `;
 
 exports[`options > validate > should throw an error on the \"headers\" option with 'false' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.headers should be one of these:
-   [object { key?, value? }, ...] (should not have fewer than 1 item) | object { … } | function
+   [object { key?: string, value?: string }, ...] (should not have fewer than 1 item) | object { … } | function
    -> Allows to set custom headers on response.
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverheaders
    Details:
     * options.headers should be an array:
-      [object { key?, value? }, ...] (should not have fewer than 1 item)
+      [object { key?: string, value?: string }, ...] (should not have fewer than 1 item)
     * options.headers should be an object:
       object { … }
     * options.headers should be an instance of function."
@@ -636,31 +636,31 @@ exports[`options > validate > should throw an error on the \"static\" option wit
 exports[`options > validate > should throw an error on the \"static\" option with '0' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
-   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }
    -> Allows to configure options for serving static files from directory (by default 'public' directory).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static should be an array:
-      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
+      [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
     * options.static should be a boolean.
     * options.static should be a non-empty string.
     * options.static should be an object:
-      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
+      object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
 exports[`options > validate > should throw an error on the \"static\" option with 'null' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
-   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }
    -> Allows to configure options for serving static files from directory (by default 'public' directory).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
     * options.static should be an array:
-      [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
+      [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...]
     * options.static should be a boolean.
     * options.static should be a non-empty string.
     * options.static should be an object:
-      object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }"
+      object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }"
 `;
 
 exports[`options > validate > should throw an error on the \"static\" option with '{\"directory\":false}' value 1`] = `
@@ -673,7 +673,7 @@ exports[`options > validate > should throw an error on the \"static\" option wit
 exports[`options > validate > should throw an error on the \"static\" option with '{\"publicPath\":false}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
-   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }
    -> Allows to configure options for serving static files from directory (by default 'public' directory).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
@@ -690,7 +690,7 @@ exports[`options > validate > should throw an error on the \"static\" option wit
 exports[`options > validate > should throw an error on the \"static\" option with '{\"serveIndex\":\"true\"}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
-   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }
    -> Allows to configure options for serving static files from directory (by default 'public' directory).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:
@@ -707,7 +707,7 @@ exports[`options > validate > should throw an error on the \"static\" option wit
 exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":10}' value 1`] = `
 "ValidationError: Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
  - options.static should be one of these:
-   [non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?, staticOptions?, publicPath?, serveIndex?, watch? }
+   [non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }, ...] | boolean | non-empty string | object { directory?: non-empty string, staticOptions?, publicPath?, serveIndex?, watch? }
    -> Allows to configure options for serving static files from directory (by default 'public' directory).
    -> Read more at https://webpack.js.org/configuration/dev-server/#devserverstatic
    Details:

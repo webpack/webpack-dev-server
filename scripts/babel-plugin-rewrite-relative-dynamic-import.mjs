@@ -5,10 +5,13 @@
 export default ({ types: t }) => ({
   name: "rewrite-relative-dynamic-import",
   visitor: {
-    CallExpression(path) {
-      if (path.node.callee.type !== "Import") return;
+    // babel 8 parses `import()` as `ImportExpression`, not as a `CallExpression`
+    // with an `Import` callee.
+    ImportExpression(path) {
+      // `import(x, { with: … })` has no `require()` equivalent, so leave it
+      if (path.node.options) return;
 
-      const [arg] = path.node.arguments;
+      const arg = path.node.source;
 
       // a string-literal relative specifier (`./` or `../`) = an internal module
       if (t.isStringLiteral(arg) && /^\.\.?\//.test(arg.value)) {

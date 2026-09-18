@@ -2,6 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import webpack from "webpack";
 import { merge } from "webpack-merge";
+import transformObjectAssign from "../scripts/babel-plugin-transform-object-assign.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -50,7 +51,7 @@ export default [
             {
               loader: "babel-loader",
               options: {
-                plugins: ["@babel/plugin-transform-object-assign"],
+                plugins: [transformObjectAssign],
               },
             },
           ],

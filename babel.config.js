@@ -1,4 +1,5 @@
 import rewriteRelativeDynamicImport from "./scripts/babel-plugin-rewrite-relative-dynamic-import.mjs";
+import transformObjectAssign from "./scripts/babel-plugin-transform-object-assign.mjs";
 
 export default (api) => {
   // `api.env()` makes the resolved config cache depend on `BABEL_ENV`/`NODE_ENV`
@@ -42,6 +43,6 @@ export default (api) => {
         },
       ],
     ],
-    plugins: ["@babel/plugin-transform-object-assign"],
+    plugins: [transformObjectAssign],
   };
 };
