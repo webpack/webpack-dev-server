@@ -714,20 +714,13 @@ There are a lot of other bug fixes.
   v3:
 
   ```js
-  new WebpackDevServer(compiler, {
-    /* Options */
-  });
+  new WebpackDevServer(compiler, {/* Options */});
   ```
 
   v4:
 
   ```js
-  new WebpackDevServer(
-    {
-      /* Options */
-    },
-    compiler,
-  );
+  new WebpackDevServer({/* Options */}, compiler);
   ```
 
   - [See here](https://github.com/webpack/webpack-dev-server/tree/main/examples/api/simple) for an example of how to use `webpack-dev-server` through the Node.js API.

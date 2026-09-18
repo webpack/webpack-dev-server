@@ -51,9 +51,7 @@ export type ErrorHandleFunction = (
   next: NextFunction,
 ) => void;
 export type HandleFunction =
-  | SimpleHandleFunction
-  | NextHandleFunction
-  | ErrorHandleFunction;
+  SimpleHandleFunction | NextHandleFunction | ErrorHandleFunction;
 export type ServerOptions = import("https").ServerOptions;
 export type Request<
   T extends BasicApplication = import("express").Application,
@@ -127,9 +125,9 @@ export type NormalizedStatic = {
 };
 export type ServerType<
   A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
+  S extends BasicServer = import("node:http").Server<
+    typeof import("node:http").IncomingMessage,
+    typeof import("node:http").ServerResponse
   >,
 > =
   | "http"
@@ -139,9 +137,9 @@ export type ServerType<
   | ((serverOptions: ServerOptions, application: A) => S);
 export type ServerConfiguration<
   A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
+  S extends BasicServer = import("node:http").Server<
+    typeof import("node:http").IncomingMessage,
+    typeof import("node:http").ServerResponse
   >,
 > = {
   /**
@@ -238,8 +236,7 @@ export type ClientConfiguration = {
    * logging
    */
   logging?:
-    | ("log" | "info" | "warn" | "error" | "none" | "verbose")
-    | undefined;
+    ("log" | "info" | "warn" | "error" | "none" | "verbose") | undefined;
   /**
    * overlay
    */
@@ -291,9 +288,9 @@ export type Middleware = MiddlewareObject | MiddlewareHandler;
 export type BasicServer = import("net").Server | import("tls").Server;
 export type Configuration<
   A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
+  S extends BasicServer = import("node:http").Server<
+    typeof import("node:http").IncomingMessage,
+    typeof import("node:http").ServerResponse
   >,
 > = {
   ipc?: (boolean | string) | undefined;
@@ -307,14 +304,12 @@ export type Configuration<
   historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
   bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
   watchFiles?:
-    | (string | string[] | WatchFiles | (string | WatchFiles)[])
-    | undefined;
+    (string | string[] | WatchFiles | (string | WatchFiles)[]) | undefined;
   static?: (boolean | string | Static | (string | Static)[]) | undefined;
   server?: (ServerType<A, S> | ServerConfiguration<A, S>) | undefined;
   app?: (() => Promise<A>) | undefined;
   webSocketServer?:
-    | (boolean | "ws" | string | WebSocketServerConfiguration)
-    | undefined;
+    (boolean | "ws" | string | WebSocketServerConfiguration) | undefined;
   proxy?: ProxyConfigArray | undefined;
   open?: (boolean | string | Open | (string | Open)[]) | undefined;
   setupExitSignals?: boolean | undefined;
@@ -344,9 +339,9 @@ export type BasicApplication = {
  */
 declare class Server<
   A extends BasicApplication = import("express").Application,
-  S extends BasicServer = import("http").Server<
-    typeof import("http").IncomingMessage,
-    typeof import("http").ServerResponse
+  S extends BasicServer = import("node:http").Server<
+    typeof import("node:http").IncomingMessage,
+    typeof import("node:http").ServerResponse
   >,
 > {
   static get schema(): {
@@ -1506,9 +1501,7 @@ declare class Server<
     compiler?: (Compiler | MultiCompiler) | undefined,
   );
   compiler:
-    | import("webpack").Compiler
-    | import("webpack").MultiCompiler
-    | undefined;
+    import("webpack").Compiler | import("webpack").MultiCompiler | undefined;
   /**
    * @type {ReturnType<Compiler["getInfrastructureLogger"]>}
    */

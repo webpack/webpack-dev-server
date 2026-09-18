@@ -2,7 +2,7 @@ import path from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import util from "node:util";
-import execa from "execa";
+import { execa } from "execa";
 import { expect } from "expect";
 import { normalizeStderr, testBin } from "../helpers/test-bin.js";
 import portsMap from "../ports-map.js";
@@ -88,6 +88,7 @@ describe("basic", () => {
         );
         const cp = execa("node", ["--port", port, cliPath], {
           cwd: examplePath,
+          reject: false,
         });
 
         cp.stdout.on("data", (data) => {
@@ -100,7 +101,9 @@ describe("basic", () => {
           }
         });
 
-        cp.on("exit", () => {
+        // `execa` subprocesses are not event emitters, so the promise settling
+        // is what reports the exit.
+        cp.then(() => {
           resolve();
         });
       }));
@@ -112,7 +115,10 @@ describe("basic", () => {
           "../../bin/webpack-dev-server.js",
         );
         const cwd = path.resolve(__dirname, "../fixtures/cli");
-        const cp = execa("node", ["--port", port, cliPath], { cwd });
+        const cp = execa("node", ["--port", port, cliPath], {
+          cwd,
+          reject: false,
+        });
 
         let killed = false;
 
@@ -126,7 +132,7 @@ describe("basic", () => {
           killed = true;
         });
 
-        cp.on("exit", () => {
+        cp.then(() => {
           resolve();
         });
       }));
@@ -146,6 +152,7 @@ describe("basic", () => {
           [cliPath, "--port", port, "--watch-options-stdin"],
           {
             cwd: examplePath,
+            reject: false,
           },
         );
 
@@ -160,7 +167,7 @@ describe("basic", () => {
           }
         });
 
-        cp.on("exit", () => {
+        cp.then(() => {
           resolve();
         });
       }));
@@ -175,14 +182,10 @@ describe("basic", () => {
         const cp = execa(
           "node",
           [cliPath, "--port", port, "--watch-options-stdin"],
-          { cwd },
+          { cwd, reject: false },
         );
 
         let killed = false;
-
-        cp.on("error", (error) => {
-          reject(error);
-        });
 
         cp.stdin.on("error", (error) => {
           reject(error);
@@ -199,7 +202,7 @@ describe("basic", () => {
           killed = true;
         });
 
-        cp.on("exit", () => {
+        cp.then(() => {
           resolve();
         });
       }));
@@ -339,8 +342,14 @@ describe("basic", () => {
       );
       const cwd = path.resolve(__dirname, "../fixtures/cli");
 
-      const cp = execa("node", [cliPath, "--colors=false"], { cwd });
-      const cp2 = execa("node", [cliPath, "--colors=false"], { cwd });
+      const cp = execa("node", [cliPath, "--colors=false"], {
+        cwd,
+        reject: false,
+      });
+      const cp2 = execa("node", [cliPath, "--colors=false"], {
+        cwd,
+        reject: false,
+      });
 
       const runtime = {
         cp: {
@@ -383,14 +392,14 @@ describe("basic", () => {
         }
       });
 
-      cp.on("exit", () => {
+      cp.then(() => {
         runtime.cp.done = true;
         if (runtime.cp2.done) {
           expect(runtime.cp.port).not.toBe(runtime.cp2.port);
         }
       });
 
-      cp2.on("exit", () => {
+      cp2.then(() => {
         runtime.cp2.done = true;
 
         if (runtime.cp.done) {
