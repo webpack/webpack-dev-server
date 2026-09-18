@@ -11,6 +11,31 @@ const port = portsMap.host;
 
 const ipv4 = Server.findIp("v4", false);
 const ipv6 = Server.findIp("v6", false);
+const unbracketedIpv6 = ipv6?.slice(1, -1);
+
+function getRequestHostname(host) {
+  if (host === "<not-specified>" || typeof host === "undefined") {
+    return ipv6 ? "[::1]" : ipv4 || "localhost";
+  } else if (host === "0.0.0.0") {
+    return "127.0.0.1";
+  } else if (host === "::") {
+    return "[::1]";
+  } else if (host === "::1") {
+    return "[::1]";
+  } else if (host === "local-ip") {
+    return ipv4 || ipv6 || "127.0.0.1";
+  } else if (host === "local-ipv4") {
+    return ipv4 || "127.0.0.1";
+  } else if (host === "local-ipv6") {
+    return ipv6 || "[::1]";
+  }
+
+  return host;
+}
+
+function isLocalNetworkHost(host) {
+  return host === "local-ip" || host === "local-ipv4" || host === "local-ipv6";
+}
 
 async function getAddress(host, hostname) {
   let address;
@@ -48,8 +73,12 @@ async function getAddress(host, hostname) {
         resolve();
       });
     });
+  } else if (host === "local-ip") {
+    address = ipv4 || unbracketedIpv6 || "0.0.0.0";
+  } else if (host === "local-ipv4") {
+    address = ipv4 || "0.0.0.0";
   } else if (host === "local-ipv6") {
-    address = "::";
+    address = unbracketedIpv6 || "::";
   } else {
     address = hostname;
   }
@@ -93,30 +122,20 @@ describe("host", () => {
 
       const server = new Server(devServerOptions, compiler);
 
-      let hostname = host;
-
-      if (hostname === "<not-specified>" || typeof hostname === "undefined") {
-        // If host is omitted, the server will accept connections on the unspecified IPv6 address (::) when IPv6 is available, or the unspecified IPv4 address (0.0.0.0) otherwise.
-        hostname = ipv6 ? `[${ipv6}]` : ipv4;
-      } else if (hostname === "0.0.0.0") {
-        hostname = ipv4;
-      } else if (hostname === "::") {
-        // In most operating systems, listening to the unspecified IPv6 address (::) may cause the net.Server to also listen on the unspecified IPv4 address (0.0.0.0).
-        hostname = ipv6 ? `[${ipv6}]` : ipv4;
-      } else if (hostname === "::1") {
-        hostname = "[::1]";
-      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = ipv4;
-      } else if (hostname === "local-ipv6") {
-        // For test env where network ipv6 doesn't work
-        hostname = ipv6 ? `[${ipv6}]` : "[::1]";
-      }
+      const hostname = getRequestHostname(host);
 
       await server.start();
 
       expect(server.server.address()).toMatchObject(
         await getAddress(host, hostname),
       );
+
+      // Binding is the behavior under test for discovered network addresses.
+      // VPN and container interfaces are not necessarily browser-routable.
+      if (isLocalNetworkHost(host)) {
+        await server.stop();
+        return;
+      }
 
       const { page, browser } = await runBrowser();
 
@@ -165,30 +184,18 @@ describe("host", () => {
 
       const server = new Server(devServerOptions, compiler);
 
-      let hostname = host;
-
-      if (hostname === "<not-specified>" || typeof hostname === "undefined") {
-        // If host is omitted, the server will accept connections on the unspecified IPv6 address (::) when IPv6 is available, or the unspecified IPv4 address (0.0.0.0) otherwise.
-        hostname = ipv6 ? `[${ipv6}]` : ipv4;
-      } else if (hostname === "0.0.0.0") {
-        hostname = ipv4;
-      } else if (hostname === "::") {
-        // In most operating systems, listening to the unspecified IPv6 address (::) may cause the net.Server to also listen on the unspecified IPv4 address (0.0.0.0).
-        hostname = ipv6 ? `[${ipv6}]` : ipv4;
-      } else if (hostname === "::1") {
-        hostname = "[::1]";
-      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = ipv4;
-      } else if (hostname === "local-ipv6") {
-        // For test env where network ipv6 doesn't work
-        hostname = ipv6 ? `[${ipv6}]` : "[::1]";
-      }
+      const hostname = getRequestHostname(host);
 
       await server.start();
 
       expect(server.server.address()).toMatchObject(
         await getAddress(host, hostname),
       );
+
+      if (isLocalNetworkHost(host)) {
+        await server.stop();
+        return;
+      }
 
       const { page, browser } = await runBrowser();
 
@@ -240,24 +247,7 @@ describe("host", () => {
 
       const server = new Server(devServerOptions, compiler);
 
-      let hostname = host;
-
-      if (hostname === "<not-specified>" || typeof hostname === "undefined") {
-        // If host is omitted, the server will accept connections on the unspecified IPv6 address (::) when IPv6 is available, or the unspecified IPv4 address (0.0.0.0) otherwise.
-        hostname = ipv6 ? `[${ipv6}]` : ipv4;
-      } else if (hostname === "0.0.0.0") {
-        hostname = ipv4;
-      } else if (hostname === "::") {
-        // In most operating systems, listening to the unspecified IPv6 address (::) may cause the net.Server to also listen on the unspecified IPv4 address (0.0.0.0).
-        hostname = ipv6 ? `[${ipv6}]` : ipv4;
-      } else if (hostname === "::1") {
-        hostname = "[::1]";
-      } else if (hostname === "local-ip" || hostname === "local-ipv4") {
-        hostname = ipv4;
-      } else if (hostname === "local-ipv6") {
-        // For test env where network ipv6 doesn't work
-        hostname = ipv6 ? `[${ipv6}]` : "[::1]";
-      }
+      const hostname = getRequestHostname(host);
 
       await server.start();
 
@@ -266,6 +256,13 @@ describe("host", () => {
       );
 
       const address = server.server.address();
+
+      if (isLocalNetworkHost(host)) {
+        delete process.env.WEBPACK_DEV_SERVER_BASE_PORT;
+        await server.stop();
+        return;
+      }
+
       const { page, browser } = await runBrowser();
 
       try {

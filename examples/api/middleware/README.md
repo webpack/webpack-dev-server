@@ -2,7 +2,7 @@
 
 While it's recommended to run `webpack-dev-server` via the CLI, you may also
 choose to start a server via the API. This example demonstrates using one of the
-few custom middleware options; `before`.
+custom middleware options, `setupMiddlewares`.
 
 ```console
 node server.js

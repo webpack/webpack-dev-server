@@ -12,9 +12,8 @@ import { fileURLToPath } from "node:url";
 //    files in `dist/` as CommonJS regardless of the package's root
 //    `"type": "module"`.
 // 2. Babel emits the loader as `exports.default`. Append the `module.exports`
-//    unwrap so `require("webpack-dev-server")` returns the `Server` class
-//    directly (parity with the pre-ESM `module.exports = Server`), while
-//    `.default` keeps pointing at it for interop.
+//    unwrap so the public Server and BaseServer entrypoints return their
+//    classes directly, while `.default` keeps pointing at them for interop.
 
 const CJS_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -27,7 +26,9 @@ await writeFile(
   `${JSON.stringify({ type: "commonjs" }, null, 2)}\n`,
 );
 
-await appendFile(
-  path.join(CJS_DIR, "Server.js"),
-  "module.exports = exports.default;\nmodule.exports.default = exports.default;\n",
-);
+for (const entry of ["Server.js", "servers/BaseServer.js"]) {
+  await appendFile(
+    path.join(CJS_DIR, entry),
+    "module.exports = exports.default;\nmodule.exports.default = exports.default;\n",
+  );
+}

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { expect } from "expect";
+import { spyOn } from "jest-mock";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
@@ -61,6 +62,11 @@ describe("Built in routes", () => {
     });
 
     it("should handle GET request to directory index and list all middleware directories", async (t) => {
+      const stats = await new Promise((resolve) => {
+        server.middleware.waitUntilValid(resolve);
+      });
+      const toJsonSpy = spyOn(stats, "toJson");
+
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -85,6 +91,14 @@ describe("Built in routes", () => {
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
       t.assert.snapshot(pageErrors);
+
+      expect(toJsonSpy).toHaveBeenCalledWith({
+        all: false,
+        children: false,
+        assets: true,
+        publicPath: true,
+      });
+      toJsonSpy.mockRestore();
     });
 
     it("should handle HEAD request to directory index", async (t) => {
@@ -191,6 +205,11 @@ describe("Built in routes", () => {
     });
 
     it("should handle GET request to directory index and list all middleware directories", async (t) => {
+      const stats = await new Promise((resolve) => {
+        server.middleware.waitUntilValid(resolve);
+      });
+      const toJsonSpy = spyOn(stats, "toJson");
+
       page
         .on("console", (message) => {
           consoleMessages.push(message);
@@ -215,6 +234,14 @@ describe("Built in routes", () => {
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
       t.assert.snapshot(pageErrors);
+
+      expect(toJsonSpy).toHaveBeenCalledWith({
+        all: false,
+        children: true,
+        assets: true,
+        publicPath: true,
+      });
+      toJsonSpy.mockRestore();
     });
   });
 });

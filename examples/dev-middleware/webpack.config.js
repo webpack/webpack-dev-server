@@ -8,7 +8,7 @@ export default setup(
     entry: "./app.js",
     devServer: {
       devMiddleware: {
-        index: false,
+        index: true,
         headers: {
           "X-Custom-Header": "yes",
         },

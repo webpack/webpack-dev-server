@@ -29,4 +29,11 @@ module.exports = {
   stats: {
     colors: true,
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "../.assets"),
+      publicPath: "/.assets",
+      watch: false,
+    },
+  },
 };

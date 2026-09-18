@@ -45,6 +45,7 @@ exports[`overlay > should not show initially, then show on an error and allow to
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -123,7 +124,8 @@ exports[`overlay > should not show initially, then show on an error and allow to
           padding: 1rem 1rem 1.5rem;
         "
       >
-        <div
+        <button
+          type="button"
           data-can-open="true"
           style="
             color: rgb(232, 59, 70);
@@ -131,10 +133,19 @@ exports[`overlay > should not show initially, then show on an error and allow to
             margin-bottom: 1rem;
             font-family: sans-serif;
             cursor: pointer;
+            background: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            padding: 0px;
+            text-align: left;
+            display: block;
+            line-height: inherit;
           "
         >
           ERROR in ./foo.js 1:1
-        </div>
+        </button>
         <div
           style="
             line-height: 1.5;
@@ -177,6 +188,7 @@ exports[`overlay > should not show initially, then show on an error, then hide o
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -255,7 +267,8 @@ exports[`overlay > should not show initially, then show on an error, then hide o
           padding: 1rem 1rem 1.5rem;
         "
       >
-        <div
+        <button
+          type="button"
           data-can-open="true"
           style="
             color: rgb(232, 59, 70);
@@ -263,10 +276,19 @@ exports[`overlay > should not show initially, then show on an error, then hide o
             margin-bottom: 1rem;
             font-family: sans-serif;
             cursor: pointer;
+            background: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            padding: 0px;
+            text-align: left;
+            display: block;
+            line-height: inherit;
           "
         >
           ERROR in ./foo.js 1:1
-        </div>
+        </button>
         <div
           style="
             line-height: 1.5;
@@ -309,6 +331,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -387,7 +410,8 @@ exports[`overlay > should not show initially, then show on an error, then show o
           padding: 1rem 1rem 1.5rem;
         "
       >
-        <div
+        <button
+          type="button"
           data-can-open="true"
           style="
             color: rgb(232, 59, 70);
@@ -395,10 +419,19 @@ exports[`overlay > should not show initially, then show on an error, then show o
             margin-bottom: 1rem;
             font-family: sans-serif;
             cursor: pointer;
+            background: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            padding: 0px;
+            text-align: left;
+            display: block;
+            line-height: inherit;
           "
         >
           ERROR in ./foo.js 1:1
-        </div>
+        </button>
         <div
           style="
             line-height: 1.5;
@@ -425,6 +458,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -503,7 +537,8 @@ exports[`overlay > should not show initially, then show on an error, then show o
           padding: 1rem 1rem 1.5rem;
         "
       >
-        <div
+        <button
+          type="button"
           data-can-open="true"
           style="
             color: rgb(232, 59, 70);
@@ -511,10 +546,19 @@ exports[`overlay > should not show initially, then show on an error, then show o
             margin-bottom: 1rem;
             font-family: sans-serif;
             cursor: pointer;
+            background: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            padding: 0px;
+            text-align: left;
+            display: block;
+            line-height: inherit;
           "
         >
           ERROR in ./foo.js 1:1
-        </div>
+        </button>
         <div
           style="
             line-height: 1.5;
@@ -557,6 +601,7 @@ exports[`overlay > should show a warning after invalidation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -668,6 +713,7 @@ exports[`overlay > should show a warning and error for initial compilation 1`] =
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -887,6 +933,7 @@ exports[`overlay > should show a warning and error for initial compilation and p
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1025,6 +1072,7 @@ exports[`overlay > should show a warning and hide them after closing connection 
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1144,6 +1192,7 @@ exports[`overlay > should show a warning for initial compilation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1255,6 +1304,7 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1366,6 +1416,7 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1477,6 +1528,7 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 1`]
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1588,6 +1640,7 @@ exports[`overlay > should show an ansi formatted error for initial compilation 1
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1710,6 +1763,7 @@ exports[`overlay > should show an error after invalidation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1821,6 +1875,7 @@ exports[`overlay > should show an error for initial compilation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -1932,6 +1987,7 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2043,6 +2099,7 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2154,6 +2211,7 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 1`] 
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2440,6 +2498,7 @@ exports[`overlay > should show error when it is not filtered 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2551,6 +2610,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2662,6 +2722,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2773,6 +2834,7 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;
@@ -2884,6 +2946,7 @@ exports[`overlay > should show warning when it is not filtered 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
+    title="Webpack development server errors"
     src="about:blank"
     style="
       position: fixed;

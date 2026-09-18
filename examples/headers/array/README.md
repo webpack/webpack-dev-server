@@ -1,4 +1,4 @@
-# headers option as an object
+# headers option as an array
 
 Adds headers to all responses.
 

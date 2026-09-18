@@ -1,9 +1,9 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import express from "express";
 import fs from "graceful-fs";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { marked } from "marked";
-import mime from "mime";
 
 const __dirname = import.meta.dirname;
 
@@ -13,69 +13,15 @@ const __dirname = import.meta.dirname;
  * @returns {object} normalized webpack config
  */
 export function setup(config, callerUrl) {
-  const defaults = { mode: "development", plugins: [], devServer: {} };
-
-  if (config.entry) {
-    if (typeof config.entry === "string") {
-      config.entry = path.resolve(config.entry);
-    } else if (Array.isArray(config.entry)) {
-      config.entry = config.entry.map((entry) => path.resolve(entry));
-    } else if (typeof config.entry === "object") {
-      for (const [key, value] of Object.entries(config.entry)) {
-        config.entry[key] = path.resolve(value);
-      }
-    }
-  }
-
+  const context = path.dirname(fileURLToPath(callerUrl));
+  const defaults = { mode: "development", context, plugins: [], devServer: {} };
   const result = { ...defaults, ...config };
-  const onBeforeSetupMiddleware = ({ app }) => {
-    app.use("/.assets/", (req, res, next) => {
-      if (req.method !== "GET" && req.method !== "HEAD") {
-        next();
-        return;
-      }
-
-      res.setHeader("Content-Type", mime.lookup(req.url));
-
-      const filename = path.join(__dirname, "/.assets/", req.url);
-      const stream = fs.createReadStream(filename);
-
-      stream.pipe(res);
-    });
-  };
-  const renderer = new marked.Renderer();
-  const { heading } = renderer;
-  const markedOptions = {
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: false,
-    sanitizer: null,
-    mangle: true,
-    smartLists: false,
-    silent: false,
-    langPrefix: "lang-",
-    smartypants: false,
-    headerPrefix: "",
-    renderer,
-    xhtml: false,
-  };
-  const readme = fs.readFileSync("README.md", "utf8");
-
-  let exampleTitle = "";
-
-  renderer.heading = function headingProxy(text, level, raw, slugger) {
-    if (level === 1 && !exampleTitle) {
-      exampleTitle = text;
-    }
-
-    return heading.call(this, text, level, raw, slugger);
-  };
-
-  marked.setOptions(markedOptions);
-
-  marked(readme, { renderer });
+  const readme = fs.readFileSync(path.join(context, "README.md"), "utf8");
+  const exampleTitle =
+    marked
+      .lexer(readme)
+      .find((token) => token.type === "heading" && token.depth === 1)?.text ||
+    "";
 
   result.plugins.push(
     new HtmlWebpackPlugin({
@@ -85,21 +31,20 @@ export function setup(config, callerUrl) {
     }),
   );
 
-  if (result.devServer.setupMiddlewares) {
-    const proxy = result.devServer.setupMiddlewares;
-    result.devServer.setupMiddlewares = (middlewares, devServer) => {
-      onBeforeSetupMiddleware(devServer);
-      return proxy(middlewares, devServer);
-    };
-  } else {
-    result.devServer.setupMiddlewares = (middlewares, devServer) => {
-      onBeforeSetupMiddleware(devServer);
-      return middlewares;
-    };
-  }
+  const { setupMiddlewares } = result.devServer;
+  result.devServer.setupMiddlewares = (middlewares, devServer) => {
+    middlewares.unshift({
+      name: "example-assets",
+      path: "/.assets",
+      middleware: express.static(path.join(__dirname, ".assets")),
+    });
+    return setupMiddlewares
+      ? setupMiddlewares(middlewares, devServer)
+      : middlewares;
+  };
 
   const output = {
-    path: path.join(path.dirname(fileURLToPath(callerUrl)), "dist"),
+    path: path.join(context, "dist"),
     publicPath: "/",
   };
 

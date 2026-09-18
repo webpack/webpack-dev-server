@@ -18,6 +18,43 @@ export default setup(
       // built-in middlewares (like `history-api-fallback`/etc) doesn't work by default with `hono`
       setupMiddlewares: (_, devServer) => [
         {
+          name: "host-header-check",
+          middleware: async (context, next) => {
+            const headers = context.env.incoming.headers;
+            const headerName = headers[":authority"] ? ":authority" : "host";
+
+            if (!devServer.isValidHost(headers, headerName)) {
+              return context.text("Invalid Host header", 403);
+            }
+
+            await next();
+          },
+        },
+        {
+          name: "cross-origin-header-check",
+          middleware: async (context, next) => {
+            const headers = context.env.incoming.headers;
+            const headerName = headers[":authority"] ? ":authority" : "host";
+
+            if (
+              !devServer.isValidHost(headers, headerName, false) &&
+              headers["sec-fetch-mode"] === "no-cors" &&
+              headers["sec-fetch-site"] === "cross-site"
+            ) {
+              return context.text("Cross-Origin request blocked", 403);
+            }
+
+            if (
+              devServer.options.allowedHosts !== "all" &&
+              !devServer.isUserCORSWildcardEnabled()
+            ) {
+              context.header("Cross-Origin-Resource-Policy", "same-origin");
+            }
+
+            await next();
+          },
+        },
+        {
           name: "webpack-dev-middleware",
           middleware: wdm.honoWrapper(devServer.compiler),
         },
