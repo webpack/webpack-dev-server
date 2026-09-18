@@ -602,6 +602,20 @@ describe("options", () => {
       return value;
     }
 
+    // `schema-utils` renders the whole schema into the message: sibling
+    // property types, the `description`/`link` prose out of `lib/options.json`,
+    // and the entire `anyOf` tree. None of that is this project's behavior, so
+    // quoting it makes every snapshot here hostage to an unrelated release —
+    // 4.5.0 rewrote 10 of them by spelling out simple property types. What is
+    // ours is which option path the error blames, so snapshot only that.
+    const OPTION_PATH_REGEXP = /\boptions(?:\.[A-Za-z_$][\w$]*|\[\d+\])+/g;
+
+    function blamedOptionPaths(error) {
+      return [
+        ...new Set(error.message.match(OPTION_PATH_REGEXP) || []),
+      ].toSorted();
+    }
+
     function createTestCase(type, key, value) {
       it(`should ${
         type === "success" ? "successfully validate" : "throw an error on"
@@ -622,7 +636,12 @@ describe("options", () => {
           expect(thrownError).toBeUndefined();
         } else {
           expect(thrownError).toBeDefined();
-          t.assert.snapshot(thrownError.toString());
+          expect(thrownError.name).toBe("ValidationError");
+
+          const blamed = blamedOptionPaths(thrownError);
+
+          expect(blamed).not.toHaveLength(0);
+          t.assert.snapshot(blamed);
         }
       });
     }
