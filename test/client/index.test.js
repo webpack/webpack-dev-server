@@ -320,4 +320,79 @@ describe("index", () => {
     t.assert.snapshot(log.log.info.mock.calls[1][0]);
     t.assert.snapshot(sendMessage.mock.calls[0][0]);
   });
+
+  describe("unloading", () => {
+    // Longer than the client's own grace period, so a suppression that should
+    // have lapsed has had every chance to.
+    const AFTER_GRACE_PERIOD = 2500;
+
+    const sleep = (ms) =>
+      new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+
+    /**
+     * Drives a live reload to the point where only `isUnloading` can stop it.
+     * @returns {Promise<boolean>} whether the page was reloaded
+     */
+    async function pageReloads() {
+      self.location.reload.mockReset();
+
+      onSocketMessage.liveReload();
+      onSocketMessage.hash(`hash-${Math.random()}`);
+      onSocketMessage.ok();
+
+      // The live reload path polls for a usable window on an interval rather
+      // than reloading straight away, so a reload that is coming needs a few
+      // turns, and one that is suppressed never arrives at all.
+      for (let i = 0; i < 20; i++) {
+        if (self.location.reload.mock.calls.length > 0) return true;
+
+        await sleep(5);
+      }
+
+      return false;
+    }
+
+    it("should reload with no unload in progress", async () => {
+      expect(await pageReloads()).toBe(true);
+    });
+
+    it("should not reload while the page may be leaving", async () => {
+      self.dispatchEvent(new Event("beforeunload"));
+
+      expect(await pageReloads()).toBe(false);
+    });
+
+    it("should reload again once a cancelled unload has lapsed", async () => {
+      self.dispatchEvent(new Event("beforeunload"));
+
+      expect(await pageReloads()).toBe(false);
+
+      // No `pagehide` follows a cancelled dialog, so this is the page staying.
+      await sleep(AFTER_GRACE_PERIOD);
+
+      expect(await pageReloads()).toBe(true);
+    });
+
+    it("should not reload once the page is really gone", async () => {
+      self.dispatchEvent(new Event("beforeunload"));
+      self.dispatchEvent(new Event("pagehide"));
+
+      await sleep(AFTER_GRACE_PERIOD);
+
+      expect(await pageReloads()).toBe(false);
+    });
+
+    it("should reload after a restore from the back/forward cache", async () => {
+      self.dispatchEvent(new Event("beforeunload"));
+      self.dispatchEvent(new Event("pagehide"));
+
+      expect(await pageReloads()).toBe(false);
+
+      self.dispatchEvent(new Event("pageshow"));
+
+      expect(await pageReloads()).toBe(true);
+    });
+  });
 });

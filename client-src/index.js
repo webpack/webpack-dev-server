@@ -276,8 +276,41 @@ const logEnabledFeatures = (features) => {
 
 logEnabledFeatures(enabledFeatures);
 
+// `beforeunload` only means the page *may* be leaving: any listener can cancel
+// it, and a cancelled unload fires no event of its own to say so. `pagehide`
+// means it really is going, but only arrives once the next document loads, so
+// nothing tells the two apart at a fixed moment — hence a grace period rather
+// than suppressing until `pagehide`. Too short and a slow navigation can still
+// be interrupted by a reload (#544); too long and a cancelled dialog leaves
+// updates silently dropped (#5571).
+const UNLOAD_GRACE_PERIOD = 2000;
+
+/** @type {ReturnType<typeof setTimeout> | undefined} */
+let unloadGraceTimer;
+
 self.addEventListener("beforeunload", () => {
   status.isUnloading = true;
+
+  clearTimeout(unloadGraceTimer);
+
+  unloadGraceTimer = setTimeout(() => {
+    status.isUnloading = false;
+  }, UNLOAD_GRACE_PERIOD);
+});
+
+// The page really is going now, so stop reloading it for good.
+self.addEventListener("pagehide", () => {
+  clearTimeout(unloadGraceTimer);
+
+  status.isUnloading = true;
+});
+
+// Restored from the back/forward cache: the same script keeps running, so a
+// flag left set by the navigation away would block updates from here on.
+self.addEventListener("pageshow", () => {
+  clearTimeout(unloadGraceTimer);
+
+  status.isUnloading = false;
 });
 
 const overlay =
