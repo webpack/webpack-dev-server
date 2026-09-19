@@ -1709,6 +1709,51 @@ describe("overlay", () => {
     }
   });
 
+  it("should keep the overlay for a runtime error thrown during the initial load", async () => {
+    const compiler = webpack({
+      ...config,
+      entry: "./throw-on-initial-load.js",
+    });
+
+    const server = new Server(
+      {
+        port,
+      },
+      compiler,
+    );
+
+    await server.start();
+
+    const { page, browser } = await runBrowser();
+
+    try {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      // The entry throws while the page is still loading, so the overlay is up
+      // before the socket handshake reports the (successful) compilation. That
+      // `ok` used to dismiss it milliseconds later — see #5024.
+      await waitForExpect(async () => {
+        const overlayHandle = await page.$(
+          "#webpack-dev-server-client-overlay",
+        );
+
+        expect(overlayHandle).not.toBeNull();
+
+        const overlayFrame = await overlayHandle.contentFrame();
+        const overlayText = await overlayFrame.evaluate(
+          () => document.body.textContent,
+        );
+
+        expect(overlayText).toContain("Injected error");
+      });
+    } finally {
+      await browser.close();
+      await server.stop();
+    }
+  });
+
   it("should not show filtered runtime error", async () => {
     const compiler = webpack(config);
 

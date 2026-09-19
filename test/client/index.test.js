@@ -98,13 +98,15 @@ describe("index", () => {
 
     t.assert.snapshot(log.log.info.mock.calls[1][0]);
     t.assert.snapshot(sendMessage.mock.calls[0][0]);
-    expect(overlay.send).not.toHaveBeenCalledWith({ type: "DISMISS" });
+    expect(overlay.send).not.toHaveBeenCalledWith({ type: "BUILD_OK" });
 
     // change flags
     onSocketMessage.overlay(true);
     onSocketMessage["still-ok"]();
 
-    expect(overlay.send).toHaveBeenCalledWith({ type: "DISMISS" });
+    // An unchanged compilation clears a build error only, never a runtime one.
+    expect(overlay.send).toHaveBeenCalledWith({ type: "BUILD_OK" });
+    expect(overlay.send).not.toHaveBeenCalledWith({ type: "DISMISS" });
   });
 
   it("should run onSocketMessage.progress and onSocketMessage['progress-update']", (t) => {

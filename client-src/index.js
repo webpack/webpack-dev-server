@@ -451,6 +451,8 @@ const onSocketMessage = {
     log.info("App updated. Recompiling...");
 
     // Fixes #1042. overlay doesn't clear if errors are fixed but warnings remain.
+    // A rebuild replaces the code a runtime error came from too, so unlike
+    // `ok`/`still-ok` this clears that overlay as well.
     if (options.overlay) {
       overlay.send({ type: "DISMISS" });
     }
@@ -521,7 +523,7 @@ const onSocketMessage = {
     log.info("Nothing changed.");
 
     if (options.overlay) {
-      overlay.send({ type: "DISMISS" });
+      overlay.send({ type: "BUILD_OK" });
     }
 
     sendMessage("StillOk");
@@ -530,7 +532,7 @@ const onSocketMessage = {
     sendMessage("Ok");
 
     if (options.overlay) {
-      overlay.send({ type: "DISMISS" });
+      overlay.send({ type: "BUILD_OK" });
     }
 
     reloadApp(options, status);
