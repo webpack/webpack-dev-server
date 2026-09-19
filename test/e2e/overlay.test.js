@@ -442,18 +442,29 @@ describe("overlay", () => {
         }),
       );
 
+      const firstErrorOverlayHtml = overlayHtml;
+
       fs.writeFileSync(pathToOverlayFixture, "`;a");
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
-        hidden: true,
-      });
-      await page.waitForSelector("#webpack-dev-server-client-overlay");
+      // The `invalid` message announcing the rebuild dismisses the overlay and
+      // the errors it produces show it again, so the hidden state in between
+      // lasts only as long as that build and is not reliably observable —
+      // waiting for it is a race this test loses as a two minute timeout. What
+      // is under test is the second, different error reaching the overlay.
+      await waitForExpect(async () => {
+        overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+        expect(overlayHandle).not.toBeNull();
+
+        overlayFrame = await overlayHandle.contentFrame();
+        overlayHtml = await overlayFrame.evaluate(
+          () => document.body.outerHTML,
+        );
+
+        expect(overlayHtml).not.toBe(firstErrorOverlayHtml);
+      }, 60000);
+
       pageHtml = await page.evaluate(() => document.body.outerHTML);
-
-      overlayFrame = await overlayHandle.contentFrame();
-      overlayHtml = await overlayFrame.evaluate(() => document.body.outerHTML);
 
       t.assert.snapshot(
         await format(pageHtml, {
