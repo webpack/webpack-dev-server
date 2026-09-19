@@ -374,14 +374,19 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
-        hidden: true,
-      });
+      // This fixture builds, so the client dismisses the overlay when `invalid`
+      // announces the rebuild and then live reloads the page once that build
+      // lands. Reading the page in between the two is what destroys the
+      // execution context mid-evaluate, so read it until it settles rather than
+      // once, the moment the overlay goes.
+      await waitForExpect(async () => {
+        overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      pageHtml = await page.evaluate(() => document.body.outerHTML);
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+        expect(overlayHandle).toBeNull();
 
-      expect(overlayHandle).toBeNull();
+        pageHtml = await page.evaluate(() => document.body.outerHTML);
+      }, 60000);
+
       t.assert.snapshot(
         await format(pageHtml, {
           parser: "html",
@@ -479,14 +484,19 @@ describe("overlay", () => {
 
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
-      await page.waitForSelector("#webpack-dev-server-client-overlay", {
-        hidden: true,
-      });
+      // This fixture builds, so the client dismisses the overlay when `invalid`
+      // announces the rebuild and then live reloads the page once that build
+      // lands. Reading the page in between the two is what destroys the
+      // execution context mid-evaluate, so read it until it settles rather than
+      // once, the moment the overlay goes.
+      await waitForExpect(async () => {
+        overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
-      pageHtml = await page.evaluate(() => document.body.outerHTML);
-      overlayHandle = await page.$("#webpack-dev-server-client-overlay");
+        expect(overlayHandle).toBeNull();
 
-      expect(overlayHandle).toBeNull();
+        pageHtml = await page.evaluate(() => document.body.outerHTML);
+      }, 60000);
+
       t.assert.snapshot(
         await format(pageHtml, {
           parser: "html",
