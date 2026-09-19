@@ -98,13 +98,15 @@ describe("index", () => {
 
     t.assert.snapshot(log.log.info.mock.calls[1][0]);
     t.assert.snapshot(sendMessage.mock.calls[0][0]);
-    expect(overlay.send).not.toHaveBeenCalledWith({ type: "DISMISS" });
+    expect(overlay.send).not.toHaveBeenCalledWith({ type: "BUILD_OK" });
 
     // change flags
     onSocketMessage.overlay(true);
     onSocketMessage["still-ok"]();
 
-    expect(overlay.send).toHaveBeenCalledWith({ type: "DISMISS" });
+    // An unchanged compilation clears a build error only, never a runtime one.
+    expect(overlay.send).toHaveBeenCalledWith({ type: "BUILD_OK" });
+    expect(overlay.send).not.toHaveBeenCalledWith({ type: "DISMISS" });
   });
 
   it("should run onSocketMessage.progress and onSocketMessage['progress-update']", (t) => {
@@ -156,6 +158,21 @@ describe("index", () => {
     const res = onSocketMessage.ok();
 
     expect(res).toBeUndefined();
+  });
+
+  it("should clear only build errors when a compilation succeeds", () => {
+    onSocketMessage.overlay(true);
+
+    // A rebuild replaces the code a runtime error came from, so it clears both.
+    onSocketMessage.invalid();
+
+    expect(overlay.send).toHaveBeenCalledWith({ type: "DISMISS" });
+
+    // A successful compilation says nothing about a runtime error — see #5024.
+    onSocketMessage.ok();
+
+    expect(overlay.send).toHaveBeenCalledWith({ type: "BUILD_OK" });
+    expect(overlay.send.mock.calls).toHaveLength(2);
   });
 
   it("should run onSocketMessage['static-changed']", (t) => {
