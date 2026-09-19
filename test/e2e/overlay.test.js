@@ -372,14 +372,25 @@ describe("overlay", () => {
         }),
       );
 
+      // Marks this document so the wait below can tell it from the reloaded one.
+      await page.evaluate(() => {
+        globalThis.documentFromBeforeTheFix = true;
+      });
+
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
       // This fixture builds, so the client dismisses the overlay when `invalid`
       // announces the rebuild and then live reloads the page once that build
-      // lands. Reading the page in between the two is what destroys the
-      // execution context mid-evaluate, so read it until it settles rather than
-      // once, the moment the overlay goes.
+      // lands. Reading on the dismiss reads the document from before the fix
+      // and races the reload that follows, which is what destroyed the
+      // execution context mid-evaluate. Wait for the reloaded page instead.
       await waitForExpect(async () => {
+        const reloaded = await page.evaluate(
+          () => globalThis.documentFromBeforeTheFix === undefined,
+        );
+
+        expect(reloaded).toBe(true);
+
         overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
         expect(overlayHandle).toBeNull();
@@ -482,14 +493,25 @@ describe("overlay", () => {
         }),
       );
 
+      // Marks this document so the wait below can tell it from the reloaded one.
+      await page.evaluate(() => {
+        globalThis.documentFromBeforeTheFix = true;
+      });
+
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
 
       // This fixture builds, so the client dismisses the overlay when `invalid`
       // announces the rebuild and then live reloads the page once that build
-      // lands. Reading the page in between the two is what destroys the
-      // execution context mid-evaluate, so read it until it settles rather than
-      // once, the moment the overlay goes.
+      // lands. Reading on the dismiss reads the document from before the fix
+      // and races the reload that follows, which is what destroyed the
+      // execution context mid-evaluate. Wait for the reloaded page instead.
       await waitForExpect(async () => {
+        const reloaded = await page.evaluate(
+          () => globalThis.documentFromBeforeTheFix === undefined,
+        );
+
+        expect(reloaded).toBe(true);
+
         overlayHandle = await page.$("#webpack-dev-server-client-overlay");
 
         expect(overlayHandle).toBeNull();
