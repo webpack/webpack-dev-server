@@ -160,6 +160,21 @@ describe("index", () => {
     expect(res).toBeUndefined();
   });
 
+  it("should clear only build errors when a compilation succeeds", () => {
+    onSocketMessage.overlay(true);
+
+    // A rebuild replaces the code a runtime error came from, so it clears both.
+    onSocketMessage.invalid();
+
+    expect(overlay.send).toHaveBeenCalledWith({ type: "DISMISS" });
+
+    // A successful compilation says nothing about a runtime error — see #5024.
+    onSocketMessage.ok();
+
+    expect(overlay.send).toHaveBeenCalledWith({ type: "BUILD_OK" });
+    expect(overlay.send.mock.calls).toHaveLength(2);
+  });
+
   it("should run onSocketMessage['static-changed']", (t) => {
     onSocketMessage["static-changed"]();
 
