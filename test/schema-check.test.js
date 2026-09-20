@@ -101,6 +101,23 @@ describe("options validation routing", () => {
     );
   });
 
+  it("should fall back to the first child when none matches", () => {
+    // Neither names `devServer` nor targets the web, so there is nothing to
+    // prefer and the first child stands in.
+    const compiler = webpack([
+      config({ name: "a", target: "node" }),
+      config({ name: "b", target: "node" }),
+    ]);
+
+    expect(new Server({}, compiler).getCompilerOptions().name).toBe("a");
+  });
+
+  it("should validate directly when constructed without a compiler", () => {
+    // How the server is built for `apply()`: no compiler, so no `validate`
+    // policy to honour, and `schema-utils` produces the message.
+    expect(() => new Server({ unknownOption: true })).toThrow(/Dev Server/);
+  });
+
   it("should pick the same child for the compiler options it reads", () => {
     const compiler = webpack([
       config({ name: "a", validate: false }),
