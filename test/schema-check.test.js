@@ -79,35 +79,54 @@ describe("options validation routing", () => {
     ...extra,
   });
 
-  it("should validate against the child owning the dev server, not the first", () => {
-    const compiler = webpack([
-      config({ name: "a", validate: false }),
-      config({ name: "b", devServer: { port: 9001 } }),
-    ]);
+  // Each compiler holds a file-system cache and its purge timer, and this suite
+  // runs alongside the slow browser ones, so they are closed rather than left
+  // to the end of the process.
+  const multiCompiler = (t, ...configs) => {
+    const compiler = webpack(configs.map((extra) => config(extra)));
+
+    t.after(
+      () =>
+        new Promise((resolve) => {
+          compiler.close(resolve);
+        }),
+    );
+
+    return compiler;
+  };
+
+  it("should validate against the child owning the dev server, not the first", (t) => {
+    const compiler = multiCompiler(
+      t,
+      { name: "a", validate: false },
+      { name: "b", devServer: { port: 9001 } },
+    );
 
     expect(() => new Server({ unknownOption: true }, compiler)).toThrow(
       /Dev Server/,
     );
   });
 
-  it("should fall back to the child targeting the web", () => {
-    const compiler = webpack([
-      config({ name: "a", target: "node", validate: false }),
-      config({ name: "b", target: "web" }),
-    ]);
+  it("should fall back to the child targeting the web", (t) => {
+    const compiler = multiCompiler(
+      t,
+      { name: "a", target: "node", validate: false },
+      { name: "b", target: "web" },
+    );
 
     expect(() => new Server({ unknownOption: true }, compiler)).toThrow(
       /Dev Server/,
     );
   });
 
-  it("should fall back to the first child when none matches", () => {
+  it("should fall back to the first child when none matches", (t) => {
     // Neither names `devServer` nor targets the web, so there is nothing to
     // prefer and the first child stands in.
-    const compiler = webpack([
-      config({ name: "a", target: "node" }),
-      config({ name: "b", target: "node" }),
-    ]);
+    const compiler = multiCompiler(
+      t,
+      { name: "a", target: "node" },
+      { name: "b", target: "node" },
+    );
 
     expect(new Server({}, compiler).getCompilerOptions().name).toBe("a");
   });
@@ -118,11 +137,12 @@ describe("options validation routing", () => {
     expect(() => new Server({ unknownOption: true })).toThrow(/Dev Server/);
   });
 
-  it("should pick the same child for the compiler options it reads", () => {
-    const compiler = webpack([
-      config({ name: "a", validate: false }),
-      config({ name: "b", devServer: { port: 9001 } }),
-    ]);
+  it("should pick the same child for the compiler options it reads", (t) => {
+    const compiler = multiCompiler(
+      t,
+      { name: "a", validate: false },
+      { name: "b", devServer: { port: 9001 } },
+    );
 
     expect(new Server({}, compiler).getCompilerOptions().name).toBe("b");
   });
