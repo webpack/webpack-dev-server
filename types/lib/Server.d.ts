@@ -1637,6 +1637,17 @@ declare class Server<
    */
   private setupWatchStaticFiles;
   /**
+   * A static directory often contains the compiler's own output, either because
+   * `output.path` sits inside it or because `writeToDisk` puts it there. Every
+   * build then rewrites those files, and watching them turns one compilation
+   * into a reload — or, when a plugin copies them back in, into an endless one.
+   * The compilation already reaches the client through the middleware, so the
+   * output directory is never worth watching.
+   * @private
+   * @returns {(targetPath: string) => boolean} true when a path is the output directory or inside it
+   */
+  private getOutputPathMatcher;
+  /**
    * @private
    * @returns {Promise<void>}
    */
