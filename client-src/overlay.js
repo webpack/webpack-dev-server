@@ -145,6 +145,15 @@ const createOverlayMachine = (options) => {
               target: "hidden",
               actions: ["dismissMessages", "hideOverlay"],
             },
+            // WHY: A compilation reporting success says nothing about a runtime
+            // error, so it clears build errors only — no state but this one
+            // handles it, and an unhandled event is a no-op. Dismissing on the
+            // initial handshake's `ok` is what closed an overlay raised while
+            // the page was still loading (#5024).
+            BUILD_OK: {
+              target: "hidden",
+              actions: ["dismissMessages", "hideOverlay"],
+            },
             BUILD_ERROR: {
               target: "displayBuildError",
               actions: ["appendMessages", "showOverlay"],

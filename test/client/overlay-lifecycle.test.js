@@ -11,6 +11,12 @@ const buildError = (messages) => ({
   messages,
 });
 
+const runtimeError = (messages) => ({
+  type: "RUNTIME_ERROR",
+  level: "error",
+  messages,
+});
+
 const loadOverlay = () => {
   const iframe = document.querySelector("#webpack-dev-server-client-overlay");
 
@@ -66,6 +72,29 @@ describe("overlay lifecycle", () => {
       new KeyboardEvent("keydown", { key: "Escape" }),
     );
     expect(document.body.contains(iframe)).toBe(false);
+  });
+
+  it("lets a successful compilation clear a build error but not a runtime one", () => {
+    const overlay = createOverlay({});
+
+    overlay.send(buildError(["build error"]));
+    const buildIframe = loadOverlay();
+
+    overlay.send({ type: "BUILD_OK" });
+    expect(document.body.contains(buildIframe)).toBe(false);
+
+    overlay.send(runtimeError(["runtime error"]));
+    const runtimeIframe = loadOverlay();
+
+    // The compilation succeeded, so it knows nothing about this error — see #5024.
+    overlay.send({ type: "BUILD_OK" });
+    expect(document.body.contains(runtimeIframe)).toBe(true);
+    expect(runtimeIframe.contentDocument.body.textContent).toContain(
+      "runtime error",
+    );
+
+    overlay.send({ type: "DISMISS" });
+    expect(document.body.contains(runtimeIframe)).toBe(false);
   });
 
   it("reuses its Trusted Types policy and encodes editor paths", () => {
