@@ -1,6 +1,12 @@
+import path from "node:path";
 import { describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import { expect } from "expect";
+import webpack from "webpack";
+import Server from "../lib/Server.js";
 import validateOptions from "../lib/options.check.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // `validate-options.test.js` drives the whole option corpus through
 // `new Server()`, which catches a validator that wrongly *accepts* invalid
@@ -56,4 +62,51 @@ describe("precompiled options validator", () => {
       expect(validateOptions(options)).toBe(false);
     });
   }
+});
+
+// `Server` validates through the compiler that owns the dev server, and
+// `compiler.validate` honours that compiler's own `validate` option. Asking any
+// other child of a `MultiCompiler` would read a policy that was never about
+// these options, and a child opting out would silently take dev server
+// validation with it.
+describe("options validation routing", () => {
+  const config = (extra) => ({
+    mode: "development",
+    context: __dirname,
+    entry: "./fixtures/simple-config/foo.js",
+    infrastructureLogging: { level: "none" },
+    stats: "none",
+    ...extra,
+  });
+
+  it("should validate against the child owning the dev server, not the first", () => {
+    const compiler = webpack([
+      config({ name: "a", validate: false }),
+      config({ name: "b", devServer: { port: 9001 } }),
+    ]);
+
+    expect(() => new Server({ unknownOption: true }, compiler)).toThrow(
+      /Dev Server/,
+    );
+  });
+
+  it("should fall back to the child targeting the web", () => {
+    const compiler = webpack([
+      config({ name: "a", target: "node", validate: false }),
+      config({ name: "b", target: "web" }),
+    ]);
+
+    expect(() => new Server({ unknownOption: true }, compiler)).toThrow(
+      /Dev Server/,
+    );
+  });
+
+  it("should pick the same child for the compiler options it reads", () => {
+    const compiler = webpack([
+      config({ name: "a", validate: false }),
+      config({ name: "b", devServer: { port: 9001 } }),
+    ]);
+
+    expect(new Server({}, compiler).getCompilerOptions().name).toBe("b");
+  });
 });
