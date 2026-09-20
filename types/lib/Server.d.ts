@@ -1487,6 +1487,34 @@ declare class Server<
    */
   static findCacheDir(): string;
   /**
+   * The compiler whose configuration the dev server belongs to. For a
+   * `MultiCompiler` that is the child naming `devServer`, else the one
+   * targeting the web, else the first — anything else reads another child's
+   * settings.
+   * @private
+   * @param {Compiler | MultiCompiler} compiler compiler
+   * @returns {Compiler} the compiler that owns the dev server
+   */
+  private static findDevServerCompiler;
+  /**
+   * Throw unless the options match the schema.
+   *
+   * `compiler.hooks.validate` and `compiler.validate`'s lazy-schema and
+   * precompiled-check parameters landed together in webpack 5.106, so the hook
+   * doubles as the feature probe for them. Validating through the compiler that
+   * owns the dev server matters: `compiler.validate` honours that compiler's
+   * `validate` option, so asking any other child would read a policy that was
+   * never about these options. Either way the schema is only read, and ajv only
+   * compiled, once something is actually wrong — the precompiled validator
+   * answers the common case in ~1ms, against the ~120ms `schema-utils` spends
+   * compiling the schema on its first call.
+   * @private
+   * @param {Compiler | MultiCompiler | undefined} compiler compiler, undefined when the server is used as a plugin via `apply()`
+   * @param {EXPECTED_ANY} options options
+   * @returns {void}
+   */
+  private static validateOptions;
+  /**
    * @private
    * @param {Compiler} compiler compiler
    * @returns {boolean} true when target is `web` or `universal`, otherwise false
