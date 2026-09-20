@@ -1509,7 +1509,7 @@ declare class Server<
    * answers the common case in ~1ms, against the ~120ms `schema-utils` spends
    * compiling the schema on its first call.
    * @private
-   * @param {Compiler | MultiCompiler | undefined} compiler compiler, undefined when the server is used as a plugin via `apply()`
+   * @param {Compiler | MultiCompiler} compiler compiler that owns the dev server
    * @param {EXPECTED_ANY} options options
    * @returns {void}
    */

@@ -131,10 +131,20 @@ describe("options validation routing", () => {
     expect(new Server({}, compiler).getCompilerOptions().name).toBe("a");
   });
 
-  it("should validate directly when constructed without a compiler", () => {
-    // How the server is built for `apply()`: no compiler, so no `validate`
-    // policy to honour, and `schema-utils` produces the message.
-    expect(() => new Server({ unknownOption: true })).toThrow(/Dev Server/);
+  it("should validate on apply() when constructed as a plugin", (t) => {
+    // Used as a plugin the server is constructed without a compiler, so there
+    // is nothing to validate against until `apply()` brings one.
+    const compiler = multiCompiler(t, { name: "a" });
+    const server = new Server({ unknownOption: true });
+
+    expect(() => server.apply(compiler)).toThrow(/Dev Server/);
+  });
+
+  it("should honour the owning compiler's validate option on apply()", (t) => {
+    const compiler = multiCompiler(t, { name: "a", validate: false });
+    const server = new Server({ unknownOption: true });
+
+    expect(() => server.apply(compiler)).not.toThrow();
   });
 
   it("should pick the same child for the compiler options it reads", (t) => {
