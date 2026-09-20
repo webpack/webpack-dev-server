@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.1.0
+
+### Minor Changes
+
+- Fix client progress modes, socket URL credentials, overlay and progress lifecycles, server startup error handling and local IP lookup; export `BaseServer`. (by [@alexander-akait](https://github.com/alexander-akait) in [#5739](https://github.com/webpack/webpack-dev-server/pull/5739))
+
+### Patch Changes
+
+- Keep hot and live reload working after a cancelled "Leave site?" dialog. (by [@alexander-akait](https://github.com/alexander-akait) in [#5744](https://github.com/webpack/webpack-dev-server/pull/5744))
+
+- Keep the overlay for a runtime error thrown while the page is still loading. (by [@alexander-akait](https://github.com/alexander-akait) in [#5745](https://github.com/webpack/webpack-dev-server/pull/5745))
+
+- Validate options with a precompiled schema to cut ~115ms from startup. (by [@alexander-akait](https://github.com/alexander-akait) in [#5746](https://github.com/webpack/webpack-dev-server/pull/5746))
+
 ## 6.0.0
 
 ### Major Changes
