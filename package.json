@@ -49,7 +49,7 @@
     "lint": "npm-run-all -l -p \"lint:**\"",
     "fix:code": "npm run lint:code -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
-    "fix": "npm-run-all -l fix:code fix:prettier",
+    "fix": "npm-run-all -l fix:code fix:schema-check fix:prettier",
     "validate:changeset": "node .changeset/changeset-validate.mjs",
     "build:cjs": "rimraf -g ./dist/* && babel lib --out-dir dist --env-name cjs --copy-files --no-copy-ignored && node ./scripts/finalize-cjs-build.mjs",
     "build:client": "rimraf -g ./client/* && babel client-src/ --out-dir client/ --ignore \"client-src/webpack.config.js\" --ignore \"client-src/modules\" && webpack --config client-src/webpack.config.js",
@@ -60,7 +60,9 @@
     "test:watch": "npm run test:only -- --watch",
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
-    "prepare": "husky && npm run build"
+    "prepare": "husky && npm run build",
+    "lint:schema-check": "node ./scripts/generate-schema-check.mjs --check",
+    "fix:schema-check": "node ./scripts/generate-schema-check.mjs"
   },
   "dependencies": {
     "@types/bonjour": "^3.5.13",
@@ -102,6 +104,7 @@
     "@types/picomatch": "^4.0.2",
     "@types/trusted-types": "^2.0.7",
     "acorn": "^8.14.0",
+    "ajv": "^8.20.0",
     "babel-loader": "^10.0.0",
     "babel-plugin-transform-import-meta": "^3.0.0",
     "connect": "^3.7.0",
