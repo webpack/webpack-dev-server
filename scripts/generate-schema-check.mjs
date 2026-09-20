@@ -65,7 +65,12 @@ function walkSchema(node, visit, pointer = "#") {
  * @returns {void}
  */
 function assertSupportedSchema(schema) {
-  walkSchema(schema, (node, pointer) => {
+  /**
+   * @param {SchemaNode} node the schema node to check
+   * @param {string} pointer JSON pointer to `node`
+   * @returns {void}
+   */
+  const assertNode = (node, pointer) => {
     // `unicode: false` below makes ajv measure string length in UTF-16 code
     // units rather than code points. The two agree only at a bound of 1, where
     // both mean "not empty".
@@ -87,7 +92,9 @@ function assertSupportedSchema(schema) {
         `"instanceof": ${JSON.stringify(node.instanceof)} at ${pointer} is not supported. Add it to CONSTRUCTORS.`,
       );
     }
-  });
+  };
+
+  walkSchema(schema, assertNode);
 }
 
 /**
@@ -101,8 +108,12 @@ function generate(schema) {
     /* eslint-disable no-console -- a generator reports to the terminal */
     logger: {
       log: console.log,
-      // `unicode` is deprecated but still honoured, and `assertSupportedSchema`
-      // has already established that dropping it changes nothing here.
+      /**
+       * `unicode` is deprecated but still honoured, and `assertSupportedSchema`
+       * has already established that dropping it changes nothing here.
+       * @param {...unknown} args ajv's warning arguments
+       * @returns {void}
+       */
       warn: (...args) => {
         if (!String(args[0]).includes("option unicode")) {
           console.warn(...args);
