@@ -10,19 +10,22 @@ import portsMap from "../ports-map.js";
 
 const port = portsMap["static-watch-output-path"];
 
-// Long enough that a watcher which does report the write has reported it: the
-// control below rewrites a file beside the output directory and is seen well
-// inside this window, so an empty list after it means the write was ignored
-// rather than merely slow.
-const SETTLE_MS = 3000;
+// The ignored file is rewritten this many times, this far apart, so that the
+// window spans several seconds. A single write could land while chokidar is
+// still discovering the nested directory and be lost; a stream of them cannot
+// all be.
+const REWRITES = 12;
+const REWRITE_INTERVAL_MS = 250;
 
-const settle = () =>
+const sleep = (ms) =>
   new Promise((resolve) => {
-    setTimeout(resolve, SETTLE_MS);
+    setTimeout(resolve, ms);
   });
 
-// Rewrites `file` until the watcher reports it, so the caller knows the initial
-// scan is over and later writes cannot be silently dropped.
+// Rewrites `file` until the watcher reports it, which establishes that the
+// watcher is live. It does not establish that every nested path has been
+// discovered, so it is only the starting gun — the assertions below do not
+// rest on it alone.
 const waitUntilWatching = async (reloads, file, timeout = 20000) => {
   const started = Date.now();
 
@@ -32,9 +35,7 @@ const waitUntilWatching = async (reloads, file, timeout = 20000) => {
     }
 
     await fsPromises.writeFile(file, `warm-up ${Date.now()}`);
-    await new Promise((resolve) => {
-      setTimeout(resolve, 250);
-    });
+    await sleep(REWRITE_INTERVAL_MS);
   }
 };
 
@@ -117,10 +118,9 @@ describe("static watching and output.path", () => {
     await server.start();
 
     // chokidar drops events raised before its initial scan finishes, so a write
-    // sent too early is simply lost and the absence of a reload would prove
-    // nothing. Rewriting the control file until the watcher answers establishes
-    // that it is live, which neither `getWatched()` nor a late `ready` listener
-    // can: the first fills in during the scan, the second has already fired.
+    // sent too early is simply lost. `ready` cannot be awaited from here — the
+    // watcher is created inside `start()` and may already have emitted it — so
+    // the control file is rewritten until the watcher answers.
     await waitUntilWatching(reloads, outsideOutput);
     reloads.length = 0;
   });
@@ -130,11 +130,28 @@ describe("static watching and output.path", () => {
     fs.rmSync(tempDirectory, { recursive: true, force: true });
   });
 
+  it("should not watch the output directory at all", () => {
+    // the strongest form of the assertion, and the only one that does not
+    // depend on event timing: chokidar lists what it decided to watch, so a
+    // predicate that failed to exclude the output directory shows up here even
+    // if no write ever raced with the scan
+    const watched = server.staticWatchers.flatMap((watcher) =>
+      Object.keys(watcher.getWatched()),
+    );
+
+    expect(watched).toContain(tempDirectory);
+    expect(watched).not.toContain(outputPath);
+  });
+
   it("should not reload when a file inside output.path is rewritten", async () => {
     // the compilation already reaches the client through the middleware, so a
-    // reload here only fires because the build wrote its own output
-    await fsPromises.writeFile(insideOutput, "emitted again");
-    await settle();
+    // reload here only fires because the build wrote its own output. Rewriting
+    // throughout the window rather than once means a single write lost to the
+    // initial scan cannot hide a broken predicate.
+    for (let index = 0; index < REWRITES; index++) {
+      await fsPromises.writeFile(insideOutput, `emitted ${index}`);
+      await sleep(REWRITE_INTERVAL_MS);
+    }
 
     expect(reloads).toHaveLength(0);
   });
