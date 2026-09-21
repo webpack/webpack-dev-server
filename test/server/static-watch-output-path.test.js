@@ -21,33 +21,22 @@ const settle = () =>
     setTimeout(resolve, SETTLE_MS);
   });
 
-// chokidar suppresses events until its initial scan finishes, so a write sent
-// before that is simply lost — the watcher has to be known-ready before the
-// absence of a reload means anything.
-const waitForWatchers = (watchers, timeout = 10000) =>
-  new Promise((resolve, reject) => {
-    const started = Date.now();
-    const check = () => {
-      if (
-        watchers.length > 0 &&
-        watchers.every(
-          (watcher) => Object.keys(watcher.getWatched()).length > 0,
-        )
-      ) {
-        resolve();
-        return;
-      }
+// Rewrites `file` until the watcher reports it, so the caller knows the initial
+// scan is over and later writes cannot be silently dropped.
+const waitUntilWatching = async (reloads, file, timeout = 20000) => {
+  const started = Date.now();
 
-      if (Date.now() - started > timeout) {
-        reject(new Error("timed out waiting for the static watchers"));
-        return;
-      }
+  while (!reloads.includes(file)) {
+    if (Date.now() - started > timeout) {
+      throw new Error(`the static watcher never reported ${file}`);
+    }
 
-      setTimeout(check, 50);
-    };
-
-    check();
-  });
+    await fsPromises.writeFile(file, `warm-up ${Date.now()}`);
+    await new Promise((resolve) => {
+      setTimeout(resolve, 250);
+    });
+  }
+};
 
 const waitForReload = (reloads, file, timeout = 10000) =>
   new Promise((resolve, reject) => {
@@ -126,7 +115,14 @@ describe("static watching and output.path", () => {
     };
 
     await server.start();
-    await waitForWatchers(server.staticWatchers);
+
+    // chokidar drops events raised before its initial scan finishes, so a write
+    // sent too early is simply lost and the absence of a reload would prove
+    // nothing. Rewriting the control file until the watcher answers establishes
+    // that it is live, which neither `getWatched()` nor a late `ready` listener
+    // can: the first fills in during the scan, the second has already fired.
+    await waitUntilWatching(reloads, outsideOutput);
+    reloads.length = 0;
   });
 
   after(async () => {
