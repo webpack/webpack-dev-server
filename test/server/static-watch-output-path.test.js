@@ -8,7 +8,7 @@ import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import portsMap from "../ports-map.js";
 
-const port = portsMap["static-watch-output-path"];
+const [port, rootOutputPort] = portsMap["static-watch-output-path"];
 
 // The ignored file is rewritten this many times, this far apart, so that the
 // window spans several seconds. A single write could land while chokidar is
@@ -154,6 +154,52 @@ describe("static watching and output.path", () => {
     }
 
     expect(reloads).toHaveLength(0);
+  });
+
+  it("should keep watching when output.path contains the static directory", async () => {
+    // `output.path` defaults to `/` under an in-memory filesystem and is
+    // routinely left there, and every static directory is inside it. Treating
+    // that as output would stop watching everything.
+    const { root } = path.parse(tempDirectory);
+    const rootOutputCompiler = webpack({
+      mode: "development",
+      context: tempDirectory,
+      entry: "./entry.js",
+      output: { path: root },
+      infrastructureLogging: { level: "none" },
+      stats: "none",
+    });
+    const rootOutputServer = new Server(
+      {
+        static: { directory: tempDirectory, watch: true },
+        port: rootOutputPort,
+      },
+      rootOutputCompiler,
+    );
+
+    /** @type {string[]} */
+    const rootOutputReloads = [];
+    const sendMessage = rootOutputServer.sendMessage.bind(rootOutputServer);
+
+    rootOutputServer.sendMessage = (clients, type, data) => {
+      if (type === "static-changed") {
+        rootOutputReloads.push(String(data));
+      }
+
+      return sendMessage(clients, type, data);
+    };
+
+    await rootOutputServer.start();
+
+    try {
+      await waitUntilWatching(rootOutputReloads, outsideOutput);
+
+      expect(rootOutputReloads).toContain(outsideOutput);
+    } finally {
+      await rootOutputServer.stop();
+      // the first server watches the same directory, so it saw those writes too
+      reloads.length = 0;
+    }
   });
 
   it("should still reload for the rest of the static directory", async () => {
