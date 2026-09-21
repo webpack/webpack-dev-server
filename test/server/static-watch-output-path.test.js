@@ -8,7 +8,8 @@ import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import portsMap from "../ports-map.js";
 
-const [port, rootOutputPort] = portsMap["static-watch-output-path"];
+const [port, rootOutputPort, relativeDirectoryPort] =
+  portsMap["static-watch-output-path"];
 
 // The ignored file is rewritten this many times, this far apart, so that the
 // window spans several seconds. A single write could land while chokidar is
@@ -37,6 +38,29 @@ const waitUntilWatching = async (reloads, file, timeout = 20000) => {
     await fsPromises.writeFile(file, `warm-up ${Date.now()}`);
     await sleep(REWRITE_INTERVAL_MS);
   }
+};
+
+// The watched set fills in as chokidar scans and is empty right after `start()`,
+// so it is polled until it has something and then given a moment to finish.
+// Paths are resolved because a relative `static.directory` is reported as given.
+const watchedDirectories = async (server, timeout = 20000) => {
+  const collect = () =>
+    server.staticWatchers
+      .flatMap((watcher) => Object.keys(watcher.getWatched()))
+      .map((watchedPath) => path.resolve(watchedPath));
+  const started = Date.now();
+
+  while (collect().length === 0) {
+    if (Date.now() - started > timeout) {
+      throw new Error("the static watcher never reported a watched directory");
+    }
+
+    await sleep(REWRITE_INTERVAL_MS);
+  }
+
+  await sleep(2000);
+
+  return collect();
 };
 
 const waitForReload = (reloads, file, timeout = 10000) =>
@@ -199,6 +223,39 @@ describe("static watching and output.path", () => {
       await rootOutputServer.stop();
       // the first server watches the same directory, so it saw those writes too
       reloads.length = 0;
+    }
+  });
+
+  it("should exclude the output path when the static directory is relative", async () => {
+    // `static.directory` is taken as given, so it can be relative while
+    // `outputPath` and the watcher's own paths are absolute. Comparing them
+    // unresolved makes the exclusion quietly match nothing.
+    const relativeDirectory = path.relative(process.cwd(), tempDirectory);
+    const relativeCompiler = webpack({
+      mode: "development",
+      context: tempDirectory,
+      entry: "./entry.js",
+      output: { path: outputPath },
+      infrastructureLogging: { level: "none" },
+      stats: "none",
+    });
+    const relativeServer = new Server(
+      {
+        static: { directory: relativeDirectory, watch: true },
+        port: relativeDirectoryPort,
+      },
+      relativeCompiler,
+    );
+
+    await relativeServer.start();
+
+    try {
+      const watched = await watchedDirectories(relativeServer);
+
+      expect(watched).toContain(tempDirectory);
+      expect(watched).not.toContain(outputPath);
+    } finally {
+      await relativeServer.stop();
     }
   });
 
