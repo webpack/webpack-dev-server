@@ -49,4 +49,13 @@ export default defineConfig([
       "import/no-unresolved": "off",
     },
   },
+  {
+    // `webpack-dev-middleware/client/ws` is a subpath of that package's
+    // `exports` map, which the import resolver cannot follow either. TypeScript
+    // does resolve it, so `lint:types-client` still covers the import.
+    files: ["client-src/clients/WebSocketClient.js"],
+    rules: {
+      "import/no-unresolved": "off",
+    },
+  },
 ]);
