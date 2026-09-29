@@ -57,7 +57,7 @@ export default defineConfig([
     files: [
       "client-src/clients/EventSourceClient.js",
       "client-src/clients/WebSocketClient.js",
-      "client-src/overlay.js",
+      "client-src/index.js",
     ],
     rules: {
       "import/no-unresolved": "off",
