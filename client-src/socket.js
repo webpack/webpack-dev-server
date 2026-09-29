@@ -82,9 +82,22 @@ function socket(url, handlers, reconnect) {
      * @param {EXPECTED_ANY} data data
      */
     (data) => {
-      const message = JSON.parse(data);
+      /** @type {EXPECTED_ANY} */
+      let message;
 
-      if (handlers[message.type]) {
+      try {
+        message = JSON.parse(data);
+      } catch {
+        // Not everything on the wire is one of ours. A Server-Sent Events
+        // endpoint keeps the connection alive by sending something at an
+        // interval, and it has to be a `data:` frame rather than a comment,
+        // or the client's own watchdog would count a quiet connection as a
+        // dead one. Anything unreadable is left alone rather than thrown
+        // from a handler nobody catches.
+        return;
+      }
+
+      if (message && handlers[message.type]) {
         handlers[message.type](message.data, message.params);
       }
     },

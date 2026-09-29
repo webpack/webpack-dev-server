@@ -114,7 +114,7 @@ const getCurrentScriptSource = () => {
   throw new Error("[webpack-dev-server] Failed to get current script source.");
 };
 
-/** @typedef {{ hot?: string, ["live-reload"]?: string, progress?: string, reconnect?: string, logging?: LogLevel, overlay?: string, fromCurrentScript?: boolean }} AdditionalParsedURL */
+/** @typedef {{ hot?: string, ["live-reload"]?: string, progress?: string, reconnect?: string, logging?: LogLevel, overlay?: string, transport?: string, fromCurrentScript?: boolean }} AdditionalParsedURL */
 /** @typedef {Partial<URL> & AdditionalParsedURL} ParsedURL */
 
 /**
@@ -752,10 +752,15 @@ const createSocketURL = (parsedURL) => {
     socketURLProtocol = self.location.protocol;
   }
 
-  socketURLProtocol = socketURLProtocol.replace(
-    /^(?:http|.+-extension|file)/i,
-    "ws",
-  );
+  // Server-Sent Events travel over plain HTTP, so the scheme is already the
+  // right one. Everything else is a WebSocket, whose schemes map one to one
+  // onto the HTTP ones.
+  if (parsedURL.transport !== "sse") {
+    socketURLProtocol = socketURLProtocol.replace(
+      /^(?:http|.+-extension|file)/i,
+      "ws",
+    );
+  }
 
   let socketURLAuth = "";
 
