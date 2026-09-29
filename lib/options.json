@@ -193,7 +193,7 @@
       "link": "https://webpack.js.org/configuration/dev-server/#websockettransport"
     },
     "ClientWebSocketTransportEnum": {
-      "enum": ["ws"]
+      "enum": ["ws", "sse"]
     },
     "ClientWebSocketTransportString": {
       "type": "string",
@@ -918,7 +918,7 @@
           }
         },
         {
-          "enum": ["ws"],
+          "enum": ["ws", "sse"],
           "cli": {
             "exclude": true
           }
