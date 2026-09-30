@@ -116,6 +116,26 @@ describe("'createSocketURL' function", () => {
     [null, "file:///home/user/project/index.html", "ws://localhost/ws"],
     [null, "chrome-extension://localhost/", "ws://localhost/ws"],
     [null, "file://localhost/", "ws://localhost/ws"],
+    [
+      "?protocol=ws:&hostname=0.0.0.0&port=0",
+      "blob:https://example.com/worker-id",
+      "wss://example.com/ws",
+    ],
+    [
+      "?protocol=ws:&hostname=0.0.0.0&port=0",
+      "blob:http://localhost:8080/worker-id",
+      "ws://localhost:8080/ws",
+    ],
+    [
+      "?hostname=0.0.0.0",
+      "blob:https://example.com:8443/worker-id",
+      "wss://example.com:8443/ws",
+    ],
+    [
+      "?hostname=example.com&port=9000",
+      "blob:https://localhost/worker-id",
+      "wss://example.com:9000/ws",
+    ],
   ];
 
   for (const [__resourceQuery, location, expected] of samples) {

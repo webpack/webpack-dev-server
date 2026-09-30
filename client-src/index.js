@@ -724,6 +724,13 @@ const formatURL = (objURL) => {
  * @returns {string} socket URL
  */
 const createSocketURL = (parsedURL) => {
+  // Blob workers have an empty hostname; their origin is the page that created them.
+  const pageLocation =
+    self.location.protocol === "blob:" &&
+    self.location.origin &&
+    self.location.origin !== "null"
+      ? new URL(self.location.origin)
+      : self.location;
   let { hostname } = parsedURL;
 
   // Node.js module parses it as `::`
@@ -736,20 +743,20 @@ const createSocketURL = (parsedURL) => {
   // see: https://github.com/webpack/webpack-dev-server/pull/384
   if (
     isInAddrAny &&
-    self.location.hostname &&
-    self.location.protocol.indexOf("http") === 0
+    pageLocation.hostname &&
+    pageLocation.protocol.indexOf("http") === 0
   ) {
-    hostname = self.location.hostname;
+    hostname = pageLocation.hostname;
   }
 
-  let socketURLProtocol = parsedURL.protocol || self.location.protocol;
+  let socketURLProtocol = parsedURL.protocol || pageLocation.protocol;
 
   // When https is used in the app, secure web sockets are always necessary because the browser doesn't accept non-secure web sockets.
   if (
     socketURLProtocol === "auto:" ||
-    (hostname && isInAddrAny && self.location.protocol === "https:")
+    (hostname && isInAddrAny && pageLocation.protocol === "https:")
   ) {
-    socketURLProtocol = self.location.protocol;
+    socketURLProtocol = pageLocation.protocol;
   }
 
   socketURLProtocol = socketURLProtocol.replace(
@@ -796,14 +803,14 @@ const createSocketURL = (parsedURL) => {
   // so we need to fall back to the default if they are not provided
   const socketURLHostname = (
     hostname ||
-    self.location.hostname ||
+    pageLocation.hostname ||
     "localhost"
   ).replace(/^\[(.*)\]$/, "$1");
 
   let socketURLPort = parsedURL.port;
 
   if (!socketURLPort || socketURLPort === "0") {
-    socketURLPort = self.location.port;
+    socketURLPort = pageLocation.port;
   }
 
   // If path is provided it'll be passed in via the resourceQuery as a
