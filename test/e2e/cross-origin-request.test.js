@@ -1,5 +1,7 @@
 import http from "node:http";
+import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
+import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
@@ -454,10 +456,94 @@ describe("cross-site request forgery on state-changing endpoints", () => {
     expect(res.status).toBe(403);
   });
 
-  it("should allow requests without Sec-Fetch metadata or Origin (e.g. curl)", async () => {
+  // This used to be allowed, on the reasoning that a request with no `Origin`
+  // was not sent by another origin's script. It can be: a browser omits Fetch
+  // Metadata for a destination that is not potentially trustworthy — plain
+  // `http` to anything but `localhost` — and a no-cors request such as
+  // `<img src>` carries no `Origin` either, so a cross-site load arrives with
+  // neither header. Refusing costs `curl` access to these two endpoints,
+  // which was never documented, and closes that.
+  it("should block requests carrying neither Sec-Fetch metadata nor Origin", async () => {
     const res = await request("/webpack-dev-server/invalidate");
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(403);
+  });
+});
+
+// Passing the caller check says who may ask; it says nothing about which file.
+// The reference the overlay sends is webpack's module identifier, out of a
+// build error whose text a loader or a dependency wrote, so it is not
+// necessarily a file this project built — and the endpoint hands it to an
+// editor.
+describe("which file /open-editor will open", () => {
+  const devServerPort = port1;
+  const fixtures = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../fixtures/client-config",
+  );
+
+  let server;
+
+  beforeEach(async () => {
+    const compiler = webpack(config);
+
+    server = new Server(
+      { port: devServerPort, allowedHosts: "auto" },
+      compiler,
+    );
+
+    await server.start();
+  });
+
+  afterEach(async () => {
+    if (server) {
+      await server.stop();
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
+      });
+      server = null;
+    }
+  });
+
+  /**
+   * @param {string} fileName the reference to send
+   * @returns {Promise<number>} the status code
+   */
+  function open(fileName) {
+    return new Promise((resolve, reject) => {
+      const req = http.get(
+        `http://localhost:${devServerPort}/webpack-dev-server/open-editor?fileName=${encodeURIComponent(fileName)}`,
+        { headers: { "sec-fetch-site": "same-origin" } },
+        (res) => {
+          res.resume();
+          res.on("end", () => resolve(/** @type {number} */ (res.statusCode)));
+        },
+      );
+
+      req.on("error", reject);
+    });
+  }
+
+  it("opens a file the build read", async () => {
+    expect(await open(path.join(fixtures, "foo.js"))).toBe(200);
+  });
+
+  it("opens one named through its loader chain", async () => {
+    expect(await open(`babel-loader!${path.join(fixtures, "foo.js")}`)).toBe(
+      200,
+    );
+  });
+
+  it("refuses a file in the project the build never read", async () => {
+    expect(await open(path.join(fixtures, "not-an-entry.js"))).toBe(403);
+  });
+
+  it("refuses one outside the project", async () => {
+    expect(await open("/etc/passwd")).toBe(403);
+  });
+
+  it("refuses a traversal that lands outside", async () => {
+    expect(await open(path.join(fixtures, "../../../../etc/passwd"))).toBe(403);
   });
 });
 
