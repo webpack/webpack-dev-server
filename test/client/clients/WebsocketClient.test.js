@@ -4,10 +4,8 @@ import http from "node:http";
 import { after, before, describe, it } from "node:test";
 import { expect } from "expect";
 import express from "express";
-import { spyOn } from "jest-mock";
 import WebSocket, { WebSocketServer } from "ws";
 import WebSocketClient from "../../../client-src/clients/WebSocketClient.js";
-import { log } from "../../../client-src/utils/log.js";
 import portsMap from "../../ports-map.js";
 
 // jsdom's built-in WebSocket stays in CONNECTING for unreachable URLs (good
@@ -19,10 +17,13 @@ globalThis.WebSocket = WebSocket;
 
 const port = portsMap["web-socket-client"];
 
+// The transport itself comes from webpack-dev-middleware, which tests its own
+// internals. What is this package's to check is that the module it points
+// `client.webSocketTransport: "ws"` at really answers the contract the rest of
+// the client is written against — against a real server, not a stub.
 describe("WebsocketClient", () => {
   let socketServer;
   let server;
-  let logErrorSpy;
 
   before(
     () =>
@@ -44,7 +45,6 @@ describe("WebsocketClient", () => {
   after(
     () =>
       new Promise((resolve) => {
-        logErrorSpy.mockRestore();
         server.close(() => {
           resolve();
         });
@@ -53,9 +53,7 @@ describe("WebsocketClient", () => {
 
   describe("client", () => {
     it("should open, receive message, and close", async (t) => {
-      logErrorSpy = spyOn(log, "error").mockImplementation();
-
-      socketServer.on("connection", (connection) => {
+      socketServer.once("connection", (connection) => {
         connection.send("hello world");
 
         setTimeout(() => {
@@ -76,18 +74,44 @@ describe("WebsocketClient", () => {
         data.push(msg);
       });
 
-      const testError = new Error("test");
-
-      client.client.onerror(testError);
-
-      expect(log.error.mock.calls).toHaveLength(1);
-      expect(log.error.mock.calls[0]).toEqual([testError]);
-
       await new Promise((resolve) => {
         setTimeout(resolve, 3000);
       });
 
       t.assert.snapshot(data);
+    });
+
+    it("should say nothing after it was closed", async () => {
+      socketServer.once("connection", (connection) => {
+        setTimeout(() => {
+          connection.send("too late");
+          connection.close();
+        }, 500);
+      });
+
+      const client = new WebSocketClient(`ws://localhost:${port}/ws-server`);
+      const data = [];
+
+      client.onMessage((msg) => {
+        data.push(msg);
+      });
+      client.onClose(() => {
+        data.push("close");
+      });
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 200);
+      });
+
+      // Closing is how `socket.js` gives up, and a close it asked for must not
+      // come back as one to reconnect from.
+      client.close();
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1500);
+      });
+
+      expect(data).toEqual([]);
     });
   });
 });

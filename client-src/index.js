@@ -3,7 +3,11 @@
 import hotEmitter from "webpack/hot/emitter.js";
 // @ts-expect-error
 import webpackHotLog from "webpack/hot/log.js";
-import { createOverlay, formatProblem } from "./overlay.js";
+import configureOverlay, {
+  clear as clearOverlay,
+  formatProblem,
+  showProblems,
+} from "webpack-dev-middleware/client/overlay";
 import { defineProgressElement, isProgressSupported } from "./progress.js";
 import socket from "./socket.js";
 import { log, setLogLevel } from "./utils/log.js";
@@ -114,7 +118,7 @@ const getCurrentScriptSource = () => {
   throw new Error("[webpack-dev-server] Failed to get current script source.");
 };
 
-/** @typedef {{ hot?: string, ["live-reload"]?: string, progress?: string, reconnect?: string, logging?: LogLevel, overlay?: string, fromCurrentScript?: boolean }} AdditionalParsedURL */
+/** @typedef {{ hot?: string, ["live-reload"]?: string, progress?: string, reconnect?: string, logging?: LogLevel, overlay?: string, transport?: string, fromCurrentScript?: boolean }} AdditionalParsedURL */
 /** @typedef {Partial<URL> & AdditionalParsedURL} ParsedURL */
 
 /**
@@ -313,20 +317,28 @@ self.addEventListener("pageshow", () => {
   status.isUnloading = false;
 });
 
-const overlay =
-  typeof window !== "undefined"
-    ? createOverlay(
-        typeof options.overlay === "object"
-          ? {
-              trustedTypesPolicyName: options.overlay.trustedTypesPolicyName,
-              catchRuntimeError: options.overlay.runtimeErrors,
-            }
-          : {
-              trustedTypesPolicyName: false,
-              catchRuntimeError: options.overlay,
-            },
-      )
-    : { send: () => {} };
+// The overlay is webpack-dev-middleware's. What stays here is this package's
+// own identity on top of it: the element id anything querying the overlay
+// knows, the Trusted Types policy name a page's CSP allowlists, and the route
+// this package serves for opening a file in an editor.
+if (typeof window !== "undefined") {
+  configureOverlay({
+    id: "webpack-dev-server-client-overlay",
+    openEditorEndpoint: "/webpack-dev-server/open-editor",
+    trustedTypesPolicyName:
+      (typeof options.overlay === "object" &&
+        options.overlay.trustedTypesPolicyName) ||
+      "webpack-dev-server#overlay",
+    catchRuntimeError:
+      typeof options.overlay === "object"
+        ? options.overlay.runtimeErrors
+        : options.overlay,
+  });
+}
+
+// Build problems live under one source, so a clean build drops them without
+// touching runtime errors — those are the overlay's own slot.
+const BUILD_PROBLEMS = "";
 
 /**
  * @param {Options} options options
@@ -454,7 +466,7 @@ const onSocketMessage = {
     // A rebuild replaces the code a runtime error came from too, so unlike
     // `ok`/`still-ok` this clears that overlay as well.
     if (options.overlay) {
-      overlay.send({ type: "DISMISS" });
+      clearOverlay();
     }
 
     sendMessage("Invalid");
@@ -523,7 +535,7 @@ const onSocketMessage = {
     log.info("Nothing changed.");
 
     if (options.overlay) {
-      overlay.send({ type: "BUILD_OK" });
+      clearOverlay(BUILD_PROBLEMS);
     }
 
     sendMessage("StillOk");
@@ -532,7 +544,7 @@ const onSocketMessage = {
     sendMessage("Ok");
 
     if (options.overlay) {
-      overlay.send({ type: "BUILD_OK" });
+      clearOverlay(BUILD_PROBLEMS);
     }
 
     reloadApp(options, status);
@@ -579,13 +591,7 @@ const onSocketMessage = {
           ? warnings.filter(overlayWarningsSetting)
           : warnings;
 
-      if (warningsToDisplay.length) {
-        overlay.send({
-          type: "BUILD_ERROR",
-          level: "warning",
-          messages: warningsToDisplay,
-        });
-      }
+      showProblems("warnings", warningsToDisplay, BUILD_PROBLEMS);
     }
 
     if (params && params.preventReloading) {
@@ -623,13 +629,7 @@ const onSocketMessage = {
           ? errors.filter(overlayErrorsSettings)
           : errors;
 
-      if (errorsToDisplay.length) {
-        overlay.send({
-          type: "BUILD_ERROR",
-          level: "error",
-          messages: errorsToDisplay,
-        });
-      }
+      showProblems("errors", errorsToDisplay, BUILD_PROBLEMS);
     }
   },
   /**
@@ -642,7 +642,7 @@ const onSocketMessage = {
     log.info("Disconnected!");
 
     if (options.overlay) {
-      overlay.send({ type: "DISMISS" });
+      clearOverlay();
     }
 
     sendMessage("Close");
@@ -752,10 +752,15 @@ const createSocketURL = (parsedURL) => {
     socketURLProtocol = self.location.protocol;
   }
 
-  socketURLProtocol = socketURLProtocol.replace(
-    /^(?:http|.+-extension|file)/i,
-    "ws",
-  );
+  // Server-Sent Events travel over plain HTTP, so the scheme is already the
+  // right one. Everything else is a WebSocket, whose schemes map one to one
+  // onto the HTTP ones.
+  if (parsedURL.transport !== "sse") {
+    socketURLProtocol = socketURLProtocol.replace(
+      /^(?:http|.+-extension|file)/i,
+      "ws",
+    );
+  }
 
   let socketURLAuth = "";
 
