@@ -29,9 +29,10 @@ const SHIMS = {
   "overlay.js": "webpack-dev-middleware/client/overlay",
   // The progress indicator, named `indicator` there.
   "progress.js": "webpack-dev-middleware/client/indicator",
-  // What `client.webSocketTransport: "ws"` used to resolve to, and what a
-  // transport of someone else's extends.
+  // What `client.webSocketTransport` resolves to for each built-in transport,
+  // and what a transport of someone else's extends.
   "clients/WebSocketClient.js": "webpack-dev-middleware/client/ws",
+  "clients/EventSourceClient.js": "webpack-dev-middleware/client/sse",
 };
 
 /**
