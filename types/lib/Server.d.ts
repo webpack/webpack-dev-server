@@ -177,6 +177,13 @@ export type WebSocketServerImplementation = {
   implementation: WebSocketServer;
   clients: ClientConnection[];
 };
+/**
+ * A client the hot endpoint handed over, of either transport: a WebSocket, or
+ * the event stream's response. Neither one's write or close method exists on
+ * the other, which is why anything handling both goes through the middleware
+ * or asks before calling.
+ */
+export type HotClient = ClientConnection | ServerResponse;
 export type ProxyConfigArrayItem = {
   path?: HttpProxyMiddlewareOptionsFilter | undefined;
   context?: HttpProxyMiddlewareOptionsFilter | undefined;
@@ -1565,12 +1572,6 @@ declare class Server<
   private isPlugin;
   /**
    * @private
-   * @param {Compiler} compiler compiler
-   * @returns {Promise<void>}
-   */
-  private addAdditionalEntries;
-  /**
-   * @private
    * @returns {Compiler["options"]} compiler options
    */
   private getCompilerOptions;
@@ -1580,24 +1581,24 @@ declare class Server<
    */
   private normalizeOptions;
   /**
+   * The runtime module named by `client.webSocketTransport`, when it names one
+   * of someone else's.
+   *
+   * `"ws"` is webpack-dev-middleware's own client, which it points at itself
+   * through the entry query, so there is nothing to resolve and nothing to
+   * provide. Anything else is a module to hand the runtime through
+   * `__webpack_dev_server_client__`, which is how that option has always
+   * worked.
    * @private
-   * @returns {string} client transport
+   * @returns {string | undefined} the resolved module, or nothing when the middleware's own client is used
    */
-  private getClientTransport;
+  private getCustomClientTransport;
   /**
    * @template T
    * @private
    * @returns {Promise<T>} server transport
    */
   private getServerTransport;
-  /**
-   * @returns {string}
-   */
-  getClientEntry(): string;
-  /**
-   * @returns {string | void} client hot entry
-   */
-  getClientHotEntry(): string | void;
   /**
    * @private
    * @returns {void}
@@ -1668,12 +1669,30 @@ declare class Server<
   server: S | undefined;
   isTlsServer: boolean | undefined;
   /**
+   * The hot options handed to webpack-dev-middleware.
+   *
+   * A `webSocketServer` naming an implementation of its own — a class, or a
+   * module that exports one — or giving the socket a port or a server of its
+   * own is wrapped into the shape the middleware asks a custom transport for.
+   * The middleware does not offer those, and this server has documented them
+   * since v4, so they keep working with one path from a build to a page
+   * rather than two.
    * @private
-   * @returns {Promise<void>}
+   * @returns {Promise<EXPECTED_ANY>} the middleware's `hot` option
    */
-  private createWebSocketServer;
-  /** @type {WebSocketServerImplementation | undefined | null} */
-  webSocketServer: WebSocketServerImplementation | undefined | null;
+  private getHotOptions;
+  webSocketServer: any;
+  /**
+   * Judge every client that reaches the hot endpoint.
+   *
+   * The middleware hands over each connection and the request it joined with,
+   * and applies no policy of its own. This is that policy: the same
+   * `allowedHosts`, `Origin` and same-origin rules this server has always
+   * applied, in the same order, before anything is published to a client.
+   * @private
+   * @returns {void}
+   */
+  private guardHotEndpoint;
   /**
    * @private
    * @param {string} defaultOpenTarget default open target
@@ -1746,13 +1765,6 @@ declare class Server<
     data?: EXPECTED_ANY | undefined,
     params?: EXPECTED_ANY | undefined,
   ): void;
-  /**
-   * @private
-   * @param {ClientConnection[]} clients clients
-   * @param {StatsCompilation} stats stats
-   * @param {boolean=} force force
-   */
-  private sendStats;
   /**
    * @param {string | string[]} watchPath watch path
    * @param {WatchOptions=} watchOptions watch options
