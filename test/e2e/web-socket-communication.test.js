@@ -210,7 +210,10 @@ describe("web socket communication", () => {
       ws.on("message", (data) => {
         const message = JSON.parse(data);
 
-        if (message.type === "ok") {
+        // The catch-up a newly connected client is sent: `sync` is a build it
+        // is already running, `built` one it is not. Either says the socket
+        // carries what the compiler knows.
+        if (message.action === "sync" || message.action === "built") {
           received = true;
         }
       });

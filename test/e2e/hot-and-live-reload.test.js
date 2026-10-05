@@ -165,7 +165,11 @@ describe("hot and live reload", () => {
       title: "should work with manual client setup",
       webpackOptions: {
         entry: [
-          fileURLToPath(import.meta.resolve("../../client-src/index.js")),
+          // A client wired by hand, through this package's published path —
+          // which is webpack-dev-middleware's client re-exported. Nothing is
+          // injected for it, so its query says where to connect and what to
+          // speak; the server no longer pushes that after the handshake.
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -184,7 +188,7 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           "webpack/hot/dev-server",
-          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=true`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=hmr`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -205,7 +209,7 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable hot module replacement",
       webpackOptions: {
         entry: [
-          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?hot=false`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=reload`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -222,7 +226,7 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to enable live reload",
       webpackOptions: {
         entry: [
-          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=true`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=reload`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -239,7 +243,7 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable live reload",
       webpackOptions: {
         entry: [
-          `${fileURLToPath(import.meta.resolve("../../client-src/index.js"))}?live-reload=false`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=nothing`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -317,7 +321,10 @@ describe("hot and live reload", () => {
         ws.on("message", (data) => {
           const message = JSON.parse(data);
 
-          if (message.type === "ok") {
+          // The catch-up a newly connected client is sent, or the build that
+          // followed: `sync` is one the page is already running, `built` one
+          // it is not.
+          if (message.action === "sync" || message.action === "built") {
             received = true;
 
             ws.close();

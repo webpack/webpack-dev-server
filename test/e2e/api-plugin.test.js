@@ -221,17 +221,17 @@ describe("API (plugin)", () => {
 
       ws.on("error", reject);
       ws.on("message", (raw) => {
-        const { type } = JSON.parse(raw.toString());
-        // Wait for the initial "ok" (sent right after the WS handshake),
-        // then trigger an invalidation. The server's `compiler.hooks.invalid`
-        // tap should push an "invalid" message before the next compile
-        // finishes.
-        if (!initialOkSeen && type === "ok") {
+        const { action } = JSON.parse(raw.toString());
+        // Wait for the catch-up sent right after the WS handshake, then
+        // trigger an invalidation. The middleware taps
+        // `compiler.hooks.invalid` and publishes `building` before the next
+        // compile finishes.
+        if (!initialOkSeen && (action === "sync" || action === "built")) {
           initialOkSeen = true;
           watching.invalidate();
           return;
         }
-        if (type === "invalid") {
+        if (action === "building") {
           ws.close();
           resolve(true);
         }
@@ -263,9 +263,9 @@ describe("API (plugin)", () => {
 
       ws.on("error", reject);
       ws.on("message", (raw) => {
-        const { type } = JSON.parse(raw.toString());
+        const { action } = JSON.parse(raw.toString());
 
-        if (!initialOkSeen && type === "ok") {
+        if (!initialOkSeen && (action === "sync" || action === "built")) {
           initialOkSeen = true;
           // Must invalidate the host's `watching` (the middleware has none in
           // plugin mode) instead of throwing.
@@ -273,7 +273,7 @@ describe("API (plugin)", () => {
           return;
         }
 
-        if (type === "invalid") {
+        if (action === "building") {
           ws.close();
           resolve(true);
         }
@@ -305,9 +305,9 @@ describe("API (plugin)", () => {
 
       ws.on("error", reject);
       ws.on("message", (raw) => {
-        const { type } = JSON.parse(raw.toString());
+        const { action } = JSON.parse(raw.toString());
 
-        if (!initialOkSeen && type === "ok") {
+        if (!initialOkSeen && (action === "sync" || action === "built")) {
           initialOkSeen = true;
           // Hit the route as a browser would (same-origin, so it passes the
           // cross-origin check) — it must trigger a rebuild, not crash.
@@ -326,7 +326,7 @@ describe("API (plugin)", () => {
           return;
         }
 
-        if (type === "invalid") {
+        if (action === "building") {
           ws.close();
           resolve(true);
         }

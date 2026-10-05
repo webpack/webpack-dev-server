@@ -11,17 +11,11 @@ export default defineConfig([
   ]),
   {
     extends: [config],
-    ignores: ["client-src/**/*", "!client-src/webpack.config.js"],
     rules: {
       // TODO fix me
       "prefer-destructuring": "off",
       "jsdoc/require-property-description": "off",
     },
-  },
-  {
-    files: ["client-src/**/*"],
-    ignores: ["client-src/webpack.config.js"],
-    extends: [configs["browser-outdated-recommended"]],
   },
   {
     files: ["test/**/*"],

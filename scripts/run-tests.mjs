@@ -25,7 +25,6 @@ for (let i = 0; i < process.argv.length; i++) {
 const PATTERNS = [
   "test/*.test.js",
   "test/cli/**/*.test.js",
-  "test/client/**/*.test.js",
   "test/e2e/**/*.test.js",
   "test/server/**/*.test.js",
 ];
