@@ -83,6 +83,8 @@ const listOfTests = {
   "harness-server-cleanup": 1,
   "event-source": 2,
   compatibility: 2,
+  "react-refresh": 1,
+  "universal-target": 1,
 };
 
 let startPort = 8089;

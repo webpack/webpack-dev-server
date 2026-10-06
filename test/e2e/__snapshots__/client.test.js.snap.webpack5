@@ -51,3 +51,7 @@ exports[`client option > should respect path option > responds with a websocket 
 exports[`client option > should respect path option > responds with a websocket with the /foo/test/bar path 3`] = `
 []
 `;
+
+exports[`client option > override client entry > should disable client entry 1`] = `
+200
+`;

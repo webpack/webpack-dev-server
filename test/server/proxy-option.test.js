@@ -722,7 +722,7 @@ describe("proxy option", () => {
         ws.on("message", (raw) => {
           const parsed = JSON.parse(raw.toString());
           messages.push(parsed);
-          if (parsed.action === "sync" || parsed.action === "built") {
+          if (parsed.type === "hot") {
             clearTimeout(timer);
             resolve();
           }
@@ -742,9 +742,7 @@ describe("proxy option", () => {
         setTimeout(resolve, 300);
       });
 
-      expect(
-        messages.some((m) => m.action === "sync" || m.action === "built"),
-      ).toBe(true);
+      expect(messages.some((m) => m.type === "hot")).toBe(true);
       expect(messages.some((m) => m.type === BACKEND_MESSAGE_TYPE)).toBe(false);
       expect(backendUpgradeCount).toBe(0);
     });
@@ -814,7 +812,7 @@ describe("proxy option", () => {
         ws.on("message", (raw) => {
           const parsed = JSON.parse(raw.toString());
           messages.push(parsed);
-          if (parsed.action === "sync" || parsed.action === "built") {
+          if (parsed.type === "hot") {
             clearTimeout(timer);
             resolve();
           }
@@ -841,9 +839,7 @@ describe("proxy option", () => {
         .join("\n");
 
       expect(hpmLines).toBe("");
-      expect(
-        messages.some((m) => m.action === "sync" || m.action === "built"),
-      ).toBe(true);
+      expect(messages.some((m) => m.type === "hot")).toBe(true);
     });
   });
 
