@@ -7,6 +7,7 @@ import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
 import sessionSubscribe from "../helpers/session-subscribe.js";
+import waitFor from "../helpers/wait-for.js";
 import portsMap from "../ports-map.js";
 
 const [port1, port2] = portsMap["web-socket-server-url"];
@@ -2198,6 +2199,16 @@ describe("web socket server URL", () => {
         await page.goto(`http://localhost:${port1}/`, {
           waitUntil: "networkidle0",
         });
+
+        // The name never resolves, and how long a machine takes to say so is
+        // its own: the page is idle before the answer comes. What the client
+        // says once it has given up on the first attempt is the end of what
+        // there is to record.
+        await waitFor(() =>
+          consoleMessages.some((message) =>
+            message.text().includes("Trying to reconnect"),
+          ),
+        );
 
         t.assert.snapshot(consoleMessages.map((message) => message.text()));
         t.assert.snapshot(
