@@ -285,16 +285,20 @@ describe("basic", () => {
       expect(stdout).toContain("foo.js");
     });
 
-    it('should prepends the hot runtime to "node" target as well', async () => {
+    // `webpack/hot/dev-server` used to be put in front of a build for node as
+    // well, where nothing was there to drive it: it listens for what the
+    // browser's client emits. A build for node is given neither now.
+    it('should not prepend the hot runtime to "node" target either', async () => {
       const { exitCode, stdout } = await testBin(
         ["--port", port, "--target", "node", "--hot"],
         {
-          outputKillStr: /webpack\/hot\/dev-server/,
+          outputKillStr: /foo\.js/,
         },
       );
 
       expect(exitCode).toBe(0);
-      expect(stdout).toContain("webpack/hot/dev-server");
+      expect(stdout).not.toContain("webpack/hot/dev-server");
+      expect(stdout).not.toContain("client/index.js?");
     });
 
     it("should prepend dev server entry points depending on targetProperties", async () => {
