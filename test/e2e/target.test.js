@@ -124,14 +124,17 @@ describe("target", () => {
         waitUntil: "networkidle0",
       });
 
-      // The worker posts its messages after the navigation has settled, so
-      // wait for both of them instead of snapshotting whichever ones happened
-      // to arrive first.
+      // The worker posts its messages, and its own client connects, after the
+      // navigation has settled, so wait for all of them instead of
+      // snapshotting whichever ones happened to arrive first.
+      const count = (term) =>
+        consoleMessages.filter((message) => message.text().includes(term))
+          .length;
+
       await waitFor(
         () =>
-          consoleMessages.filter((message) =>
-            message.text().includes("Worker said:"),
-          ).length === 2,
+          count("Worker said:") === 2 &&
+          count("[webpack-dev-server] connected") === 2,
       );
 
       t.assert.snapshot(
