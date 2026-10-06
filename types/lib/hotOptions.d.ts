@@ -51,6 +51,21 @@ export function clientPath({
   path,
 }: ClientPathInput): Record<string, string | number>;
 /**
+ * The query this server wrote after its client entry, for a subclass whose
+ * `getClientEntry()` names a module of its own: that module is put in `entry`
+ * with it, as it always was.
+ * TODO in the next major release remove this, along with `getClientEntry()`
+ * @param {{ devServerOptions: EXPECTED_ANY, isTlsServer: boolean }} options options
+ * @returns {string} the query, without the `?`
+ */
+export function clientEntryQuery({
+  devServerOptions,
+  isTlsServer,
+}: {
+  devServerOptions: EXPECTED_ANY;
+  isTlsServer: boolean;
+}): string;
+/**
  * A `client.overlay.errors` or `client.overlay.warnings` filter, as this
  * server documents it: called with a problem object and reading its
  * `message`. The middleware's overlay calls a filter with the problem's text,

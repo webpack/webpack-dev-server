@@ -14,25 +14,19 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const clientDir = path.join(root, "client");
 
-// Where each published path now comes from. Only the paths that have an
-// equivalent are kept: the rest of what `client-src/` built — the log and
-// sendMessage helpers, the bundled logger — were this client's own internals,
-// and the middleware's client has its own.
+// Where each published path now comes from. Only the paths something outside
+// this package uses are kept: the runtime written into `entry` by hand, the
+// connection React Refresh reads, and the transport a client of someone else's
+// extends. The rest of what `client-src/` built was this client's internals.
+// TODO in the next major release remove these, and the `./client/*` export
 const SHIMS = {
   // The runtime itself: what `entry` pointed at, and what the middleware now
-  // injects for us. Re-exported so a configuration that lists it by hand, or
-  // anything importing it for `setOptionsAndConnect`, still works.
+  // injects for us. Re-exported so a configuration that lists it by hand still
+  // works.
   "index.js": "webpack-dev-middleware/client",
-  // The overlay, which other tooling imports directly. The middleware's is
-  // the superset of the two, and keeps this project's element id when this
-  // server configures it.
-  "overlay.js": "webpack-dev-middleware/client/overlay",
-  // The progress indicator, named `indicator` there.
-  "progress.js": "webpack-dev-middleware/client/indicator",
-  // What `client.webSocketTransport` resolves to for each built-in transport,
-  // and what a transport of someone else's extends.
+  // What a transport of someone else's extends, and what
+  // `client.webSocketTransport: "ws"` always meant.
   "clients/WebSocketClient.js": "webpack-dev-middleware/client/ws",
-  "clients/EventSourceClient.js": "webpack-dev-middleware/client/sse",
   // The connection the runtime holds, as `client` — which is what
   // `@pmmmwh/react-refresh-webpack-plugin` reads its build messages from.
   "socket.js": "webpack-dev-middleware/client/socket",
@@ -53,17 +47,13 @@ const ENTRY_DEFAULTS = new URLSearchParams({
   progress: "false",
 }).toString();
 
-// Files that were ES modules with a default export a consumer imports by name:
-// a class to extend, a function to call. Imported from a CommonJS file, an ES
-// module is `module.exports` as a whole for anything that is itself an ES
-// module, so these hand back the default export instead, with the rest of what
-// the module exports attached to it — `import Client from "…"` gets the class,
-// `import { clear } from "…"` still gets the function.
-const DEFAULT_EXPORTS = new Set([
-  "overlay.js",
-  "clients/WebSocketClient.js",
-  "clients/EventSourceClient.js",
-]);
+// A file that was an ES module with a default export a consumer imports by
+// name: the class to extend. Imported from a CommonJS file, an ES module is its
+// namespace, so this hands back the default export itself, with the rest of
+// what the module exports read through to it and `default` pointing back at
+// it — `import Client from "…"`, `require("…").default` and named imports all
+// get what they did.
+const DEFAULT_EXPORTS = new Set(["clients/WebSocketClient.js"]);
 
 /**
  * @param {string} from the published path
@@ -71,17 +61,28 @@ const DEFAULT_EXPORTS = new Set([
  * @returns {string} the file to write
  */
 function shim(from, to) {
-  // ES5, with no `Object.assign`: these end up in the page's bundle, and a
-  // project targeting `["web", "es5"]` gets nothing newer from the client.
+  // ES5: these end up in the page's bundle, and a project targeting
+  // `["web", "es5"]` gets nothing newer from the client.
   const exported = DEFAULT_EXPORTS.has(from)
     ? `var exported = require("${to}");
 var result = exported.default;
 
-for (var key in exported) {
+Object.keys(exported).forEach(function (key) {
   if (key !== "default") {
-    result[key] = exported[key];
+    Object.defineProperty(result, key, {
+      configurable: true,
+      enumerable: true,
+      get: function () {
+        return exported[key];
+      },
+    });
   }
-}
+});
+
+Object.defineProperty(result, "default", {
+  configurable: true,
+  value: result,
+});
 
 module.exports = result;`
     : `module.exports = require("${to}");`;
@@ -111,10 +112,14 @@ function runtimeShim(from, to) {
 /* global __resourceQuery */
 var defaults = "?${ENTRY_DEFAULTS}";
 
-self.__webpack_dev_middleware_client_query__ =
-  typeof __resourceQuery === "string" && __resourceQuery.length > 1
-    ? defaults + "&" + __resourceQuery.slice(1)
-    : defaults;
+// A universal build runs this in Node too, which has no \`self\`; the client
+// does nothing there.
+if (typeof self !== "undefined") {
+  self.__webpack_dev_middleware_client_query__ =
+    typeof __resourceQuery === "string" && __resourceQuery.length > 1
+      ? defaults + "&" + __resourceQuery.slice(1)
+      : defaults;
+}
 
 module.exports = require("${to}");
 `;

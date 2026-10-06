@@ -1599,6 +1599,18 @@ declare class Server<
    */
   private getServerTransport;
   /**
+   * Whether a subclass names a client entry of its own.
+   * @private
+   * @returns {boolean} true when `getClientEntry()` is overridden
+   */
+  private hasOwnClientEntry;
+  /**
+   * Whether a subclass names a hot entry of its own.
+   * @private
+   * @returns {boolean} true when `getClientHotEntry()` is overridden
+   */
+  private hasOwnClientHotEntry;
+  /**
    * @deprecated webpack-dev-middleware adds the client entry now; this still
    * returns the path it always did, and goes away in the next major release.
    * @returns {string} the client entry
