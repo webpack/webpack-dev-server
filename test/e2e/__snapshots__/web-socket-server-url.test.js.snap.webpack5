@@ -1,7 +1,7 @@
 exports[`web socket server URL > should not work and output disconnect wrong web socket URL (\"ws\") 1`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://unknown.unknown:<port>/unknown' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "WebSocket connection to 'ws://unknown.unknown:<port>/unknown' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
   "[webpack-dev-server] Disconnected!",
 ]
 `;
@@ -13,7 +13,7 @@ exports[`web socket server URL > should not work and output disconnect wrong web
 exports[`web socket server URL > should work and throw an error on invalid web socket URL (\"ws\") 1`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://unknown.unknown:8099/unknown' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "WebSocket connection to 'ws://unknown.unknown:8099/unknown' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
 ]
@@ -59,9 +59,7 @@ exports[`web socket server URL > should work behind proxy, when hostnames are sa
 exports[`web socket server URL > should work behind proxy, when the \"host\" option is \"local-ip\" and the \"port\" option is \"auto\" (\"ws\") 1`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://192.0.2.2:40000/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
-  "[webpack-dev-server] Disconnected!",
-  "[webpack-dev-server] Trying to reconnect...",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -72,9 +70,7 @@ exports[`web socket server URL > should work behind proxy, when the \"host\" opt
 exports[`web socket server URL > should work when \"host\" option is IPv4 (\"ws\") 1`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://192.0.2.2:8099/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
-  "[webpack-dev-server] Disconnected!",
-  "[webpack-dev-server] Trying to reconnect...",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -85,9 +81,7 @@ exports[`web socket server URL > should work when \"host\" option is IPv4 (\"ws\
 exports[`web socket server URL > should work when \"host\" option is \"local-ip\" (\"ws\") 1`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://192.0.2.2:8099/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
-  "[webpack-dev-server] Disconnected!",
-  "[webpack-dev-server] Trying to reconnect...",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -98,9 +92,7 @@ exports[`web socket server URL > should work when \"host\" option is \"local-ip\
 exports[`web socket server URL > should work when \"host\" option is \"local-ipv4\" (\"ws\") 1`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://192.0.2.2:8099/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
-  "[webpack-dev-server] Disconnected!",
-  "[webpack-dev-server] Trying to reconnect...",
+  "[webpack-dev-server] connected",
 ]
 `;
 

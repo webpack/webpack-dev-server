@@ -365,3 +365,14 @@ exports[`allowed hosts > should disconnect web socket client using custom hostna
 exports[`allowed hosts > should disconnect web socket client using custom hostname from web socket server with the \"auto\" value based on the \"origin\" header (\"ws\") 2`] = `
 []
 `;
+
+exports[`allowed hosts > should connect web socket client using \"[::1] host to web socket server with the \"auto\" value (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect web socket client using \"[::1] host to web socket server with the \"auto\" value (\"ws\") 2`] = `
+[]
+`;

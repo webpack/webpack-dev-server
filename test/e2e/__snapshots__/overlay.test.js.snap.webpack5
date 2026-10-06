@@ -52,7 +52,10 @@ exports[`overlay > should not show initially, then show on an error and allow to
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -107,7 +110,10 @@ exports[`overlay > should not show initially, then show on an error and allow to
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -209,7 +215,10 @@ exports[`overlay > should not show initially, then show on an error, then hide o
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -264,7 +273,10 @@ exports[`overlay > should not show initially, then show on an error, then hide o
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -366,7 +378,10 @@ exports[`overlay > should not show initially, then show on an error, then show o
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -421,7 +436,10 @@ exports[`overlay > should not show initially, then show on an error, then show o
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -507,7 +525,10 @@ exports[`overlay > should not show initially, then show on an error, then show o
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -562,7 +583,10 @@ exports[`overlay > should not show initially, then show on an error, then show o
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -664,7 +688,10 @@ exports[`overlay > should show a warning after invalidation 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -719,7 +746,10 @@ exports[`overlay > should show a warning after invalidation 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -772,7 +802,10 @@ exports[`overlay > should show a warning and error for initial compilation 1`] =
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -827,7 +860,10 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -875,7 +911,10 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
           aria-label="Previous problem"
           data-control="previous"
           style="
-            border: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
             background: transparent;
             color: rgb(255, 51, 72);
             cursor: pointer;
@@ -891,7 +930,10 @@ exports[`overlay > should show a warning and error for initial compilation 2`] =
           aria-label="Next problem"
           data-control="next"
           style="
-            border: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
             background: transparent;
             color: rgb(255, 51, 72);
             cursor: pointer;
@@ -935,7 +977,10 @@ exports[`overlay > should show a warning and error for initial compilation and p
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -990,7 +1035,10 @@ exports[`overlay > should show a warning and error for initial compilation and p
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1043,7 +1091,10 @@ exports[`overlay > should show a warning and hide them after closing connection 
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1098,7 +1149,10 @@ exports[`overlay > should show a warning and hide them after closing connection 
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1159,7 +1213,10 @@ exports[`overlay > should show a warning for initial compilation 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1214,7 +1271,10 @@ exports[`overlay > should show a warning for initial compilation 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1267,7 +1327,10 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1322,7 +1385,10 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1375,7 +1441,10 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1430,7 +1499,10 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1483,7 +1555,10 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 1`]
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1538,7 +1613,10 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 2`]
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1591,7 +1669,10 @@ exports[`overlay > should show an ansi formatted error for initial compilation 1
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1646,7 +1727,10 @@ exports[`overlay > should show an ansi formatted error for initial compilation 2
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1704,7 +1788,10 @@ exports[`overlay > should show an error after invalidation 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1759,7 +1846,10 @@ exports[`overlay > should show an error after invalidation 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1812,7 +1902,10 @@ exports[`overlay > should show an error for initial compilation 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1867,7 +1960,10 @@ exports[`overlay > should show an error for initial compilation 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -1920,7 +2016,10 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -1975,7 +2074,10 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2028,7 +2130,10 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2083,7 +2188,10 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2136,7 +2244,10 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 1`] 
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2191,7 +2302,10 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 2`] 
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2276,7 +2390,10 @@ exports[`overlay > should show error for uncaught promise rejection 1`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2362,7 +2479,10 @@ exports[`overlay > should show error for uncaught runtime error 1`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2416,7 +2536,10 @@ exports[`overlay > should show error when it is not filtered 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2471,7 +2594,10 @@ exports[`overlay > should show error when it is not filtered 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2524,7 +2650,10 @@ exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2579,7 +2708,10 @@ exports[`overlay > should show overlay when Trusted Types are enabled 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2632,7 +2764,10 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2687,7 +2822,10 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2740,7 +2878,10 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2795,7 +2936,10 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;
@@ -2848,7 +2992,10 @@ exports[`overlay > should show warning when it is not filtered 1`] = `
       inset: 0px;
       width: 100vw;
       height: 100vh;
-      border: none;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
       z-index: 9999;
       background: rgba(43, 58, 66, 0.72);
     "
@@ -2903,7 +3050,10 @@ exports[`overlay > should show warning when it is not filtered 2`] = `
         position: absolute;
         top: 8px;
         right: 12px;
-        border: none;
+        border-width: medium;
+        border-style: none;
+        border-color: currentcolor;
+        border-image: none;
         background: transparent;
         color: rgb(153, 153, 153);
         font-size: 22px;

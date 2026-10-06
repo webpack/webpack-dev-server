@@ -39,7 +39,7 @@ exports[`API > Server.checkHostHeader > should allow URLs with scheme for checki
 exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the \"option.client.webSocketURL\" is object 3`] = `
 [
   "Hey.",
-  "WebSocket connection to 'ws://test.host:8157/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "WebSocket connection to 'ws://test.host:8157/ws' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
   "[webpack-dev-server] Disconnected!",
 ]
 `;
