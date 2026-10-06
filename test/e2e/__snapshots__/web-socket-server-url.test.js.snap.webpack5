@@ -1,10 +1,7 @@
 exports[`web socket server URL > should not work and output disconnect wrong web socket URL (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "WebSocket connection to 'ws://unknown.unknown:<port>/unknown' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
-  "[webpack-dev-server] JSHandle@object",
+  "WebSocket connection to 'ws://unknown.unknown:<port>/unknown' failed: Error during WebSocket handshake: Unexpected response code: 403",
   "[webpack-dev-server] Disconnected!",
 ]
 `;
@@ -15,21 +12,21 @@ exports[`web socket server URL > should not work and output disconnect wrong web
 
 exports[`web socket server URL > should work and throw an error on invalid web socket URL (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "Hey.",
+  "WebSocket connection to 'ws://unknown.unknown:8099/unknown' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
 exports[`web socket server URL > should work and throw an error on invalid web socket URL (\"ws\") 2`] = `
-[
-  "Failed to construct 'WebSocket': The URL's scheme must be either 'http', 'https', 'ws', or 'wss'. 'unknown' is not allowed.",
-]
+[]
 `;
 
 exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are different (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -39,9 +36,8 @@ exports[`web socket server URL > should work behind proxy, when hostnames are di
 
 exports[`web socket server URL > should work behind proxy, when hostnames are different and ports are same (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -51,9 +47,8 @@ exports[`web socket server URL > should work behind proxy, when hostnames are di
 
 exports[`web socket server URL > should work behind proxy, when hostnames are same and ports are different (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -63,9 +58,10 @@ exports[`web socket server URL > should work behind proxy, when hostnames are sa
 
 exports[`web socket server URL > should work behind proxy, when the \"host\" option is \"local-ip\" and the \"port\" option is \"auto\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "WebSocket connection to 'ws://192.0.2.2:40000/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -75,9 +71,10 @@ exports[`web socket server URL > should work behind proxy, when the \"host\" opt
 
 exports[`web socket server URL > should work when \"host\" option is IPv4 (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "WebSocket connection to 'ws://192.0.2.2:8099/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -87,9 +84,10 @@ exports[`web socket server URL > should work when \"host\" option is IPv4 (\"ws\
 
 exports[`web socket server URL > should work when \"host\" option is \"local-ip\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "WebSocket connection to 'ws://192.0.2.2:8099/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -99,9 +97,10 @@ exports[`web socket server URL > should work when \"host\" option is \"local-ip\
 
 exports[`web socket server URL > should work when \"host\" option is \"local-ipv4\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "WebSocket connection to 'ws://192.0.2.2:8099/ws' failed: Error during WebSocket handshake: Unexpected response code: 403",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
@@ -111,9 +110,8 @@ exports[`web socket server URL > should work when \"host\" option is \"local-ipv
 
 exports[`web socket server URL > should work when \"port\" option is \"auto\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -123,9 +121,8 @@ exports[`web socket server URL > should work when \"port\" option is \"auto\" (\
 
 exports[`web socket server URL > should work with \"client.webSocketURL.*\" options (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -135,9 +132,8 @@ exports[`web socket server URL > should work with \"client.webSocketURL.*\" opti
 
 exports[`web socket server URL > should work with \"client.webSocketURL.port\" and \"webSocketServer.options.port\" options as string (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -147,9 +143,8 @@ exports[`web socket server URL > should work with \"client.webSocketURL.port\" a
 
 exports[`web socket server URL > should work with \"server: 'https'\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -159,9 +154,8 @@ exports[`web socket server URL > should work with \"server: 'https'\" option (\"
 
 exports[`web socket server URL > should work with default \"/ws\" value of the \"client.webSocketURL.pathname\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -171,9 +165,8 @@ exports[`web socket server URL > should work with default \"/ws\" value of the \
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.host\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -183,9 +176,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.host
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.host\" option using \"0.0.0.0\" value (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -195,9 +187,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.host
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.password\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -207,9 +198,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.pass
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.pathname\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -219,9 +209,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.path
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.pathname\" option (\"ws\") 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -231,9 +220,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.path
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.pathname\" option and the custom web socket server \"path\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -243,9 +231,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.path
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.pathname\" option and the custom web socket server \"path\" ending with slash (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -255,9 +242,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.path
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.pathname\" option and the custom web socket server \"path\" ending without slash (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -267,9 +253,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.path
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.pathname\" option and the custom web socket server \"path\" using empty value (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -279,9 +264,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.path
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.port\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -291,9 +275,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.port
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.port\" option as string (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -303,9 +286,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.port
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.port\" option using \"0\" value (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -315,9 +297,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.port
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.protocol\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -327,9 +308,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.prot
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.protocol\" option using \"auto:\" value (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -339,9 +319,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.prot
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.protocol\" option using \"http:\" value and convert to \"ws:\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -351,9 +330,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.prot
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.username\" and \"client.webSocketURL.password\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -363,9 +341,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.user
 
 exports[`web socket server URL > should work with the \"client.webSocketURL.username\" option (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -375,9 +352,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL.user
 
 exports[`web socket server URL > should work with the \"client.webSocketURL\" option as \"string\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -387,9 +363,8 @@ exports[`web socket server URL > should work with the \"client.webSocketURL\" op
 
 exports[`web socket server URL > should work with the custom web socket server \"path\" (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -399,9 +374,8 @@ exports[`web socket server URL > should work with the custom web socket server \
 
 exports[`web socket server URL > should work with the custom web socket server \"path\" using empty value (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
