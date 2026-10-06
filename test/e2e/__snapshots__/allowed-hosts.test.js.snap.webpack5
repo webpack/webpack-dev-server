@@ -315,6 +315,7 @@ exports[`allowed hosts > should disconnect web client using origin header contai
   "Hey.",
   "[webpack-dev-server] connected",
   "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
@@ -328,6 +329,7 @@ exports[`allowed hosts > should disconnect web socket client using custom hostna
   "Hey.",
   "[webpack-dev-server] connected",
   "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
@@ -341,6 +343,7 @@ exports[`allowed hosts > should disconnect web socket client using custom hostna
   "Hey.",
   "[webpack-dev-server] connected",
   "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
@@ -354,6 +357,7 @@ exports[`allowed hosts > should disconnect web socket client using custom hostna
   "Hey.",
   "[webpack-dev-server] connected",
   "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
 ]
 `;

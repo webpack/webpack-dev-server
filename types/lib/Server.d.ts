@@ -1581,16 +1581,17 @@ declare class Server<
    */
   private normalizeOptions;
   /**
-   * The runtime module named by `client.webSocketTransport`, when it names one
-   * of someone else's.
+   * The runtime module the page's client is handed through
+   * `__webpack_dev_server_client__`, which is how `client.webSocketTransport`
+   * has always worked.
    *
-   * `"ws"` is webpack-dev-middleware's own client, which it points at itself
-   * through the entry query, so there is nothing to resolve and nothing to
-   * provide. Anything else is a module to hand the runtime through
-   * `__webpack_dev_server_client__`, which is how that option has always
-   * worked.
+   * `"ws"` and `"sse"` are webpack-dev-middleware's own transports, and when
+   * the option is not set the one that matches the endpoint this server
+   * serves is used. They are provided like any other, so the global holds
+   * the transport that is in use whichever way it was chosen. Anything else
+   * is a module of someone else's.
    * @private
-   * @returns {string | undefined} the resolved module, or nothing when the middleware's own client is used
+   * @returns {string | undefined} the resolved module, or nothing when there is no client of this server's to provide it to
    */
   private getCustomClientTransport;
   /**

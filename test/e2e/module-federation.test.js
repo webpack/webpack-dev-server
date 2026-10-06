@@ -220,7 +220,9 @@ describe("Module federation", () => {
     let consoleMessages;
 
     beforeEach(async () => {
-      compiler = webpack(pluginConfig);
+      // A browser target: a build for node is never given the client, since
+      // there is no page for it to run in.
+      compiler = webpack({ ...pluginConfig, target: "web" });
       server = new Server({ port }, compiler);
 
       await server.start();
@@ -234,6 +236,28 @@ describe("Module federation", () => {
     afterEach(async () => {
       await browser.close();
       await server.stop();
+    });
+
+    it("should not add the hot client to a build for node", async () => {
+      await server.stop();
+      await new Promise((resolve) => {
+        compiler.close(resolve);
+      });
+
+      compiler = webpack(pluginConfig);
+      server = new Server({ port }, compiler);
+
+      await server.start();
+
+      for (const file of ["remoteEntry.js", "main.js"]) {
+        const response = await page.goto(`http://localhost:${port}/${file}`, {
+          waitUntil: "networkidle0",
+        });
+
+        expect(await response.text()).not.toMatch(
+          /webpack-dev-middleware\/client\/index\.js/,
+        );
+      }
     });
 
     it("should contain hot script in remoteEntry.js", async (t) => {
@@ -254,7 +278,9 @@ describe("Module federation", () => {
 
       const remoteEntryTextContent = await response.text();
 
-      expect(remoteEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
+      expect(remoteEntryTextContent).toMatch(
+        /webpack-dev-middleware\/client\/index\.js/,
+      );
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
@@ -276,7 +302,9 @@ describe("Module federation", () => {
 
       const mainEntryTextContent = await response.text();
 
-      expect(mainEntryTextContent).toMatch(/webpack\/hot\/dev-server\.js/);
+      expect(mainEntryTextContent).toMatch(
+        /webpack-dev-middleware\/client\/index\.js/,
+      );
 
       t.assert.snapshot(consoleMessages.map((message) => message.text()));
 

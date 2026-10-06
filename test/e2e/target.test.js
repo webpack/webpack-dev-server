@@ -1,7 +1,6 @@
 import path from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import { expect } from "expect";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
@@ -93,24 +92,7 @@ describe("target", () => {
 
         t.assert.snapshot(consoleMessages.map((message) => message.text()));
 
-        if (
-          target === "node" ||
-          target === "async-node" ||
-          target === "electron-main" ||
-          target === "electron-preload" ||
-          target === "electron-renderer" ||
-          target === "nwjs" ||
-          target === "node-webkit"
-        ) {
-          const hasRequireOrGlobalError =
-            pageErrors.filter((pageError) =>
-              /require is not defined|global is not defined/.test(pageError),
-            ).length === 1;
-
-          expect(hasRequireOrGlobalError).toBe(true);
-        } else {
-          t.assert.snapshot(pageErrors);
-        }
+        t.assert.snapshot(pageErrors);
       } finally {
         await browser.close();
         await server.stop();

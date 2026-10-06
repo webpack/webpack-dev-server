@@ -3,7 +3,6 @@ import { expect } from "expect";
 import webpack from "webpack";
 import WebSocket from "ws";
 import Server from "../../lib/Server.js";
-import WebsocketServer from "../../lib/servers/WebsocketServer.js";
 import config from "../fixtures/client-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
 import waitFor from "../helpers/wait-for.js";
@@ -11,13 +10,36 @@ import portsMap from "../ports-map.js";
 
 const port = portsMap["web-socket-communication"];
 
+// The heartbeat is the middleware's hot endpoint's now, set through its
+// `heartbeat` option. These tests need it to tick within their own lifetime.
+const { getHotOptions: originalHotOptions } = Server.prototype;
+
+Server.prototype.getHotOptions = async function getHotOptions(...args) {
+  return { ...(await originalHotOptions.apply(this, args)), heartbeat: 100 };
+};
+
+/**
+ * @param {Server} server a started server
+ * @returns {Set<unknown>} the clients connected to its hot endpoint, kept current
+ */
+function trackClients(server) {
+  const clients = new Set();
+
+  server.middleware.onConnect((client) => {
+    clients.add(client);
+    client.on("close", () => {
+      clients.delete(client);
+    });
+  });
+
+  return clients;
+}
+
 describe("web socket communication", () => {
   const webSocketServers = ["ws"];
 
   for (const websocketServer of webSocketServers) {
     it(`should work and close web socket client connection when web socket server closed ("${websocketServer}")`, async (t) => {
-      WebsocketServer.heartbeatInterval = 100;
-
       const compiler = webpack(config);
       const devServerOptions = {
         port,
@@ -63,8 +85,6 @@ describe("web socket communication", () => {
     });
 
     it(`should work and terminate client that is not alive ("${websocketServer}")`, async (t) => {
-      WebsocketServer.heartbeatInterval = 100;
-
       const compiler = webpack(config);
       const devServerOptions = {
         port,
@@ -73,6 +93,8 @@ describe("web socket communication", () => {
       const server = new Server(devServerOptions, compiler);
 
       await server.start();
+
+      const clients = trackClients(server);
 
       const { page, browser } = await runBrowser();
 
@@ -105,9 +127,9 @@ describe("web socket communication", () => {
 
         // Wait for the heartbeat to notice the client is gone. Polling keeps
         // this quick on a fast machine without being too short on a slow one.
-        await waitFor(() => server.webSocketServer.clients.length === 0);
+        await waitFor(() => clients.size === 0);
 
-        expect(server.webSocketServer.clients).toHaveLength(0);
+        expect([...clients]).toHaveLength(0);
         t.assert.snapshot(loadedConsoleMessages);
         t.assert.snapshot(loadedPageErrors);
       } finally {
@@ -116,8 +138,6 @@ describe("web socket communication", () => {
     });
 
     it(`should work and reconnect when the connection is lost ("${websocketServer}")`, async (t) => {
-      WebsocketServer.heartbeatInterval = 100;
-
       const compiler = webpack(config);
       const devServerOptions = {
         port,
@@ -162,8 +182,6 @@ describe("web socket communication", () => {
   }
 
   it('should work and do heartbeat using ("ws" web socket server)', async () => {
-    WebsocketServer.heartbeatInterval = 100;
-
     const compiler = webpack(config);
     const devServerOptions = {
       port,
@@ -179,8 +197,6 @@ describe("web socket communication", () => {
     await new Promise((resolve) => {
       server.middleware.waitUntilValid(resolve);
     });
-
-    server.webSocketServer.heartbeatInterval = 100;
 
     let opened = false;
     let received = false;

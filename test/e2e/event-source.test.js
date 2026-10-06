@@ -8,6 +8,7 @@ import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import reloadConfig from "../fixtures/reload-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
+import waitFor from "../helpers/wait-for.js";
 import portsMap from "../ports-map.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -144,16 +145,17 @@ describe("Server-Sent Events transport", () => {
     // no upgrade, no second server — and said so in the words it uses for a
     // socket, since nothing above the wire knows which transport it is on.
     expect(
-      consoleMessages.filter((message) =>
-        message.includes("Hot Module Replacement enabled"),
-      ),
+      consoleMessages.filter((message) => message.includes("connected")),
+    ).toHaveLength(1);
+    expect(
+      consoleMessages.filter((message) => message.includes("Hot updated")),
     ).toHaveLength(1);
     expect(
       consoleMessages.filter((message) => message.includes("Disconnected")),
     ).toHaveLength(0);
   });
 
-  it("sends this package's handshake down the stream", async () => {
+  it("catches a client up as soon as it joins", async () => {
     const compiler = webpack(reloadConfig);
 
     fs.writeFileSync(cssFilePath, "body { background-color: rgb(0, 0, 255); }");
@@ -161,7 +163,7 @@ describe("Server-Sent Events transport", () => {
     server = new Server(
       {
         port,
-        client: { webSocketTransport: "sse", progress: true },
+        client: { webSocketTransport: "sse" },
         hot: true,
       },
       compiler,
@@ -182,14 +184,11 @@ describe("Server-Sent Events transport", () => {
     expect(status).toBe(200);
     expect(contentType).toContain("text/event-stream");
 
-    // The same messages a WebSocket client is greeted with, in the same
-    // protocol — only the wire underneath them changed.
-    const types = frames.map((frame) => JSON.parse(frame).type);
+    // Everything the page needs to be configured is in its entry, so what
+    // arrives on the stream is the state of the build, as `sync`.
+    const actions = frames.map((frame) => JSON.parse(frame).action);
 
-    expect(types).toContain("hot");
-    expect(types).toContain("liveReload");
-    expect(types).toContain("progress");
-    expect(types).toContain("overlay");
+    expect(actions).toContain("sync");
   });
 
   it("keeps this package's host check on the stream", async () => {
@@ -208,6 +207,16 @@ describe("Server-Sent Events transport", () => {
 
     await server.start();
 
+    // Every connection to the stream, until it is closed.
+    const clients = new Set();
+
+    server.middleware.onConnect((client) => {
+      clients.add(client);
+      client.on("close", () => {
+        clients.delete(client);
+      });
+    });
+
     const { frames } = await readStream(
       rejectPort,
       {
@@ -222,10 +231,13 @@ describe("Server-Sent Events transport", () => {
     // package's to say — it is handed the request the client connected with
     // and closes the ones it does not want.
     expect(JSON.parse(frames[0])).toEqual({
-      type: "error",
-      data: "Invalid Host/Origin header",
+      action: "error",
+      message: "Invalid Host/Origin header",
     });
-    expect(server.webSocketServer.clients).toHaveLength(0);
+
+    await waitFor(() => clients.size === 0);
+
+    expect([...clients]).toHaveLength(0);
   });
 
   it("takes a stream that carries no origin as one of its own", async () => {
@@ -249,6 +261,6 @@ describe("Server-Sent Events transport", () => {
       1,
     );
 
-    expect(JSON.parse(frames[0]).type).not.toBe("error");
+    expect(JSON.parse(frames[0]).action).not.toBe("error");
   });
 });

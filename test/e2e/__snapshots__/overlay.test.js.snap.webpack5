@@ -1668,17 +1668,10 @@ exports[`overlay > should show an ansi formatted error for initial compilation 2
         >ERROR</span
       >
       in
-      <span
-        style="
-          font-weight: normal;
-          opacity: 1;
-          color: rgb(255, 255, 255);
-          background: rgb(0, 0, 0);
-        "
-      >
-        <span style="color: rgb(136, 136, 136)"> 18 |</span>
-        <span style="color: rgb(232, 191, 3)">Render</span>
-        <span style="color: rgb(232, 191, 3)">ansi formatted text</span></span
+      <span style="font-weight: normal; opacity: 1">
+        <span style="color: rgb(109, 120, 145)"> 18 |</span>
+        <span style="color: rgb(255, 211, 14)">Render</span>
+        <span style="color: rgb(255, 211, 14)">ansi formatted text</span></span
       >
     </div>
     <div
