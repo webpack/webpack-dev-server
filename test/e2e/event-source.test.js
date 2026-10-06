@@ -27,7 +27,7 @@ const cssFilePath = path.resolve(
  * frames it carried.
  * @param {number} listeningOn port the server is on
  * @param {Record<string, string>} headers request headers
- * @param {number} want how many frames to wait for
+ * @param {number | ((frames: string[]) => boolean)} want how many frames to wait for, or what to wait for
  * @returns {Promise<{ status: number, contentType: string, frames: string[] }>} what arrived
  */
 function readStream(listeningOn, headers, want) {
@@ -52,7 +52,9 @@ function readStream(listeningOn, headers, want) {
             }
           }
 
-          if (frames.length >= want) {
+          if (
+            typeof want === "function" ? want(frames) : frames.length >= want
+          ) {
             clearTimeout(timer);
             request.destroy();
             finish();
@@ -170,6 +172,11 @@ describe("Server-Sent Events transport", () => {
     );
 
     await server.start();
+    // A build to be caught up on: joined before the first one finished, the
+    // stream would carry that build as it happened instead.
+    await new Promise((resolve) => {
+      server.middleware.waitUntilValid(resolve);
+    });
 
     const { status, contentType, frames } = await readStream(
       port,
@@ -178,17 +185,21 @@ describe("Server-Sent Events transport", () => {
         host: `localhost:${port}`,
         origin: `http://localhost:${port}`,
       },
-      5,
+      (received) =>
+        received.some((frame) => JSON.parse(frame).action === "sync"),
     );
 
     expect(status).toBe(200);
     expect(contentType).toContain("text/event-stream");
 
-    // Everything the page needs to be configured is in its entry, so what
-    // arrives on the stream is the state of the build, as `sync`.
-    const actions = frames.map((frame) => JSON.parse(frame).action);
+    // The state of the build, as `sync` for the runtime — and, next to it,
+    // this server's own messages, for whatever reads the stream directly.
+    const parsed = frames.map((frame) => JSON.parse(frame));
 
-    expect(actions).toContain("sync");
+    expect(parsed.map((message) => message.action)).toContain("sync");
+    expect(parsed.map((message) => message.type)).toEqual(
+      expect.arrayContaining(["hash", "ok"]),
+    );
   });
 
   it("keeps this package's host check on the stream", async () => {

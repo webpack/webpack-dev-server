@@ -235,10 +235,12 @@ describe("API", () => {
         ...config,
         entry: [
           "webpack/hot/dev-server.js",
+          // The setup webpack's guide documents, in the query spelling this
+          // server's client always read.
           `${path.resolve(
             __dirname,
             "../../client/index.js",
-          )}?path=/ws&transport=ws&apply=hmr`,
+          )}?hot=true&live-reload=true`,
           path.resolve(__dirname, "../fixtures/client-config/foo.js"),
         ],
         plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],

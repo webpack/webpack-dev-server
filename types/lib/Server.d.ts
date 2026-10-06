@@ -1581,25 +1581,36 @@ declare class Server<
    */
   private normalizeOptions;
   /**
-   * The runtime module the page's client is handed through
-   * `__webpack_dev_server_client__`, which is how `client.webSocketTransport`
-   * has always worked.
-   *
-   * `"ws"` and `"sse"` are webpack-dev-middleware's own transports, and when
-   * the option is not set the one that matches the endpoint this server
-   * serves is used. They are provided like any other, so the global holds
-   * the transport that is in use whichever way it was chosen. Anything else
-   * is a module of someone else's.
+   * The client transport the page's runtime is handed, as
+   * `__webpack_dev_server_client__`: the module `client.webSocketTransport`
+   * names, or the built-in one for the endpoint this server serves. The
+   * built-in one is handed over too, as it always was — what reads that
+   * global is not only the runtime (React Refresh's overlay did, before it
+   * read `client/socket`). It is resolved here so a name that resolves to
+   * nothing is reported at startup, in the words it always was.
    * @private
-   * @returns {string | undefined} the resolved module, or nothing when there is no client of this server's to provide it to
+   * @returns {string | undefined} the resolved module, or nothing when there is no client of this server's to hand it to
    */
-  private getCustomClientTransport;
+  private resolveClientTransport;
   /**
    * @template T
    * @private
    * @returns {Promise<T>} server transport
    */
   private getServerTransport;
+  /**
+   * @deprecated webpack-dev-middleware adds the client entry now; this still
+   * returns the path it always did, and goes away in the next major release.
+   * @returns {string} the client entry
+   */
+  getClientEntry(): string;
+  /**
+   * @deprecated webpack-dev-middleware applies updates itself now, without
+   * `webpack/hot/dev-server`; this still returns the path it always did, and
+   * goes away in the next major release.
+   * @returns {string | void} the hot entry
+   */
+  getClientHotEntry(): string | void;
   /**
    * @private
    * @returns {void}
@@ -1610,6 +1621,7 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private initialize;
+  webSocketServer: any;
   /**
    * @private
    * @returns {Promise<void>}
@@ -1661,6 +1673,19 @@ declare class Server<
         import("express").Response<any, Record<string, any>>
       >
     | undefined;
+  /** @type {import("webpack-dev-middleware").API<Request, Response>} */
+  hotMiddleware:
+    | import("webpack-dev-middleware").API<
+        import("express").Request<
+          import("express-serve-static-core").ParamsDictionary,
+          any,
+          any,
+          import("qs").ParsedQs,
+          Record<string, any>
+        >,
+        import("express").Response<any, Record<string, any>>
+      >
+    | undefined;
   /**
    * @private
    * @returns {Promise<void>}
@@ -1682,7 +1707,6 @@ declare class Server<
    * @returns {Promise<EXPECTED_ANY>} the middleware's `hot` option
    */
   private getHotOptions;
-  webSocketServer: any;
   /**
    * Judge every client that reaches the hot endpoint.
    *
@@ -1694,6 +1718,50 @@ declare class Server<
    * @returns {void}
    */
   private guardHotEndpoint;
+  /**
+   * The hot endpoint's middleware: this server's own, or — when a
+   * `setupMiddlewares` of the user's put a middleware of their own in its
+   * place — the one this server keeps for the endpoint alone.
+   * @private
+   * @returns {import("webpack-dev-middleware").API<Request, Response> | undefined} the middleware
+   */
+  private getHotMiddleware;
+  /**
+   * A client the guard let through: tracked for `webSocketServer.clients`,
+   * announced on `webSocketServer.implementation`, and sent what this
+   * server's own client was sent on connecting.
+   * @private
+   * @param {HotClient} client the client
+   * @param {IncomingMessage} request the request it joined with
+   */
+  private addHotClient;
+  /**
+   * This server's own message, in the shape it has always had —
+   * `{ type, data, params }` — next to the middleware's for the same event.
+   *
+   * The runtime is the middleware's and reads its own messages; this is for
+   * whatever reads the socket directly: React Refresh's overlay through
+   * `webpack-dev-server/client/socket`, a client wired by hand, a test. The
+   * runtime passes over a message without an `action`.
+   *
+   * TODO remove in the next major release, with `sendMessage`.
+   * @private
+   * @param {HotClient[] | undefined} clients the clients to send to, or everyone
+   * @param {string} type type
+   * @param {EXPECTED_ANY=} data data
+   * @param {EXPECTED_ANY=} params params
+   */
+  private publishLegacy;
+  /**
+   * A build's stats as this server has always sent them: the hash, then
+   * `still-ok` for a build that changed nothing, or `ok`, or its warnings
+   * and errors.
+   * @private
+   * @param {HotClient[] | undefined} clients the clients to send to, or everyone
+   * @param {StatsCompilation} stats stats
+   * @param {boolean=} force send them even when nothing changed
+   */
+  private sendStats;
   /**
    * @private
    * @param {string} defaultOpenTarget default open target
@@ -1755,6 +1823,15 @@ declare class Server<
    */
   private isSameOrigin;
   /**
+   * Send one of this server's messages to some clients, as
+   * `devServer.sendMessage(devServer.webSocketServer.clients, type, data)`.
+   *
+   * The page's runtime is webpack-dev-middleware's, which reads its own
+   * messages, so the two this server's client acted on are also said in its
+   * words: `static-changed` (and `content-changed`, its older name) reload the
+   * page, and `error` is shown. The message itself still goes out as it always
+   * did, for anything reading the socket directly.
+   * @deprecated use the middleware's `publish` or `publishTo`; this goes away in the next major release
    * @param {ClientConnection[]} clients clients
    * @param {string} type type
    * @param {EXPECTED_ANY=} data data

@@ -647,6 +647,14 @@ describe("overlay", () => {
         expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
       });
 
+      // The overlay names the file relative to webpack's context; the editor
+      // is handed it resolved against that, not against this process's
+      // working directory.
+      const [[opened]] = mockLaunchEditorCb.mock.calls;
+
+      expect(path.isAbsolute(opened)).toBe(true);
+      expect(opened.startsWith(config.context)).toBe(true);
+
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
     } finally {
       await browser.close();

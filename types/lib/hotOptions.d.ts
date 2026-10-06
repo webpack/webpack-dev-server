@@ -15,6 +15,7 @@
  * @property {EXPECTED_ANY} devServerOptions this server's normalized options
  * @property {boolean | undefined} isTlsServer whether this server speaks TLS
  * @property {(() => EXPECTED_ANY)=} transport a transport of this server's own, when the `webSocketServer` option asks for one
+ * @property {string=} clientTransport the module `client.webSocketTransport` names, resolved, when it names one rather than a built-in transport
  */
 /**
  * What a build should do to the page, as one option rather than two.
@@ -50,6 +51,19 @@ export function clientPath({
   path,
 }: ClientPathInput): Record<string, string | number>;
 /**
+ * A `client.overlay.errors` or `client.overlay.warnings` filter, as this
+ * server documents it: called with a problem object and reading its
+ * `message`. The middleware's overlay calls a filter with the problem's text,
+ * so the filter is wrapped to be handed `{ message }` again — and it still
+ * reads as that text wherever it is used as a string.
+ *
+ * The function travels to the browser as its source, so the wrapper is
+ * written as source too: what the middleware serializes is `toString()`.
+ * @param {EXPECTED_ANY} filter the filter, or the boolean in its place
+ * @returns {EXPECTED_ANY} the filter the middleware is given
+ */
+export function problemFilter(filter: EXPECTED_ANY): EXPECTED_ANY;
+/**
  * The overlay, with the id this server's pages already query.
  * @param {ClientConfiguration["overlay"]} overlay the `client.overlay` option
  * @returns {EXPECTED_ANY} the middleware's `hot.client.overlay`
@@ -66,7 +80,14 @@ export default function hotOptions({
   devServerOptions,
   isTlsServer,
   transport,
+  clientTransport,
 }: HotOptionsInput): EXPECTED_ANY;
+/**
+ * Wrap a `BaseServer` implementation as a transport.
+ * @param {EXPECTED_ANY} instance the implementation, already constructed
+ * @returns {EXPECTED_ANY} the transport the middleware asked for
+ */
+export function bridge(instance: EXPECTED_ANY): EXPECTED_ANY;
 export type ClientConfiguration = import("./Server.js").ClientConfiguration;
 export type WebSocketServerConfiguration =
   import("./Server.js").WebSocketServerConfiguration;
@@ -112,5 +133,10 @@ export type HotOptionsInput = {
    * a transport of this server's own, when the `webSocketServer` option asks for one
    */
   transport?: (() => EXPECTED_ANY) | undefined;
+  /**
+   * the module `client.webSocketTransport` names, resolved, when it names one rather than a built-in transport
+   */
+  clientTransport?: string | undefined;
 };
+export type ClientConnection = import("./Server.js").ClientConnection;
 export type EXPECTED_ANY = any;

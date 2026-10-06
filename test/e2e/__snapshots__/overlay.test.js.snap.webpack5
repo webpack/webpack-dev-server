@@ -56,7 +56,7 @@ exports[`overlay > should not show initially, then show on an error and allow to
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -219,7 +219,7 @@ exports[`overlay > should not show initially, then show on an error, then hide o
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -382,7 +382,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -529,7 +529,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -692,7 +692,7 @@ exports[`overlay > should show a warning after invalidation 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -806,7 +806,7 @@ exports[`overlay > should show a warning and error for initial compilation 1`] =
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -981,7 +981,7 @@ exports[`overlay > should show a warning and error for initial compilation and p
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1095,7 +1095,7 @@ exports[`overlay > should show a warning and hide them after closing connection 
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1217,7 +1217,7 @@ exports[`overlay > should show a warning for initial compilation 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1331,7 +1331,7 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1445,7 +1445,7 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1559,7 +1559,7 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 1`]
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1673,7 +1673,7 @@ exports[`overlay > should show an ansi formatted error for initial compilation 1
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1792,7 +1792,7 @@ exports[`overlay > should show an error after invalidation 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -1906,7 +1906,7 @@ exports[`overlay > should show an error for initial compilation 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2020,7 +2020,7 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2134,7 +2134,7 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2248,7 +2248,7 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 1`] 
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2540,7 +2540,7 @@ exports[`overlay > should show error when it is not filtered 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2654,7 +2654,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2768,7 +2768,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2882,7 +2882,7 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
@@ -2996,7 +2996,7 @@ exports[`overlay > should show warning when it is not filtered 1`] = `
       border-style: none;
       border-color: currentcolor;
       border-image: none;
-      z-index: 9999;
+      z-index: 2147483647;
       background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>

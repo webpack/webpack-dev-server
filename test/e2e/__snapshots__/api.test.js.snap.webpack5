@@ -168,7 +168,7 @@ exports[`API > latest async API > should work when using configured manually 1`]
 [
   "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-middleware] connected",
+  "[webpack-dev-server] connected",
 ]
 `;
 

@@ -189,10 +189,9 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           // A client wired by hand, through this package's published path —
-          // which is webpack-dev-middleware's client re-exported. Nothing is
-          // injected for it, so its query says where to connect and what to
-          // speak; the server no longer pushes that after the handshake.
-          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws`,
+          // which is webpack-dev-middleware's client re-exported, connecting
+          // where this server's client always did.
+          fileURLToPath(import.meta.resolve("../../client/index.js")),
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -211,7 +210,7 @@ describe("hot and live reload", () => {
       webpackOptions: {
         entry: [
           "webpack/hot/dev-server",
-          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=hmr`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?hot=true`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -232,7 +231,7 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable hot module replacement",
       webpackOptions: {
         entry: [
-          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=reload`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?hot=false`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -249,7 +248,7 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to enable live reload",
       webpackOptions: {
         entry: [
-          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=reload`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?live-reload=true`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -266,7 +265,7 @@ describe("hot and live reload", () => {
         "should work with manual client setup and allow to disable live reload",
       webpackOptions: {
         entry: [
-          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?path=/ws&transport=ws&apply=nothing`,
+          `${fileURLToPath(import.meta.resolve("../../client/index.js"))}?live-reload=false`,
           fileURLToPath(
             import.meta.resolve("../fixtures/reload-config/foo.js"),
           ),
@@ -425,21 +424,27 @@ describe("hot and live reload", () => {
       }
 
       // A client wired by hand says what a build should do in its own query,
-      // which is what the page does regardless of this server's options.
+      // in the spelling this server's client always read.
       if (Array.isArray(webpackOptions.entry)) {
-        const entry = webpackOptions.entry.find((item) =>
-          /[?&]apply=/.test(item),
-        );
-        const match = /[?&]apply=([\w-]+)/.exec(entry || "");
-        const apply = match ? match[1] : undefined;
-
-        if (apply === "hmr") {
+        if (webpackOptions.entry.some((item) => item.includes("hot=true"))) {
           waitHot = true;
-        } else if (apply === "reload") {
+        } else if (
+          webpackOptions.entry.some((item) => item.includes("hot=false"))
+        ) {
           waitHot = false;
+        }
+      }
+
+      if (Array.isArray(webpackOptions.entry)) {
+        if (
+          webpackOptions.entry.some((item) => item.includes("live-reload=true"))
+        ) {
           waitLiveReload = true;
-        } else if (apply === "nothing") {
-          waitHot = false;
+        } else if (
+          webpackOptions.entry.some((item) =>
+            item.includes("live-reload=false"),
+          )
+        ) {
           waitLiveReload = false;
         }
       }
@@ -627,6 +632,10 @@ describe("simple hot config HMR plugin with already added HMR plugin", () => {
   });
 });
 
+// Said by webpack-dev-middleware, which applies the plugin now.
+const REDUNDANT_PLUGIN_WARNING =
+  "'hot' applies HotModuleReplacementPlugin for you — it does not need to be in the webpack configuration as well.";
+
 describe("simple config with already added HMR plugin", () => {
   let loggerWarnSpy;
   let getInfrastructureLoggerSpy;
@@ -662,9 +671,7 @@ describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy).toHaveBeenCalledWith(
-      '"hot: true" automatically applies HMR plugin, you don\'t have to add it manually to your webpack configuration.',
-    );
+    expect(loggerWarnSpy).toHaveBeenCalledWith(REDUNDANT_PLUGIN_WARNING);
 
     await server.stop();
   });
@@ -674,9 +681,7 @@ describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy).toHaveBeenCalledWith(
-      '"hot: true" automatically applies HMR plugin, you don\'t have to add it manually to your webpack configuration.',
-    );
+    expect(loggerWarnSpy).toHaveBeenCalledWith(REDUNDANT_PLUGIN_WARNING);
 
     await server.stop();
   });
@@ -686,9 +691,7 @@ describe("simple config with already added HMR plugin", () => {
 
     await server.start();
 
-    expect(loggerWarnSpy).not.toHaveBeenCalledWith(
-      '"hot: true" automatically applies HMR plugin, you don\'t have to add it manually to your webpack configuration.',
-    );
+    expect(loggerWarnSpy).not.toHaveBeenCalledWith(REDUNDANT_PLUGIN_WARNING);
 
     await server.stop();
   });

@@ -233,12 +233,12 @@ exports[`hot and live reload > should work and refresh content using live reload
 
 exports[`hot and live reload > should work with manual client setup (default) 1`] = `
 [
-  "[webpack-dev-middleware] connected",
-  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
-  "[webpack-dev-middleware] bundle rebuilt in <time>",
-  "[webpack-dev-middleware] Checking for updates on the server...",
-  "[webpack-dev-middleware] Hot updated 1 modules.",
-  "[webpack-dev-middleware] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -248,11 +248,11 @@ exports[`hot and live reload > should work with manual client setup (default) 2`
 
 exports[`hot and live reload > should work with manual client setup and allow to disable hot module replacement (default) 1`] = `
 [
-  "[webpack-dev-middleware] connected",
-  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
-  "[webpack-dev-middleware] bundle rebuilt in <time>",
-  "[webpack-dev-middleware] App updated. Reloading...",
-  "[webpack-dev-middleware] connected",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -262,9 +262,9 @@ exports[`hot and live reload > should work with manual client setup and allow to
 
 exports[`hot and live reload > should work with manual client setup and allow to disable live reload (default) 1`] = `
 [
-  "[webpack-dev-middleware] connected",
-  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
-  "[webpack-dev-middleware] bundle rebuilt in <time>",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
 ]
 `;
 
@@ -275,12 +275,12 @@ exports[`hot and live reload > should work with manual client setup and allow to
 exports[`hot and live reload > should work with manual client setup and allow to enable hot module replacement (default) 1`] = `
 [
   "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-middleware] connected",
-  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
-  "[webpack-dev-middleware] bundle rebuilt in <time>",
-  "[webpack-dev-middleware] Checking for updates on the server...",
-  "[webpack-dev-middleware] Hot updated 1 modules.",
-  "[webpack-dev-middleware] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -290,11 +290,11 @@ exports[`hot and live reload > should work with manual client setup and allow to
 
 exports[`hot and live reload > should work with manual client setup and allow to enable live reload (default) 1`] = `
 [
-  "[webpack-dev-middleware] connected",
-  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
-  "[webpack-dev-middleware] bundle rebuilt in <time>",
-  "[webpack-dev-middleware] App updated. Reloading...",
-  "[webpack-dev-middleware] connected",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] App updated. Reloading...",
+  "[webpack-dev-server] connected",
 ]
 `;
 

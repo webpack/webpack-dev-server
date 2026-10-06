@@ -183,14 +183,13 @@ describe("app option", () => {
         expect(text).toContain(
           '<script type="text/javascript" charset="utf-8" src="/main.js"></script>',
         );
-        // A middleware mounted through `setupMiddlewares` is the user's own,
-        // with no hot runtime unless they configured one, so only the apps
-        // served by this server's middleware connect.
-        expect(consoleMessages.map((message) => message.text())).toEqual(
-          setupMiddlewares
-            ? ["Hey."]
-            : ["Hey.", "[webpack-dev-server] connected"],
-        );
+        // A middleware mounted through `setupMiddlewares` in place of this
+        // server's — a Hono app's `honoWrapper` — serves the files, and this
+        // server still keeps the hot endpoint, so every app connects.
+        expect(consoleMessages.map((message) => message.text())).toEqual([
+          "Hey.",
+          "[webpack-dev-server] connected",
+        ]);
         expect(pageErrors).toHaveLength(0);
       });
     });

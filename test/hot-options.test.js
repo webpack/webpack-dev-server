@@ -1,9 +1,12 @@
+import { EventEmitter } from "node:events";
 import { describe, it } from "node:test";
 import { expect } from "expect";
 import hotOptions, {
   applyMode,
+  bridge,
   clientOverlay,
   clientPath,
+  problemFilter,
 } from "../lib/hotOptions.js";
 
 /**
@@ -42,11 +45,19 @@ describe("hot options", () => {
   });
 
   describe("the overlay", () => {
-    it("keeps this server's element id, and opens files through its own route", () => {
+    it("keeps this server's element id, opens files through its own route, and names its Trusted Types policy", () => {
       expect(clientOverlay(true)).toEqual({
         id: "webpack-dev-server-client-overlay",
         openEditorEndpoint: "/webpack-dev-server/open-editor",
+        trustedTypesPolicyName: "webpack-dev-server#overlay",
       });
+    });
+
+    it("keeps a Trusted Types policy name of the user's own", () => {
+      expect(
+        clientOverlay({ trustedTypesPolicyName: "mine#overlay" })
+          .trustedTypesPolicyName,
+      ).toBe("mine#overlay");
     });
 
     it("leaves what was turned off turned off", () => {
@@ -59,6 +70,7 @@ describe("hot options", () => {
       ).toEqual({
         errors: true,
         openEditorEndpoint: "/mine",
+        trustedTypesPolicyName: "webpack-dev-server#overlay",
         id: "webpack-dev-server-client-overlay",
       });
     });
@@ -67,6 +79,79 @@ describe("hot options", () => {
       expect(clientOverlay({ id: "other" })).toMatchObject({
         id: "webpack-dev-server-client-overlay",
       });
+    });
+  });
+
+  // This server documents its filters as reading a problem object; the
+  // middleware's overlay calls them with the problem's text.
+  describe("an overlay filter for build problems", () => {
+    /**
+     * Rebuild a filter from what is sent to the browser, as the runtime does.
+     * @param {(message: string) => boolean} filter the filter the middleware is handed
+     * @returns {(message: string) => boolean} the filter the page runs
+     */
+    function inThePage(filter) {
+      // eslint-disable-next-line no-new-func
+      return new Function(
+        "message",
+        `var callback = ${filter.toString()}\nreturn callback(message)`,
+      );
+    }
+
+    it("hands a filter written for this server an object with the message", () => {
+      const filter = inThePage(
+        problemFilter((error) => !error.message.includes("ignored")),
+      );
+
+      expect(filter("Module not found: ignored")).toBe(false);
+      expect(filter("Module not found: shown")).toBe(true);
+    });
+
+    it("lets that object stand in for the text as well", () => {
+      const filter = inThePage(
+        problemFilter((error) => String(error).includes("shown")),
+      );
+
+      expect(filter("shown")).toBe(true);
+    });
+
+    it("wraps a method written in an object literal", () => {
+      const overlay = {
+        errors(error) {
+          return error.message !== "drop";
+        },
+      };
+      const filter = inThePage(problemFilter(overlay.errors));
+
+      expect(filter("drop")).toBe(false);
+      expect(filter("keep")).toBe(true);
+    });
+
+    it("works in node the same way", () => {
+      expect(problemFilter((error) => error.message === "x")("x")).toBe(true);
+    });
+
+    it("leaves a boolean alone", () => {
+      expect(problemFilter(false)).toBe(false);
+    });
+
+    it("leaves runtimeErrors alone, which were always handed an Error", () => {
+      const runtimeErrors = (error) => error.message !== "x";
+
+      expect(clientOverlay({ runtimeErrors }).runtimeErrors).toBe(
+        runtimeErrors,
+      );
+    });
+
+    it("wraps both problem filters given in client.overlay", () => {
+      const errors = (error) => error.message !== "a";
+      const warnings = (warning) => warning.message !== "b";
+      const overlay = clientOverlay({ errors, warnings });
+
+      expect(overlay.errors).not.toBe(errors);
+      expect(overlay.warnings).not.toBe(warnings);
+      expect(inThePage(overlay.errors)("a")).toBe(false);
+      expect(inThePage(overlay.warnings)("b")).toBe(false);
     });
   });
 
@@ -133,14 +218,96 @@ describe("hot options", () => {
       expect(result.token).toBe(false);
     });
 
-    it("keeps the endpoint but injects nothing when there is no client", () => {
+    it("keeps the endpoint and the plugin, but no runtime, when there is no client", () => {
       const result = hotOptions({
         devServerOptions: serverOptions({ client: false }),
         isTlsServer: false,
       });
 
+      expect(result.client).toBe(false);
+      expect(result.inject).toBeUndefined();
+    });
+
+    it("adds nothing at all with no client and no hot", () => {
+      const result = hotOptions({
+        devServerOptions: serverOptions({ client: false, hot: false }),
+        isTlsServer: false,
+      });
+
       expect(result.inject).toBe(false);
-      expect(result.client).toBeUndefined();
+    });
+
+    it("shows no progress unless asked to", () => {
+      expect(
+        hotOptions({ devServerOptions: serverOptions(), isTlsServer: false })
+          .client.progress,
+      ).toBe(false);
+      expect(
+        hotOptions({
+          devServerOptions: serverOptions({
+            client: { overlay: true, progress: "linear" },
+          }),
+          isTlsServer: false,
+        }).client.progress,
+      ).toBe("linear");
+    });
+
+    it("pings a WebSocket client every second, as this server's socket did", () => {
+      expect(
+        hotOptions({ devServerOptions: serverOptions(), isTlsServer: false })
+          .heartbeat,
+      ).toBe(1000);
+    });
+
+    it("hands the rest of webSocketServer.options to the ws server", () => {
+      const verifyClient = () => true;
+      const result = hotOptions({
+        devServerOptions: serverOptions({
+          webSocketServer: {
+            type: "ws",
+            options: {
+              path: "/custom",
+              host: "127.0.0.1",
+              port: 8081,
+              perMessageDeflate: true,
+              verifyClient,
+            },
+          },
+        }),
+        isTlsServer: false,
+      });
+
+      expect(result.path).toBe("/custom");
+      expect(result.ws).toEqual({
+        host: "127.0.0.1",
+        port: 8081,
+        perMessageDeflate: true,
+        verifyClient,
+      });
+    });
+
+    it("hands no ws options over the event stream", () => {
+      const result = hotOptions({
+        devServerOptions: serverOptions({
+          webSocketServer: {
+            type: "sse",
+            options: { perMessageDeflate: true },
+          },
+        }),
+        isTlsServer: false,
+      });
+
+      expect(result.ws).toBeUndefined();
+    });
+
+    it("hands a client transport of someone else's to the runtime", () => {
+      const { client } = hotOptions({
+        devServerOptions: serverOptions(),
+        isTlsServer: false,
+        clientTransport: "/abs/path/CustomClient.js",
+      });
+
+      expect(client.transport).toBe("/abs/path/CustomClient.js");
     });
 
     it("labels the console and names the page-url parameters after this package", () => {
@@ -188,6 +355,63 @@ describe("hot options", () => {
       });
 
       expect(client.apply).toBe("reload");
+    });
+  });
+
+  // `webSocketServer` naming an implementation of this server's own, wrapped
+  // into the transport shape the middleware asks for.
+  describe("a BaseServer implementation as a transport", () => {
+    /**
+     * @returns {{ implementation: EventEmitter, clients: { readyState: number, sent: string[], send: (data: string) => void }[] }} an implementation
+     */
+    function implementation() {
+      // An emitter, as `ws`'s server is.
+      // eslint-disable-next-line unicorn/prefer-event-target
+      return { implementation: new EventEmitter(), clients: [] };
+    }
+
+    /**
+     * @param {number} readyState the client's state
+     * @returns {{ readyState: number, sent: string[], send: (data: string) => void }} a client
+     */
+    function client(readyState = 1) {
+      const sent = [];
+
+      return { readyState, sent, send: (data) => sent.push(data) };
+    }
+
+    it("hands each client that joins, and its request, to onConnect", () => {
+      const instance = implementation();
+      const transport = bridge(instance);
+      const joined = [];
+
+      transport.onConnect((who, req) => joined.push([who, req]));
+      instance.implementation.emit("connection", "a", { url: "/ws" });
+
+      expect(joined).toEqual([["a", { url: "/ws" }]]);
+    });
+
+    it("publishes to every open client, and only those", () => {
+      const instance = implementation();
+      const open = client();
+      const closing = client(2);
+
+      instance.clients.push(open, closing);
+      bridge(instance).publish({ action: "built" });
+
+      expect(open.sent).toEqual([JSON.stringify({ action: "built" })]);
+      expect(closing.sent).toEqual([]);
+    });
+
+    it("says whether anyone is listening", () => {
+      const instance = implementation();
+      const transport = bridge(instance);
+
+      expect(transport.hasClients()).toBe(false);
+
+      instance.clients.push(client());
+
+      expect(transport.hasClients()).toBe(true);
     });
   });
 });

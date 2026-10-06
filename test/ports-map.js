@@ -82,6 +82,7 @@ const listOfTests = {
   "api-plugin-multi": 2,
   "harness-server-cleanup": 1,
   "event-source": 2,
+  compatibility: 2,
 };
 
 let startPort = 8089;

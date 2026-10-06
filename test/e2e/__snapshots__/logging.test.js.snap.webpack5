@@ -115,6 +115,8 @@ exports[`logging > should work and log static changes (ws) 1`] = `
 exports[`logging > should work and log warning and errors (ws) 1`] = `
 [
   "Hey.",
+  "[webpack-dev-server] bundle has 1 warnings",
+  "[webpack-dev-server] Warning from compilation",
   "[webpack-dev-server] bundle has 1 errors",
   "[webpack-dev-server] Error from compilation",
 ]
