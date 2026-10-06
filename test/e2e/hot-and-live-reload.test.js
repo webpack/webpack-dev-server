@@ -23,7 +23,26 @@ const cssFilePath = path.resolve(
   "../fixtures/reload-config/main.css",
 );
 
-const INVALID_MESSAGE = "[webpack-dev-server] App updated. Recompiling...";
+// What a rebuild reports about itself is different on every run and on every
+// machine: how long it took, and the absolute path of the file that changed.
+const root = path.resolve(__dirname, "../..");
+
+/**
+ * @param {string} text a console message
+ * @returns {string} the message without the parts that vary between runs
+ */
+function normalize(text) {
+  return text
+    .replaceAll(root, "<root>")
+    .replace(/rebuilt in \d+ms/, "rebuilt in <time>");
+}
+
+// What the client says when a build finishes, under whichever name it was given:
+// this server's, or the middleware's for a client wired by hand. It is the last
+// thing a page that applies nothing says, so waiting for it means the page has
+// said everything there is to say.
+const INVALID_MESSAGE =
+  /^\[webpack-dev-(?:server|middleware)\] bundle rebuilt in/;
 
 describe("hot and live reload", () => {
   const modes = [
@@ -358,7 +377,7 @@ describe("hot and live reload", () => {
             const text = message.text();
 
             hasDisconnectedMessage = /Disconnected!/.test(text);
-            consoleMessages.push(text);
+            consoleMessages.push(normalize(text));
           }
         })
         .on("pageerror", (error) => {
@@ -401,26 +420,22 @@ describe("hot and live reload", () => {
         waitLiveReload = false;
       }
 
+      // A client wired by hand says what a build should do in its own query,
+      // which is what the page does regardless of this server's options.
       if (Array.isArray(webpackOptions.entry)) {
-        if (webpackOptions.entry.some((item) => item.includes("hot=true"))) {
-          waitHot = true;
-        } else if (
-          webpackOptions.entry.some((item) => item.includes("hot=false"))
-        ) {
-          waitHot = false;
-        }
-      }
+        const entry = webpackOptions.entry.find((item) =>
+          /[?&]apply=/.test(item),
+        );
+        const match = /[?&]apply=([\w-]+)/.exec(entry || "");
+        const apply = match ? match[1] : undefined;
 
-      if (Array.isArray(webpackOptions.entry)) {
-        if (
-          webpackOptions.entry.some((item) => item.includes("live-reload=true"))
-        ) {
+        if (apply === "hmr") {
+          waitHot = true;
+        } else if (apply === "reload") {
+          waitHot = false;
           waitLiveReload = true;
-        } else if (
-          webpackOptions.entry.some((item) =>
-            item.includes("live-reload=false"),
-          )
-        ) {
+        } else if (apply === "nothing") {
+          waitHot = false;
           waitLiveReload = false;
         }
       }
@@ -450,7 +465,9 @@ describe("hot and live reload", () => {
       } else if (webSocketServerLaunched) {
         await new Promise((resolve) => {
           const interval = setInterval(() => {
-            if (consoleMessages.includes(INVALID_MESSAGE)) {
+            if (
+              consoleMessages.some((message) => INVALID_MESSAGE.test(message))
+            ) {
               clearInterval(interval);
 
               resolve();

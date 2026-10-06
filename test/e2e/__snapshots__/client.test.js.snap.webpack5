@@ -26,18 +26,13 @@ exports[`client option > default behaviour > responds with a 200 status code for
 
 exports[`client option > default behaviour > responds with a 200 status code for / path 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`client option > default behaviour > responds with a 200 status code for / path 4`] = `
 []
-`;
-
-exports[`client option > override client entry > should disable client entry 1`] = `
-200
 `;
 
 exports[`client option > should respect path option > responds with a websocket with the /foo/test/bar path 1`] = `
@@ -48,9 +43,8 @@ exports[`client option > should respect path option > responds with a websocket 
 
 exports[`client option > should respect path option > responds with a websocket with the /foo/test/bar path 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 

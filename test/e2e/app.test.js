@@ -183,11 +183,14 @@ describe("app option", () => {
         expect(text).toContain(
           '<script type="text/javascript" charset="utf-8" src="/main.js"></script>',
         );
-        expect(consoleMessages.map((message) => message.text())).toEqual([
-          "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-          "[HMR] Waiting for update signal from WDS...",
-          "Hey.",
-        ]);
+        // A middleware mounted through `setupMiddlewares` is the user's own,
+        // with no hot runtime unless they configured one, so only the apps
+        // served by this server's middleware connect.
+        expect(consoleMessages.map((message) => message.text())).toEqual(
+          setupMiddlewares
+            ? ["Hey."]
+            : ["Hey.", "[webpack-dev-server] connected"],
+        );
         expect(pageErrors).toHaveLength(0);
       });
     });

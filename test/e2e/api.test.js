@@ -238,7 +238,7 @@ describe("API", () => {
           `${path.resolve(
             __dirname,
             "../../client/index.js",
-          )}?hot=true&live-reload=true"`,
+          )}?path=/ws&transport=ws&apply=hmr`,
           path.resolve(__dirname, "../fixtures/client-config/foo.js"),
         ],
         plugins: [...config.plugins, new webpack.HotModuleReplacementPlugin()],

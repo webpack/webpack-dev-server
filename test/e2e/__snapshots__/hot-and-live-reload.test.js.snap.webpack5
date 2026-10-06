@@ -1,7 +1,8 @@
 exports[`hot and live reload > should not refresh content when hot and no live reload disabled (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
 ]
 `;
 
@@ -11,8 +12,9 @@ exports[`hot and live reload > should not refresh content when hot and no live r
 
 exports[`hot and live reload > should not refresh content when hot and no live reload disabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
 ]
 `;
 
@@ -22,9 +24,9 @@ exports[`hot and live reload > should not refresh content when hot and no live r
 
 exports[`hot and live reload > should work and allow to disable hot module replacement and live reload using the \"webpack-dev-server-hot=false&webpack-dev-server-live-reload=false\" (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
 ]
 `;
 
@@ -34,12 +36,11 @@ exports[`hot and live reload > should work and allow to disable hot module repla
 
 exports[`hot and live reload > should work and allow to disable hot module replacement using the \"webpack-dev-server-hot=false\" (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -49,8 +50,9 @@ exports[`hot and live reload > should work and allow to disable hot module repla
 
 exports[`hot and live reload > should work and allow to disable live reload using the \"webpack-dev-server-live-reload=false\" (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
 ]
 `;
 
@@ -68,16 +70,12 @@ exports[`hot and live reload > should work and do nothing when web socket server
 
 exports[`hot and live reload > should work and refresh content using hot module replacement (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -87,16 +85,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when hot enabled (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -106,16 +100,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when hot enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -125,16 +115,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when live reload and hot enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -144,16 +130,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when live reload disabled and hot enabled (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -163,16 +145,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when live reload disabled and hot enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -182,16 +160,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when live reload enabled (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -201,16 +175,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when live reload enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -220,16 +190,12 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using hot module replacement when live reload enabled and hot disabled (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Hot updated 1 modules.",
+  "[webpack-dev-server] App is up to date.",
 ]
 `;
 
@@ -239,10 +205,11 @@ exports[`hot and live reload > should work and refresh content using hot module 
 
 exports[`hot and live reload > should work and refresh content using live reload (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -252,10 +219,11 @@ exports[`hot and live reload > should work and refresh content using live reload
 
 exports[`hot and live reload > should work and refresh content using live reload when live reload enabled and hot disabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-server] bundle rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -265,16 +233,12 @@ exports[`hot and live reload > should work and refresh content using live reload
 
 exports[`hot and live reload > should work with manual client setup (default) 1`] = `
 [
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay disabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-middleware] connected",
+  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-middleware] bundle rebuilt in <time>",
+  "[webpack-dev-middleware] Checking for updates on the server...",
+  "[webpack-dev-middleware] Hot updated 1 modules.",
+  "[webpack-dev-middleware] App is up to date.",
 ]
 `;
 
@@ -284,12 +248,11 @@ exports[`hot and live reload > should work with manual client setup (default) 2`
 
 exports[`hot and live reload > should work with manual client setup and allow to disable hot module replacement (default) 1`] = `
 [
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay disabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App updated. Reloading...",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay disabled.",
+  "[webpack-dev-middleware] connected",
+  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-middleware] bundle rebuilt in <time>",
+  "[webpack-dev-middleware] App updated. Reloading...",
+  "[webpack-dev-middleware] connected",
 ]
 `;
 
@@ -299,8 +262,9 @@ exports[`hot and live reload > should work with manual client setup and allow to
 
 exports[`hot and live reload > should work with manual client setup and allow to disable live reload (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay disabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-middleware] connected",
+  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-middleware] bundle rebuilt in <time>",
 ]
 `;
 
@@ -311,15 +275,12 @@ exports[`hot and live reload > should work with manual client setup and allow to
 exports[`hot and live reload > should work with manual client setup and allow to enable hot module replacement (default) 1`] = `
 [
   "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay disabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Updated modules:",
-  "[HMR]  - ./main.css",
-  "[HMR]  - ../../../node_modules/css-loader/dist/cjs.js!./main.css",
-  "",
-  "[HMR] App is up to date.",
+  "[webpack-dev-middleware] connected",
+  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-middleware] bundle rebuilt in <time>",
+  "[webpack-dev-middleware] Checking for updates on the server...",
+  "[webpack-dev-middleware] Hot updated 1 modules.",
+  "[webpack-dev-middleware] App is up to date.",
 ]
 `;
 
@@ -329,10 +290,11 @@ exports[`hot and live reload > should work with manual client setup and allow to
 
 exports[`hot and live reload > should work with manual client setup and allow to enable live reload (default) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay disabled.",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay disabled.",
+  "[webpack-dev-middleware] connected",
+  "[webpack-dev-middleware] bundle rebuilding (<root>/test/fixtures/reload-config/main.css changed)",
+  "[webpack-dev-middleware] bundle rebuilt in <time>",
+  "[webpack-dev-middleware] App updated. Reloading...",
+  "[webpack-dev-middleware] connected",
 ]
 `;
 
@@ -346,8 +308,8 @@ exports[`hot disabled HMR plugin > should NOT register the HMR plugin before com
 
 exports[`hot disabled HMR plugin > should NOT register the HMR plugin before compilation is complete 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -361,9 +323,8 @@ exports[`multi compiler hot config HMR plugin > should register the HMR plugin b
 
 exports[`multi compiler hot config HMR plugin > should register the HMR plugin before compilation is complete 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -377,9 +338,8 @@ exports[`simple hot config HMR plugin > should register the HMR plugin before co
 
 exports[`simple hot config HMR plugin > should register the HMR plugin before compilation is complete 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -393,9 +353,8 @@ exports[`simple hot config HMR plugin with already added HMR plugin > should reg
 
 exports[`simple hot config HMR plugin with already added HMR plugin > should register the HMR plugin before compilation is complete 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
