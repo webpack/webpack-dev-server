@@ -23,9 +23,13 @@ const root = path.resolve(__dirname, "../..");
  * @returns {string} the message without the parts that vary between runs
  */
 function normalize(text) {
-  return text
-    .replaceAll(root, "<root>")
-    .replace(/rebuilt in \d+ms/, "rebuilt in <time>");
+  return (
+    text
+      .replaceAll(root, "<root>")
+      // The path of the file, which a Windows machine writes with backslashes.
+      .replaceAll(/<root>[^\s)]*/g, (path) => path.replaceAll("\\", "/"))
+      .replace(/rebuilt in \d+ms/, "rebuilt in <time>")
+  );
 }
 
 describe("multi compiler", () => {
