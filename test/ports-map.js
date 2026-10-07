@@ -81,6 +81,7 @@ const listOfTests = {
   "api-plugin": 1,
   "api-plugin-multi": 2,
   "harness-server-cleanup": 1,
+  "static-watch-output-path": 3,
 };
 
 let startPort = 8089;
