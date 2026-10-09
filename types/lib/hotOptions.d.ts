@@ -40,7 +40,7 @@ export function applyMode(
  * port of `0` is one the server picked. So they are passed through as they
  * are rather than guessed at here.
  * @param {ClientPathInput} options options
- * @returns {Record<string, string | number>} the middleware's `hot.client.path`
+ * @returns {Record<string, string | number>} the middleware's `hot.client.url`
  */
 export function clientPath({
   client,

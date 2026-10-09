@@ -318,7 +318,7 @@ describe("hot options", () => {
         isTlsServer: false,
       });
 
-      expect(client.urlPrefix).toBe("webpack-dev-server");
+      expect(client.pageParamPrefix).toBe("webpack-dev-server");
       expect(client.logging).toEqual({
         name: "webpack-dev-server",
         level: "warn",

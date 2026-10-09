@@ -41,7 +41,7 @@ const SHIMS = {
 const ENTRY_DEFAULTS = new URLSearchParams({
   transport: "ws",
   pathname: "/ws",
-  urlPrefix: "webpack-dev-server",
+  pageParamPrefix: "webpack-dev-server",
   logging: JSON.stringify({ name: "webpack-dev-server" }),
   overlay: "false",
   progress: "false",
