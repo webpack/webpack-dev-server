@@ -343,6 +343,51 @@ describe("compatibility", () => {
     }
   });
 
+  // The page-url parameters are named after this server for an entry written
+  // by hand, too: the shim names them, not the options the server injects.
+  it("lets a page opt out of hot updates through its url, with a client entry written by hand", async () => {
+    let change = 2;
+
+    for (const [search, reloads] of [
+      ["", false],
+      ["?webpack-dev-server-hot=false", true],
+    ]) {
+      const { page, messages, stop } = await open(
+        { port, client: false },
+        { entry: ["webpack-dev-server/client/index.js", "./app.js"] },
+      );
+
+      try {
+        await page.goto(`http://127.0.0.1:${port}/${search}`, {
+          waitUntil: "domcontentloaded",
+        });
+        await waitFor(() =>
+          messages.some((text) => text.includes("] connected")),
+        );
+        await page.evaluate(() => {
+          globalThis.notReloaded = true;
+        });
+
+        writeChanging(`module.exports = ${change++};\n`);
+
+        if (reloads) {
+          await page.waitForFunction(
+            () => globalThis.notReloaded === undefined,
+            { timeout: 30000 },
+          );
+        } else {
+          await waitFor(() =>
+            messages.some((text) => text.includes("App is up to date")),
+          );
+
+          expect(await page.evaluate(() => globalThis.notReloaded)).toBe(true);
+        }
+      } finally {
+        await stop();
+      }
+    }
+  });
+
   it("uses a client transport of someone else's in place of the built-in one", async () => {
     const { page, messages, stop } = await open({
       port,

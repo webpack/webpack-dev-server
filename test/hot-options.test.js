@@ -1,6 +1,9 @@
 import { EventEmitter } from "node:events";
+import { createRequire } from "node:module";
 import { describe, it } from "node:test";
 import { expect } from "expect";
+import webpack from "webpack";
+import webpackDevMiddleware from "webpack-dev-middleware";
 import hotOptions, {
   applyMode,
   bridge,
@@ -325,6 +328,20 @@ describe("hot options", () => {
       });
     });
 
+    it("connects the page where this server's own query would have", () => {
+      const { client } = hotOptions({
+        devServerOptions: serverOptions(),
+        isTlsServer: false,
+      });
+
+      expect(client.url).toEqual({
+        protocol: "ws:",
+        hostname: "0.0.0.0",
+        port: 8080,
+        pathname: "/ws",
+      });
+    });
+
     it("chooses the event stream when that is the endpoint served", () => {
       const result = hotOptions({
         devServerOptions: serverOptions({
@@ -413,5 +430,89 @@ describe("hot options", () => {
 
       expect(transport.hasClients()).toBe(true);
     });
+  });
+
+  // What this file builds is handed to the middleware, which validates it
+  // against its own schema. Built here from every shape a configuration can
+  // give it, so a name renamed on either side fails in this test rather than
+  // in a project's dev server.
+  describe("is accepted by webpack-dev-middleware", () => {
+    const require = createRequire(import.meta.url);
+    const shapes = [
+      ["the defaults", {}],
+      ["no client", { client: false }],
+      ["hot only", { hot: "only" }],
+      ["live reload only", { hot: false }],
+      ["neither", { hot: false, liveReload: false }],
+      ["Server-Sent Events", { webSocketServer: { type: "sse", options: {} } }],
+      [
+        "a socket url as a string",
+        { client: { webSocketURL: "wss://dev.example.com:8443/ws" } },
+      ],
+      [
+        "a socket url in parts",
+        { client: { webSocketURL: { hostname: "dev.example.com", port: 0 } } },
+      ],
+      [
+        "every client option",
+        {
+          client: {
+            logging: "verbose",
+            overlay: {
+              errors: (error) => !error.message.includes("ignored"),
+              warnings: false,
+              runtimeErrors: true,
+            },
+            progress: true,
+            reconnect: 3,
+          },
+        },
+      ],
+      [
+        "a port of its own",
+        { webSocketServer: { type: "ws", options: { port: 0 } } },
+      ],
+    ];
+
+    for (const [title, overrides] of shapes) {
+      it(`for ${title}`, async () => {
+        const hot = hotOptions({
+          devServerOptions: serverOptions(overrides),
+          isTlsServer: false,
+          clientTransport:
+            title === "the defaults"
+              ? undefined
+              : require.resolve("../client/clients/WebSocketClient.js"),
+        });
+        const compiler = webpack({
+          mode: "development",
+          entry: require.resolve("./fixtures/client-config/foo.js"),
+          infrastructureLogging: { level: "none" },
+          stats: "none",
+        });
+        let instance;
+
+        try {
+          // Throws on an option the schema does not take.
+          instance = webpackDevMiddleware(compiler, { hot });
+
+          await new Promise((resolve) => {
+            instance.waitUntilValid(resolve);
+          });
+
+          expect(
+            instance.context.stats.toJson({ all: false, errors: true }).errors,
+          ).toEqual([]);
+        } finally {
+          await new Promise((resolve) => {
+            if (instance) {
+              instance.close(resolve);
+            } else {
+              compiler.close(resolve);
+            }
+          });
+        }
+      });
+    }
   });
 });
