@@ -45,7 +45,7 @@ exports[`overlay > should not show initially, then show on an error and allow to
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -57,6 +57,7 @@ exports[`overlay > should not show initially, then show on an error and allow to
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -64,101 +65,120 @@ exports[`overlay > should not show initially, then show on an error and allow to
 `;
 
 exports[`overlay > should not show initially, then show on an error and allow to close 3`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <button
-          type="button"
-          data-can-open="true"
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-            cursor: pointer;
-            background: none;
-            border-width: medium;
-            border-style: none;
-            border-color: currentcolor;
-            border-image: none;
-            padding: 0px;
-            text-align: left;
-            display: block;
-            line-height: inherit;
-          "
-        >
-          ERROR in ./foo.js 1:1
-        </button>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Module parse failed: Unterminated template (1:1) File was parsed as
-          module type 'javascript/esm'. You may need an appropriate loader to
-          handle this file type, currently no loaders are configured to process
-          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`; | ^
-        </div>
-      </div>
+      in
+      <span
+        style="
+          color: rgb(141, 214, 249);
+          cursor: pointer;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        "
+        data-open-file="./foo.js:1:1"
+        title="Click to open in your editor"
+        >./foo.js</span
+      >
+      1:1 Module parse failed: Unterminated template (1:1) File was parsed as
+      module type 'javascript/esm'. You may need an appropriate loader to handle
+      this file type, currently no loaders are configured to process this file.
+      See
+      <a
+        href="https://webpack.js.org/concepts#loaders"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: rgb(141, 214, 249)"
+        >https://webpack.js.org/concepts#loaders</a
+      >
+      <span
+        style="
+          display: inline-block;
+          width: 100%;
+          margin: 6px 0px;
+          color: rgb(255, 107, 107);
+          background-color: rgba(255, 107, 107, 0.12);
+        "
+        >&gt; 1 | \`;</span
+      >
+      | ^
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -188,7 +208,7 @@ exports[`overlay > should not show initially, then show on an error, then hide o
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -200,6 +220,7 @@ exports[`overlay > should not show initially, then show on an error, then hide o
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -207,101 +228,120 @@ exports[`overlay > should not show initially, then show on an error, then hide o
 `;
 
 exports[`overlay > should not show initially, then show on an error, then hide on fix 3`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <button
-          type="button"
-          data-can-open="true"
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-            cursor: pointer;
-            background: none;
-            border-width: medium;
-            border-style: none;
-            border-color: currentcolor;
-            border-image: none;
-            padding: 0px;
-            text-align: left;
-            display: block;
-            line-height: inherit;
-          "
-        >
-          ERROR in ./foo.js 1:1
-        </button>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Module parse failed: Unterminated template (1:1) File was parsed as
-          module type 'javascript/esm'. You may need an appropriate loader to
-          handle this file type, currently no loaders are configured to process
-          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`; | ^
-        </div>
-      </div>
+      in
+      <span
+        style="
+          color: rgb(141, 214, 249);
+          cursor: pointer;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        "
+        data-open-file="./foo.js:1:1"
+        title="Click to open in your editor"
+        >./foo.js</span
+      >
+      1:1 Module parse failed: Unterminated template (1:1) File was parsed as
+      module type 'javascript/esm'. You may need an appropriate loader to handle
+      this file type, currently no loaders are configured to process this file.
+      See
+      <a
+        href="https://webpack.js.org/concepts#loaders"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: rgb(141, 214, 249)"
+        >https://webpack.js.org/concepts#loaders</a
+      >
+      <span
+        style="
+          display: inline-block;
+          width: 100%;
+          margin: 6px 0px;
+          color: rgb(255, 107, 107);
+          background-color: rgba(255, 107, 107, 0.12);
+        "
+        >&gt; 1 | \`;</span
+      >
+      | ^
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -331,7 +371,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -343,6 +383,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -350,101 +391,120 @@ exports[`overlay > should not show initially, then show on an error, then show o
 `;
 
 exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 3`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <button
-          type="button"
-          data-can-open="true"
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-            cursor: pointer;
-            background: none;
-            border-width: medium;
-            border-style: none;
-            border-color: currentcolor;
-            border-image: none;
-            padding: 0px;
-            text-align: left;
-            display: block;
-            line-height: inherit;
-          "
-        >
-          ERROR in ./foo.js 1:1
-        </button>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Module parse failed: Unterminated template (1:1) File was parsed as
-          module type 'javascript/esm'. You may need an appropriate loader to
-          handle this file type, currently no loaders are configured to process
-          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`; | ^
-        </div>
-      </div>
+      in
+      <span
+        style="
+          color: rgb(141, 214, 249);
+          cursor: pointer;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        "
+        data-open-file="./foo.js:1:1"
+        title="Click to open in your editor"
+        >./foo.js</span
+      >
+      1:1 Module parse failed: Unterminated template (1:1) File was parsed as
+      module type 'javascript/esm'. You may need an appropriate loader to handle
+      this file type, currently no loaders are configured to process this file.
+      See
+      <a
+        href="https://webpack.js.org/concepts#loaders"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: rgb(141, 214, 249)"
+        >https://webpack.js.org/concepts#loaders</a
+      >
+      <span
+        style="
+          display: inline-block;
+          width: 100%;
+          margin: 6px 0px;
+          color: rgb(255, 107, 107);
+          background-color: rgba(255, 107, 107, 0.12);
+        "
+        >&gt; 1 | \`;</span
+      >
+      | ^
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -458,7 +518,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -470,6 +530,7 @@ exports[`overlay > should not show initially, then show on an error, then show o
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -477,102 +538,120 @@ exports[`overlay > should not show initially, then show on an error, then show o
 `;
 
 exports[`overlay > should not show initially, then show on an error, then show other error, then hide on fix 5`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <button
-          type="button"
-          data-can-open="true"
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-            cursor: pointer;
-            background: none;
-            border-width: medium;
-            border-style: none;
-            border-color: currentcolor;
-            border-image: none;
-            padding: 0px;
-            text-align: left;
-            display: block;
-            line-height: inherit;
-          "
-        >
-          ERROR in ./foo.js 1:1
-        </button>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Module parse failed: Unterminated template (1:1) File was parsed as
-          module type 'javascript/esm'. You may need an appropriate loader to
-          handle this file type, currently no loaders are configured to process
-          this file. See https://webpack.js.org/concepts#loaders &gt; 1 | \`;a |
-          ^
-        </div>
-      </div>
+      in
+      <span
+        style="
+          color: rgb(141, 214, 249);
+          cursor: pointer;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        "
+        data-open-file="./foo.js:1:1"
+        title="Click to open in your editor"
+        >./foo.js</span
+      >
+      1:1 Module parse failed: Unterminated template (1:1) File was parsed as
+      module type 'javascript/esm'. You may need an appropriate loader to handle
+      this file type, currently no loaders are configured to process this file.
+      See
+      <a
+        href="https://webpack.js.org/concepts#loaders"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: rgb(141, 214, 249)"
+        >https://webpack.js.org/concepts#loaders</a
+      >
+      <span
+        style="
+          display: inline-block;
+          width: 100%;
+          margin: 6px 0px;
+          color: rgb(255, 107, 107);
+          background-color: rgba(255, 107, 107, 0.12);
+        "
+        >&gt; 1 | \`;a</span
+      >
+      | ^
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -602,7 +681,7 @@ exports[`overlay > should show a warning after invalidation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -614,6 +693,7 @@ exports[`overlay > should show a warning after invalidation 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -621,86 +701,87 @@ exports[`overlay > should show a warning after invalidation 1`] = `
 `;
 
 exports[`overlay > should show a warning after invalidation 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -714,7 +795,7 @@ exports[`overlay > should show a warning and error for initial compilation 1`] =
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -726,6 +807,7 @@ exports[`overlay > should show a warning and error for initial compilation 1`] =
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -733,194 +815,148 @@ exports[`overlay > should show a warning and error for initial compilation 1`] =
 `;
 
 exports[`overlay > should show a warning and error for initial compilation 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-right: 28px;
+      "
+    >
+      <span
+        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"
+        ><span
+          style="
+            background-color: rgb(255, 51, 72);
+            color: rgb(0, 0, 0);
+            padding: 3px 6px;
+            border-radius: 4px;
+          "
+          >ERROR</span
+        >
+        in Error from compilation. Can't find 'test' module.</span
+      >
       <div
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 13px;
+          color: rgb(153, 153, 153);
         "
       >
-        <div
+        <button
+          type="button"
+          aria-label="Previous problem"
+          data-control="previous"
           style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
           "
         >
-          ERROR
-        </div>
-        <div
+          ‹</button
+        ><span style="color: rgb(242, 242, 242)">1 / 3</span
+        ><button
+          type="button"
+          aria-label="Next problem"
+          data-control="next"
           style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            background: transparent;
+            color: rgb(255, 51, 72);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0px;
           "
         >
-          Warning from compilation
-        </div>
+          ›
+        </button>
       </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Use ‹ › or the arrow keys to navigate. Click outside, press Esc, or fix
+      the code to dismiss.
     </div>
   </div>
 </body>
@@ -934,7 +970,7 @@ exports[`overlay > should show a warning and error for initial compilation and p
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -946,6 +982,7 @@ exports[`overlay > should show a warning and error for initial compilation and p
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -953,113 +990,87 @@ exports[`overlay > should show a warning and error for initial compilation and p
 `;
 
 exports[`overlay > should show a warning and error for initial compilation and protects against xss 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          &lt;strong&gt;strong&lt;/strong&gt;
-        </div>
-      </div>
-      <div
-        style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
-        "
-      >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          &lt;strong&gt;strong&lt;/strong&gt;
-        </div>
-      </div>
+      in &lt;strong&gt;strong&lt;/strong&gt;
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1073,7 +1084,7 @@ exports[`overlay > should show a warning and hide them after closing connection 
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1085,6 +1096,7 @@ exports[`overlay > should show a warning and hide them after closing connection 
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1092,86 +1104,87 @@ exports[`overlay > should show a warning and hide them after closing connection 
 `;
 
 exports[`overlay > should show a warning and hide them after closing connection 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1193,7 +1206,7 @@ exports[`overlay > should show a warning for initial compilation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1205,6 +1218,7 @@ exports[`overlay > should show a warning for initial compilation 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1212,86 +1226,87 @@ exports[`overlay > should show a warning for initial compilation 1`] = `
 `;
 
 exports[`overlay > should show a warning for initial compilation 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1305,7 +1320,7 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1317,6 +1332,7 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1324,86 +1340,87 @@ exports[`overlay > should show a warning when \"client.overlay.errors\" is \"tru
 `;
 
 exports[`overlay > should show a warning when \"client.overlay.errors\" is \"true\" 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1417,7 +1434,7 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1429,6 +1446,7 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1436,86 +1454,87 @@ exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"t
 `;
 
 exports[`overlay > should show a warning when \"client.overlay.warnings\" is \"true\" 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1529,7 +1548,7 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 1`]
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1541,6 +1560,7 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 1`]
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1548,86 +1568,87 @@ exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 1`]
 `;
 
 exports[`overlay > should show a warning when \"client.overlay\" is \"true\" 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1641,7 +1662,7 @@ exports[`overlay > should show an ansi formatted error for initial compilation 1
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1653,6 +1674,7 @@ exports[`overlay > should show an ansi formatted error for initial compilation 1
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1660,97 +1682,92 @@ exports[`overlay > should show an ansi formatted error for initial compilation 1
 `;
 
 exports[`overlay > should show an ansi formatted error for initial compilation 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          <span
-            style="
-              font-weight: normal;
-              opacity: 1;
-              color: #transparent;
-              background: #transparent;
-            "
-          >
-            <span style="color: #6d7891"> 18 |</span>
-            <span style="color: #ffd080">Render</span>
-            <span style="color: #ffd080">ansi formatted text</span></span
-          >
-        </div>
-      </div>
+      in
+      <span style="font-weight: normal; opacity: 1">
+        <span style="color: rgb(109, 120, 145)"> 18 |</span>
+        <span style="color: rgb(255, 211, 14)">Render</span>
+        <span style="color: rgb(255, 211, 14)">ansi formatted text</span></span
+      >
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1764,7 +1781,7 @@ exports[`overlay > should show an error after invalidation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1776,6 +1793,7 @@ exports[`overlay > should show an error after invalidation 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1783,86 +1801,87 @@ exports[`overlay > should show an error after invalidation 1`] = `
 `;
 
 exports[`overlay > should show an error after invalidation 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation
-        </div>
-      </div>
+      in Error from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1876,7 +1895,7 @@ exports[`overlay > should show an error for initial compilation 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -1888,6 +1907,7 @@ exports[`overlay > should show an error for initial compilation 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -1895,86 +1915,87 @@ exports[`overlay > should show an error for initial compilation 1`] = `
 `;
 
 exports[`overlay > should show an error for initial compilation 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+      in Error from compilation. Can't find 'test' module.
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -1988,7 +2009,7 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2000,6 +2021,7 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2007,86 +2029,87 @@ exports[`overlay > should show an error when \"client.overlay.errors\" is \"true
 `;
 
 exports[`overlay > should show an error when \"client.overlay.errors\" is \"true\" 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+      in Error from compilation. Can't find 'test' module.
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2100,7 +2123,7 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2112,6 +2135,7 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2119,86 +2143,87 @@ exports[`overlay > should show an error when \"client.overlay.warnings\" is \"tr
 `;
 
 exports[`overlay > should show an error when \"client.overlay.warnings\" is \"true\" 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Warning from compilation
-        </div>
-      </div>
+      in Warning from compilation
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2212,7 +2237,7 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 1`] 
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2224,6 +2249,7 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 1`] 
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2231,86 +2257,87 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 1`] 
 `;
 
 exports[`overlay > should show an error when \"client.overlay\" is \"true\" 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+      in Error from compilation. Can't find 'test' module.
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2318,86 +2345,88 @@ exports[`overlay > should show an error when \"client.overlay\" is \"true\" 2`] 
 `;
 
 exports[`overlay > should show error for uncaught promise rejection 1`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Uncaught runtime errors:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Async error at &lt;anonymous&gt;:3:26
-        </div>
-      </div>
+      in Uncaught runtime error: Async error Error: Async error at
+      &lt;anonymous&gt;:3:26
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2405,87 +2434,88 @@ exports[`overlay > should show error for uncaught promise rejection 1`] = `
 `;
 
 exports[`overlay > should show error for uncaught runtime error 1`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Uncaught runtime errors:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Injected error at throwError (&lt;anonymous&gt;:2:15) at
-          &lt;anonymous&gt;:3:9
-        </div>
-      </div>
+      in Uncaught runtime error: Injected error Error: Injected error at
+      throwError (&lt;anonymous&gt;:2:15) at &lt;anonymous&gt;:3:9
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2499,7 +2529,7 @@ exports[`overlay > should show error when it is not filtered 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2511,6 +2541,7 @@ exports[`overlay > should show error when it is not filtered 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2518,86 +2549,87 @@ exports[`overlay > should show error when it is not filtered 1`] = `
 `;
 
 exports[`overlay > should show error when it is not filtered 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Unfiltered error
-        </div>
-      </div>
+      in Unfiltered error
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2611,7 +2643,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2623,6 +2655,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2630,86 +2663,87 @@ exports[`overlay > should show overlay when Trusted Types are enabled 1`] = `
 `;
 
 exports[`overlay > should show overlay when Trusted Types are enabled 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+      in Error from compilation. Can't find 'test' module.
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2723,7 +2757,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2735,6 +2769,7 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2742,86 +2777,87 @@ exports[`overlay > should show overlay when Trusted Types are enabled and the \"
 `;
 
 exports[`overlay > should show overlay when Trusted Types are enabled and the \"require-trusted-types-for 'script'\" header was used 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+      in Error from compilation. Can't find 'test' module.
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2835,7 +2871,7 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2847,6 +2883,7 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2854,86 +2891,87 @@ exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"def
 `;
 
 exports[`overlay > should show overlay when \"Content-Security-Policy\" is \"default-src 'self'\" was used 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 51, 72);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       X
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(206, 17, 38, 0.1);
-          color: rgb(252, 207, 207);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 51, 72);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >ERROR</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          ERROR
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Error from compilation. Can't find 'test' module.
-        </div>
-      </div>
+      in Error from compilation. Can't find 'test' module.
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>
@@ -2947,7 +2985,7 @@ exports[`overlay > should show warning when it is not filtered 1`] = `
 
   <iframe
     id="webpack-dev-server-client-overlay"
-    title="Webpack development server errors"
+    title="Build errors and warnings"
     src="about:blank"
     style="
       position: fixed;
@@ -2959,6 +2997,7 @@ exports[`overlay > should show warning when it is not filtered 1`] = `
       border-color: currentcolor;
       border-image: none;
       z-index: 2147483647;
+      background: rgba(43, 58, 66, 0.72);
     "
   ></iframe>
 </body>
@@ -2966,86 +3005,87 @@ exports[`overlay > should show warning when it is not filtered 1`] = `
 `;
 
 exports[`overlay > should show warning when it is not filtered 2`] = `
-"<body>
+"<body
+  style="
+    margin: 0px;
+    padding: 32px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: transparent;
+  "
+>
   <div
-    id="webpack-dev-server-client-overlay-div"
+    id="webpack-dev-server-client-overlay-card"
     style="
-      position: fixed;
-      box-sizing: border-box;
-      inset: 0px;
-      width: 100vw;
-      height: 100vh;
-      font-size: large;
-      padding: 2rem 2rem 4rem;
-      line-height: 1.2;
+      position: relative;
+      background: rgb(16, 22, 25);
+      color: rgb(242, 242, 242);
+      line-height: 1.6;
       white-space: pre-wrap;
+      font-family: Menlo, Consolas, &quot;Courier New&quot;, monospace;
+      font-size: 14px;
+      width: 100%;
+      max-width: 960px;
+      max-height: 90vh;
+      margin: auto;
+      padding: 28px 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border-top: 3px solid rgb(255, 211, 14);
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 8px 40px;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
+      direction: ltr;
+      text-align: left;
     "
   >
-    <div
-      style="
-        color: rgb(232, 59, 70);
-        font-size: 2em;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        margin: 0px 2rem 2rem 0px;
-        flex: 0 0 auto;
-        max-height: 50%;
-        overflow: auto;
-      "
-    >
-      Compiled with problems:
-    </div>
     <button
-      aria-label="Dismiss"
+      type="button"
+      aria-label="Close"
+      data-control="close"
       style="
-        color: rgb(255, 255, 255);
-        line-height: 1rem;
-        font-size: 1.5rem;
-        padding: 1rem;
-        cursor: pointer;
         position: absolute;
-        right: 0px;
-        top: 0px;
-        background-color: transparent;
+        top: 8px;
+        right: 12px;
         border-width: medium;
         border-style: none;
         border-color: currentcolor;
         border-image: none;
+        background: transparent;
+        color: rgb(153, 153, 153);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0px;
       "
     >
       ×
     </button>
-    <div>
-      <div
+    <div style="margin-bottom: 20px">
+      <span
         style="
-          background-color: rgba(251, 245, 180, 0.1);
-          color: rgb(251, 245, 180);
-          padding: 1rem 1rem 1.5rem;
+          background-color: rgb(255, 211, 14);
+          color: rgb(0, 0, 0);
+          padding: 3px 6px;
+          border-radius: 4px;
         "
+        >WARNING</span
       >
-        <div
-          style="
-            color: rgb(232, 59, 70);
-            font-size: 1.2em;
-            margin-bottom: 1rem;
-            font-family: sans-serif;
-          "
-        >
-          WARNING
-        </div>
-        <div
-          style="
-            line-height: 1.5;
-            font-size: 1rem;
-            font-family: Menlo, Consolas, monospace;
-          "
-        >
-          Unfiltered warning
-        </div>
-      </div>
+      in Unfiltered warning
+    </div>
+    <div
+      style="
+        margin-top: 4px;
+        padding-top: 16px;
+        border-top: 1px solid rgb(70, 94, 105);
+        color: rgb(153, 153, 153);
+        font-size: 13px;
+      "
+    >
+      Click outside, press Esc, or fix the code to dismiss.
     </div>
   </div>
 </body>

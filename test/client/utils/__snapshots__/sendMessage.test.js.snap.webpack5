@@ -1,9 +1,0 @@
-exports[`'sendMessage' function > should run self.postMessage 1`] = `
-[
-  {
-    "data": "bar",
-    "type": "webpackfoo",
-  },
-  "*",
-]
-`;

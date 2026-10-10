@@ -15,7 +15,8 @@ describe('"hot" CLI option', () => {
     );
 
     expect(exitCode).toBe(0);
-    expect(stdout).toContain("webpack/hot/dev-server.js");
+    // What a build does to the page is said in the client's entry.
+    expect(stdout).toMatch(/[?&]apply=hmr&/);
   });
 
   it('should work using "--no-hot"', async () => {
@@ -27,18 +28,19 @@ describe('"hot" CLI option', () => {
     );
 
     expect(exitCode).toBe(0);
-    expect(stdout).not.toContain("webpack/hot/dev-server.js");
+    expect(stdout).toMatch(/[?&]apply=reload&/);
+    expect(stdout).not.toMatch(/[?&]apply=hmr/);
   });
 
   it('should work using "--hot only"', async () => {
     const { exitCode, stdout } = await testBin(
-      ["--port", port, "--hot", "only"],
+      ["--port", port, "--hot", "only", "--stats=detailed"],
       {
         outputKillStr: /compiled successfully/,
       },
     );
 
     expect(exitCode).toBe(0);
-    expect(stdout).toContain("/hot/only-dev-server.js");
+    expect(stdout).toMatch(/[?&]apply=hmr-only&/);
   });
 });

@@ -637,13 +637,23 @@ describe("overlay", () => {
         .frames()
         .find((item) => item.name() === "webpack-dev-server-client-overlay");
 
-      const errorHandle = await frame.$("[data-can-open]");
+      // The overlay comes from webpack-dev-middleware, which marks a
+      // clickable file reference with `data-open-file`.
+      const errorHandle = await frame.$("[data-open-file]");
 
       await errorHandle.click();
 
       await waitForExpect(() => {
         expect(mockLaunchEditorCb).toHaveBeenCalledTimes(1);
       });
+
+      // The overlay names the file relative to webpack's context; the editor
+      // is handed it resolved against that, not against this process's
+      // working directory.
+      const [[opened]] = mockLaunchEditorCb.mock.calls;
+
+      expect(path.isAbsolute(opened)).toBe(true);
+      expect(opened.startsWith(config.context)).toBe(true);
 
       fs.writeFileSync(pathToOverlayFixture, overlayFixtureCode);
     } finally {
@@ -2089,9 +2099,11 @@ describe("overlay", () => {
       const overlayHandle = await page.$("#webpack-dev-server-client-overlay");
       const overlayFrame = await overlayHandle.contentFrame();
 
+      // The shared overlay heads a problem with its level and where it came
+      // from, rather than this package's old "Compiled with problems".
       expect(
         await overlayFrame.evaluate(() => document.body.textContent),
-      ).toContain("Compiled with problems");
+      ).toContain("ERROR");
       expect(
         pageErrors.filter((error) =>
           /trusted type policy/i.test(error.message),

@@ -11,17 +11,11 @@ export default defineConfig([
   ]),
   {
     extends: [config],
-    ignores: ["client-src/**/*", "!client-src/webpack.config.js"],
     rules: {
       // TODO fix me
       "prefer-destructuring": "off",
       "jsdoc/require-property-description": "off",
     },
-  },
-  {
-    files: ["client-src/**/*"],
-    ignores: ["client-src/webpack.config.js"],
-    extends: [configs["browser-outdated-recommended"]],
   },
   {
     files: ["test/**/*"],
@@ -45,6 +39,20 @@ export default defineConfig([
     // `@changesets/get-github-info` is ESM-only and exposes itself through an
     // `exports` map with no `main`, which the import resolver cannot follow.
     files: [".changeset/changelog-generator.mjs"],
+    rules: {
+      "import/no-unresolved": "off",
+    },
+  },
+  {
+    // `webpack-dev-middleware/client/ws` and its neighbours are subpaths of
+    // that package's `exports` map, which the import resolver cannot follow
+    // either. TypeScript does resolve them, so `lint:types-client` still
+    // covers the imports.
+    files: [
+      "client-src/clients/EventSourceClient.js",
+      "client-src/clients/WebSocketClient.js",
+      "client-src/index.js",
+    ],
     rules: {
       "import/no-unresolved": "off",
     },

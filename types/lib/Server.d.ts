@@ -177,6 +177,13 @@ export type WebSocketServerImplementation = {
   implementation: WebSocketServer;
   clients: ClientConnection[];
 };
+/**
+ * A client the hot endpoint handed over, of either transport: a WebSocket, or
+ * the event stream's response. Neither one's write or close method exists on
+ * the other, which is why anything handling both goes through the middleware
+ * or asks before calling.
+ */
+export type HotClient = ClientConnection | ServerResponse;
 export type ProxyConfigArrayItem = {
   path?: HttpProxyMiddlewareOptionsFilter | undefined;
   context?: HttpProxyMiddlewareOptionsFilter | undefined;
@@ -1565,12 +1572,6 @@ declare class Server<
   private isPlugin;
   /**
    * @private
-   * @param {Compiler} compiler compiler
-   * @returns {Promise<void>}
-   */
-  private addAdditionalEntries;
-  /**
-   * @private
    * @returns {Compiler["options"]} compiler options
    */
   private getCompilerOptions;
@@ -1580,10 +1581,17 @@ declare class Server<
    */
   private normalizeOptions;
   /**
+   * The client transport the page's runtime is handed, as
+   * `__webpack_dev_server_client__`: the module `client.webSocketTransport`
+   * names, or the built-in one for the endpoint this server serves. The
+   * built-in one is handed over too, as it always was — what reads that
+   * global is not only the runtime (React Refresh's overlay did, before it
+   * read `client/socket`). It is resolved here so a name that resolves to
+   * nothing is reported at startup, in the words it always was.
    * @private
-   * @returns {string} client transport
+   * @returns {string | undefined} the resolved module, or nothing when there is no client of this server's to hand it to
    */
-  private getClientTransport;
+  private resolveClientTransport;
   /**
    * @template T
    * @private
@@ -1591,11 +1599,28 @@ declare class Server<
    */
   private getServerTransport;
   /**
-   * @returns {string}
+   * Whether a subclass names a client entry of its own.
+   * @private
+   * @returns {boolean} true when `getClientEntry()` is overridden
+   */
+  private hasOwnClientEntry;
+  /**
+   * Whether a subclass names a hot entry of its own.
+   * @private
+   * @returns {boolean} true when `getClientHotEntry()` is overridden
+   */
+  private hasOwnClientHotEntry;
+  /**
+   * @deprecated webpack-dev-middleware adds the client entry now; this still
+   * returns the path it always did, and goes away in the next major release.
+   * @returns {string} the client entry
    */
   getClientEntry(): string;
   /**
-   * @returns {string | void} client hot entry
+   * @deprecated webpack-dev-middleware applies updates itself now, without
+   * `webpack/hot/dev-server`; this still returns the path it always did, and
+   * goes away in the next major release.
+   * @returns {string | void} the hot entry
    */
   getClientHotEntry(): string | void;
   /**
@@ -1608,6 +1633,7 @@ declare class Server<
    * @returns {Promise<void>}
    */
   private initialize;
+  webSocketServer: any;
   /**
    * @private
    * @returns {Promise<void>}
@@ -1659,6 +1685,19 @@ declare class Server<
         import("express").Response<any, Record<string, any>>
       >
     | undefined;
+  /** @type {import("webpack-dev-middleware").API<Request, Response>} */
+  hotMiddleware:
+    | import("webpack-dev-middleware").API<
+        import("express").Request<
+          import("express-serve-static-core").ParamsDictionary,
+          any,
+          any,
+          import("qs").ParsedQs,
+          Record<string, any>
+        >,
+        import("express").Response<any, Record<string, any>>
+      >
+    | undefined;
   /**
    * @private
    * @returns {Promise<void>}
@@ -1668,12 +1707,73 @@ declare class Server<
   server: S | undefined;
   isTlsServer: boolean | undefined;
   /**
+   * The hot options handed to webpack-dev-middleware.
+   *
+   * A `webSocketServer` naming an implementation of its own — a class, or a
+   * module that exports one — or giving the socket a port or a server of its
+   * own is wrapped into the shape the middleware asks a custom transport for.
+   * The middleware does not offer those, and this server has documented them
+   * since v4, so they keep working with one path from a build to a page
+   * rather than two.
    * @private
-   * @returns {Promise<void>}
+   * @returns {Promise<EXPECTED_ANY>} the middleware's `hot` option
    */
-  private createWebSocketServer;
-  /** @type {WebSocketServerImplementation | undefined | null} */
-  webSocketServer: WebSocketServerImplementation | undefined | null;
+  private getHotOptions;
+  /**
+   * Judge every client that reaches the hot endpoint.
+   *
+   * The middleware hands over each connection and the request it joined with,
+   * and applies no policy of its own. This is that policy: the same
+   * `allowedHosts`, `Origin` and same-origin rules this server has always
+   * applied, in the same order, before anything is published to a client.
+   * @private
+   * @returns {void}
+   */
+  private guardHotEndpoint;
+  /**
+   * The hot endpoint's middleware: this server's own, or — when a
+   * `setupMiddlewares` of the user's put a middleware of their own in its
+   * place — the one this server keeps for the endpoint alone.
+   * @private
+   * @returns {import("webpack-dev-middleware").API<Request, Response> | undefined} the middleware
+   */
+  private getHotMiddleware;
+  /**
+   * A client the guard let through: tracked for `webSocketServer.clients`,
+   * announced on `webSocketServer.implementation`, and sent what this
+   * server's own client was sent on connecting.
+   * @private
+   * @param {HotClient} client the client
+   * @param {IncomingMessage} request the request it joined with
+   */
+  private addHotClient;
+  /**
+   * This server's own message, in the shape it has always had —
+   * `{ type, data, params }` — next to the middleware's for the same event.
+   *
+   * The runtime is the middleware's and reads its own messages; this is for
+   * whatever reads the socket directly: React Refresh's overlay through
+   * `webpack-dev-server/client/socket`, a client wired by hand, a test. The
+   * runtime passes over a message without an `action`.
+   *
+   * TODO remove in the next major release, with `sendMessage`.
+   * @private
+   * @param {HotClient[] | undefined} clients the clients to send to, or everyone
+   * @param {string} type type
+   * @param {EXPECTED_ANY=} data data
+   * @param {EXPECTED_ANY=} params params
+   */
+  private publishLegacy;
+  /**
+   * A build's stats as this server has always sent them: the hash, then
+   * `still-ok` for a build that changed nothing, or `ok`, or its warnings
+   * and errors.
+   * @private
+   * @param {HotClient[] | undefined} clients the clients to send to, or everyone
+   * @param {StatsCompilation} stats stats
+   * @param {boolean=} force send them even when nothing changed
+   */
+  private sendStats;
   /**
    * @private
    * @param {string} defaultOpenTarget default open target
@@ -1735,6 +1835,15 @@ declare class Server<
    */
   private isSameOrigin;
   /**
+   * Send one of this server's messages to some clients, as
+   * `devServer.sendMessage(devServer.webSocketServer.clients, type, data)`.
+   *
+   * The page's runtime is webpack-dev-middleware's, which reads its own
+   * messages, so the two this server's client acted on are also said in its
+   * words: `static-changed` (and `content-changed`, its older name) reload the
+   * page, and `error` is shown. The message itself still goes out as it always
+   * did, for anything reading the socket directly.
+   * @deprecated use the middleware's `publish` or `publishTo`; this goes away in the next major release
    * @param {ClientConnection[]} clients clients
    * @param {string} type type
    * @param {EXPECTED_ANY=} data data
@@ -1746,13 +1855,6 @@ declare class Server<
     data?: EXPECTED_ANY | undefined,
     params?: EXPECTED_ANY | undefined,
   ): void;
-  /**
-   * @private
-   * @param {ClientConnection[]} clients clients
-   * @param {StatsCompilation} stats stats
-   * @param {boolean=} force force
-   */
-  private sendStats;
   /**
    * @param {string | string[]} watchPath watch path
    * @param {WatchOptions=} watchOptions watch options

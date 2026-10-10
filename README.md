@@ -259,10 +259,13 @@ See [**the documentation**][docs-url] for more use cases and options.
 
 ## Browser Support
 
-While `webpack-dev-server` transpiles the client (browser) scripts to an ES5
-state, the project only officially supports the _last two versions of major
-browsers_. We simply don't have the resources to support every whacky
-browser out there.
+The browser runtime is [webpack-dev-middleware]'s, which ships as ES5 and uses
+no built-in newer than ES5 beyond `Promise`, the transport in use and what hot
+module replacement itself needs. As before, the project only officially
+supports the _last two versions of major browsers_. We simply don't have the
+resources to support every whacky browser out there.
+
+[webpack-dev-middleware]: https://github.com/webpack/webpack-dev-middleware#client-options
 
 If you find a bug with an obscure / old browser, we would actively welcome a
 Pull Request to resolve the bug.

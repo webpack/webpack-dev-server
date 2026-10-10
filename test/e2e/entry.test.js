@@ -11,8 +11,8 @@ import portsMap from "../ports-map.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap.entry;
 
-const HOT_ENABLED_MESSAGE =
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.";
+// What the client says once it has connected to the server.
+const HOT_ENABLED_MESSAGE = "[webpack-dev-server] connected";
 
 const waitForConsoleLogFinished = async (consoleLogs) => {
   await new Promise((resolve) => {

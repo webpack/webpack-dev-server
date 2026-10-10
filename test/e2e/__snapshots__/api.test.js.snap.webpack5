@@ -4,9 +4,8 @@ exports[`API > Invalidate callback > should use the default \`noop\` callback wh
 
 exports[`API > Invalidate callback > should use the default \`noop\` callback when invalidate is called without any callback 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -20,9 +19,8 @@ exports[`API > Invalidate callback > should use the provided \`callback\` functi
 
 exports[`API > Invalidate callback > should use the provided \`callback\` function 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -40,11 +38,8 @@ exports[`API > Server.checkHostHeader > should allow URLs with scheme for checki
 
 exports[`API > Server.checkHostHeader > should allow URLs with scheme for checking origin when the \"option.client.webSocketURL\" is object 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "WebSocket connection to 'ws://test.host:8157/ws' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED",
-  "[webpack-dev-server] JSHandle@object",
   "[webpack-dev-server] Disconnected!",
 ]
 `;
@@ -59,9 +54,8 @@ exports[`API > Server.getFreePort > should retry finding the port for up to defa
 
 exports[`API > Server.getFreePort > should retry finding the port for up to defaultPortRetry times (number) 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -75,9 +69,8 @@ exports[`API > Server.getFreePort > should retry finding the port for up to defa
 
 exports[`API > Server.getFreePort > should retry finding the port for up to defaultPortRetry times (string) 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -91,9 +84,8 @@ exports[`API > Server.getFreePort > should retry finding the port when serial po
 
 exports[`API > Server.getFreePort > should retry finding the port when serial ports are busy 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -107,9 +99,8 @@ exports[`API > Server.getFreePort > should return the port when the port is \`nu
 
 exports[`API > Server.getFreePort > should return the port when the port is \`null\` 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -123,9 +114,8 @@ exports[`API > Server.getFreePort > should return the port when the port is unde
 
 exports[`API > Server.getFreePort > should return the port when the port is undefined 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -143,9 +133,8 @@ exports[`API > WEBPACK_SERVE environment variable > should be present 1`] = `
 
 exports[`API > WEBPACK_SERVE environment variable > should be present 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -155,9 +144,8 @@ exports[`API > WEBPACK_SERVE environment variable > should be present 3`] = `
 
 exports[`API > latest async API > should work and allow to rerun dev server multiple times 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -167,9 +155,8 @@ exports[`API > latest async API > should work and allow to rerun dev server mult
 
 exports[`API > latest async API > should work and allow to rerun dev server multiple times 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -180,8 +167,8 @@ exports[`API > latest async API > should work and allow to rerun dev server mult
 exports[`API > latest async API > should work when using configured manually 1`] = `
 [
   "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay disabled.",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -191,9 +178,8 @@ exports[`API > latest async API > should work when using configured manually 2`]
 
 exports[`API > latest async API > should work with async API 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -203,9 +189,8 @@ exports[`API > latest async API > should work with async API 2`] = `
 
 exports[`API > latest async API > should work with callback API 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
