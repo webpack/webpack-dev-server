@@ -237,6 +237,7 @@ describe("hot options", () => {
         isTlsServer: false,
       });
 
+      expect(result.client).toBe(false);
       expect(result.inject).toBe(false);
     });
 
@@ -310,7 +311,9 @@ describe("hot options", () => {
         clientTransport: "/abs/path/CustomClient.js",
       });
 
-      expect(client.transport).toBe("/abs/path/CustomClient.js");
+      expect(client.module).toBe("/abs/path/CustomClient.js");
+      // Still the wire the endpoint serves, which the url is built from.
+      expect(client.transport).toBe("ws");
     });
 
     it("labels the console and names the page-url parameters after this package", () => {
