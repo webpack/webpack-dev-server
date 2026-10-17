@@ -1553,7 +1553,7 @@ declare class Server<
   private listeners;
   /**
    * @private
-   * @type {RequestHandler[]}
+   * @type {(() => RequestHandler | undefined)[]}
    */
   private webSocketProxies;
   /**
