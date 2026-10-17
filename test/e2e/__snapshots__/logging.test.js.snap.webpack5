@@ -1,44 +1,39 @@
 exports[`logging > plugin mode > should work and do not log messages about hot and live reloading is enabled 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > plugin mode > should work and log errors by default 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] ERROR
-Error from compilation",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle has 1 errors",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
 exports[`logging > plugin mode > should work and log message about live reloading is enabled 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > plugin mode > should work and log messages about hot and live reloading is enabled 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > plugin mode > should work and log warnings by default 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] WARNING
-Warning from compilation",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle has 1 warnings",
+  "[webpack-dev-server] Warning from compilation",
 ]
 `;
 
@@ -50,118 +45,103 @@ exports[`logging > plugin mode > should work when the \"client.logging\" is \"no
 
 exports[`logging > should work and do not log messages about hot and live reloading is enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log errors by default (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] ERROR
-Error from compilation",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle has 1 errors",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
 exports[`logging > should work and log message about live reloading is enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log messages about hot and live reloading is enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log messages about hot and live reloading is enabled (ws) 2`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log messages about hot and live reloading is enabled (ws) 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log messages about hot is enabled (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log only error (ws) 1`] = `
 [
   "Hey.",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] ERROR
-Error from compilation",
+  "[webpack-dev-server] bundle has 1 errors",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
 exports[`logging > should work and log static changes (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] "<cwd>/test/fixtures/client-config/static/foo.txt" from static directory was changed. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] "<cwd>/test/fixtures/client-config/static/foo.txt" changed. Reloading...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work and log warning and errors (ws) 1`] = `
 [
   "Hey.",
-  "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] WARNING
-Warning from compilation",
-  "[webpack-dev-server] Errors while compiling. Reload prevented.",
-  "[webpack-dev-server] ERROR
-Error from compilation",
+  "[webpack-dev-server] bundle has 1 warnings",
+  "[webpack-dev-server] Warning from compilation",
+  "[webpack-dev-server] bundle has 1 errors",
+  "[webpack-dev-server] Error from compilation",
 ]
 `;
 
 exports[`logging > should work and log warnings by default (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
-  "[webpack-dev-server] Warnings while compiling.",
-  "[webpack-dev-server] WARNING
-Warning from compilation",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle has 1 warnings",
+  "[webpack-dev-server] Warning from compilation",
 ]
 `;
 
 exports[`logging > should work when the \"client.logging\" is \"info\" (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
 exports[`logging > should work when the \"client.logging\" is \"log\" (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -173,8 +153,7 @@ exports[`logging > should work when the \"client.logging\" is \"none\" (ws) 1`] 
 
 exports[`logging > should work when the \"client.logging\" is \"verbose\" (ws) 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;

@@ -1,8 +1,7 @@
 exports[`web socket communication > should work and close web socket client connection when web socket server closed (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
 ]
@@ -14,19 +13,18 @@ exports[`web socket communication > should work and close web socket client conn
 
 exports[`web socket communication > should work and reconnect when the connection is lost (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
   "[webpack-dev-server] Disconnected!",
   "[webpack-dev-server] Trying to reconnect...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] Checking for updates on the server...",
   "Failed to load resource: the server responded with a status of 404 (Not Found)",
-  "[HMR] Cannot find update. Need to do a full reload!",
-  "[HMR] (Probably because of restarting the webpack-dev-server)",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] Cannot find update (Full reload needed)",
+  "[webpack-dev-server] (Probably because of restarting the server)",
+  "[webpack-dev-server] Reloading page",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -36,9 +34,8 @@ exports[`web socket communication > should work and reconnect when the connectio
 
 exports[`web socket communication > should work and terminate client that is not alive (\"ws\") 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 

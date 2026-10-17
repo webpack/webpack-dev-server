@@ -1,7 +1,0 @@
-exports[`WebsocketClient > client > should open, receive message, and close 1`] = `
-[
-  "open",
-  "hello world",
-  "close",
-]
-`;

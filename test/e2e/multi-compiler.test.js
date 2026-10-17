@@ -14,6 +14,24 @@ import portsMap from "../ports-map.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["multi-compiler"];
 
+// What a rebuild reports about itself is different on every run and on every
+// machine: how long it took, and the absolute path of the file that changed.
+const root = path.resolve(__dirname, "../..");
+
+/**
+ * @param {string} text a console message
+ * @returns {string} the message without the parts that vary between runs
+ */
+function normalize(text) {
+  return (
+    text
+      .replaceAll(root, "<root>")
+      // The path of the file, which a Windows machine writes with backslashes.
+      .replaceAll(/<root>[^\s)]*/g, (path) => path.replaceAll("\\", "/"))
+      .replace(/rebuilt in \d+ms/, "rebuilt in <time>")
+  );
+}
+
 describe("multi compiler", () => {
   it("should work with one web target configuration and do nothing", async (t) => {
     const compiler = webpack(oneWebTargetConfiguration);
@@ -32,7 +50,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -68,7 +86,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -134,7 +152,7 @@ describe("multi compiler", () => {
             text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
           }
 
-          consoleMessages.push(text);
+          consoleMessages.push(normalize(text));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -211,7 +229,7 @@ describe("multi compiler", () => {
             text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
           }
 
-          consoleMessages.push(text);
+          consoleMessages.push(normalize(text));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -280,7 +298,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -349,7 +367,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -416,7 +434,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -484,7 +502,7 @@ describe("multi compiler", () => {
             text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
           }
 
-          consoleMessages.push(text);
+          consoleMessages.push(normalize(text));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -557,7 +575,7 @@ describe("multi compiler", () => {
             text = `${splittedText[0]}\n${splittedText[1]}\n    <stack>`;
           }
 
-          consoleMessages.push(text);
+          consoleMessages.push(normalize(text));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -626,7 +644,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);
@@ -713,7 +731,7 @@ describe("multi compiler", () => {
 
       page
         .on("console", (message) => {
-          consoleMessages.push(message.text());
+          consoleMessages.push(normalize(message.text()));
         })
         .on("pageerror", (error) => {
           pageErrors.push(error);

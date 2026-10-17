@@ -8,9 +8,8 @@ exports[`headers option > as a function > should handle GET request with headers
 
 exports[`headers option > as a function > should handle GET request with headers as a function 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -32,9 +31,8 @@ exports[`headers option > as a function returning an array > should handle GET r
 
 exports[`headers option > as a function returning an array > should handle GET request with headers 4`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -52,9 +50,8 @@ exports[`headers option > as a string > should handle GET request with headers 2
 
 exports[`headers option > as a string > should handle GET request with headers 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -72,9 +69,8 @@ exports[`headers option > as a string and support HEAD request > should handle H
 
 exports[`headers option > as a string and support HEAD request > should handle HEAD request with headers 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -92,9 +88,8 @@ exports[`headers option > as an array > should handle GET request with headers a
 
 exports[`headers option > as an array > should handle GET request with headers as an array 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -116,9 +111,8 @@ exports[`headers option > as an array of objects > should handle GET request wit
 
 exports[`headers option > as an array of objects > should handle GET request with headers 4`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -136,9 +130,8 @@ exports[`headers option > dev middleware headers take precedence for dev middlew
 
 exports[`headers option > dev middleware headers take precedence for dev middleware output files > should handle GET request with headers as a function 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 

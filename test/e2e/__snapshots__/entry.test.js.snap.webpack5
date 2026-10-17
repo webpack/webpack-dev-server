@@ -1,8 +1,7 @@
 exports[`entry > should work with dynamic async entry 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -12,9 +11,8 @@ exports[`entry > should work with dynamic async entry 2`] = `
 
 exports[`entry > should work with dynamic entry 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -24,9 +22,8 @@ exports[`entry > should work with dynamic entry 2`] = `
 
 exports[`entry > should work with empty 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -36,9 +33,8 @@ exports[`entry > should work with empty 2`] = `
 
 exports[`entry > should work with multiple entries #2 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Bar.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -48,9 +44,8 @@ exports[`entry > should work with multiple entries #2 2`] = `
 
 exports[`entry > should work with multiple entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -60,9 +55,8 @@ exports[`entry > should work with multiple entries 2`] = `
 
 exports[`entry > should work with multiple entries and \"dependOn\" 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Bar.",
+  "[webpack-dev-server] connected",
   "Hey.",
 ]
 `;
@@ -73,9 +67,8 @@ exports[`entry > should work with multiple entries and \"dependOn\" 2`] = `
 
 exports[`entry > should work with object entry 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -85,10 +78,9 @@ exports[`entry > should work with object entry 2`] = `
 
 exports[`entry > should work with single array entry 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
   "Bar.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -98,9 +90,8 @@ exports[`entry > should work with single array entry 2`] = `
 
 exports[`entry > should work with single entry 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 

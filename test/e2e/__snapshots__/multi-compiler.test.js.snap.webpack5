@@ -1,8 +1,7 @@
 exports[`multi compiler > should work with one web target configuration and do nothing 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -12,9 +11,8 @@ exports[`multi compiler > should work with one web target configuration and do n
 
 exports[`multi compiler > should work with universal configuration and do nothing 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -24,19 +22,18 @@ exports[`multi compiler > should work with universal configuration and do nothin
 
 exports[`multi compiler > should work with universal configuration when hot and live reloads are enabled, and do hot reload for browser compiler by default when browser entry changed 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Cannot apply update. Need to do a full reload!",
-  "[HMR] Error: Aborted because ./browser.js is not accepted
-Update propagation: ./browser.js
-    <stack>",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'browser' rebuilding (<root>/test/fixtures/universal-compiler-config/browser.js changed)",
+  "[webpack-dev-server] bundle 'browser' rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Ignored an update to unaccepted module ./browser.js",
+  "[webpack-dev-server] The following modules couldn't be hot updated: (Full reload needed)
+This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves. See https://webpack.js.org/concepts/hot-module-replacement/ for more details.",
+  "[webpack-dev-server]  - ./browser.js",
+  "[webpack-dev-server] Reloading page",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -46,19 +43,18 @@ exports[`multi compiler > should work with universal configuration when hot and 
 
 exports[`multi compiler > should work with universal configuration when only hot reload is enabled, and do hot reload for browser compiler when browser entry changed 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hello from the browser",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Cannot apply update. Need to do a full reload!",
-  "[HMR] Error: Aborted because ./browser.js is not accepted
-Update propagation: ./browser.js
-    <stack>",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'browser' rebuilding (<root>/test/fixtures/universal-compiler-config/browser.js changed)",
+  "[webpack-dev-server] bundle 'browser' rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Ignored an update to unaccepted module ./browser.js",
+  "[webpack-dev-server] The following modules couldn't be hot updated: (Full reload needed)
+This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves. See https://webpack.js.org/concepts/hot-module-replacement/ for more details.",
+  "[webpack-dev-server]  - ./browser.js",
+  "[webpack-dev-server] Reloading page",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -68,12 +64,13 @@ exports[`multi compiler > should work with universal configuration when only hot
 
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'browser' rebuilding (<root>/test/fixtures/universal-compiler-config/browser.js changed)",
+  "[webpack-dev-server] bundle 'browser' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -83,12 +80,13 @@ exports[`multi compiler > should work with universal configuration when only liv
 
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing browser and server entries 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'server' rebuilding (<root>/test/fixtures/universal-compiler-config/server.js changed)",
+  "[webpack-dev-server] bundle 'server' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -98,12 +96,13 @@ exports[`multi compiler > should work with universal configuration when only liv
 
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'server' rebuilding (<root>/test/fixtures/universal-compiler-config/server.js changed)",
+  "[webpack-dev-server] bundle 'server' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -113,12 +112,13 @@ exports[`multi compiler > should work with universal configuration when only liv
 
 exports[`multi compiler > should work with universal configuration when only live reload is enabled, and do live reload for browser compiler when changing server and browser entries 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'browser' rebuilding (<root>/test/fixtures/universal-compiler-config/browser.js changed)",
+  "[webpack-dev-server] bundle 'browser' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "Hello from the browser",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -128,9 +128,8 @@ exports[`multi compiler > should work with universal configuration when only liv
 
 exports[`multi compiler > should work with web target configurations and do nothing 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "one",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -140,9 +139,8 @@ exports[`multi compiler > should work with web target configurations and do noth
 
 exports[`multi compiler > should work with web target configurations and do nothing 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "two",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -152,19 +150,18 @@ exports[`multi compiler > should work with web target configurations and do noth
 
 exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "one",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Cannot apply update. Need to do a full reload!",
-  "[HMR] Error: Aborted because ./one.js is not accepted
-Update propagation: ./one.js
-    <stack>",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'one' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/one.js changed)",
+  "[webpack-dev-server] bundle 'one' rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Ignored an update to unaccepted module ./one.js",
+  "[webpack-dev-server] The following modules couldn't be hot updated: (Full reload needed)
+This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves. See https://webpack.js.org/concepts/hot-module-replacement/ for more details.",
+  "[webpack-dev-server]  - ./one.js",
+  "[webpack-dev-server] Reloading page",
   "one",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -174,19 +171,18 @@ exports[`multi compiler > should work with web target configurations when hot an
 
 exports[`multi compiler > should work with web target configurations when hot and live reloads are enabled, and do hot reload by default when changing own entries 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "two",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Cannot apply update. Need to do a full reload!",
-  "[HMR] Error: Aborted because ./two.js is not accepted
-Update propagation: ./two.js
-    <stack>",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'two' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/two.js changed)",
+  "[webpack-dev-server] bundle 'two' rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Ignored an update to unaccepted module ./two.js",
+  "[webpack-dev-server] The following modules couldn't be hot updated: (Full reload needed)
+This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves. See https://webpack.js.org/concepts/hot-module-replacement/ for more details.",
+  "[webpack-dev-server]  - ./two.js",
+  "[webpack-dev-server] Reloading page",
   "two",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -196,19 +192,18 @@ exports[`multi compiler > should work with web target configurations when hot an
 
 exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "one",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Cannot apply update. Need to do a full reload!",
-  "[HMR] Error: Aborted because ./one.js is not accepted
-Update propagation: ./one.js
-    <stack>",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'one' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/one.js changed)",
+  "[webpack-dev-server] bundle 'one' rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Ignored an update to unaccepted module ./one.js",
+  "[webpack-dev-server] The following modules couldn't be hot updated: (Full reload needed)
+This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves. See https://webpack.js.org/concepts/hot-module-replacement/ for more details.",
+  "[webpack-dev-server]  - ./one.js",
+  "[webpack-dev-server] Reloading page",
   "one",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -218,19 +213,18 @@ exports[`multi compiler > should work with web target configurations when only h
 
 exports[`multi compiler > should work with web target configurations when only hot reload is enabled, and do hot reload when changing own entries 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "two",
-  "[webpack-dev-server] App updated. Recompiling...",
-  "[webpack-dev-server] App hot update...",
-  "[HMR] Checking for updates on the server...",
-  "[HMR] Cannot apply update. Need to do a full reload!",
-  "[HMR] Error: Aborted because ./two.js is not accepted
-Update propagation: ./two.js
-    <stack>",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading disabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'two' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/two.js changed)",
+  "[webpack-dev-server] bundle 'two' rebuilt in <time>",
+  "[webpack-dev-server] Checking for updates on the server...",
+  "[webpack-dev-server] Ignored an update to unaccepted module ./two.js",
+  "[webpack-dev-server] The following modules couldn't be hot updated: (Full reload needed)
+This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves. See https://webpack.js.org/concepts/hot-module-replacement/ for more details.",
+  "[webpack-dev-server]  - ./two.js",
+  "[webpack-dev-server] Reloading page",
   "two",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -240,12 +234,13 @@ exports[`multi compiler > should work with web target configurations when only h
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'two' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/two.js changed)",
+  "[webpack-dev-server] bundle 'two' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -255,12 +250,13 @@ exports[`multi compiler > should work with web target configurations when only l
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled and do live reload when changing other entries 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "two",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'one' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/one.js changed)",
+  "[webpack-dev-server] bundle 'one' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "two",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -270,12 +266,13 @@ exports[`multi compiler > should work with web target configurations when only l
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'one' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/one.js changed)",
+  "[webpack-dev-server] bundle 'one' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "one",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -285,12 +282,13 @@ exports[`multi compiler > should work with web target configurations when only l
 
 exports[`multi compiler > should work with web target configurations when only live reload is enabled, and do live reload when changing own entries 3`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "two",
-  "[webpack-dev-server] App updated. Recompiling...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] bundle 'two' rebuilding (<root>/test/fixtures/multi-compiler-two-configurations/two.js changed)",
+  "[webpack-dev-server] bundle 'two' rebuilt in <time>",
   "[webpack-dev-server] App updated. Reloading...",
-  "[webpack-dev-server] Server started: Hot Module Replacement disabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
   "two",
+  "[webpack-dev-server] connected",
 ]
 `;
 

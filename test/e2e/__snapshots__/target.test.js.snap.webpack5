@@ -1,12 +1,17 @@
 exports[`target > should work using \"async-node\" target 1`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`target > should work using \"async-node\" target 2`] = `
 []
 `;
 
 exports[`target > should work using \"browserslist:defaults\" target 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -15,10 +20,23 @@ exports[`target > should work using \"browserslist:defaults\" target 2`] = `
 `;
 
 exports[`target > should work using \"electron-main\" target 1`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`target > should work using \"electron-main\" target 2`] = `
 []
 `;
 
 exports[`target > should work using \"electron-preload\" target 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`target > should work using \"electron-preload\" target 2`] = `
 []
 `;
 
@@ -26,9 +44,14 @@ exports[`target > should work using \"electron-renderer\" target 1`] = `
 []
 `;
 
+exports[`target > should work using \"electron-renderer\" target 2`] = `
+[
+  [ReferenceError: global is not defined],
+]
+`;
+
 exports[`target > should work using \"es5\" target 1`] = `
 [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
@@ -39,7 +62,6 @@ exports[`target > should work using \"es5\" target 2`] = `
 
 exports[`target > should work using \"false\" target 1`] = `
 [
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
 ]
 `;
@@ -49,22 +71,41 @@ exports[`target > should work using \"false\" target 2`] = `
 `;
 
 exports[`target > should work using \"node-webkit\" target 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`target > should work using \"node-webkit\" target 2`] = `
 []
 `;
 
 exports[`target > should work using \"node\" target 1`] = `
+[
+  "Hey.",
+]
+`;
+
+exports[`target > should work using \"node\" target 2`] = `
 []
 `;
 
 exports[`target > should work using \"nwjs\" target 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`target > should work using \"nwjs\" target 2`] = `
 []
 `;
 
 exports[`target > should work using \"universal\" target 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -74,9 +115,8 @@ exports[`target > should work using \"universal\" target 2`] = `
 
 exports[`target > should work using \"web,es5\" target 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -86,9 +126,8 @@ exports[`target > should work using \"web,es5\" target 2`] = `
 
 exports[`target > should work using \"web,node\" target 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -98,9 +137,8 @@ exports[`target > should work using \"web,node\" target 2`] = `
 
 exports[`target > should work using \"web\" target 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -110,9 +148,8 @@ exports[`target > should work using \"web\" target 2`] = `
 
 exports[`target > should work using \"webworker\" target 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -122,10 +159,8 @@ exports[`target > should work using \"webworker\" target 2`] = `
 
 exports[`target > should work using multi compiler mode with \`web\` and \`webworker\` targets 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] connected",
   "Worker said: I'm working before postMessage",
   "Worker said: Message sent: message",
 ]
@@ -137,8 +172,7 @@ exports[`target > should work using multi compiler mode with \`web\` and \`webwo
 
 exports[`target > should work using multi compiler mode with \`web\` and \`webworker\` targets with \`devServer: false\` 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
+  "[webpack-dev-server] connected",
   "Worker said: I'm working before postMessage",
   "Worker said: Message sent: message",
 ]

@@ -1,0 +1,23 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import HTMLGeneratorPlugin from "../../helpers/html-generator-plugin.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default {
+  devtool: false,
+  mode: "development",
+  context: __dirname,
+  stats: "none",
+  entry: "./app.js",
+  output: {
+    path: "/",
+  },
+  infrastructureLogging: {
+    level: "info",
+    stream: {
+      write: () => {},
+    },
+  },
+  plugins: [new HTMLGeneratorPlugin()],
+};

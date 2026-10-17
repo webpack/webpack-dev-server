@@ -306,8 +306,11 @@ describe("client option", () => {
       {
         title: 'as a path ("ws")',
         client: {
+          // The published path, which is webpack-dev-middleware's WebSocket
+          // client re-exported — a transport named by module rather than by
+          // the `"ws"` shorthand, which is what this option is for.
           webSocketTransport: fileURLToPath(
-            import.meta.resolve("../../client-src/clients/WebSocketClient.js"),
+            import.meta.resolve("../../client/clients/WebSocketClient.js"),
           ),
         },
         webSocketServer: "ws",
