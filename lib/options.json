@@ -30,6 +30,31 @@
       "type": "string",
       "minLength": 1
     },
+    "AllowedOrigins": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllowedOriginsItem"
+          }
+        },
+        {
+          "$ref": "#/definitions/AllowedOriginsItem"
+        }
+      ],
+      "description": "Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts."
+    },
+    "AllowedOriginsItem": {
+      "anyOf": [
+        {
+          "enum": ["auto", "all"]
+        },
+        {
+          "type": "string",
+          "pattern": "^https?://[^/?#\\s@]+/?$"
+        }
+      ]
+    },
     "Bonjour": {
       "anyOf": [
         {
@@ -966,6 +991,9 @@
   "properties": {
     "allowedHosts": {
       "$ref": "#/definitions/AllowedHosts"
+    },
+    "allowedOrigins": {
+      "$ref": "#/definitions/AllowedOrigins"
     },
     "bonjour": {
       "$ref": "#/definitions/Bonjour"

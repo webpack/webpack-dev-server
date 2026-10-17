@@ -46,42 +46,6 @@ exports[`allowed hosts > check host headers > should allow hosts that pass a wil
 []
 `;
 
-exports[`allowed hosts > check host headers > should allow websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch) 1`] = `
-200
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch) 2`] = `
-[]
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch) 3`] = `
-[]
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch) 1`] = `
-200
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch) 2`] = `
-[]
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch) 3`] = `
-[]
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch) 1`] = `
-200
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch) 2`] = `
-[]
-`;
-
-exports[`allowed hosts > check host headers > should allow websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch) 3`] = `
-[]
-`;
-
 exports[`allowed hosts > check host headers > should always allow \`localhost\` if options.allowedHosts is auto 1`] = `
 200
 `;
@@ -142,6 +106,119 @@ exports[`allowed hosts > check host headers > should always allow value of the \
 []
 `;
 
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch) 1`] = `
+200
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch) 2`] = `
+[]
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch) 3`] = `
+[]
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch) 1`] = `
+200
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch) 2`] = `
+[]
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch) 3`] = `
+[]
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch) 1`] = `
+200
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch) 2`] = `
+[]
+`;
+
+exports[`allowed hosts > check host headers > should reject cross-origin websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch) 3`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the \"all\" value (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the \"all\" value (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the \"all\" value in array (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the \"all\" value in array (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the custom hostname value (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the custom hostname value (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the custom hostname value starting with dot (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the custom hostname value starting with dot (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the multiple custom hostname values (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom hostname to web socket server with the multiple custom hostname values (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom sub hostname to web socket server with the custom hostname value (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using custom sub hostname to web socket server with the custom hostname value (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using origin header containing an IP address with the custom hostname value (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+]
+`;
+
+exports[`allowed hosts > should connect an explicitly allowed origin using origin header containing an IP address with the custom hostname value (\"ws\") 2`] = `
+[]
+`;
+
 exports[`allowed hosts > should connect web socket client using \"0.0.0.0\" host to web socket server with the \"auto\" value (\"ws\") 1`] = `
 [
   "Hey.",
@@ -175,25 +252,14 @@ exports[`allowed hosts > should connect web socket client using \"127.0.0.1\" ho
 []
 `;
 
-exports[`allowed hosts > should connect web socket client using \"chrome-extension:\" protocol to web socket server with the \"auto\" value (\"ws\") 1`] = `
+exports[`allowed hosts > should connect web socket client using \"[::1] host to web socket server with the \"auto\" value (\"ws\") 1`] = `
 [
   "Hey.",
   "[webpack-dev-server] connected",
 ]
 `;
 
-exports[`allowed hosts > should connect web socket client using \"chrome-extension:\" protocol to web socket server with the \"auto\" value (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using \"file:\" protocol to web socket server with the \"auto\" value (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using \"file:\" protocol to web socket server with the \"auto\" value (\"ws\") 2`] = `
+exports[`allowed hosts > should connect web socket client using \"[::1] host to web socket server with the \"auto\" value (\"ws\") 2`] = `
 []
 `;
 
@@ -208,72 +274,6 @@ exports[`allowed hosts > should connect web socket client using \"localhost\" ho
 []
 `;
 
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the \"all\" value (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the \"all\" value (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the \"all\" value in array (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the \"all\" value in array (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the custom hostname value (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the custom hostname value (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the multiple custom hostname values (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom hostname to web socket server with the multiple custom hostname values (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom sub hostname to web socket server with the custom hostname value (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using custom sub hostname to web socket server with the custom hostname value (\"ws\") 2`] = `
-[]
-`;
-
 exports[`allowed hosts > should connect web socket client using localhost to web socket server with the \"auto\" value (\"ws\") 1`] = `
 [
   "Hey.",
@@ -282,17 +282,6 @@ exports[`allowed hosts > should connect web socket client using localhost to web
 `;
 
 exports[`allowed hosts > should connect web socket client using localhost to web socket server with the \"auto\" value (\"ws\") 2`] = `
-[]
-`;
-
-exports[`allowed hosts > should connect web socket client using origin header containing an IP address with the custom hostname value (\"ws\") 1`] = `
-[
-  "Hey.",
-  "[webpack-dev-server] connected",
-]
-`;
-
-exports[`allowed hosts > should connect web socket client using origin header containing an IP address with the custom hostname value (\"ws\") 2`] = `
 []
 `;
 
@@ -366,13 +355,30 @@ exports[`allowed hosts > should disconnect web socket client using custom hostna
 []
 `;
 
-exports[`allowed hosts > should connect web socket client using \"[::1] host to web socket server with the \"auto\" value (\"ws\") 1`] = `
+exports[`allowed hosts > should reject web socket client using \"chrome-extension:\" protocol to web socket server with the \"auto\" value (\"ws\") 1`] = `
 [
   "Hey.",
   "[webpack-dev-server] connected",
+  "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
 ]
 `;
 
-exports[`allowed hosts > should connect web socket client using \"[::1] host to web socket server with the \"auto\" value (\"ws\") 2`] = `
+exports[`allowed hosts > should reject web socket client using \"chrome-extension:\" protocol to web socket server with the \"auto\" value (\"ws\") 2`] = `
+[]
+`;
+
+exports[`allowed hosts > should reject web socket client using \"file:\" protocol to web socket server with the \"auto\" value (\"ws\") 1`] = `
+[
+  "Hey.",
+  "[webpack-dev-server] connected",
+  "[webpack-dev-server] Invalid Host/Origin header",
+  "[webpack-dev-server] Disconnected!",
+  "[webpack-dev-server] Trying to reconnect...",
+]
+`;
+
+exports[`allowed hosts > should reject web socket client using \"file:\" protocol to web socket server with the \"auto\" value (\"ws\") 2`] = `
 []
 `;

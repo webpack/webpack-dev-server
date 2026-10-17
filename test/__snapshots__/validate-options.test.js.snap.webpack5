@@ -28,6 +28,66 @@ exports[`options > validate > should throw an error on the \"allowedHosts\" opti
 ]
 `;
 
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '123' value 1`] = `
+[
+  "options.allowedOrigins",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"example.com\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"https://example.com#fragment\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"https://example.com/path\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"https://example.com?query\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"https://user@example.com\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with '[\"null\"]' value 1`] = `
+[
+  "options.allowedOrigins[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with 'false' value 1`] = `
+[
+  "options.allowedOrigins",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"allowedOrigins\" option with 'true' value 1`] = `
+[
+  "options.allowedOrigins",
+]
+`;
+
 exports[`options > validate > should throw an error on the \"app\" option with 'false' value 1`] = `
 [
   "options.app",

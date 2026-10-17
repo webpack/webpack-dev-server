@@ -38,6 +38,14 @@ describe("precompiled options validator", () => {
       { watchFiles: { paths: "src/**", options: { usePolling: true } } },
     ],
     ["allowedHosts as an array", { allowedHosts: ["example.com"] }],
+    [
+      "allowedOrigins as an array",
+      { allowedOrigins: ["https://example.com:3000"] },
+    ],
+    ["allowedOrigins as a string", { allowedOrigins: "https://example.com" }],
+    ["allowedOrigins default", { allowedOrigins: "auto" }],
+    ["allowedOrigins opt out", { allowedOrigins: "all" }],
+    ["allowedOrigins empty list", { allowedOrigins: [] }],
   ];
 
   for (const [name, options] of valid) {
@@ -55,6 +63,13 @@ describe("precompiled options validator", () => {
     ["an empty string in an array", { allowedHosts: [""] }],
     ["a non-function where a function is required", { setupMiddlewares: "x" }],
     ["null", { port: null }],
+    ["a bare origin hostname", { allowedOrigins: ["example.com"] }],
+    ["an opaque origin", { allowedOrigins: ["null"] }],
+    [
+      "an origin with credentials",
+      { allowedOrigins: ["https://user@example.com"] },
+    ],
+    ["an origin with a path", { allowedOrigins: ["https://example.com/path"] }],
   ];
 
   for (const [name, options] of invalid) {

@@ -87,6 +87,8 @@ const listOfTests = {
   "universal-target": 1,
   "proxy-web-socket-origin": 2,
   "host-header-validation": 1,
+  "allowed-origins": 2,
+  "cli-allowed-origins": 1,
 };
 
 let startPort = 8089;

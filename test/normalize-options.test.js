@@ -565,6 +565,24 @@ describe("normalize options", () => {
         allowedHosts: "all",
       },
     },
+    ...[
+      ["auto", "auto"],
+      ["auto from CLI", ["auto"]],
+      ["all from CLI", ["all"]],
+      ["empty list", []],
+      ["string", "https://EXAMPLE.com:443/"],
+      ["array", ["http://localhost:3000", "https://[::1]:443"]],
+    ].map(([title, allowedOrigins]) => ({
+      title: `allowedOrigins ${title}`,
+      multiCompiler: false,
+      options: { allowedOrigins },
+    })),
+    {
+      title: "invalid origin port",
+      multiCompiler: false,
+      options: { allowedOrigins: ["https://example.com:99999"] },
+      throws: /Invalid URL/,
+    },
     {
       title: "allowedHosts is array",
       multiCompiler: false,

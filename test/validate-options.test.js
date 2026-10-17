@@ -174,6 +174,28 @@ const tests = {
     success: ["auto", "all", ["foo"], "bar"],
     failure: [true, false, 123, [], [""]],
   },
+  allowedOrigins: {
+    success: [
+      "auto",
+      "all",
+      [],
+      ["all"],
+      "https://example.com",
+      ["http://localhost:3000", "https://[::1]:8080"],
+    ],
+    failure: [
+      true,
+      false,
+      123,
+      [""],
+      ["example.com"],
+      ["null"],
+      ["https://example.com/path"],
+      ["https://user@example.com"],
+      ["https://example.com?query"],
+      ["https://example.com#fragment"],
+    ],
+  },
   headers: {
     success: [{}, { foo: "bar" }, () => {}, [{ key: "foo", value: "bar" }]],
     failure: [false, 1, [], [{ foo: "bar" }]],

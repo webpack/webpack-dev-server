@@ -63,6 +63,11 @@ over a global one._
 
 There are two main, recommended methods of using the module:
 
+For a frontend served from a different origin, configure `devServer.allowedOrigins`.
+See the [allowed origins example](examples/allowed-origins/README.md) for configuration
+and migration details. `allowedHosts` and `client.webSocketURL` do not authorize
+cross-origin access.
+
 ### With the CLI
 
 The easiest way to use it is with the [webpack CLI](https://webpack.js.org/api/cli/). In the directory where your
@@ -105,6 +110,8 @@ Options:
   --no-watch-options-stdin                            Negative 'watch-options-stdin' option.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
+  --allowed-origins <value...>                        Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
+  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
   --no-client                                         Disables client script.

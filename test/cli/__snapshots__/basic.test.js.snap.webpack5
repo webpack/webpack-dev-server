@@ -61,6 +61,8 @@ Options
   --watch-options-stdin                               Stop watching when stdin stream has ended.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
+  --allowed-origins <value...>                        Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
+  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
   --no-client                                         Disables client script.

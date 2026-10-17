@@ -22,6 +22,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         client: {
           webSocketURL: {
             port: port2,
@@ -93,6 +94,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         client: {
           webSocketURL: {
             port: port2,
@@ -164,6 +166,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         client: {
           webSocketURL: {
             port: port2,
@@ -235,6 +238,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         client: {
           webSocketURL: {
             port: port2,
@@ -307,6 +311,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: [`http://[${proxyHost}]:${proxyPort}`],
         client: {
           webSocketURL: {
             port: port2,
@@ -380,6 +385,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         client: {
           webSocketURL: {
             port: port2,
@@ -444,7 +450,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using "file:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async (t) => {
+    it(`should reject web socket client using "file:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -521,7 +527,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async (t) => {
+    it(`should reject web socket client using "chrome-extension:" protocol to web socket server with the "auto" value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -598,7 +604,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the "all" value ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using custom hostname to web socket server with the "all" value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -606,6 +612,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://my-test-origin.com"],
         client: {
           webSocketURL: {
             port: port2,
@@ -629,7 +636,7 @@ describe("allowed hosts", () => {
             // Emulation
             on: {
               proxyReqWs: (proxyReq) => {
-                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+                proxyReq.setHeader("origin", "http://my-test-origin.com");
               },
             },
             target: `http://${devServerHost}:${devServerPort}`,
@@ -676,7 +683,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the "all" value in array ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using custom hostname to web socket server with the "all" value in array ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -684,6 +691,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://my-test-origin.com"],
         client: {
           webSocketURL: {
             port: port2,
@@ -707,7 +715,7 @@ describe("allowed hosts", () => {
             // Emulation
             on: {
               proxyReqWs: (proxyReq) => {
-                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+                proxyReq.setHeader("origin", "http://my-test-origin.com");
               },
             },
             target: `http://${devServerHost}:${devServerPort}`,
@@ -754,7 +762,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using custom hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -762,6 +770,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://my-test-origin.com"],
         client: {
           webSocketURL: {
             port: port2,
@@ -785,7 +794,7 @@ describe("allowed hosts", () => {
             // Emulation
             on: {
               proxyReqWs: (proxyReq) => {
-                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+                proxyReq.setHeader("origin", "http://my-test-origin.com");
               },
             },
             target: `http://${devServerHost}:${devServerPort}`,
@@ -832,7 +841,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the custom hostname value starting with dot ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using custom hostname to web socket server with the custom hostname value starting with dot ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -840,6 +849,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://my-test-origin.com"],
         client: {
           webSocketURL: {
             port: port2,
@@ -863,7 +873,7 @@ describe("allowed hosts", () => {
             // Emulation
             on: {
               proxyReqWs: (proxyReq) => {
-                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+                proxyReq.setHeader("origin", "http://my-test-origin.com");
               },
             },
             target: `http://${devServerHost}:${devServerPort}`,
@@ -910,7 +920,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using custom sub hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using custom sub hostname to web socket server with the custom hostname value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -918,6 +928,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://foo.bar.baz.my-test-origin.com"],
         client: {
           webSocketURL: {
             port: port2,
@@ -943,7 +954,7 @@ describe("allowed hosts", () => {
               proxyReqWs: (proxyReq) => {
                 proxyReq.setHeader(
                   "origin",
-                  "http://foo.bar.baz.my-test-origin.com/",
+                  "http://foo.bar.baz.my-test-origin.com",
                 );
               },
             },
@@ -991,7 +1002,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using custom hostname to web socket server with the multiple custom hostname values ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using custom hostname to web socket server with the multiple custom hostname values ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -999,6 +1010,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://my-test-origin.com"],
         client: {
           webSocketURL: {
             port: port2,
@@ -1022,7 +1034,7 @@ describe("allowed hosts", () => {
             // Emulation
             on: {
               proxyReqWs: (proxyReq) => {
-                proxyReq.setHeader("origin", "http://my-test-origin.com/");
+                proxyReq.setHeader("origin", "http://my-test-origin.com");
               },
             },
             target: `http://${devServerHost}:${devServerPort}`,
@@ -1069,7 +1081,7 @@ describe("allowed hosts", () => {
       }
     });
 
-    it(`should connect web socket client using origin header containing an IP address with the custom hostname value ("${webSocketServer}")`, async (t) => {
+    it(`should connect an explicitly allowed origin using origin header containing an IP address with the custom hostname value ("${webSocketServer}")`, async (t) => {
       const devServerHost = "127.0.0.1";
       const devServerPort = port1;
       const proxyHost = devServerHost;
@@ -1077,6 +1089,7 @@ describe("allowed hosts", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
+        allowedOrigins: ["http://192.168.1.1"],
         client: {
           webSocketURL: {
             port: port2,
@@ -1851,7 +1864,7 @@ describe("allowed hosts", () => {
       t.assert.snapshot(pageErrors);
     });
 
-    it("should allow websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch)", async (t) => {
+    it("should reject cross-origin websocket connection when host is 'localhost' but resolves to '127.0.0.1' (loopback alias mismatch)", async (t) => {
       const options = {
         allowedHosts: "auto",
         host: "localhost",
@@ -1872,16 +1885,15 @@ describe("allowed hosts", () => {
           pageErrors.push(error);
         });
 
-      // Simulate: browser opens from localhost, but OS resolved
-      // 'localhost' to '127.0.0.1' so host header is the IP
+      // A page on localhost connects to a URL using 127.0.0.1.
       const headersLocalhostOriginIPv4Host = {
         host: "127.0.0.1",
         origin: "http://localhost",
       };
 
-      if (!server.isSameOrigin(headersLocalhostOriginIPv4Host)) {
+      if (server.isSameOrigin(headersLocalhostOriginIPv4Host)) {
         throw new Error(
-          "isSameOrigin should treat localhost and 127.0.0.1 as equivalent loopback addresses",
+          "isSameOrigin must distinguish localhost and 127.0.0.1 origins",
         );
       }
 
@@ -1894,7 +1906,7 @@ describe("allowed hosts", () => {
       t.assert.snapshot(pageErrors);
     });
 
-    it("should allow websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch)", async (t) => {
+    it("should reject cross-origin websocket connection when host is 'localhost' but resolves to '::1' (loopback alias mismatch)", async (t) => {
       const options = {
         allowedHosts: "auto",
         host: "localhost",
@@ -1924,9 +1936,9 @@ describe("allowed hosts", () => {
         origin: "http://localhost",
       };
 
-      if (!server.isSameOrigin(headersLocalhostOriginIPv6Host)) {
+      if (server.isSameOrigin(headersLocalhostOriginIPv6Host)) {
         throw new Error(
-          "isSameOrigin should treat localhost and ::1 as equivalent loopback addresses",
+          "isSameOrigin must distinguish localhost and ::1 origins",
         );
       }
 
@@ -1939,7 +1951,7 @@ describe("allowed hosts", () => {
       t.assert.snapshot(pageErrors);
     });
 
-    it("should allow websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch)", async (t) => {
+    it("should reject cross-origin websocket connection when origin is '127.0.0.1' but host is 'localhost' (reverse loopback alias mismatch)", async (t) => {
       const options = {
         allowedHosts: "auto",
         host: "127.0.0.1",
@@ -1967,9 +1979,9 @@ describe("allowed hosts", () => {
         origin: "http://127.0.0.1",
       };
 
-      if (!server.isSameOrigin(headersIPv4OriginLocalhostHost)) {
+      if (server.isSameOrigin(headersIPv4OriginLocalhostHost)) {
         throw new Error(
-          "isSameOrigin should treat 127.0.0.1 and localhost as equivalent loopback addresses",
+          "isSameOrigin must distinguish 127.0.0.1 and localhost origins",
         );
       }
 

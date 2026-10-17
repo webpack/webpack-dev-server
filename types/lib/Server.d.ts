@@ -308,6 +308,7 @@ export type Configuration<
   devMiddleware?: DevMiddlewareOptions<Request, Response> | undefined;
   compress?: boolean | undefined;
   allowedHosts?: ("auto" | "all" | string | string[]) | undefined;
+  allowedOrigins?: ("auto" | "all" | string | string[]) | undefined;
   historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
   bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
   watchFiles?:
@@ -392,6 +393,37 @@ declare class Server<
       AllowedHostsItem: {
         type: string;
         minLength: number;
+      };
+      AllowedOrigins: {
+        anyOf: (
+          | {
+              type: string;
+              items: {
+                $ref: string;
+              };
+              $ref?: undefined;
+            }
+          | {
+              $ref: string;
+              type?: undefined;
+              items?: undefined;
+            }
+        )[];
+        description: string;
+      };
+      AllowedOriginsItem: {
+        anyOf: (
+          | {
+              enum: string[];
+              type?: undefined;
+              pattern?: undefined;
+            }
+          | {
+              type: string;
+              pattern: string;
+              enum?: undefined;
+            }
+        )[];
       };
       Bonjour: {
         anyOf: (
@@ -1394,6 +1426,9 @@ declare class Server<
       allowedHosts: {
         $ref: string;
       };
+      allowedOrigins: {
+        $ref: string;
+      };
       bonjour: {
         $ref: string;
       };
@@ -1724,8 +1759,7 @@ declare class Server<
    *
    * The middleware hands over each connection and the request it joined with,
    * and applies no policy of its own. This is that policy: the same
-   * `allowedHosts`, `Origin` and same-origin rules this server has always
-   * applied, in the same order, before anything is published to a client.
+   * host and origin rules, before anything is published to a client.
    * @private
    * @returns {void}
    */
@@ -1819,22 +1853,21 @@ declare class Server<
   private isHostAllowed;
   /**
    * @private
-   * @returns {boolean} true when the user has configured a wildcard
-   * Access-Control-Allow-Origin header (opting into fully open cross-origin access)
-   */
-  private isUserCORSWildcardEnabled;
-  /**
-   * @private
    * @param {{ [key: string]: string | undefined }} headers headers
    * @param {string} headerToCheck header to check
-   * @param {boolean} validateHost need to validate host
    * @returns {boolean} true when host is valid, otherwise false
    */
   private isValidHost;
   /**
    * @private
    * @param {{ [key: string]: string | undefined }} headers headers
-   * @returns {boolean} true when is same origin, otherwise false
+   * @returns {boolean} true when the request origin is allowed
+   */
+  private isOriginAllowed;
+  /**
+   * @private
+   * @param {{ [key: string]: string | undefined }} headers headers
+   * @returns {boolean} true when scheme, hostname and port match
    */
   private isSameOrigin;
   /**

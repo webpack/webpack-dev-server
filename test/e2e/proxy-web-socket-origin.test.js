@@ -135,6 +135,43 @@ describe("proxied WebSocket upgrade origin validation", () => {
     expect(backendConnections).toBe(1);
   });
 
+  for (const options of [
+    { allowedHosts: ["localhost"] },
+    { allowedHosts: "all" },
+    { client: { webSocketURL: { hostname: "localhost" } } },
+  ]) {
+    // eslint-disable-next-line no-loop-func
+    it(`should reject an IP origin with ${JSON.stringify(options)}, even after an HTTP request`, async () => {
+      Object.assign(server.options, options);
+
+      await request(server.server).get("/api/hello").expect(200);
+
+      const result = await upgrade("http://192.168.1.2");
+
+      expect(result.status).toBe(403);
+      await setTimeout(100);
+      expect(backendConnections).toBe(0);
+    });
+  }
+
+  it("should allow a configured origin without allowing it as a Host", async () => {
+    server.options.allowedOrigins = ["https://app.example.com:3000"];
+
+    const result = await upgrade("https://app.example.com:3000");
+
+    expect(result.status).toBe(101);
+    expect(backendConnections).toBe(1);
+  });
+
+  it("should reject a configured origin on another port", async () => {
+    server.options.allowedOrigins = ["https://app.example.com:3000"];
+
+    const result = await upgrade("https://app.example.com:3001");
+
+    expect(result.status).toBe(403);
+    expect(backendConnections).toBe(0);
+  });
+
   it("should not forward a rejected upgrade after an HTTP proxy request", async () => {
     await request(server.server).get("/api/hello").expect(200);
 
