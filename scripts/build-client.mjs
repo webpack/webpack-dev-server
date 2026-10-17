@@ -18,7 +18,11 @@ const clientDir = path.join(root, "client");
 // this package uses are kept: the runtime written into `entry` by hand, the
 // connection React Refresh reads, and the transport a client of someone else's
 // extends. The rest of what `client-src/` built was this client's internals.
-// TODO in the next major release remove these, and the `./client/*` export
+// TODO in the next major release remove these, and the `./client/*` export.
+// `socket.js` last: `@pmmmwh/react-refresh-webpack-plugin` requires
+// `webpack-dev-server/client/socket`, so it has to read
+// `webpack-dev-middleware/client/socket` (or the middleware's own messages)
+// first.
 const SHIMS = {
   // The runtime itself: what `entry` pointed at, and what the middleware now
   // injects for us. Re-exported so a configuration that lists it by hand still
