@@ -84,7 +84,7 @@ describe("proxied WebSocket upgrade origin validation", () => {
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
-  function upgrade(origin) {
+  function upgrade(origin, headers = {}) {
     return new Promise((resolve) => {
       const req = http.request({
         host: "localhost",
@@ -97,6 +97,7 @@ describe("proxied WebSocket upgrade origin validation", () => {
           "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ==",
           "Sec-WebSocket-Version": "13",
           Origin: origin,
+          ...headers,
         },
       });
 
@@ -133,6 +134,15 @@ describe("proxied WebSocket upgrade origin validation", () => {
     expect(result.upgraded).toBe(true);
     expect(result.status).toBe(101);
     expect(backendConnections).toBe(1);
+  });
+
+  it("should not apply the separate HMR port exception to a proxy", async () => {
+    const result = await upgrade(`http://localhost:${devServerPort}`, {
+      Host: `localhost:${backendPort}`,
+    });
+
+    expect(result.status).toBe(403);
+    expect(backendConnections).toBe(0);
   });
 
   for (const options of [

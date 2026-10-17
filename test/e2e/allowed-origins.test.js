@@ -13,9 +13,9 @@ const [port, pagePort] = portsMap["allowed-origins"];
 const serverOrigin = `http://localhost:${port}`;
 const trustedOrigin = `http://127.0.0.1:${pagePort}`;
 
-async function connect(origin, headers = {}) {
+async function connect(origin, headers = {}, socketPort = port) {
   return new Promise((resolve, reject) => {
-    const client = new WebSocket(`ws://localhost:${port}/ws`, {
+    const client = new WebSocket(`ws://localhost:${socketPort}/ws`, {
       origin,
       headers,
     });
@@ -243,3 +243,83 @@ describe("explicit allowedOrigins", () => {
     }
   });
 });
+
+for (const listenPort of [port, `${port}`, "auto", 0]) {
+  describe(`HMR on a separate port with HTTP port ${JSON.stringify(listenPort)}`, () => {
+    let server;
+    let httpOrigin;
+
+    before(async () => {
+      server = new Server(
+        {
+          host: "localhost",
+          port: listenPort,
+          webSocketServer: {
+            type: "ws",
+            options: { host: "localhost", port: pagePort },
+          },
+        },
+        webpack(config),
+      );
+      await server.start();
+      await new Promise((resolve) => {
+        server.middleware.waitUntilValid(resolve);
+      });
+      httpOrigin = `http://localhost:${server.server.address().port}`;
+    });
+
+    after(async () => {
+      await server.stop();
+    });
+
+    it("should allow the bound HTTP origin without allowedOrigins", async () => {
+      expect((await connect(httpOrigin, {}, pagePort)).action).toBe("sync");
+    });
+
+    it("should reject other hosts, protocols, and ports", async () => {
+      for (const origin of [
+        httpOrigin.replace("localhost", "127.0.0.1"),
+        httpOrigin.replace("http:", "https:"),
+        "http://localhost:1",
+        "http://localhost:0",
+        "http://192.168.1.2",
+        undefined,
+      ]) {
+        expect((await connect(origin, {}, pagePort)).action).toBe("error");
+      }
+    });
+
+    it("should still validate the HMR request Host", async () => {
+      expect(
+        (
+          await connect(
+            httpOrigin.replace("localhost", "evil.example.com"),
+            { host: `evil.example.com:${pagePort}` },
+            pagePort,
+          )
+        ).action,
+      ).toBe("error");
+    });
+
+    it("should keep HTTP and state-changing endpoints strict about ports", async () => {
+      for (const endpoint of [
+        "/main.js",
+        "/webpack-dev-server/invalidate",
+        "/webpack-dev-server/open-editor",
+      ]) {
+        await request(httpOrigin)
+          .get(endpoint)
+          .set("Host", `localhost:${pagePort}`)
+          .set("Origin", httpOrigin)
+          .expect(403);
+      }
+
+      expect(
+        server.isSameOrigin({
+          host: `localhost:${pagePort}`,
+          origin: httpOrigin,
+        }),
+      ).toBe(false);
+    });
+  });
+}

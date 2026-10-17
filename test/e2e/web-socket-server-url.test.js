@@ -826,7 +826,6 @@ describe("web socket server URL", () => {
     it(`should work with "client.webSocketURL.port" and "webSocketServer.options.port" options as string ("${webSocketServer}")`, async (t) => {
       const compiler = webpack(config);
       const devServerOptions = {
-        allowedOrigins: [`http://127.0.0.1:${port1}`],
         webSocketServer: {
           type: webSocketServer,
           options: {

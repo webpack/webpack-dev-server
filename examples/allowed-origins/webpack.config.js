@@ -3,6 +3,9 @@ import { setup } from "../util.js";
 export default setup(
   {
     entry: "./app.js",
+    output: {
+      crossOriginLoading: "anonymous",
+    },
     devServer: {
       allowedHosts: ["localhost"],
       allowedOrigins: ["http://localhost:3000"],

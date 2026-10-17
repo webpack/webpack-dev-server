@@ -7,6 +7,9 @@ authorize another origin.
 
 ```js
 export default {
+  output: {
+    crossOriginLoading: "anonymous",
+  },
   devServer: {
     allowedHosts: ["localhost"],
     allowedOrigins: ["http://localhost:3000"],
@@ -53,6 +56,12 @@ The CLI accepts repeated flags:
 npx webpack serve --allowed-origins http://localhost:3000 --allowed-origins https://app.example.com
 ```
 
+When HMR listens on a separate port, it also accepts the page served by this
+dev server's HTTP(S) listener on the same hostname. This uses the actual bound
+port, including with `port: 0`. It applies only to HMR connections; HTTP resources,
+WebSocket proxies, and state-changing endpoints keep their existing origin rules.
+Reverse proxies that change the public origin still need `allowedOrigins`.
+
 ## Migrating cross-origin setups
 
 Previously, an entry in `allowedHosts` or a custom `client.webSocketURL` could
@@ -70,6 +79,11 @@ the browser sends `Origin` and applies CORS:
 ```html
 <script src="http://localhost:8080/main.js" crossorigin="anonymous"></script>
 ```
+
+Webpack-generated lazy chunks and hot-update scripts also need
+`output.crossOriginLoading: "anonymous"` so that the browser sends `Origin`.
+Adding `crossorigin` to the initial script does not configure these generated
+scripts. Their `output.publicPath` must also resolve to the dev server.
 
 A cross-origin `no-cors` request without `Origin` cannot be matched to an allowed
 page, even if it sends a referrer header. Fetch Metadata checks and
