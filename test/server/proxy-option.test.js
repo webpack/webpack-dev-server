@@ -616,8 +616,12 @@ describe("proxy option", () => {
 
         beforeEach(
           () =>
-            new Promise((resolve) => {
-              ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`);
+            new Promise((resolve, reject) => {
+              ws = new WebSocket(`ws://localhost:${port3}/proxy3/socket`, {
+                origin: `http://localhost:${port3}`,
+              });
+
+              ws.on("error", reject);
 
               ws.on("message", (message) => {
                 responseMessage = message.toString();
