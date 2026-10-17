@@ -1768,6 +1768,9 @@ declare class Server<
    * A build's stats as this server has always sent them: the hash, then
    * `still-ok` for a build that changed nothing, or `ok`, or its warnings
    * and errors.
+   *
+   * TODO remove in the next major release, with `publishLegacy` and
+   * `sendMessage`.
    * @private
    * @param {HotClient[] | undefined} clients the clients to send to, or everyone
    * @param {StatsCompilation} stats stats
