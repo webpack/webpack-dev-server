@@ -1,8 +1,7 @@
 exports[`host > should work using \"0.0.0.0\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -12,9 +11,8 @@ exports[`host > should work using \"0.0.0.0\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"0.0.0.0\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -24,9 +22,8 @@ exports[`host > should work using \"0.0.0.0\" host and port as number 2`] = `
 
 exports[`host > should work using \"0.0.0.0\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -36,9 +33,8 @@ exports[`host > should work using \"0.0.0.0\" host and port as string 2`] = `
 
 exports[`host > should work using \"127.0.0.1\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -48,9 +44,8 @@ exports[`host > should work using \"127.0.0.1\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"127.0.0.1\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -60,9 +55,8 @@ exports[`host > should work using \"127.0.0.1\" host and port as number 2`] = `
 
 exports[`host > should work using \"127.0.0.1\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -72,9 +66,8 @@ exports[`host > should work using \"127.0.0.1\" host and port as string 2`] = `
 
 exports[`host > should work using \"::1\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -84,9 +77,8 @@ exports[`host > should work using \"::1\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"::1\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -96,9 +88,8 @@ exports[`host > should work using \"::1\" host and port as number 2`] = `
 
 exports[`host > should work using \"::1\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -108,9 +99,8 @@ exports[`host > should work using \"::1\" host and port as string 2`] = `
 
 exports[`host > should work using \"::\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -120,9 +110,8 @@ exports[`host > should work using \"::\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"::\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -132,9 +121,8 @@ exports[`host > should work using \"::\" host and port as number 2`] = `
 
 exports[`host > should work using \"::\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -144,9 +132,8 @@ exports[`host > should work using \"::\" host and port as string 2`] = `
 
 exports[`host > should work using \"<not-specified>\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -156,9 +143,8 @@ exports[`host > should work using \"<not-specified>\" host and \"auto\" port 2`]
 
 exports[`host > should work using \"<not-specified>\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -168,9 +154,8 @@ exports[`host > should work using \"<not-specified>\" host and port as number 2`
 
 exports[`host > should work using \"<not-specified>\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -180,9 +165,8 @@ exports[`host > should work using \"<not-specified>\" host and port as string 2`
 
 exports[`host > should work using \"local-ip\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -192,9 +176,8 @@ exports[`host > should work using \"local-ip\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"local-ip\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -204,9 +187,8 @@ exports[`host > should work using \"local-ip\" host and port as number 2`] = `
 
 exports[`host > should work using \"local-ip\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -216,9 +198,8 @@ exports[`host > should work using \"local-ip\" host and port as string 2`] = `
 
 exports[`host > should work using \"local-ipv4\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -228,9 +209,8 @@ exports[`host > should work using \"local-ipv4\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"local-ipv4\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -240,9 +220,8 @@ exports[`host > should work using \"local-ipv4\" host and port as number 2`] = `
 
 exports[`host > should work using \"local-ipv4\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -252,9 +231,8 @@ exports[`host > should work using \"local-ipv4\" host and port as string 2`] = `
 
 exports[`host > should work using \"local-ipv6\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -264,9 +242,8 @@ exports[`host > should work using \"local-ipv6\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"local-ipv6\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -276,9 +253,8 @@ exports[`host > should work using \"local-ipv6\" host and port as number 2`] = `
 
 exports[`host > should work using \"local-ipv6\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -288,9 +264,8 @@ exports[`host > should work using \"local-ipv6\" host and port as string 2`] = `
 
 exports[`host > should work using \"localhost\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -300,9 +275,8 @@ exports[`host > should work using \"localhost\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"localhost\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -312,9 +286,8 @@ exports[`host > should work using \"localhost\" host and port as number 2`] = `
 
 exports[`host > should work using \"localhost\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -324,9 +297,8 @@ exports[`host > should work using \"localhost\" host and port as string 2`] = `
 
 exports[`host > should work using \"undefined\" host and \"auto\" port 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -336,9 +308,8 @@ exports[`host > should work using \"undefined\" host and \"auto\" port 2`] = `
 
 exports[`host > should work using \"undefined\" host and port as number 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 
@@ -348,9 +319,8 @@ exports[`host > should work using \"undefined\" host and port as number 2`] = `
 
 exports[`host > should work using \"undefined\" host and port as string 1`] = `
 [
-  "[webpack-dev-server] Server started: Hot Module Replacement enabled, Live Reloading enabled, Progress disabled, Overlay enabled.",
-  "[HMR] Waiting for update signal from WDS...",
   "Hey.",
+  "[webpack-dev-server] connected",
 ]
 `;
 

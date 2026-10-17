@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { expect } from "expect";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
-import WebsocketServer from "../../lib/servers/WebsocketServer.js";
+import WebsocketServer from "../fixtures/custom-server/CustomWebSocketServer.js";
 import defaultConfig from "../fixtures/provide-plugin-default/webpack.config.js";
 import wsConfig from "../fixtures/provide-plugin-ws-config/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
@@ -204,7 +204,8 @@ describe("server and client transport", () => {
         webSocketTransport: "ws",
       },
       webSocketServer: fileURLToPath(
-        import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+        import.meta
+          .resolve("../fixtures/custom-server/CustomWebSocketServer.js"),
       ),
     };
     const server = new Server(devServerOptions, compiler);
@@ -245,7 +246,8 @@ describe("server and client transport", () => {
       },
       webSocketServer: {
         type: fileURLToPath(
-          import.meta.resolve("../../lib/servers/WebsocketServer.js"),
+          import.meta
+            .resolve("../fixtures/custom-server/CustomWebSocketServer.js"),
         ),
       },
     };
