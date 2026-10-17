@@ -32,8 +32,8 @@ async function connect(origin, headers = {}) {
   });
 }
 
-// Both configurations in GHSA-v53h-4whv-q325 must preserve the HTTP and HMR
-// guards, including when the attacking page is served from a raw IP address.
+// Host and WebSocket URL configuration must preserve HTTP and HMR origin checks,
+// including when a cross-origin page is served from an IP address.
 for (const [name, options] of [
   ["explicit localhost", { allowedHosts: ["localhost"] }],
   ["all hosts", { allowedHosts: "all" }],
