@@ -38,25 +38,52 @@ function readStream(listeningOn, headers, want) {
     let contentType = "";
 
     const finish = () => resolve({ status, contentType, frames });
-    const timer = setTimeout(finish, 10000);
-    const request = http.get(
+    /** @type {import("node:http").ClientRequest | undefined} */
+    let request;
+    const timer = setTimeout(() => {
+      // Closed rather than left for `server.stop()` to cut.
+      request?.destroy();
+      finish();
+    }, 10000);
+
+    request = http.get(
       { host: "localhost", port: listeningOn, path: "/ws", headers },
       (res) => {
         status = /** @type {number} */ (res.statusCode);
         contentType = /** @type {string} */ (res.headers["content-type"]);
         res.setEncoding("utf8");
+
+        // A frame can arrive split across chunks, so they are buffered and
+        // only a frame that ended — a blank line — is read.
+        let buffer = "";
+
         res.on("data", (chunk) => {
-          for (const line of chunk.split("\n")) {
-            if (line.startsWith("data: ")) {
-              frames.push(line.slice(6));
+          buffer += chunk;
+
+          let boundary = buffer.indexOf("\n\n");
+
+          while (boundary !== -1) {
+            const data = buffer
+              .slice(0, boundary)
+              .split("\n")
+              .filter((line) => line.startsWith("data:"))
+              .map((line) => line.replace(/^data: ?/, ""))
+              .join("\n");
+
+            buffer = buffer.slice(boundary + 2);
+
+            if (data) {
+              frames.push(data);
             }
+
+            boundary = buffer.indexOf("\n\n");
           }
 
           if (
             typeof want === "function" ? want(frames) : frames.length >= want
           ) {
             clearTimeout(timer);
-            request.destroy();
+            request?.destroy();
             finish();
           }
         });

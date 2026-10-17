@@ -131,10 +131,12 @@ describe("target", () => {
         consoleMessages.filter((message) => message.text().includes(term))
           .length;
 
+      // At least, so a client that reconnects fails the snapshot below rather
+      // than waiting out the test's timeout.
       await waitFor(
         () =>
-          count("Worker said:") === 2 &&
-          count("[webpack-dev-server] connected") === 2,
+          count("Worker said:") >= 2 &&
+          count("[webpack-dev-server] connected") >= 2,
       );
 
       t.assert.snapshot(
