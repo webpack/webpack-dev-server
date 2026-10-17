@@ -169,7 +169,9 @@ describe.each(["target", "router"])(
     });
 
     it("should not forward a rejected upgrade after an HTTP proxy request", async () => {
-      await request(server.server).get("/api/hello").expect(200);
+      await request(`http://localhost:${devServerPort}`)
+        .get("/api/hello")
+        .expect(200);
 
       const result = await upgrade("http://evil.example.com");
 
@@ -184,7 +186,9 @@ describe.each(["target", "router"])(
     });
 
     it("should allow a same-origin upgrade after an HTTP proxy request", async () => {
-      await request(server.server).get("/api/hello").expect(200);
+      await request(`http://localhost:${devServerPort}`)
+        .get("/api/hello")
+        .expect(200);
 
       const result = await upgrade(`http://localhost:${devServerPort}`);
 
@@ -204,7 +208,9 @@ describe.each(["target", "router"])(
       };
 
       await startServer(() => ({ ...proxyConfig }));
-      await request(server.server).get("/api/hello").expect(200);
+      await request(`http://localhost:${devServerPort}`)
+        .get("/api/hello")
+        .expect(200);
 
       proxyConfig = {
         ...proxyConfig,
@@ -212,7 +218,9 @@ describe.each(["target", "router"])(
         pathRewrite: { "^/api": "/updated" },
       };
 
-      await request(server.server).get("/api/hello").expect(200);
+      await request(`http://localhost:${devServerPort}`)
+        .get("/api/hello")
+        .expect(200);
 
       const rejected = await upgrade("http://evil.example.com");
 
