@@ -35,7 +35,7 @@ jobs:
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
-          publish: node ./node_modules/.bin/changeset publish
+          publish: node ./node_modules/.bin/changeset publish --tag version-5
           commit: "chore(release): new release"
           title: "chore(release): new release"
         env:
