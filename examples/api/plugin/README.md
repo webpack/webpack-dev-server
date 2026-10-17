@@ -28,8 +28,7 @@ config.plugins.push(new WebpackDevServer(devServerOptions));
 To serve every configuration of a multi-configuration from one dev server, add
 the instance to the top-level `plugins` of the exported array, next to
 `parallelism`, rather than to one configuration's `plugins[]`. webpack applies
-it once to the `MultiCompiler`; this needs a webpack version that supports
-top-level `plugins` on a multi-configuration.
+it once to the `MultiCompiler`; this needs webpack 5.112.0 or later.
 
 ```js
 // webpack.config.js
