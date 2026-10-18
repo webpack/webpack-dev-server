@@ -76,6 +76,37 @@ describe("allowedOrigins as a list", () => {
       .expect(200);
   });
 
+  it("lets a listed origin send credentials", async () => {
+    await request(serverOrigin)
+      .get("/main.js")
+      .set("Origin", listedOrigin)
+      .expect("Access-Control-Allow-Credentials", "true")
+      .expect(200);
+  });
+
+  it("answers a listed origin's preflight", async () => {
+    await request(serverOrigin)
+      .options("/main.js")
+      .set("Origin", listedOrigin)
+      .set("Access-Control-Request-Method", "PUT")
+      .set("Access-Control-Request-Headers", "x-custom")
+      .set("Access-Control-Request-Private-Network", "true")
+      .expect("Access-Control-Allow-Origin", listedOrigin)
+      .expect("Access-Control-Allow-Methods", "PUT")
+      .expect("Access-Control-Allow-Headers", "x-custom")
+      .expect("Access-Control-Allow-Private-Network", "true")
+      .expect("Vary", /Access-Control-Request-Method/)
+      .expect(204);
+  });
+
+  it("refuses the preflight of an origin it does not list", async () => {
+    await request(serverOrigin)
+      .options("/main.js")
+      .set("Origin", unlistedOrigin)
+      .set("Access-Control-Request-Method", "PUT")
+      .expect(403);
+  });
+
   it("refuses an origin it does not list", async () => {
     await request(serverOrigin)
       .get("/main.js")
@@ -200,6 +231,21 @@ describe('allowedOrigins: "all"', () => {
       .expect("Access-Control-Allow-Origin", "*")
       .expect(200);
     expect((await connect(unlistedOrigin)).action).toBe("sync");
+  });
+
+  it("answers any preflight, without credentials", async () => {
+    const response = await request(serverOrigin)
+      .options("/main.js")
+      .set("Origin", unlistedOrigin)
+      .set("Access-Control-Request-Method", "DELETE")
+      .expect("Access-Control-Allow-Origin", "*")
+      .expect("Access-Control-Allow-Methods", "DELETE")
+      .expect(204);
+
+    // `*` and credentials do not go together.
+    expect(
+      response.headers["access-control-allow-credentials"],
+    ).toBeUndefined();
   });
 
   it("still checks Host", async () => {

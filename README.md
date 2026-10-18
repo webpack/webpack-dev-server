@@ -307,7 +307,8 @@ module.exports = {
 ```
 
 With a list, a listed origin's requests are answered with
-`Access-Control-Allow-Origin`, and a plain `<script>` or `<img>` it loads (one
+`Access-Control-Allow-Origin` and `Access-Control-Allow-Credentials`, and its
+preflight requests with the methods and headers it asks for, and a plain `<script>` or `<img>` it loads (one
 without `crossorigin`) is allowed by the page's `Referer`. Other origins are
 refused with `403`. A page with `Referrer-Policy: no-referrer` has to load the
 bundle with `crossorigin` (and `output.crossOriginLoading: "anonymous"`) instead.

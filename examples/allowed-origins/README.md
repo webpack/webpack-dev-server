@@ -34,7 +34,9 @@ const response = await fetch("http://localhost:8080/main.js");
 console.log(response.status); // 200
 ```
 
-A listed origin's requests get `Access-Control-Allow-Origin`, and a script or
+A listed origin's requests get `Access-Control-Allow-Origin` and
+`Access-Control-Allow-Credentials`, its preflight requests are answered with the methods
+and headers it asks for (and Private Network Access), and a script or
 image it loads without `crossorigin` is allowed by the page's `Referer`. Any
 other origin gets `403`, cannot receive hot updates and cannot connect through a
 WebSocket proxy. The `Host` check still applies.
