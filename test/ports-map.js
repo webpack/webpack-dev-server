@@ -83,6 +83,7 @@ const listOfTests = {
   app: 1,
   "cross-origin-request": 2,
   "proxy-web-socket-origin": 2,
+  "host-header-validation": 1,
 };
 
 let startPort = 8089;
