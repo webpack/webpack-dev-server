@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.2.7
+
+### Patch Changes
+
+- Validate the `Host` and `Origin` headers and enforce same-origin checks on WebSocket upgrade requests handled by proxies with `ws: true`. This prevents cross-origin pages from connecting to proxied WebSocket services through the development server. (by [@github-actions](https://github.com/apps/github-actions) in [#5766](https://github.com/webpack/webpack-dev-server/pull/5766))
+
+- Validate Host and HTTP/2 authority headers independently of Origin protocol exceptions, including when `allowedHosts` is `"all"`. Handle malformed open-editor URLs with a controlled response and parse their query without relying on the Host header. (by [@bjohansebas](https://github.com/bjohansebas) in [#5772](https://github.com/webpack/webpack-dev-server/pull/5772))
+
 ## 5.2.6
 
 ### Patch Changes
