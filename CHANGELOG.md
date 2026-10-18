@@ -1,5 +1,27 @@
 # Changelog
 
+## 6.1.0
+
+### Minor Changes
+
+- Run as a plugin from the top-level `plugins` of a multi-configuration, serving every configuration from one server. (by [@alexander-akait](https://github.com/alexander-akait) in [#5765](https://github.com/webpack/webpack-dev-server/pull/5765))
+
+- Fix client progress modes, socket URL credentials, overlay and progress lifecycles, server startup error handling and local IP lookup; export `BaseServer`. (by [@alexander-akait](https://github.com/alexander-akait) in [#5739](https://github.com/webpack/webpack-dev-server/pull/5739))
+
+- The browser client, the error overlay and both transports now come from webpack-dev-middleware, so this package has no client code of its own. Every option keeps its name and meaning, `allowedHosts` and the origin checks still apply here, and this server's `{ type }` messages are still sent next to the middleware's, so React Refresh keeps working. `client/index.js`, `client/socket.js` and `client/clients/WebSocketClient.js` still resolve while the client's internal files are gone, and the console wording, the overlay and the progress indicator are now the middleware's. `client.webSocketTransport: "sse"` adds Server-Sent Events, a universal build now runs in Node without the client throwing, and `sendMessage()`, `getClientEntry()` and `getClientHotEntry()` still work, a subclass's overrides included, but are deprecated. (by [@alexander-akait](https://github.com/alexander-akait) in [#5750](https://github.com/webpack/webpack-dev-server/pull/5750))
+
+### Patch Changes
+
+- Keep hot and live reload working after a cancelled "Leave site?" dialog. (by [@alexander-akait](https://github.com/alexander-akait) in [#5744](https://github.com/webpack/webpack-dev-server/pull/5744))
+
+- Keep the overlay for a runtime error thrown while the page is still loading. (by [@alexander-akait](https://github.com/alexander-akait) in [#5745](https://github.com/webpack/webpack-dev-server/pull/5745))
+
+- Validate the `Host` and `Origin` headers and enforce same-origin checks on WebSocket upgrade requests handled by proxies with `ws: true`. This prevents cross-origin pages from connecting to proxied WebSocket services through the development server. (by [@UlisesGascon](https://github.com/UlisesGascon) in [`cb1534a`](https://github.com/webpack/webpack-dev-server/commit/cb1534a097f21cf611995d70d83eb4ead69d1b64))
+
+- Validate options with a precompiled schema to cut ~115ms from startup. (by [@alexander-akait](https://github.com/alexander-akait) in [#5746](https://github.com/webpack/webpack-dev-server/pull/5746))
+
+- Validate Host and HTTP/2 authority headers independently of Origin protocol exceptions, including when `allowedHosts` is `"all"`. Handle malformed open-editor URLs with a controlled response and parse their query without relying on the Host header. (by [@bjohansebas](https://github.com/bjohansebas) in [#5771](https://github.com/webpack/webpack-dev-server/pull/5771))
+
 ## 6.0.0
 
 ### Major Changes
