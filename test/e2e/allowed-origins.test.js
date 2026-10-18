@@ -84,6 +84,18 @@ describe("allowedOrigins as a list", () => {
       .expect(200);
   });
 
+  it("gives credentials to a listed origin only, not to another port of its own hostname", async () => {
+    const response = await request(serverOrigin)
+      .get("/main.js")
+      .set("Origin", `http://localhost:${pagePort}`)
+      .expect("Access-Control-Allow-Origin", `http://localhost:${pagePort}`)
+      .expect(200);
+
+    expect(
+      response.headers["access-control-allow-credentials"],
+    ).toBeUndefined();
+  });
+
   it("answers a listed origin's preflight", async () => {
     await request(serverOrigin)
       .options("/main.js")
