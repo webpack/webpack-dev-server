@@ -1,3 +1,17 @@
+/**
+ * Does the installed webpack-dev-middleware take `hot.token: { required:
+ * false }` — a token handed to the client that the endpoint does not require?
+ * Read off its schema, so an older one is given `token: false` rather than an
+ * option it would refuse.
+ *
+ * TODO remove once the dependency on webpack-dev-middleware requires a
+ * version that has it.
+ * @param {EXPECTED_ANY=} schema the middleware's options schema, read from the installed one when not given
+ * @returns {boolean} true when it does
+ */
+export function supportsOptionalHotToken(
+  schema?: EXPECTED_ANY | undefined,
+): boolean;
 /** @typedef {import("./Server.js").ClientConfiguration} ClientConfiguration */
 /** @typedef {import("./Server.js").WebSocketServerConfiguration} WebSocketServerConfiguration */
 /** @typedef {NonNullable<WebSocketServerConfiguration["options"]>} WebSocketServerOptions */
@@ -16,6 +30,7 @@
  * @property {boolean | undefined} isTlsServer whether this server speaks TLS
  * @property {(() => EXPECTED_ANY)=} transport a transport of this server's own, when the `webSocketServer` option asks for one
  * @property {string=} clientTransport the module `client.webSocketTransport` names, resolved, when it names one rather than a built-in transport
+ * @property {boolean=} optionalToken whether the middleware hands over a token it does not require; read off the installed one when not given
  */
 /**
  * What a build should do to the page, as one option rather than two.
@@ -96,6 +111,7 @@ export default function hotOptions({
   isTlsServer,
   transport,
   clientTransport,
+  optionalToken,
 }: HotOptionsInput): EXPECTED_ANY;
 /**
  * Wrap a `BaseServer` implementation as a transport.
@@ -152,6 +168,10 @@ export type HotOptionsInput = {
    * the module `client.webSocketTransport` names, resolved, when it names one rather than a built-in transport
    */
   clientTransport?: string | undefined;
+  /**
+   * whether the middleware hands over a token it does not require; read off the installed one when not given
+   */
+  optionalToken?: boolean | undefined;
 };
 export type ClientConnection = import("./Server.js").ClientConnection;
 export type EXPECTED_ANY = any;

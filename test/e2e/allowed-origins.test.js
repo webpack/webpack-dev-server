@@ -265,45 +265,35 @@ describe("the hot token", () => {
 
   before(async () => {
     server = await startServer({});
+
+    // A webpack-dev-middleware without the optional token has none to hand
+    // over; give it one, as a newer one would mint, so this server's own
+    // check is what is tested either way.
+    // TODO remove once the dependency on webpack-dev-middleware requires a
+    // version that hands over a token it does not require.
+    if (typeof server.middleware.token !== "string") {
+      server.middleware.token = "a-token-for-this-run";
+    }
   });
 
   after(async () => {
     await server.stop();
   });
 
-  // TODO remove the check once the dependency on webpack-dev-middleware
-  // requires a version that hands over a token it does not require.
-  const supported = () => typeof server.middleware.token === "string";
-
-  it("lets an origin this server does not know connect with it", async (t) => {
-    if (!supported()) {
-      t.skip("webpack-dev-middleware has no optional token");
-      return;
-    }
-
+  it("lets an origin this server does not know connect with it", async () => {
     const query = `?token=${encodeURIComponent(server.middleware.token)}`;
 
     expect((await connect(unlistedOrigin, { query })).action).toBe("sync");
   });
 
-  it("does not stand in for it without the token, or with a wrong one", async (t) => {
-    if (!supported()) {
-      t.skip("webpack-dev-middleware has no optional token");
-      return;
-    }
-
+  it("does not stand in for it without the token, or with a wrong one", async () => {
     expect((await connect(unlistedOrigin)).action).toBe("error");
     expect(
       (await connect(unlistedOrigin, { query: "?token=not-the-token" })).action,
     ).toBe("error");
   });
 
-  it("does not stand in for the Host check", async (t) => {
-    if (!supported()) {
-      t.skip("webpack-dev-middleware has no optional token");
-      return;
-    }
-
+  it("does not stand in for the Host check", async () => {
     const query = `?token=${encodeURIComponent(server.middleware.token)}`;
 
     expect(

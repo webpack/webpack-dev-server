@@ -148,6 +148,14 @@ describe("allowedOrigins", () => {
       ).rejects.toThrow("Invalid URL");
     });
 
+    it("allows nothing it cannot compare with a Host", async () => {
+      const server = await createServer({ allowedOrigins: [] });
+
+      expect(server.isOriginAllowed({ origin: "http://localhost:8080" })).toBe(
+        false,
+      );
+    });
+
     it("does not trust forwarded headers", async () => {
       const server = await createServer({ allowedOrigins: [] });
 

@@ -10,6 +10,7 @@ import hotOptions, {
   clientOverlay,
   clientPath,
   problemFilter,
+  supportsOptionalHotToken,
 } from "../lib/hotOptions.js";
 
 /**
@@ -229,9 +230,66 @@ describe("hot options", () => {
       const result = hotOptions({
         devServerOptions: serverOptions({ client: false }),
         isTlsServer: false,
+        optionalToken: true,
       });
 
       expect(result.token).toBe(false);
+    });
+
+    it("hands the client a token the endpoint does not require, where the middleware can", () => {
+      expect(
+        hotOptions({
+          devServerOptions: serverOptions(),
+          isTlsServer: false,
+          optionalToken: true,
+        }).token,
+      ).toEqual({ required: false });
+      expect(
+        hotOptions({
+          devServerOptions: serverOptions(),
+          isTlsServer: false,
+          optionalToken: false,
+        }).token,
+      ).toBe(false);
+    });
+  });
+
+  describe("supportsOptionalHotToken", () => {
+    const schemaWithToken = (token) => ({
+      properties: {
+        hot: {
+          anyOf: [
+            { type: "boolean" },
+            { type: "object", properties: { token } },
+          ],
+        },
+      },
+    });
+
+    it("finds the object form of `hot.token` in a schema that has it", () => {
+      expect(
+        supportsOptionalHotToken(
+          schemaWithToken({
+            anyOf: [{ type: "boolean" }, { type: "object" }],
+          }),
+        ),
+      ).toBe(true);
+    });
+
+    it("does not find it in an older schema", () => {
+      expect(
+        supportsOptionalHotToken(
+          schemaWithToken({ anyOf: [{ type: "boolean" }, { type: "string" }] }),
+        ),
+      ).toBe(false);
+    });
+
+    it("says no rather than throw for a schema it cannot read", () => {
+      expect(supportsOptionalHotToken({})).toBe(false);
+    });
+
+    it("reads the installed middleware's schema", () => {
+      expect(typeof supportsOptionalHotToken()).toBe("boolean");
     });
 
     it("keeps the endpoint and the plugin, but no runtime, when there is no client", () => {
