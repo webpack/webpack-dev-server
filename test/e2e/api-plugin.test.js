@@ -21,8 +21,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["api-plugin"];
 const [portA, portB] = portsMap["api-plugin-multi"];
 
-// TODO remove this check in the next major, once the minimum supported webpack
-// applies the top-level `plugins` of a multi-configuration to the MultiCompiler.
+// TODO in the next major, once the webpack peer dependency is `^5.112.0`, remove
+// this check: the top-level `plugins` of a multi-configuration always apply.
 const supportsMultiCompilerPlugins =
   new webpack.MultiCompiler([], { plugins: [] }).options.plugins !== undefined;
 
@@ -701,6 +701,8 @@ describe("API (plugin)", () => {
       },
     );
 
+    // TODO remove in the next major, together with the fallback it covers in
+    // `Server#apply()`, once the webpack peer dependency is `^5.112.0`.
     it("should stop the server once on webpack without `MultiCompiler.hooks.shutdown`", async () => {
       const compiler = webpack(multiCompilerConfig);
       // A webpack older than 5.110.0: the same compiler, minus the hook.
