@@ -108,8 +108,8 @@ Options:
   --no-watch-options-stdin                            Negative 'watch-options-stdin' option.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
-  --allowed-origins <value...>                        Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
-  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
+  --allowed-origins <value...>                        Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows those plus the page's own hostname, on any port, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
+  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows those plus the page's own hostname, on any port, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
   --no-client                                         Disables client script.
@@ -287,9 +287,12 @@ Default: `"auto"`
   `"auto"`, `allowedHosts: "all"` and an `Access-Control-Allow-Origin: *` entry in
   `headers` still open the server to every origin — both are **deprecated** and
   will stop doing so in the next major release, so set `allowedOrigins` instead.
-- A list of HTTP(S) origins allows the page's own origin plus those, and nothing
-  else, whatever `allowedHosts` says. Scheme, hostname and port must match. An
-  empty list allows the page's own origin only.
+- A list of HTTP(S) origins allows those, plus the page's own hostname — on any
+  port, with `localhost`, `127.0.0.1` and `[::1]` counted as one, as with `"auto"`
+  — and `file:` and browser-extension pages, whatever `allowedHosts` says. A
+  listed origin's scheme, hostname and port must match. An empty list allows only
+  the page's own hostname, so another page on `localhost`, on any port, can still
+  use a server on `localhost`.
 - `"all"` allows every origin. It does not turn off the `Host` check.
 
 ```js
@@ -310,9 +313,11 @@ refused with `403`. A page with `Referrer-Policy: no-referrer` has to load the
 bundle with `crossorigin` (and `output.crossOriginLoading: "anonymous"`) instead.
 See the [allowed origins example](examples/allowed-origins/README.md).
 
-The injected client is also handed a token that is new on every run. A hot client
-that carries it may connect from an origin the server does not know, such as a
-proxy's, as long as its `Host` is allowed.
+With a webpack-dev-middleware that supports it, the injected client is also
+handed a token that is new on every run. A hot client that carries it may
+connect from an origin the server does not know, such as a proxy's, as long as
+its `Host` is allowed. With an older one there is no token, so list the proxy's
+origin in `allowedOrigins` for hot module replacement to connect through it.
 
 ### static.deny
 

@@ -45,10 +45,12 @@ WebSocket proxy. The `Host` check still applies.
   page's own hostname on any port is allowed, with `localhost`, `127.0.0.1` and
   `[::1]` counted as one, and so is every origin when `allowedHosts` is `"all"`
   (deprecated: set `allowedOrigins` instead).
-- An HTTP(S) origin, or a list of them: those, plus the page's own origin, and
-  nothing else, whatever `allowedHosts` says. Scheme, hostname and port must
-  match. Entries may have a trailing slash, but no path, credentials, query or
-  fragment. `[]` allows the page's own origin only.
+- An HTTP(S) origin, or a list of them: those, plus the page's own hostname (on
+  any port, loopback names counted as one, as with `"auto"`), whatever
+  `allowedHosts` says. A listed origin's scheme, hostname and port must match.
+  Entries may have a trailing slash, but no path, credentials, query or
+  fragment. `[]` allows the page's own hostname only — which still includes
+  every other page on `localhost` when the server is on `localhost`.
 - `"all"`: every origin, with `Access-Control-Allow-Origin: *`. It does not turn
   off the `Host` check.
 
@@ -76,9 +78,11 @@ export default {
 Forwarded headers grant nothing. For TLS terminated at a proxy, list the public
 `https` origin.
 
-Hot module replacement does not need the list for a proxy: the injected client
-is handed a token, new on every run, and a client that carries it may connect
-from an origin the server does not know.
+Hot module replacement does not need the list for a proxy when the installed
+webpack-dev-middleware hands the injected client a token, new on every run: a
+client that carries it may connect from an origin the server does not know.
+With an older webpack-dev-middleware there is no token, so list the proxy's
+origin as well.
 
 ## A page that sends no `Referer`
 
