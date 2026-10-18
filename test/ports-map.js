@@ -86,6 +86,7 @@ const listOfTests = {
   "react-refresh": 1,
   "universal-target": 1,
   "proxy-web-socket-origin": 2,
+  "host-header-validation": 1,
 };
 
 let startPort = 8089;
