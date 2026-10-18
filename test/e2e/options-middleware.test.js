@@ -56,8 +56,8 @@ describe("handle options-request correctly", () => {
     const server = new Server(
       {
         port: portForServer,
-        allowedOrigins: [`http://localhost:${portForApp}`],
         headers: {
+          "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
         },
       },

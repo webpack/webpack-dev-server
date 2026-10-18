@@ -503,6 +503,12 @@ const tests = {
           watch: true,
         },
       ],
+      {
+        deny: true,
+      },
+      {
+        deny: [".env", "*.{key,pem}"],
+      },
     ],
     failure: [
       0,
@@ -510,6 +516,12 @@ const tests = {
       "",
       {
         publicPath: false,
+      },
+      {
+        deny: "*.key",
+      },
+      {
+        deny: ["secrets/.env"],
       },
       {
         serveIndex: "true",

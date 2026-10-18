@@ -61,8 +61,8 @@ Options
   --watch-options-stdin                               Stop watching when stdin stream has ended.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
-  --allowed-origins <value...>                        Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
-  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
+  --allowed-origins <value...>                        Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
+  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
   --no-client                                         Disables client script.
@@ -128,8 +128,11 @@ Options
   --no-static-serve-index                             Does not tell dev server to use serveIndex middleware.
   --static-watch                                      Watches for files in static content directory.
   --no-static-watch                                   Does not watch for files in static content directory.
+  --static-deny [value...]                            Files never to serve from the static content directory, matched against each segment of the path: 'true' for the default list of secrets ('.env', '.env.*', keys and certificates, '.npmrc', '.yarnrc.yml', '.git'), or patterns of your own, with '*', '?' and '{a,b}'.
+  --no-static-deny                                    Serves every file in the static content directory.
   --static-reset                                      Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).
   --static-public-path-reset                          Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.
+  --static-deny-reset                                 Clear all items provided in 'static.deny' configuration. Files never to serve from the static content directory, matched against each segment of the path: 'true' for the default list of secrets ('.env', '.env.*', keys and certificates, '.npmrc', '.yarnrc.yml', '.git'), or patterns of your own, with '*', '?' and '{a,b}'.
   --watch-files <value...>                            Allows to configure list of globs/directories/files to watch for file changes.
   --watch-files-reset                                 Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.
   --no-web-socket-server                              Disallows to set web socket server and options.

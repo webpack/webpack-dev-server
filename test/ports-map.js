@@ -89,6 +89,7 @@ const listOfTests = {
   "host-header-validation": 1,
   "allowed-origins": 2,
   "cli-allowed-origins": 1,
+  "static-deny": 1,
 };
 
 let startPort = 8089;

@@ -25,7 +25,6 @@ describe("web socket server URL", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         webSocketServer,
         port: devServerPort,
         host: devServerHost,
@@ -111,7 +110,6 @@ describe("web socket server URL", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         webSocketServer,
         port: devServerPort,
         host: devServerHost,
@@ -198,7 +196,6 @@ describe("web socket server URL", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         client: {
           webSocketURL: {
             hostname: devServerHost,
@@ -290,7 +287,6 @@ describe("web socket server URL", () => {
 
       const compiler = webpack(config);
       const devServerOptions = {
-        allowedOrigins: [`http://${proxyHost}:${proxyPort}`],
         webSocketServer,
         port: "auto",
         host: "local-ip",

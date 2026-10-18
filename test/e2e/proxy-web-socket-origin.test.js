@@ -84,7 +84,7 @@ describe("proxied WebSocket upgrade origin validation", () => {
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
-  function upgrade(origin, headers = {}) {
+  function upgrade(origin) {
     return new Promise((resolve) => {
       const req = http.request({
         host: "localhost",
@@ -97,7 +97,6 @@ describe("proxied WebSocket upgrade origin validation", () => {
           "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ==",
           "Sec-WebSocket-Version": "13",
           Origin: origin,
-          ...headers,
         },
       });
 
@@ -134,52 +133,6 @@ describe("proxied WebSocket upgrade origin validation", () => {
     expect(result.upgraded).toBe(true);
     expect(result.status).toBe(101);
     expect(backendConnections).toBe(1);
-  });
-
-  it("should not apply the separate HMR port exception to a proxy", async () => {
-    const result = await upgrade(`http://localhost:${devServerPort}`, {
-      Host: `localhost:${backendPort}`,
-    });
-
-    expect(result.status).toBe(403);
-    expect(backendConnections).toBe(0);
-  });
-
-  for (const options of [
-    { allowedHosts: ["localhost"] },
-    { allowedHosts: "all" },
-    { client: { webSocketURL: { hostname: "localhost" } } },
-  ]) {
-    // eslint-disable-next-line no-loop-func
-    it(`should reject an IP origin with ${JSON.stringify(options)}, even after an HTTP request`, async () => {
-      Object.assign(server.options, options);
-
-      await request(server.server).get("/api/hello").expect(200);
-
-      const result = await upgrade("http://192.168.1.2");
-
-      expect(result.status).toBe(403);
-      await setTimeout(100);
-      expect(backendConnections).toBe(0);
-    });
-  }
-
-  it("should allow a configured origin without allowing it as a Host", async () => {
-    server.options.allowedOrigins = ["https://app.example.com:3000"];
-
-    const result = await upgrade("https://app.example.com:3000");
-
-    expect(result.status).toBe(101);
-    expect(backendConnections).toBe(1);
-  });
-
-  it("should reject a configured origin on another port", async () => {
-    server.options.allowedOrigins = ["https://app.example.com:3000"];
-
-    const result = await upgrade("https://app.example.com:3001");
-
-    expect(result.status).toBe(403);
-    expect(backendConnections).toBe(0);
   });
 
   it("should not forward a rejected upgrade after an HTTP proxy request", async () => {

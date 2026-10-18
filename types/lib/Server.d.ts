@@ -115,6 +115,10 @@ export type Static = {
           })
       )
     | undefined;
+  /**
+   * files never to serve from the directory, matched against each segment of the path: `true` for the default list of secrets, or patterns of your own
+   */
+  deny?: (boolean | string[]) | undefined;
 };
 export type NormalizedStatic = {
   directory: string;
@@ -122,6 +126,7 @@ export type NormalizedStatic = {
   serveIndex: false | ServeIndexOptions;
   staticOptions: ServeStaticOptions;
   watch: false | WatchOptions;
+  deny?: string[] | undefined;
 };
 export type ServerType<
   A extends BasicApplication = import("express").Application,
@@ -410,6 +415,7 @@ declare class Server<
             }
         )[];
         description: string;
+        link: string;
       };
       AllowedOriginsItem: {
         anyOf: (
@@ -1301,6 +1307,28 @@ declare class Server<
             description: string;
             link: string;
           };
+          deny: {
+            anyOf: (
+              | {
+                  type: string;
+                  cli: {
+                    negatedDescription: string;
+                  };
+                  items?: undefined;
+                }
+              | {
+                  type: string;
+                  items: {
+                    type: string;
+                    minLength: number;
+                    pattern: string;
+                  };
+                  cli?: undefined;
+                }
+            )[];
+            description: string;
+            link: string;
+          };
         };
       };
       StaticString: {
@@ -1759,7 +1787,8 @@ declare class Server<
    *
    * The middleware hands over each connection and the request it joined with,
    * and applies no policy of its own. This is that policy: the same
-   * host and origin rules, before anything is published to a client.
+   * `allowedHosts`, `Origin` and same-origin rules this server has always
+   * applied, in the same order, before anything is published to a client.
    * @private
    * @returns {void}
    */
@@ -1853,23 +1882,32 @@ declare class Server<
   private isHostAllowed;
   /**
    * @private
+   * @returns {boolean} true when the user has configured a wildcard
+   * Access-Control-Allow-Origin header (opting into fully open cross-origin access)
+   */
+  private isUserCORSWildcardEnabled;
+  /**
+   * @private
    * @param {{ [key: string]: string | undefined }} headers headers
    * @param {string} headerToCheck header to check
+   * @param {boolean} validateHost need to validate host
    * @returns {boolean} true when host is valid, otherwise false
    */
   private isValidHost;
   /**
    * @private
    * @param {{ [key: string]: string | undefined }} headers headers
-   * @returns {boolean} true when the request origin is allowed
-   */
-  private isOriginAllowed;
-  /**
-   * @private
-   * @param {{ [key: string]: string | undefined }} headers headers
-   * @returns {boolean} true when scheme, hostname and port match
+   * @returns {boolean} true when is same origin, otherwise false
    */
   private isSameOrigin;
+  /**
+   * Whether a request's origin may use this server, by `allowedOrigins` — or
+   * by `allowedHosts`, as it always was, when that is "auto".
+   * @private
+   * @param {{ [key: string]: string | undefined }} headers request headers
+   * @returns {boolean} true when allowed
+   */
+  private isOriginAllowed;
   /**
    * Send one of this server's messages to some clients, as
    * `devServer.sendMessage(devServer.webSocketServer.clients, type, data)`.

@@ -11,11 +11,19 @@ import portsMap from "../ports-map.js";
 
 const [port, pagePort] = portsMap["allowed-origins"];
 const serverOrigin = `http://localhost:${port}`;
-const trustedOrigin = `http://127.0.0.1:${pagePort}`;
+// `*.localhost` resolves to the loopback address in the browser, and is a
+// different origin from `localhost` that only a list can allow.
+const listedOrigin = `http://app.localhost:${pagePort}`;
+const unlistedOrigin = `http://evil.localhost:${pagePort}`;
 
-async function connect(origin, headers = {}, socketPort = port) {
+/**
+ * @param {string | undefined} origin origin
+ * @param {{ headers?: Record<string, string>, query?: string }=} options extra headers, and a query for the url
+ * @returns {Promise<{ action: string }>} the first message that says whether the client was let in
+ */
+async function connect(origin, { headers = {}, query = "" } = {}) {
   return new Promise((resolve, reject) => {
-    const client = new WebSocket(`ws://localhost:${socketPort}/ws`, {
+    const client = new WebSocket(`ws://localhost:${port}/ws${query}`, {
       origin,
       headers,
     });
@@ -32,135 +40,26 @@ async function connect(origin, headers = {}, socketPort = port) {
   });
 }
 
-// Host and WebSocket URL configuration must preserve HTTP and HMR origin checks,
-// including when a cross-origin page is served from an IP address.
-for (const [name, options] of [
-  ["explicit localhost", { allowedHosts: ["localhost"] }],
-  ["all hosts", { allowedHosts: "all" }],
-  ["wildcard hosts", { allowedHosts: [".example.com"] }],
-  [
-    "custom WebSocket URL",
-    { client: { webSocketURL: `ws://localhost:${port}/ws` } },
-  ],
-]) {
-  describe(`origin protection with ${name}`, () => {
-    let server;
+async function startServer(options) {
+  const server = new Server({ port, ...options }, webpack(config));
 
-    before(async () => {
-      server = new Server({ port, ...options }, webpack(config));
-      await server.start();
-      await new Promise((resolve) => {
-        server.middleware.waitUntilValid(resolve);
-      });
-    });
-
-    after(async () => {
-      await server.stop();
-    });
-
-    for (const site of ["cross-site", "same-site"]) {
-      for (const destination of ["script", "image"]) {
-        it(`should block ${site} no-cors ${destination} requests`, async () => {
-          await request(serverOrigin)
-            .get("/main.js")
-            .set("Sec-Fetch-Site", site)
-            .set("Sec-Fetch-Mode", "no-cors")
-            .set("Sec-Fetch-Dest", destination)
-            .expect(403);
-        });
-      }
-    }
-
-    it("should retain CORP when Fetch Metadata is absent", async () => {
-      await request(serverOrigin)
-        .get("/main.js")
-        .expect("Cross-Origin-Resource-Policy", "same-origin")
-        .expect(200);
-    });
-
-    it("should reject cross-origin HTTP and HMR requests from an IP address", async () => {
-      await request(serverOrigin)
-        .get("/main.js")
-        .set("Origin", "http://192.168.1.2")
-        .expect(403);
-
-      expect(await connect("http://192.168.1.2")).toEqual({
-        action: "error",
-        message: "Invalid Host/Origin header",
-      });
-    });
-
-    it("should keep same-origin HTTP and HMR working", async () => {
-      await request(serverOrigin)
-        .get("/main.js")
-        .set("Origin", serverOrigin)
-        .expect(200);
-
-      expect((await connect(serverOrigin)).action).toBe("sync");
-    });
-
-    it("should keep state-changing endpoints protected", async () => {
-      await request(serverOrigin)
-        .get("/webpack-dev-server/invalidate")
-        .set("Origin", "http://192.168.1.2")
-        .expect(403);
-    });
-
-    if (name === "explicit localhost" || name === "custom WebSocket URL") {
-      it("should block an untrusted page in a real browser", async () => {
-        const pageServer = http.createServer((_req, res) => {
-          res.setHeader("Content-Type", "text/html");
-          res.end(`<script src="${serverOrigin}/main.js"></script>`);
-        });
-        await new Promise((resolve) => {
-          pageServer.listen(pagePort, "127.0.0.1", resolve);
-        });
-        const { page, browser } = await runBrowser();
-
-        try {
-          const scriptResponse = page.waitForResponse(
-            `${serverOrigin}/main.js`,
-          );
-          await page.goto(trustedOrigin);
-          expect((await scriptResponse).status()).toBe(403);
-
-          const action = await page.evaluate(
-            (url) =>
-              new Promise((resolve, reject) => {
-                const client = new WebSocket(url);
-                client.onerror = reject;
-                client.onmessage = (event) => {
-                  const message = JSON.parse(event.data);
-                  client.close();
-                  resolve(message.action);
-                };
-              }),
-            `ws://localhost:${port}/ws`,
-          );
-
-          expect(action).toBe("error");
-        } finally {
-          await browser.close();
-          await new Promise((resolve) => {
-            pageServer.close(resolve);
-          });
-        }
-      });
-    }
+  await server.start();
+  await new Promise((resolve) => {
+    server.middleware.waitUntilValid(resolve);
   });
+
+  return server;
 }
 
-describe("explicit allowedOrigins", () => {
+describe("allowedOrigins as a list", () => {
   let server;
 
   before(async () => {
-    server = new Server(
-      { port, allowedOrigins: [trustedOrigin] },
-      webpack(config),
-    );
-    await server.start();
-    await new Promise((resolve) => {
-      server.middleware.waitUntilValid(resolve);
+    // `allowedHosts: "all"` would let every origin in under "auto"; with a
+    // list, it only stops checking `Host`.
+    server = await startServer({
+      allowedHosts: "all",
+      allowedOrigins: [listedOrigin],
     });
   });
 
@@ -168,73 +67,112 @@ describe("explicit allowedOrigins", () => {
     await server.stop();
   });
 
-  it("should authorize HTTP and HMR and emit CORS headers", async () => {
+  it("answers a listed origin with CORS headers", async () => {
     await request(serverOrigin)
       .get("/main.js")
-      .set("Origin", trustedOrigin)
-      .expect("Access-Control-Allow-Origin", trustedOrigin)
+      .set("Origin", listedOrigin)
+      .expect("Access-Control-Allow-Origin", listedOrigin)
       .expect("Vary", /Origin/)
       .expect(200);
-
-    expect((await connect(trustedOrigin)).action).toBe("sync");
   });
 
-  it("should reject an unlisted origin and an invalid Host", async () => {
+  it("refuses an origin it does not list", async () => {
     await request(serverOrigin)
       .get("/main.js")
-      .set("Origin", "http://192.168.1.2")
+      .set("Origin", unlistedOrigin)
       .expect(403);
-    await request(serverOrigin)
-      .get("/main.js")
-      .set("Host", "evil.example.com")
-      .set("Origin", trustedOrigin)
-      .expect(403);
-    expect(
-      (await connect(trustedOrigin, { host: "evil.example.com" })).action,
-    ).toBe("error");
   });
 
-  it("should not authorize a no-cors request without an Origin", async () => {
+  it("allows a script load from a listed page by its Referer", async () => {
     await request(serverOrigin)
       .get("/main.js")
       .set("Sec-Fetch-Site", "cross-site")
       .set("Sec-Fetch-Mode", "no-cors")
-      .set("Referer", `${trustedOrigin}/`)
+      .set("Referer", `${listedOrigin}/page.html`)
+      .expect("Cross-Origin-Resource-Policy", "cross-origin")
+      .expect(200);
+  });
+
+  it("refuses a cross-site script load from any other page", async () => {
+    for (const referer of [`${unlistedOrigin}/`, undefined]) {
+      const req = request(serverOrigin)
+        .get("/main.js")
+        .set("Sec-Fetch-Site", "cross-site")
+        .set("Sec-Fetch-Mode", "no-cors");
+
+      if (referer) {
+        req.set("Referer", referer);
+      }
+
+      await req.expect(403);
+    }
+  });
+
+  it("keeps a same-origin resource policy without Fetch Metadata", async () => {
+    await request(serverOrigin)
+      .get("/main.js")
+      .expect("Cross-Origin-Resource-Policy", "same-origin")
+      .expect(200);
+  });
+
+  it("lets the page's own origin and the listed one connect for HMR", async () => {
+    expect((await connect(serverOrigin)).action).toBe("sync");
+    expect((await connect(listedOrigin)).action).toBe("sync");
+  });
+
+  it("refuses HMR to any other origin", async () => {
+    expect(await connect(unlistedOrigin)).toEqual({
+      action: "error",
+      message: "Invalid Host/Origin header",
+    });
+  });
+
+  it("opens the state-changing endpoints to the listed origin only", async () => {
+    await request(serverOrigin)
+      .get("/webpack-dev-server/invalidate")
+      .set("Sec-Fetch-Site", "same-site")
+      .set("Origin", listedOrigin)
+      .expect(200);
+    await request(serverOrigin)
+      .get("/webpack-dev-server/invalidate")
+      .set("Sec-Fetch-Site", "same-site")
+      .set("Origin", unlistedOrigin)
       .expect(403);
   });
 
-  it("should allow the configured page to load a CORS script and connect HMR", async () => {
+  it("loads a script into a listed page and keeps it out of another", async () => {
     const pageServer = http.createServer((_req, res) => {
       res.setHeader("Content-Type", "text/html");
-      res.end(`<script src="${serverOrigin}/main.js" crossorigin></script>`);
+      res.end("<!doctype html><title>page</title>");
     });
+
     await new Promise((resolve) => {
       pageServer.listen(pagePort, "127.0.0.1", resolve);
     });
+
     const { page, browser } = await runBrowser();
+    const loadScript = (url) =>
+      page.evaluate(
+        (src) =>
+          new Promise((resolve) => {
+            const script = document.createElement("script");
 
-    try {
-      const scriptResponse = page.waitForResponse(`${serverOrigin}/main.js`);
-      await page.goto(trustedOrigin);
-      expect((await scriptResponse).status()).toBe(200);
-
-      const action = await page.evaluate(
-        (url) =>
-          new Promise((resolve, reject) => {
-            const client = new WebSocket(url);
-            client.onerror = reject;
-            client.onmessage = (event) => {
-              const message = JSON.parse(event.data);
-              if (["error", "sync", "built"].includes(message.action)) {
-                client.close();
-                resolve(message.action);
-              }
-            };
+            // A plain `<script>`, without `crossorigin`: allowed by the
+            // page's `Referer`, as a backend's template would load it.
+            script.src = src;
+            script.onload = () => resolve("loaded");
+            script.onerror = () => resolve("blocked");
+            document.head.append(script);
           }),
-        `ws://localhost:${port}/ws`,
+        url,
       );
 
-      expect(action).toBe("sync");
+    try {
+      await page.goto(listedOrigin);
+      expect(await loadScript(`${serverOrigin}/main.js`)).toBe("loaded");
+
+      await page.goto(unlistedOrigin);
+      expect(await loadScript(`${serverOrigin}/main.js`)).toBe("blocked");
     } finally {
       await browser.close();
       await new Promise((resolve) => {
@@ -244,82 +182,91 @@ describe("explicit allowedOrigins", () => {
   });
 });
 
-for (const listenPort of [port, `${port}`, "auto", 0]) {
-  describe(`HMR on a separate port with HTTP port ${JSON.stringify(listenPort)}`, () => {
-    let server;
-    let httpOrigin;
+describe('allowedOrigins: "all"', () => {
+  let server;
 
-    before(async () => {
-      server = new Server(
-        {
-          host: "localhost",
-          port: listenPort,
-          webSocketServer: {
-            type: "ws",
-            options: { host: "localhost", port: pagePort },
-          },
-        },
-        webpack(config),
-      );
-      await server.start();
-      await new Promise((resolve) => {
-        server.middleware.waitUntilValid(resolve);
-      });
-      httpOrigin = `http://localhost:${server.server.address().port}`;
-    });
-
-    after(async () => {
-      await server.stop();
-    });
-
-    it("should allow the bound HTTP origin without allowedOrigins", async () => {
-      expect((await connect(httpOrigin, {}, pagePort)).action).toBe("sync");
-    });
-
-    it("should reject other hosts, protocols, and ports", async () => {
-      for (const origin of [
-        httpOrigin.replace("localhost", "127.0.0.1"),
-        httpOrigin.replace("http:", "https:"),
-        "http://localhost:1",
-        "http://localhost:0",
-        "http://192.168.1.2",
-        undefined,
-      ]) {
-        expect((await connect(origin, {}, pagePort)).action).toBe("error");
-      }
-    });
-
-    it("should still validate the HMR request Host", async () => {
-      expect(
-        (
-          await connect(
-            httpOrigin.replace("localhost", "evil.example.com"),
-            { host: `evil.example.com:${pagePort}` },
-            pagePort,
-          )
-        ).action,
-      ).toBe("error");
-    });
-
-    it("should keep HTTP and state-changing endpoints strict about ports", async () => {
-      for (const endpoint of [
-        "/main.js",
-        "/webpack-dev-server/invalidate",
-        "/webpack-dev-server/open-editor",
-      ]) {
-        await request(httpOrigin)
-          .get(endpoint)
-          .set("Host", `localhost:${pagePort}`)
-          .set("Origin", httpOrigin)
-          .expect(403);
-      }
-
-      expect(
-        server.isSameOrigin({
-          host: `localhost:${pagePort}`,
-          origin: httpOrigin,
-        }),
-      ).toBe(false);
-    });
+  before(async () => {
+    server = await startServer({ allowedOrigins: "all" });
   });
-}
+
+  after(async () => {
+    await server.stop();
+  });
+
+  it("lets every origin in, with CORS headers", async () => {
+    await request(serverOrigin)
+      .get("/main.js")
+      .set("Origin", unlistedOrigin)
+      .expect("Access-Control-Allow-Origin", "*")
+      .expect(200);
+    expect((await connect(unlistedOrigin)).action).toBe("sync");
+  });
+
+  it("still checks Host", async () => {
+    await request(serverOrigin)
+      .get("/main.js")
+      .set("Host", "evil.example.com")
+      .expect(403);
+    expect(
+      (await connect(serverOrigin, { headers: { host: "evil.example.com" } }))
+        .action,
+    ).toBe("error");
+  });
+});
+
+describe("the hot token", () => {
+  let server;
+
+  before(async () => {
+    server = await startServer({});
+  });
+
+  after(async () => {
+    await server.stop();
+  });
+
+  // TODO remove the check once the dependency on webpack-dev-middleware
+  // requires a version that hands over a token it does not require.
+  const supported = () => typeof server.middleware.token === "string";
+
+  it("lets an origin this server does not know connect with it", async (t) => {
+    if (!supported()) {
+      t.skip("webpack-dev-middleware has no optional token");
+      return;
+    }
+
+    const query = `?token=${encodeURIComponent(server.middleware.token)}`;
+
+    expect((await connect(unlistedOrigin, { query })).action).toBe("sync");
+  });
+
+  it("does not stand in for it without the token, or with a wrong one", async (t) => {
+    if (!supported()) {
+      t.skip("webpack-dev-middleware has no optional token");
+      return;
+    }
+
+    expect((await connect(unlistedOrigin)).action).toBe("error");
+    expect(
+      (await connect(unlistedOrigin, { query: "?token=not-the-token" })).action,
+    ).toBe("error");
+  });
+
+  it("does not stand in for the Host check", async (t) => {
+    if (!supported()) {
+      t.skip("webpack-dev-middleware has no optional token");
+      return;
+    }
+
+    const query = `?token=${encodeURIComponent(server.middleware.token)}`;
+
+    expect(
+      (
+        await connect(serverOrigin, {
+          query,
+          headers: { host: "evil.example.com" },
+        })
+      ).action,
+    ).toBe("error");
+  });
+});

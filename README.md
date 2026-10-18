@@ -29,6 +29,9 @@ fast in-memory access to the webpack assets.
   - [With the API](#with-the-api)
   - [With TypeScript](#with-typescript)
   - [The Result](#the-result)
+- [Security](#security)
+  - [allowedOrigins](#allowedorigins)
+  - [static.deny](#staticdeny)
 - [Browser Support](#browser-support)
 - [Support](#support)
 - [Contributing](#contributing)
@@ -62,11 +65,6 @@ over a global one._
 ## Usage
 
 There are two main, recommended methods of using the module:
-
-For a frontend served from a different origin, configure `devServer.allowedOrigins`.
-See the [allowed origins example](examples/allowed-origins/README.md) for configuration
-and migration details. `allowedHosts` and `client.webSocketURL` do not authorize
-cross-origin access.
 
 ### With the CLI
 
@@ -110,8 +108,8 @@ Options:
   --no-watch-options-stdin                            Negative 'watch-options-stdin' option.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
-  --allowed-origins <value...>                        Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
-  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts.
+  --allowed-origins <value...>                        Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
+  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
   --no-client                                         Disables client script.
@@ -177,8 +175,11 @@ Options:
   --no-static-serve-index                             Does not tell dev server to use serveIndex middleware.
   --static-watch                                      Watches for files in static content directory.
   --no-static-watch                                   Does not watch for files in static content directory.
+  --static-deny [value...]                            Files never to serve from the static content directory, matched against each segment of the path: 'true' for the default list of secrets ('.env', '.env.*', keys and certificates, '.npmrc', '.yarnrc.yml', '.git'), or patterns of your own, with '*', '?' and '{a,b}'.
+  --no-static-deny                                    Serves every file in the static content directory.
   --static-reset                                      Clear all items provided in 'static' configuration. Allows to configure options for serving static files from directory (by default 'public' directory).
   --static-public-path-reset                          Clear all items provided in 'static.publicPath' configuration. The static files will be available in the browser under this public path.
+  --static-deny-reset                                 Clear all items provided in 'static.deny' configuration. Files never to serve from the static content directory, matched against each segment of the path: 'true' for the default list of secrets ('.env', '.env.*', keys and certificates, '.npmrc', '.yarnrc.yml', '.git'), or patterns of your own, with '*', '?' and '{a,b}'.
   --watch-files <value...>                            Allows to configure list of globs/directories/files to watch for file changes.
   --watch-files-reset                                 Clear all items provided in 'watchFiles' configuration. Allows to configure list of globs/directories/files to watch for file changes.
   --no-web-socket-server                              Disallows to set web socket server and options.
@@ -263,6 +264,75 @@ webpack-dev-server is configured by default to support live-reload of files as
 you edit your assets while the server is running.
 
 See [**the documentation**][docs-url] for more use cases and options.
+
+## Security
+
+The dev server is for development and is not meant to be reachable by anyone but
+you. It checks two different things, with two options:
+
+- **`allowedHosts`** checks the `Host` header, so a website cannot reach the server
+  through a DNS name it points at your machine (DNS rebinding).
+- **`allowedOrigins`** checks which pages may use the server — read its bundles,
+  connect for hot module replacement, open proxied WebSockets, and call its
+  internal endpoints — so a website you have open cannot read your source.
+
+### allowedOrigins
+
+Type: `"auto" | "all" | string | string[]`
+Default: `"auto"`
+
+- `"auto"` keeps the rules this server has always applied: the page's own
+  hostname, on any port, with `localhost`, `127.0.0.1` and `[::1]` counted as one;
+  `file:` and browser-extension pages; and whatever `allowedHosts` allows. With
+  `"auto"`, `allowedHosts: "all"` and an `Access-Control-Allow-Origin: *` entry in
+  `headers` still open the server to every origin — both are **deprecated** and
+  will stop doing so in the next major release, so set `allowedOrigins` instead.
+- A list of HTTP(S) origins allows the page's own origin plus those, and nothing
+  else, whatever `allowedHosts` says. Scheme, hostname and port must match. An
+  empty list allows the page's own origin only.
+- `"all"` allows every origin. It does not turn off the `Host` check.
+
+```js
+module.exports = {
+  devServer: {
+    // a tunnel or a container: stop checking `Host`...
+    allowedHosts: "all",
+    // ...and still allow only your frontend to use the server
+    allowedOrigins: ["https://app.example.com"],
+  },
+};
+```
+
+With a list, a listed origin's requests are answered with
+`Access-Control-Allow-Origin`, and a plain `<script>` or `<img>` it loads (one
+without `crossorigin`) is allowed by the page's `Referer`. Other origins are
+refused with `403`. A page with `Referrer-Policy: no-referrer` has to load the
+bundle with `crossorigin` (and `output.crossOriginLoading: "anonymous"`) instead.
+See the [allowed origins example](examples/allowed-origins/README.md).
+
+The injected client is also handed a token that is new on every run. A hot client
+that carries it may connect from an origin the server does not know, such as a
+proxy's, as long as its `Host` is allowed.
+
+### static.deny
+
+Type: `boolean | string[]`
+Default: `false`
+
+Files never to serve from a [`static`](https://webpack.js.org/configuration/dev-server/#devserverstatic)
+directory, matched against each segment of the request path, case-insensitively.
+`true` refuses `.env`, `.env.*`, keys and certificates (`*.{crt,pem,key,p12,pfx,cer,der}`),
+`.npmrc`, `.yarnrc.yml` and `.git` with `403`, and leaves them out of directory
+listings; a list of patterns (with `*`, `?` and `{a,b}`) refuses those instead.
+It will be `true` by default in the next major release.
+
+```js
+module.exports = {
+  devServer: {
+    static: { directory: "public", deny: true },
+  },
+};
+```
 
 ## Browser Support
 

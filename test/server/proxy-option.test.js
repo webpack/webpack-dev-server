@@ -712,9 +712,7 @@ describe("proxy option", () => {
     it("delivers the HMR control messages and never reaches the proxy target", async () => {
       const messages = [];
 
-      const ws = new WebSocket(`ws://localhost:${port3}/ws`, {
-        origin: `http://localhost:${port3}`,
-      });
+      const ws = new WebSocket(`ws://localhost:${port3}/ws`);
 
       await new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
@@ -804,9 +802,7 @@ describe("proxy option", () => {
     it("does not surface any [HPM] error when the HMR client connects", async () => {
       const messages = [];
 
-      const ws = new WebSocket(`ws://localhost:${port3}/ws`, {
-        origin: `http://localhost:${port3}`,
-      });
+      const ws = new WebSocket(`ws://localhost:${port3}/ws`);
 
       await new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
@@ -912,9 +908,7 @@ describe("proxy option", () => {
     const probe = async (path) => {
       const before = backendUpgradeCount;
 
-      const ws = new WebSocket(`ws://localhost:${port3}${path}`, {
-        origin: `http://localhost:${port3}`,
-      });
+      const ws = new WebSocket(`ws://localhost:${port3}${path}`);
 
       // Resolve as soon as the socket reaches a terminal state instead of
       // waiting a fixed delay: `open` means the handshake completed, `error`

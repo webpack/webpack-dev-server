@@ -468,6 +468,19 @@ exports[`options > validate > should throw an error on the \"static\" option wit
 ]
 `;
 
+exports[`options > validate > should throw an error on the \"static\" option with '{\"deny\":[\"secrets/.env\"]}' value 1`] = `
+[
+  "options.static.deny[0]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"deny\":\"*.key\"}' value 1`] = `
+[
+  "options.static",
+  "options.static.deny",
+]
+`;
+
 exports[`options > validate > should throw an error on the \"static\" option with '{\"directory\":false}' value 1`] = `
 [
   "options.static.directory",

@@ -2,10 +2,8 @@
 "webpack-dev-server": minor
 ---
 
-Add `allowedOrigins` to authorize cross-origin HTTP requests, HMR connections, and WebSocket proxies independently of `allowedHosts` and `client.webSocketURL`. Host configuration no longer disables origin protection, including when `allowedHosts` is `"all"`.
+Add `allowedOrigins` to say which pages may use the server — its HTTP endpoints, hot module replacement and proxied WebSockets — independently of `allowedHosts`, which goes back to checking `Host`. Nothing changes until it is set: the default, `"auto"`, keeps the rules derived from `allowedHosts`. A list allows the page's own origin plus the listed ones, answering them with CORS headers and allowing a plain `<script>` they load by its `Referer`; `"all"` allows every origin without turning off the `Host` check. Under `"auto"`, `allowedHosts: "all"` and an `Access-Control-Allow-Origin: *` entry in `headers` still open the server to every origin, and are deprecated for doing so.
 
-Cross-origin frontends must now list their full HTTP(S) origin in `allowedOrigins`. Origins include the protocol and port; loopback hostnames are no longer interchangeable. Use CORS (`crossorigin="anonymous"` on script and image elements) so the server can identify the authorized page. The server supplies CORS headers for authorized origins, while Fetch Metadata and resource-policy checks continue to protect requests without `Origin`. Configuring `headers` alone no longer grants cross-origin access. `allowedOrigins: "all"` explicitly opts out of origin checks without disabling host validation.
+The injected hot client is now handed a per-run token, and a client carrying it may connect from an origin the server does not otherwise know, such as a proxy's; the `Host` check still applies. This needs a webpack-dev-middleware that hands over a token without requiring it, and is skipped with an older one.
 
-Set `output.crossOriginLoading: "anonymous"` for webpack-generated lazy chunks and hot-update scripts loaded across origins, and ensure `output.publicPath` resolves to the dev server. The initial script's `crossorigin` attribute does not configure those generated scripts.
-
-HMR on a separate port also accepts the origin of this dev server's HTTP(S) listener on the same hostname, using the actual bound port even with `port: 0`. This exception applies only to HMR; reverse proxies that change the public origin must still configure `allowedOrigins`.
+Add `static.deny`: `true` refuses `.env`, `.env.*`, keys and certificates, `.npmrc`, `.yarnrc.yml` and `.git` in a static directory with `403` and leaves them out of directory listings, or give patterns of your own. Off by default for now.

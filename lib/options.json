@@ -42,7 +42,8 @@
           "$ref": "#/definitions/AllowedOriginsItem"
         }
       ],
-      "description": "Allows additional HTTP(S) origins to access the dev server. Defaults to 'auto' (same-origin only). Use 'all' to disable origin checks independently of allowedHosts."
+      "description": "Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows the page's own origin plus those, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.",
+      "link": "https://github.com/webpack/webpack-dev-server#allowedorigins"
     },
     "AllowedOriginsItem": {
       "anyOf": [
@@ -846,6 +847,26 @@
           ],
           "description": "Watches for files in static content directory.",
           "link": "https://webpack.js.org/configuration/dev-server/#watch"
+        },
+        "deny": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "cli": {
+                "negatedDescription": "Serves every file in the static content directory."
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[^/\\\\]+$"
+              }
+            }
+          ],
+          "description": "Files never to serve from the static content directory, matched against each segment of the path: 'true' for the default list of secrets ('.env', '.env.*', keys and certificates, '.npmrc', '.yarnrc.yml', '.git'), or patterns of your own, with '*', '?' and '{a,b}'.",
+          "link": "https://github.com/webpack/webpack-dev-server#staticdeny"
         }
       }
     },

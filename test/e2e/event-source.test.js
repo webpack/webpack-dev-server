@@ -255,7 +255,7 @@ describe("Server-Sent Events transport", () => {
       });
     });
 
-    const { status, frames } = await readStream(
+    const { frames } = await readStream(
       rejectPort,
       {
         accept: "text/event-stream",
@@ -265,42 +265,17 @@ describe("Server-Sent Events transport", () => {
       1,
     );
 
-    // HTTP origin validation rejects the request before the stream opens.
-    expect(status).toBe(403);
-    expect(frames).toEqual([]);
+    // The middleware serves the stream, but who may read it is still this
+    // package's to say — it is handed the request the client connected with
+    // and closes the ones it does not want.
+    expect(JSON.parse(frames[0])).toEqual({
+      action: "error",
+      message: "Invalid Host/Origin header",
+    });
 
     await waitFor(() => clients.size === 0);
 
     expect([...clients]).toHaveLength(0);
-  });
-
-  it("allows a configured origin to receive the event stream", async () => {
-    server = new Server(
-      {
-        port,
-        client: { webSocketTransport: "sse" },
-        allowedOrigins: ["https://app.example.com:3000"],
-      },
-      webpack(reloadConfig),
-    );
-
-    await server.start();
-    await new Promise((resolve) => {
-      server.middleware.waitUntilValid(resolve);
-    });
-
-    const { status, frames } = await readStream(
-      port,
-      {
-        accept: "text/event-stream",
-        origin: "https://app.example.com:3000",
-      },
-      (received) =>
-        received.some((frame) => JSON.parse(frame).action === "sync"),
-    );
-
-    expect(status).toBe(200);
-    expect(frames.map((frame) => JSON.parse(frame).action)).toContain("sync");
   });
 
   it("takes a stream that carries no origin as one of its own", async () => {

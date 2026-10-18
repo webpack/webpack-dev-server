@@ -218,6 +218,19 @@ describe("hot options", () => {
       });
 
       expect(result.cors).toBe(true);
+      // Never a token the endpoint requires: handed to the injected client
+      // for this server's checks to accept, where the middleware can do that.
+      // TODO expect `{ required: false }` alone once the dependency on
+      // webpack-dev-middleware requires a version that has it.
+      expect([false, { required: false }]).toContainEqual(result.token);
+    });
+
+    it("hands no token over when there is no client to take it", () => {
+      const result = hotOptions({
+        devServerOptions: serverOptions({ client: false }),
+        isTlsServer: false,
+      });
+
       expect(result.token).toBe(false);
     });
 

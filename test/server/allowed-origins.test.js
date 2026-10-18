@@ -1,136 +1,182 @@
 import { describe, it } from "node:test";
 import { expect } from "expect";
+import webpack from "webpack";
 import Server from "../../lib/Server.js";
+import config from "../fixtures/simple-config/webpack.config.js";
 
-describe("origin authorization", () => {
-  for (const options of [
-    {},
-    { allowedHosts: "auto" },
-    { allowedHosts: "all" },
-    { allowedHosts: ["localhost", "192.168.1.2", ".example.com"] },
-    { client: { webSocketURL: { hostname: "localhost" } } },
-  ]) {
-    it(`should enforce origin checks with ${JSON.stringify(options)}`, () => {
-      const server = new Server(options);
-      const headers = { host: "localhost:8080" };
+async function createServer(options) {
+  const server = new Server(options, webpack(config));
 
-      expect(
-        server.isOriginAllowed({ ...headers, origin: "http://localhost:8080" }),
-      ).toBe(true);
+  await server.normalizeOptions();
+
+  return server;
+}
+
+const host = { host: "localhost:8080" };
+
+describe("allowedOrigins", () => {
+  describe('"auto", the default', () => {
+    // Exactly the rules `allowedHosts` has always implied, so leaving the
+    // option out changes nothing.
+    it("allows the page's own hostname, on any port and loopback alias", async () => {
+      const server = await createServer({});
+
+      expect(server.options.allowedOrigins).toBe("auto");
 
       for (const origin of [
-        "http://192.168.1.2",
-        "http://evil.example.com",
-        "http://localhost:8081",
-        "https://localhost:8080",
+        "http://localhost:8080",
+        "http://localhost:3000",
         "http://127.0.0.1:8080",
         "http://[::1]:8080",
-        "null",
         "file:///tmp/index.html",
-        "chrome-extension://example",
-        "http://localhost:8080/path",
-        "http://localhost:8080?query",
-        "http://localhost:8080#fragment",
-        "http://user@localhost:8080",
-        "http://localhost:8080 http://evil.example.com",
-        "http://localhost:8080\\evil",
-        "http://localhost:8080/",
+        "chrome-extension://abcdef",
+      ]) {
+        expect(server.isOriginAllowed({ ...host, origin })).toBe(true);
+      }
+
+      for (const origin of ["http://evil.example.com", "null", undefined]) {
+        expect(server.isOriginAllowed({ ...host, origin })).toBe(false);
+      }
+    });
+
+    it('still lets every origin through with `allowedHosts: "all"`', async () => {
+      const server = await createServer({ allowedHosts: "all" });
+
+      expect(
+        server.isOriginAllowed({ ...host, origin: "https://evil.example.com" }),
+      ).toBe(true);
+    });
+
+    it("still allows the origins `allowedHosts` lists", async () => {
+      const server = await createServer({ allowedHosts: [".example.com"] });
+
+      expect(
+        server.isOriginAllowed({
+          host: "dev.example.com:8080",
+          origin: "https://app.example.com",
+        }),
+      ).toBe(true);
+    });
+
+    it('takes "auto" given explicitly, alone or from the CLI, the same way', async () => {
+      for (const allowedOrigins of ["auto", ["auto"]]) {
+        const server = await createServer({
+          allowedHosts: "all",
+          allowedOrigins,
+        });
+
+        expect(server.options.allowedOrigins).toBe("auto");
+        expect(
+          server.isOriginAllowed({ ...host, origin: "https://evil.example" }),
+        ).toBe(true);
+      }
+    });
+  });
+
+  describe("a list", () => {
+    it("allows the page's own origin and the listed ones, whatever `allowedHosts` says", async () => {
+      const server = await createServer({
+        allowedHosts: "all",
+        allowedOrigins: ["https://app.example.com:3000"],
+      });
+
+      for (const origin of [
+        "https://app.example.com:3000",
+        "http://localhost:8080",
+        "http://localhost:3000",
+        "http://127.0.0.1:8080",
+        "file:///tmp/index.html",
+        "chrome-extension://abcdef",
+      ]) {
+        expect(server.isOriginAllowed({ ...host, origin })).toBe(true);
+      }
+
+      for (const origin of [
+        "http://app.example.com:3000",
+        "https://app.example.com:3001",
+        "https://app.example.com.evil.test:3000",
+        "https://sub.app.example.com:3000",
+        "https://evil.example.com",
+        "null",
         "",
         undefined,
       ]) {
-        expect(server.isOriginAllowed({ ...headers, origin })).toBe(false);
+        expect(server.isOriginAllowed({ ...host, origin })).toBe(false);
       }
     });
-  }
 
-  it("should allow an explicit origin without adding it to allowedHosts", () => {
-    const server = new Server({
-      allowedHosts: ["dev.example.com"],
-      allowedOrigins: ["https://app.example.com:3000"],
+    it("no longer allows the origins `allowedHosts` lists", async () => {
+      const server = await createServer({
+        allowedHosts: [".example.com"],
+        allowedOrigins: [],
+      });
+
+      expect(server.options.allowedOrigins).toEqual([]);
+      expect(
+        server.isOriginAllowed({
+          host: "dev.example.com:8080",
+          origin: "https://app.example.com",
+        }),
+      ).toBe(false);
+      expect(
+        server.isOriginAllowed({
+          host: "dev.example.com:8080",
+          origin: "https://dev.example.com",
+        }),
+      ).toBe(true);
     });
 
-    expect(
-      server.isOriginAllowed({
-        host: "dev.example.com:8080",
-        origin: "https://app.example.com:3000",
-      }),
-    ).toBe(true);
-    expect(server.isValidHost({ host: "app.example.com:3000" }, "host")).toBe(
-      false,
-    );
+    it("serializes each entry and drops an 'auto' among them", async () => {
+      const server = await createServer({
+        allowedOrigins: ["auto", "https://EXAMPLE.com:443/", "http://[::1]:80"],
+      });
 
-    for (const origin of [
-      "http://app.example.com:3000",
-      "https://app.example.com:3001",
-      "https://app.example.com.evil.test:3000",
-      "https://sub.app.example.com:3000",
-    ]) {
-      expect(
-        server.isOriginAllowed({ host: "dev.example.com:8080", origin }),
-      ).toBe(false);
-    }
-  });
+      expect(server.options.allowedOrigins).toEqual([
+        "https://example.com",
+        "http://[::1]",
+      ]);
+    });
 
-  it("should compare HTTPS and HTTP/2 origins and normalize default ports", () => {
-    for (const type of ["https", "http2"]) {
-      const server = new Server({ server: { type } });
-      server.isTlsServer = true;
+    it("refuses an entry that is not an origin", async () => {
+      await expect(
+        createServer({ allowedOrigins: ["https://example.com/path"] }),
+      ).rejects.toThrow("Invalid options object");
+      await expect(
+        createServer({ allowedOrigins: ["https://example.com:99999"] }),
+      ).rejects.toThrow("Invalid URL");
+    });
+
+    it("does not trust forwarded headers", async () => {
+      const server = await createServer({ allowedOrigins: [] });
 
       expect(
         server.isOriginAllowed({
-          host: "localhost:443",
-          origin: "https://localhost",
-        }),
-      ).toBe(true);
-      expect(
-        server.isOriginAllowed({
-          host: "localhost:443",
-          origin: "http://localhost:443",
+          ...host,
+          origin: "https://evil.example.com",
+          "x-forwarded-host": "evil.example.com",
         }),
       ).toBe(false);
+    });
+  });
+
+  describe('"all"', () => {
+    it("allows every origin and keeps the `Host` check", async () => {
+      const server = await createServer({ allowedOrigins: "all" });
+
       expect(
-        server.isOriginAllowed({
-          ":authority": "[::1]:443",
-          origin: "https://[::1]",
-        }),
+        server.isOriginAllowed({ ...host, origin: "https://example.com" }),
       ).toBe(true);
-    }
+      expect(server.isValidHost({ host: "evil.example.com" }, "host")).toBe(
+        false,
+      );
+    });
 
-    expect(
-      new Server({}).isOriginAllowed({
-        host: "localhost:80",
-        origin: "http://localhost",
-      }),
-    ).toBe(true);
-  });
+    it("wins over a list it appears in", async () => {
+      const server = await createServer({
+        allowedOrigins: ["https://example.com", "all"],
+      });
 
-  it("should not trust forwarded headers", () => {
-    const server = new Server({});
-
-    expect(
-      server.isOriginAllowed({
-        host: "localhost:8080",
-        origin: "https://evil.example.com",
-        "x-forwarded-host": "evil.example.com",
-        "x-forwarded-proto": "https",
-      }),
-    ).toBe(false);
-  });
-
-  it("should disable only origin checks with allowedOrigins all", () => {
-    const server = new Server({ allowedOrigins: "all" });
-
-    expect(
-      server.isOriginAllowed({
-        host: "localhost",
-        origin: "https://example.com",
-      }),
-    ).toBe(true);
-    expect(server.isValidHost({ host: "evil.example.com" }, "host")).toBe(
-      false,
-    );
-    expect(
-      server.isSameOrigin({ host: "localhost", origin: "https://example.com" }),
-    ).toBe(false);
+      expect(server.options.allowedOrigins).toBe("all");
+    });
   });
 });

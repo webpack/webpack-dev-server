@@ -1,21 +1,13 @@
-# Allowing a separate frontend origin
+# Allowing a frontend on another origin
 
-`allowedHosts` validates the destination `Host` header. `allowedOrigins` controls
-which pages can access HTTP resources, HMR (WebSocket or Server-Sent Events), and
-WebSocket proxies. Configuring `allowedHosts` or `client.webSocketURL` does not
-authorize another origin.
+`allowedHosts` checks the `Host` header the request was sent to. `allowedOrigins`
+checks which pages may use the server: its bundles, hot module replacement
+(WebSocket or Server-Sent Events), WebSocket proxies and its internal endpoints.
 
 ```js
 export default {
-  output: {
-    crossOriginLoading: "anonymous",
-  },
   devServer: {
-    allowedHosts: ["localhost"],
-    allowedOrigins: ["http://localhost:3000"],
-    client: {
-      webSocketURL: "ws://localhost:8080/ws",
-    },
+    allowedOrigins: ["http://app.localhost:3000"],
   },
 };
 ```
@@ -26,71 +18,75 @@ Run this example from this directory:
 npx webpack serve --port 8080 --open
 ```
 
-The page at `http://localhost:8080` should display `Success!`. A frontend served
-from `http://localhost:3000` can also fetch the bundle and connect to HMR. For
-example, run this in that frontend's browser console:
+The page at `http://localhost:8080` should display `Success!`. A frontend at
+`http://app.localhost:3000` (any page served there, such as a backend's template)
+can load the bundle with a plain script tag and connect for hot module
+replacement:
+
+```html
+<script src="http://localhost:8080/main.js"></script>
+```
+
+or read it with `fetch`, in that page's console:
 
 ```js
 const response = await fetch("http://localhost:8080/main.js");
 console.log(response.status); // 200
 ```
 
-The server supplies `Access-Control-Allow-Origin` for an authorized origin. Other
-origins receive 403 for HTTP requests carrying `Origin` and cannot receive HMR
-messages or connect through a WebSocket proxy. The host check still applies.
+A listed origin's requests get `Access-Control-Allow-Origin`, and a script or
+image it loads without `crossorigin` is allowed by the page's `Referer`. Any
+other origin gets `403`, cannot receive hot updates and cannot connect through a
+WebSocket proxy. The `Host` check still applies.
 
 ## Values
 
-- `"auto"` (default) or `[]`: allow only the same origin.
-- An HTTP(S) origin or an array of origins: allow those origins in addition to
-  the same origin. The scheme, hostname, and port must match. Entries may have a
-  trailing slash, but no path, credentials, query, or fragment. Hostname
-  wildcards and opaque origins (`"null"`) are not supported.
-- `"all"`: explicitly disable origin checks and send
-  `Access-Control-Allow-Origin: *`. Only use this when you intend to expose the
-  development server to any website. This does not disable the host check.
+- `"auto"` (the default): the rules derived from `allowedHosts`, unchanged. The
+  page's own hostname on any port is allowed, with `localhost`, `127.0.0.1` and
+  `[::1]` counted as one, and so is every origin when `allowedHosts` is `"all"`
+  (deprecated: set `allowedOrigins` instead).
+- An HTTP(S) origin, or a list of them: those, plus the page's own origin, and
+  nothing else, whatever `allowedHosts` says. Scheme, hostname and port must
+  match. Entries may have a trailing slash, but no path, credentials, query or
+  fragment. `[]` allows the page's own origin only.
+- `"all"`: every origin, with `Access-Control-Allow-Origin: *`. It does not turn
+  off the `Host` check.
 
-The CLI accepts repeated flags:
+The CLI takes the flag more than once:
 
 ```console
-npx webpack serve --allowed-origins http://localhost:3000 --allowed-origins https://app.example.com
+npx webpack serve --allowed-origins http://app.localhost:3000 --allowed-origins https://app.example.com
 ```
 
-When HMR listens on a separate port, it also accepts the page served by this
-dev server's HTTP(S) listener on the same hostname. This uses the actual bound
-port, including with `port: 0`. It applies only to HMR connections; HTTP resources,
-WebSocket proxies, and state-changing endpoints keep their existing origin rules.
-Reverse proxies that change the public origin still need `allowedOrigins`.
+## Tunnels, containers and reverse proxies
 
-## Migrating cross-origin setups
+`allowedHosts: "all"` is the usual answer to a `Host` the server does not know.
+Under `"auto"` it also lets every website use the server; list the origin your
+frontend is served from to keep that closed:
 
-Previously, an entry in `allowedHosts` or a custom `client.webSocketURL` could
-implicitly disable origin protection. Add the frontend's full HTTP(S) origin to
-`allowedOrigins`, including for reverse proxies that change the host, port, or
-protocol. For TLS terminated at a reverse proxy, list the public HTTPS origin.
-Forwarded headers do not grant permission.
+```js
+export default {
+  devServer: {
+    allowedHosts: "all",
+    allowedOrigins: ["https://my-app.example-tunnel.dev"],
+  },
+};
+```
 
-`localhost`, `127.0.0.1`, and `[::1]` are different origins. Another port on the
-same hostname is also a different origin. Add each frontend origin that you use.
+Forwarded headers grant nothing. For TLS terminated at a proxy, list the public
+`https` origin.
 
-Cross-origin script and image elements should use `crossorigin="anonymous"` so
-the browser sends `Origin` and applies CORS:
+Hot module replacement does not need the list for a proxy: the injected client
+is handed a token, new on every run, and a client that carries it may connect
+from an origin the server does not know.
+
+## A page that sends no `Referer`
+
+With `Referrer-Policy: no-referrer`, a plain script load carries nothing to
+identify the page, and a cross-site one is refused. Load the bundle with
+`crossorigin` so the browser sends `Origin`, and set
+`output.crossOriginLoading: "anonymous"` so lazy chunks and hot updates do too:
 
 ```html
 <script src="http://localhost:8080/main.js" crossorigin="anonymous"></script>
 ```
-
-Webpack-generated lazy chunks and hot-update scripts also need
-`output.crossOriginLoading: "anonymous"` so that the browser sends `Origin`.
-Adding `crossorigin` to the initial script does not configure these generated
-scripts. Their `output.publicPath` must also resolve to the dev server.
-
-A cross-origin `no-cors` request without `Origin` cannot be matched to an allowed
-page, even if it sends a referrer header. Fetch Metadata checks and
-`Cross-Origin-Resource-Policy: same-origin` continue to protect those requests.
-Configuring CORS headers through `headers` alone does not authorize an origin;
-use `allowedOrigins`. Custom response headers, including preflight headers when
-needed, can still be configured through `headers`.
-
-The internal invalidate and open-editor endpoints retain their same-origin
-protection because they change server state.

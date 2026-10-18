@@ -224,7 +224,7 @@ exports[`normalize options > allowedOrigins array 1`] = `
 exports[`normalize options > allowedOrigins auto 1`] = `
 {
   "allowedHosts": "auto",
-  "allowedOrigins": [],
+  "allowedOrigins": "auto",
   "bonjour": false,
   "client": {
     "logging": "info",
@@ -279,7 +279,7 @@ exports[`normalize options > allowedOrigins auto 1`] = `
 exports[`normalize options > allowedOrigins auto from CLI 1`] = `
 {
   "allowedHosts": "auto",
-  "allowedOrigins": [],
+  "allowedOrigins": "auto",
   "bonjour": false,
   "client": {
     "logging": "info",
