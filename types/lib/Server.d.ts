@@ -1881,6 +1881,8 @@ declare class Server<
    */
   private isHostAllowed;
   /**
+   * TODO in the next major release remove: `headers` will only add headers,
+   * and `allowedOrigins: "all"` is how every origin is allowed.
    * @private
    * @returns {boolean} true when the user has configured a wildcard
    * Access-Control-Allow-Origin header (opting into fully open cross-origin access)
@@ -1895,6 +1897,10 @@ declare class Server<
    */
   private isValidHost;
   /**
+   * The origin rule of `allowedOrigins: "auto"`.
+   *
+   * TODO in the next major release remove, with "auto": `#isListedOrSameOrigin`
+   * is the rule then, and `allowedHosts` stops granting origins.
    * @private
    * @param {{ [key: string]: string | undefined }} headers headers
    * @returns {boolean} true when is same origin, otherwise false
