@@ -4,6 +4,8 @@ import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/simple-config/webpack.config.js";
 
+// TODO in the next major release remove this file, with the deprecations.
+//
 // `util.deprecate` warns once per process, so every case that must not warn
 // runs before the ones that do.
 describe("the origins `allowedHosts` and `headers` still grant", () => {

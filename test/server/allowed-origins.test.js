@@ -15,6 +15,8 @@ async function createServer(options) {
 const host = { host: "localhost:8080" };
 
 describe("allowedOrigins", () => {
+  // TODO in the next major release remove, with "auto", and expect `[]`
+  // (the page's own origin only) as the default.
   describe('"auto", the default', () => {
     // Exactly the rules `allowedHosts` has always implied, so leaving the
     // option out changes nothing.
