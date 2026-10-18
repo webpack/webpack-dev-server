@@ -281,8 +281,8 @@ describe("the hot token", () => {
     // A webpack-dev-middleware without the optional token has none to hand
     // over; give it one, as a newer one would mint, so this server's own
     // check is what is tested either way.
-    // TODO remove once the dependency on webpack-dev-middleware requires a
-    // version that hands over a token it does not require.
+    // TODO remove once `webpack-dev-middleware` in package.json is bumped
+    // to the release with webpack/webpack-dev-middleware#2486, which mints one itself.
     if (typeof server.middleware.token !== "string") {
       server.middleware.token = "a-token-for-this-run";
     }

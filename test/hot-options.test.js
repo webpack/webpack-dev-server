@@ -221,8 +221,8 @@ describe("hot options", () => {
       expect(result.cors).toBe(true);
       // Never a token the endpoint requires: handed to the injected client
       // for this server's checks to accept, where the middleware can do that.
-      // TODO expect `{ required: false }` alone once the dependency on
-      // webpack-dev-middleware requires a version that has it.
+      // TODO expect `{ required: false }` alone once `webpack-dev-middleware`
+      // in package.json is bumped to the release with webpack/webpack-dev-middleware#2486.
       expect([false, { required: false }]).toContainEqual(result.token);
     });
 
