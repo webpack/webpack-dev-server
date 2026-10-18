@@ -21,6 +21,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = portsMap["api-plugin"];
 const [portA, portB] = portsMap["api-plugin-multi"];
 
+// TODO in the next major, once the webpack peer dependency is `^5.112.0`, remove
+// this check: the top-level `plugins` of a multi-configuration always apply.
+const supportsMultiCompilerPlugins =
+  new webpack.MultiCompiler([], { plugins: [] }).options.plugins !== undefined;
+
 const cssFilePath = path.resolve(
   __dirname,
   "../fixtures/reload-config/main.css",
@@ -653,6 +658,70 @@ describe("API (plugin)", () => {
         compiler.close(resolve);
       });
 
+      expect(stopSpy).toHaveBeenCalledTimes(1);
+      stopSpy.mockRestore();
+    });
+
+    it(
+      "should work from the top-level `plugins` of a multi-configuration",
+      { skip: !supportsMultiCompilerPlugins },
+      async () => {
+        const server = new Server({ port });
+        const setupSpy = spyOn(server, "setup");
+        const listenSpy = spyOn(server, "listen");
+        const stopSpy = spyOn(server, "stop");
+        const compiler = webpack(
+          Object.assign([...multiCompilerConfig], { plugins: [server] }),
+        );
+
+        await compile(compiler, port);
+
+        try {
+          const responseOne = await fetch(
+            `http://127.0.0.1:${port}/one-main.js`,
+          );
+          const responseTwo = await fetch(
+            `http://127.0.0.1:${port}/two-main.js`,
+          );
+
+          expect(responseOne.status).toBe(200);
+          expect(responseTwo.status).toBe(200);
+          expect(setupSpy).toHaveBeenCalledTimes(1);
+          expect(listenSpy).toHaveBeenCalledTimes(1);
+        } finally {
+          await new Promise((resolve) => {
+            compiler.close(resolve);
+          });
+        }
+
+        expect(stopSpy).toHaveBeenCalledTimes(1);
+        setupSpy.mockRestore();
+        listenSpy.mockRestore();
+        stopSpy.mockRestore();
+      },
+    );
+
+    // TODO remove in the next major, together with the fallback it covers in
+    // `Server#apply()`, once the webpack peer dependency is `^5.112.0`.
+    it("should stop the server once on webpack without `MultiCompiler.hooks.shutdown`", async () => {
+      const compiler = webpack(multiCompilerConfig);
+      // A webpack older than 5.110.0: the same compiler, minus the hook.
+      const { shutdown, ...hooks } = compiler.hooks;
+      const olderCompiler = Object.create(compiler, {
+        hooks: { value: hooks },
+      });
+      const server = new Server({ port });
+      const stopSpy = spyOn(server, "stop");
+
+      server.apply(olderCompiler);
+
+      await compile(compiler, port);
+
+      await new Promise((resolve) => {
+        compiler.close(resolve);
+      });
+
+      expect(shutdown).toBeDefined();
       expect(stopSpy).toHaveBeenCalledTimes(1);
       stopSpy.mockRestore();
     });
