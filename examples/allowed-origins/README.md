@@ -80,11 +80,9 @@ export default {
 Forwarded headers grant nothing. For TLS terminated at a proxy, list the public
 `https` origin.
 
-Hot module replacement does not need the list for a proxy when the installed
-webpack-dev-middleware hands the injected client a token, new on every run: a
-client that carries it may connect from an origin the server does not know.
-With an older webpack-dev-middleware there is no token, so list the proxy's
-origin as well.
+Hot module replacement does not need the list for a proxy once `allowedOrigins`
+is set: the injected client is handed a token, new on every run, and a client
+that carries it may connect from an origin the server does not know.
 
 ## A page that sends no `Referer`
 

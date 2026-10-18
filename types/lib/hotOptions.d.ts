@@ -1,20 +1,3 @@
-/**
- * Does the installed webpack-dev-middleware take `hot.token: { required:
- * false }` — a token handed to the client that the endpoint does not require?
- * Read off its schema, so an older one is given `token: false` rather than an
- * option it would refuse.
- *
- * TODO bump `webpack-dev-middleware` in package.json to the release with
- * webpack/webpack-dev-middleware#2486 (`hot.token: { required: false }`), then remove this function,
- * the `optionalToken` input and its fallback to `token: false`, the token
- * fallback in test/e2e/allowed-origins.test.js, the `false` case in
- * test/hot-options.test.js, and the README's note on older versions.
- * @param {EXPECTED_ANY=} schema the middleware's options schema, read from the installed one when not given
- * @returns {boolean} true when it does
- */
-export function supportsOptionalHotToken(
-  schema?: EXPECTED_ANY | undefined,
-): boolean;
 /** @typedef {import("./Server.js").ClientConfiguration} ClientConfiguration */
 /** @typedef {import("./Server.js").WebSocketServerConfiguration} WebSocketServerConfiguration */
 /** @typedef {NonNullable<WebSocketServerConfiguration["options"]>} WebSocketServerOptions */
@@ -33,7 +16,6 @@ export function supportsOptionalHotToken(
  * @property {boolean | undefined} isTlsServer whether this server speaks TLS
  * @property {(() => EXPECTED_ANY)=} transport a transport of this server's own, when the `webSocketServer` option asks for one
  * @property {string=} clientTransport the module `client.webSocketTransport` names, resolved, when it names one rather than a built-in transport
- * @property {boolean=} optionalToken whether the middleware hands over a token it does not require; read off the installed one when not given
  */
 /**
  * What a build should do to the page, as one option rather than two.
@@ -114,7 +96,6 @@ export default function hotOptions({
   isTlsServer,
   transport,
   clientTransport,
-  optionalToken,
 }: HotOptionsInput): EXPECTED_ANY;
 /**
  * Wrap a `BaseServer` implementation as a transport.
@@ -171,10 +152,6 @@ export type HotOptionsInput = {
    * the module `client.webSocketTransport` names, resolved, when it names one rather than a built-in transport
    */
   clientTransport?: string | undefined;
-  /**
-   * whether the middleware hands over a token it does not require; read off the installed one when not given
-   */
-  optionalToken?: boolean | undefined;
 };
 export type ClientConnection = import("./Server.js").ClientConnection;
 export type EXPECTED_ANY = any;

@@ -276,20 +276,28 @@ describe("the hot token", () => {
   let server;
 
   before(async () => {
-    server = await startServer({});
-
-    // A webpack-dev-middleware without the optional token has none to hand
-    // over; give it one, as a newer one would mint, so this server's own
-    // check is what is tested either way.
-    // TODO remove once `webpack-dev-middleware` in package.json is bumped
-    // to the release with webpack/webpack-dev-middleware#2486, which mints one itself.
-    if (typeof server.middleware.token !== "string") {
-      server.middleware.token = "a-token-for-this-run";
-    }
+    server = await startServer({ allowedOrigins: [] });
   });
 
   after(async () => {
     await server.stop();
+  });
+
+  it('is not handed over under "auto"', async () => {
+    const auto = new Server({ port: pagePort }, webpack(config));
+
+    await auto.start();
+
+    try {
+      expect(auto.middleware.token).toBe(false);
+    } finally {
+      await auto.stop();
+    }
+  });
+
+  it("is minted by the middleware for every run", () => {
+    expect(typeof server.middleware.token).toBe("string");
+    expect(server.middleware.token.length).toBeGreaterThan(8);
   });
 
   it("lets an origin this server does not know connect with it", async () => {

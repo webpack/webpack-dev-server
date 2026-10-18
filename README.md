@@ -314,11 +314,11 @@ refused with `403`. A page with `Referrer-Policy: no-referrer` has to load the
 bundle with `crossorigin` (and `output.crossOriginLoading: "anonymous"`) instead.
 See the [allowed origins example](examples/allowed-origins/README.md).
 
-With a webpack-dev-middleware that supports it, the injected client is also
-handed a token that is new on every run. A hot client that carries it may
-connect from an origin the server does not know, such as a proxy's, as long as
-its `Host` is allowed. With an older one there is no token, so list the proxy's
-origin in `allowedOrigins` for hot module replacement to connect through it.
+With `allowedOrigins` set, the injected client is also handed a token that is
+new on every run. A hot client that carries it may connect from an origin the
+server does not know, such as a proxy's, as long as its `Host` is allowed. A
+client you wire yourself has no token and is judged by its origin. Under
+`"auto"` there is no token, so nothing about the socket changes.
 
 ### static.deny
 
