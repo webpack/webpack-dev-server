@@ -84,11 +84,36 @@ describe("allowedOrigins as a list", () => {
       .expect(200);
   });
 
-  it("gives credentials to a listed origin only, not to another port of its own hostname", async () => {
+  it("refuses another server's page on the same machine, as it does not list it", async () => {
+    for (const origin of [
+      `http://localhost:${pagePort}`,
+      `http://127.0.0.1:${port}`,
+    ]) {
+      const response = await request(serverOrigin)
+        .get("/main.js")
+        .set("Origin", origin)
+        .expect(403);
+
+      expect(response.headers["access-control-allow-origin"]).toBeUndefined();
+      expect(await connect(origin)).toEqual({
+        action: "error",
+        message: "Invalid Host/Origin header",
+      });
+    }
+
+    await request(serverOrigin)
+      .get("/main.js")
+      .set("Sec-Fetch-Site", "same-site")
+      .set("Sec-Fetch-Mode", "no-cors")
+      .set("Referer", `http://localhost:${pagePort}/`)
+      .expect("Cross-Origin-Resource-Policy", "same-origin");
+  });
+
+  it("answers the page's own origin without credentials", async () => {
     const response = await request(serverOrigin)
       .get("/main.js")
-      .set("Origin", `http://localhost:${pagePort}`)
-      .expect("Access-Control-Allow-Origin", `http://localhost:${pagePort}`)
+      .set("Origin", serverOrigin)
+      .expect("Access-Control-Allow-Origin", serverOrigin)
       .expect(200);
 
     expect(
