@@ -86,7 +86,7 @@
     "selfsigned": "^5.5.0",
     "serve-index": "^1.9.2",
     "tinyglobby": "^0.2.15",
-    "webpack-dev-middleware": "^8.4.0",
+    "webpack-dev-middleware": "^8.5.0",
     "ws": "^8.20.0"
   },
   "devDependencies": {

@@ -115,6 +115,10 @@ export type Static = {
           })
       )
     | undefined;
+  /**
+   * files never to serve from the directory, matched against each segment of the path: `true` for the default list of secrets, or patterns of your own
+   */
+  deny?: (boolean | string[]) | undefined;
 };
 export type NormalizedStatic = {
   directory: string;
@@ -122,6 +126,7 @@ export type NormalizedStatic = {
   serveIndex: false | ServeIndexOptions;
   staticOptions: ServeStaticOptions;
   watch: false | WatchOptions;
+  deny?: string[] | undefined;
 };
 export type ServerType<
   A extends BasicApplication = import("express").Application,
@@ -308,6 +313,7 @@ export type Configuration<
   devMiddleware?: DevMiddlewareOptions<Request, Response> | undefined;
   compress?: boolean | undefined;
   allowedHosts?: ("auto" | "all" | string | string[]) | undefined;
+  allowedOrigins?: ("auto" | "all" | string | string[]) | undefined;
   historyApiFallback?: (boolean | ConnectHistoryApiFallbackOptions) | undefined;
   bonjour?: (boolean | Record<string, never> | BonjourOptions) | undefined;
   watchFiles?:
@@ -392,6 +398,38 @@ declare class Server<
       AllowedHostsItem: {
         type: string;
         minLength: number;
+      };
+      AllowedOrigins: {
+        anyOf: (
+          | {
+              type: string;
+              items: {
+                $ref: string;
+              };
+              $ref?: undefined;
+            }
+          | {
+              $ref: string;
+              type?: undefined;
+              items?: undefined;
+            }
+        )[];
+        description: string;
+        link: string;
+      };
+      AllowedOriginsItem: {
+        anyOf: (
+          | {
+              enum: string[];
+              type?: undefined;
+              pattern?: undefined;
+            }
+          | {
+              type: string;
+              pattern: string;
+              enum?: undefined;
+            }
+        )[];
       };
       Bonjour: {
         anyOf: (
@@ -1269,6 +1307,28 @@ declare class Server<
             description: string;
             link: string;
           };
+          deny: {
+            anyOf: (
+              | {
+                  type: string;
+                  cli: {
+                    negatedDescription: string;
+                  };
+                  items?: undefined;
+                }
+              | {
+                  type: string;
+                  items: {
+                    type: string;
+                    minLength: number;
+                    pattern: string;
+                  };
+                  cli?: undefined;
+                }
+            )[];
+            description: string;
+            link: string;
+          };
         };
       };
       StaticString: {
@@ -1392,6 +1452,9 @@ declare class Server<
     additionalProperties: boolean;
     properties: {
       allowedHosts: {
+        $ref: string;
+      };
+      allowedOrigins: {
         $ref: string;
       };
       bonjour: {
@@ -1818,6 +1881,8 @@ declare class Server<
    */
   private isHostAllowed;
   /**
+   * TODO in the next major release remove: `headers` will only add headers,
+   * and `allowedOrigins: "all"` is how every origin is allowed.
    * @private
    * @returns {boolean} true when the user has configured a wildcard
    * Access-Control-Allow-Origin header (opting into fully open cross-origin access)
@@ -1832,11 +1897,23 @@ declare class Server<
    */
   private isValidHost;
   /**
+   * The origin rule of `allowedOrigins: "auto"`.
+   *
+   * TODO in the next major release remove, with "auto": `#isListedOrSameOrigin`
+   * is the rule then, and `allowedHosts` stops granting origins.
    * @private
    * @param {{ [key: string]: string | undefined }} headers headers
    * @returns {boolean} true when is same origin, otherwise false
    */
   private isSameOrigin;
+  /**
+   * Whether a request's origin may use this server, by `allowedOrigins` — or
+   * by `allowedHosts`, as it always was, when that is "auto".
+   * @private
+   * @param {{ [key: string]: string | undefined }} headers request headers
+   * @returns {boolean} true when allowed
+   */
+  private isOriginAllowed;
   /**
    * Send one of this server's messages to some clients, as
    * `devServer.sendMessage(devServer.webSocketServer.clients, type, data)`.

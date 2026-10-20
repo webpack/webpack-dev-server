@@ -76,7 +76,8 @@
     "privkey",
     "geomanist",
     "nodenext",
-    "WHATWG"
+    "WHATWG",
+    "Referer"
   ],
   "ignorePaths": [
     "CHANGELOG.md",

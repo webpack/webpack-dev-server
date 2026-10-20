@@ -218,6 +218,35 @@ describe("hot options", () => {
       });
 
       expect(result.cors).toBe(true);
+      // Never a token the endpoint requires. Under "auto", none at all: the
+      // socket's url and who it lets in stay as they have always been.
+      expect(result.token).toBe(false);
+    });
+
+    it("hands the injected client a token it does not require once `allowedOrigins` is set", () => {
+      for (const allowedOrigins of [[], ["https://example.com"], "all"]) {
+        expect(
+          hotOptions({
+            devServerOptions: serverOptions({ allowedOrigins }),
+            isTlsServer: false,
+          }).token,
+        ).toEqual({ required: false });
+      }
+
+      expect(
+        hotOptions({
+          devServerOptions: serverOptions({ allowedOrigins: "auto" }),
+          isTlsServer: false,
+        }).token,
+      ).toBe(false);
+    });
+
+    it("hands no token over when there is no client to take it", () => {
+      const result = hotOptions({
+        devServerOptions: serverOptions({ client: false, allowedOrigins: [] }),
+        isTlsServer: false,
+      });
+
       expect(result.token).toBe(false);
     });
 
