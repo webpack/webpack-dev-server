@@ -47,12 +47,12 @@ WebSocket proxy. The `Host` check still applies.
   page's own hostname on any port is allowed, with `localhost`, `127.0.0.1` and
   `[::1]` counted as one, and so is every origin when `allowedHosts` is `"all"`
   (deprecated: set `allowedOrigins` instead).
-- An HTTP(S) origin, or a list of them: those, plus the page's own hostname (on
-  any port, loopback names counted as one, as with `"auto"`), whatever
-  `allowedHosts` says. A listed origin's scheme, hostname and port must match.
-  Entries may have a trailing slash, but no path, credentials, query or
-  fragment. `[]` allows the page's own hostname only — which still includes
-  every other page on `localhost` when the server is on `localhost`.
+- An HTTP(S) origin, or a list of them: those, plus the page's own origin (the
+  host and port it reached the server by, exactly), whatever `allowedHosts`
+  says. A listed origin's scheme, hostname and port must match. Entries may have
+  a trailing slash, but no path, credentials, query or fragment. `[]` allows
+  the page's own origin only — not another server's page on `localhost`, on
+  another port or through `127.0.0.1`.
 - `"all"`: every origin, with `Access-Control-Allow-Origin: *`. It does not turn
   off the `Host` check.
 

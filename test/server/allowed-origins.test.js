@@ -85,8 +85,8 @@ describe("allowedOrigins", () => {
       for (const origin of [
         "https://app.example.com:3000",
         "http://localhost:8080",
-        "http://localhost:3000",
-        "http://127.0.0.1:8080",
+        // Through a proxy that ends TLS in front of the server.
+        "https://localhost:8080",
         "file:///tmp/index.html",
         "chrome-extension://abcdef",
       ]) {
@@ -94,6 +94,11 @@ describe("allowedOrigins", () => {
       }
 
       for (const origin of [
+        // Another server's page on the same machine, unless listed.
+        "http://localhost:3000",
+        "http://127.0.0.1:8080",
+        "http://[::1]:8080",
+        "http://app.localhost:8080",
         "http://app.example.com:3000",
         "https://app.example.com:3001",
         "https://app.example.com.evil.test:3000",
@@ -123,9 +128,53 @@ describe("allowedOrigins", () => {
       expect(
         server.isOriginAllowed({
           host: "dev.example.com:8080",
+          origin: "https://dev.example.com:8080",
+        }),
+      ).toBe(true);
+    });
+
+    it("compares the page's own origin with `Host` by host and port exactly", async () => {
+      const server = await createServer({ allowedOrigins: [] });
+
+      expect(
+        server.isOriginAllowed({
+          host: "localhost:80",
+          origin: "http://localhost",
+        }),
+      ).toBe(true);
+      expect(
+        server.isOriginAllowed({
+          host: "dev.example.com",
           origin: "https://dev.example.com",
         }),
       ).toBe(true);
+      expect(
+        server.isOriginAllowed({
+          host: "LOCALHOST:8080",
+          origin: "http://localhost:8080",
+        }),
+      ).toBe(true);
+      expect(
+        server.isOriginAllowed({
+          host: "dev.example.com",
+          origin: "https://dev.example.com:8443",
+        }),
+      ).toBe(false);
+      expect(
+        server.isOriginAllowed({
+          host: "local host",
+          origin: "http://localhost",
+        }),
+      ).toBe(false);
+
+      for (const hostHeader of ["evil@localhost", "localhost/x", ""]) {
+        expect(
+          server.isOriginAllowed({
+            host: hostHeader,
+            origin: "http://localhost",
+          }),
+        ).toBe(false);
+      }
     });
 
     it("serializes each entry and drops an 'auto' among them", async () => {
