@@ -1,3 +1,4 @@
+import { once } from "node:events";
 import fs from "node:fs";
 import http from "node:http";
 import os from "node:os";
@@ -10,9 +11,14 @@ import webpack from "webpack";
 import WebSocket from "ws";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
+import CustomWebSocketServer from "../fixtures/custom-server/CustomWebSocketServer.js";
 import multiCompilerConfig from "../fixtures/multi-compiler-two-configurations/webpack.config.js";
 import reloadConfig from "../fixtures/reload-config/webpack.config.js";
 import compile from "../helpers/compile.js";
+import pluginTransportShutdown, {
+  cleanup,
+  request,
+} from "../helpers/plugin-transport-shutdown.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
 
@@ -32,6 +38,242 @@ const cssFilePath = path.resolve(
 );
 
 describe("API (plugin)", () => {
+  for (const outcome of ["complete", "aborted", "refused", "timeout"]) {
+    it(`bounds the plugin shutdown HTTP observation when ${outcome}`, async () => {
+      const listener = http.createServer((_req, res) => {
+        if (outcome === "complete") {
+          res.end("complete asset");
+        } else {
+          res.writeHead(200, { "Content-Length": "100" });
+          res.write("partial");
+          if (outcome === "aborted") setImmediate(() => res.destroy());
+        }
+      });
+      const closeListener = () =>
+        new Promise((resolve, reject) => {
+          listener.close((error) => {
+            if (error) reject(error);
+            else resolve();
+          });
+          listener.closeAllConnections();
+        });
+      listener.listen(0, "127.0.0.1");
+      await once(listener, "listening");
+      const ownedPort = listener.address().port;
+      try {
+        if (outcome === "refused") await closeListener();
+        if (outcome === "complete") {
+          await expect(request(ownedPort)).resolves.toEqual({
+            status: 200,
+            body: "complete asset",
+          });
+        } else {
+          const diagnostic =
+            outcome === "aborted"
+              ? /HTTP response (aborted|closed before completion)/
+              : outcome === "refused"
+                ? /ECONNREFUSED/
+                : /timed out after 100ms/;
+          await expect(
+            request(ownedPort, outcome === "timeout" ? 100 : 1000),
+          ).rejects.toThrow(diagnostic);
+        }
+      } finally {
+        const result = {};
+        await cleanup(result, [
+          [
+            "HTTP fixture",
+            async () => {
+              if (listener.listening) await closeListener();
+            },
+          ],
+        ]);
+        expect(result.cleanupErrors).toEqual([]);
+        expect(listener.listening).toBe(false);
+      }
+    });
+  }
+
+  it("continues plugin shutdown cleanup after a controlled failure", async () => {
+    const directory = await fs.promises.mkdtemp(
+      path.join(os.tmpdir(), "wds-cleanup-check-"),
+    );
+    const listener = http.createServer();
+    const watchdog = setTimeout(() => {}, 30000);
+    const result = { error: "original observation failure" };
+    listener.listen(0, "127.0.0.1");
+    await once(listener, "listening");
+    const connected = once(listener, "connection");
+    const client = http.get({
+      host: "127.0.0.1",
+      port: listener.address().port,
+      agent: false,
+    });
+    client.on("error", () => {});
+    await connected;
+    try {
+      await cleanup(result, [
+        [
+          "controlled failure",
+          () => {
+            throw new Error("injected cleanup failure");
+          },
+        ],
+        ["stalled cleanup", () => new Promise(() => {})],
+        ["watchdog", () => clearTimeout(watchdog)],
+        ["client", () => client.destroy()],
+        [
+          "listener",
+          () =>
+            new Promise((resolve, reject) => {
+              listener.close((error) => {
+                if (error) reject(error);
+                else resolve();
+              });
+            }),
+        ],
+        [
+          "temporary directory",
+          () => fs.promises.rm(directory, { recursive: true, force: true }),
+        ],
+      ]);
+      expect(result.error).toBe("original observation failure");
+      expect(result.cleanupErrors).toEqual([
+        {
+          stage: "controlled failure",
+          error: "Error: injected cleanup failure",
+        },
+        { stage: "stalled cleanup", error: "Error: stalled cleanup timed out" },
+      ]);
+      expect(listener.listening).toBe(false);
+      expect(client.destroyed).toBe(true);
+      expect(fs.existsSync(directory)).toBe(false);
+    } finally {
+      clearTimeout(watchdog);
+      client.destroy();
+      if (listener.listening) {
+        listener.close();
+        listener.closeAllConnections();
+      }
+      await fs.promises.rm(directory, { recursive: true, force: true });
+    }
+  });
+
+  it("closes a separately listening built-in WebSocket endpoint when the plugin compiler closes", async () => {
+    const result = await pluginTransportShutdown();
+
+    expect(result.cleanupVerified).toBe(true);
+    expect(result.error).toBeUndefined();
+    expect(result.clientError).toBeUndefined();
+    expect(result).toMatchObject({
+      cleanupErrors: [],
+      ready: { hasErrors: false },
+      httpBefore: { status: 200 },
+      clientOpened: true,
+      closed: {
+        error: null,
+        closeCalls: 1,
+        middlewareCloseCalls: 0,
+        hotCloseCalls: 1,
+        watchCloseCalls: 1,
+      },
+      httpRefused: true,
+      webSocketRefused: true,
+      clientClosed: true,
+      postClosePings: 0,
+      forced: false,
+      naturalExit: { code: 0, signal: null },
+    });
+    expect(result.httpBefore.body).toContain("SHUTDOWN_MARKER");
+  });
+
+  for (const hot of [false, { transport: "sse", inject: "none" }]) {
+    it(`preserves plugin watching ownership with hot override ${JSON.stringify(hot)}`, async () => {
+      const server = new Server({
+        host: "127.0.0.1",
+        port,
+        static: false,
+        client: false,
+        setupExitSignals: false,
+        devMiddleware: { hot },
+      });
+      const compiler = webpack(config);
+      server.apply(compiler);
+      let closed = false;
+      let middlewareCloseSpy;
+      let hotCloseSpy;
+      try {
+        await compile(compiler, port);
+        const { middleware } = server;
+        middlewareCloseSpy = spyOn(middleware, "close");
+        const coordinator = middleware.context.hot;
+        if (hot === false) {
+          expect(coordinator).toBeUndefined();
+        } else {
+          expect(coordinator).toBeDefined();
+          expect(coordinator.transport).toBe("sse");
+          hotCloseSpy = spyOn(coordinator, "close");
+        }
+        await new Promise((resolve, reject) => {
+          compiler.close((error) => {
+            closed = true;
+            if (error) reject(error);
+            else resolve();
+          });
+        });
+        expect(middlewareCloseSpy).not.toHaveBeenCalled();
+        expect(middleware.context.hot).toBeUndefined();
+        if (hot !== false) expect(hotCloseSpy).toHaveBeenCalledTimes(1);
+      } finally {
+        middlewareCloseSpy?.mockRestore();
+        hotCloseSpy?.mockRestore();
+        if (!closed) {
+          await new Promise((resolve) => {
+            compiler.close(resolve);
+          });
+        }
+      }
+    });
+  }
+
+  it("closes a plugin custom transport only through its server owner", async () => {
+    const compiler = webpack(config);
+    const server = new Server({
+      host: "127.0.0.1",
+      port,
+      static: false,
+      client: false,
+      setupExitSignals: false,
+      webSocketServer: CustomWebSocketServer,
+    });
+    server.apply(compiler);
+    let closed = false;
+    let transportCloseSpy;
+    let hotCloseSpy;
+    try {
+      await compile(compiler, port);
+      transportCloseSpy = spyOn(server.webSocketServer.implementation, "close");
+      hotCloseSpy = spyOn(server.middleware.context.hot, "close");
+      await new Promise((resolve, reject) => {
+        compiler.close((error) => {
+          closed = true;
+          if (error) reject(error);
+          else resolve();
+        });
+      });
+      expect(transportCloseSpy).toHaveBeenCalledTimes(1);
+      expect(hotCloseSpy).not.toHaveBeenCalled();
+    } finally {
+      transportCloseSpy?.mockRestore();
+      hotCloseSpy?.mockRestore();
+      if (!closed) {
+        await new Promise((resolve) => {
+          compiler.close(resolve);
+        });
+      }
+    }
+  });
+
   it("should work with plugin API", async (t) => {
     const compiler = webpack(config);
     const server = new Server({ port });
