@@ -18,6 +18,11 @@ to access and run `webpack-dev-server` directly in your application / script.
 
 ## Module format
 
+The [HTTP/3 companion](./server/http3) is a standalone API example with a separate
+package and webpack configuration. Its optional transport dependency and Node
+24 requirement are confined to that directory. Follow its README for installation,
+certificates and protocol tests.
+
 Examples are written as ES modules (`import` / `export`) because the project's
 `package.json` sets `"type": "module"`. The shared helper `util.js` exports a
 `setup` function that each `webpack.config.js` calls like this:

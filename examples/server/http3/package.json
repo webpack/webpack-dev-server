@@ -1,0 +1,22 @@
+{
+  "name": "webpack-dev-server-http3-example",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/protocol.test.js",
+    "test:browser": "node --test test/browser.test.js"
+  },
+  "dependencies": {
+    "@currentspace/http3": "0.9.3",
+    "connect": "3.7.0",
+    "webpack": "5.112.2",
+    "webpack-dev-server": "6.1.0"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}
