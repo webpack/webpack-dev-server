@@ -11,7 +11,7 @@ import WebSocket from "ws";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
 import multiCompilerConfig from "../fixtures/multi-compiler-two-configurations/webpack.config.js";
-import reloadConfig from "../fixtures/reload-config/webpack.config.js";
+import reloadConfig from "../fixtures/reload-config-3/webpack.config.js";
 import compile from "../helpers/compile.js";
 import runBrowser from "../helpers/run-browser.js";
 import portsMap from "../ports-map.js";
@@ -28,7 +28,7 @@ const supportsMultiCompilerPlugins =
 
 const cssFilePath = path.resolve(
   __dirname,
-  "../fixtures/reload-config/main.css",
+  "../fixtures/reload-config-3/main.css",
 );
 
 describe("API (plugin)", () => {
