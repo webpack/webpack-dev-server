@@ -31,6 +31,25 @@ const cssFilePath = path.resolve(
   "../fixtures/reload-config/main.css",
 );
 
+const occupyPort = (portToOccupy) =>
+  new Promise((resolve, reject) => {
+    const blocker = http.createServer();
+
+    blocker.once("error", reject);
+    blocker.listen(portToOccupy, "127.0.0.1", () => resolve(blocker));
+  });
+
+const watchError = (compiler) =>
+  new Promise((resolve, reject) => {
+    compiler.watch({}, (err) => {
+      if (err) {
+        resolve(err);
+      } else {
+        reject(new Error("expected listen to fail"));
+      }
+    });
+  });
+
 describe("API (plugin)", () => {
   it("should work with plugin API", async (t) => {
     const compiler = webpack(config);
@@ -440,40 +459,25 @@ describe("API (plugin)", () => {
     });
   });
 
-  it("should log a listen() failure instead of throwing", async () => {
-    // The server is started from the `done` hook, which is a `SyncHook`, so
-    // `listen()` runs detached. A failure there must be logged, not surface as
-    // an unhandled rejection.
+  it("should propagate listen errors via the watch callback", async () => {
+    const blocker = await occupyPort(port);
     const compiler = webpack(config);
-    const server = new Server({ port });
+    const server = new Server({ host: "127.0.0.1", port });
+
     server.apply(compiler);
 
-    const listenError = new Error("listen failed");
-    const listenSpy = spyOn(server, "listen").mockImplementation(() =>
-      Promise.reject(listenError),
-    );
-    const errorSpy = spyOn(server.logger, "error");
+    try {
+      const error = await watchError(compiler);
 
-    await new Promise((resolve, reject) => {
-      const timer = setTimeout(
-        () => reject(new Error("listen error was not logged")),
-        30000,
-      );
-      errorSpy.mockImplementation(() => {
-        clearTimeout(timer);
-        resolve();
+      expect(error.code).toBe("EADDRINUSE");
+    } finally {
+      await new Promise((resolve) => {
+        compiler.close(resolve);
       });
-      compiler.watch({}, () => {});
-    });
-
-    expect(errorSpy).toHaveBeenCalledTimes(1);
-    expect(errorSpy).toHaveBeenCalledWith(listenError);
-
-    listenSpy.mockRestore();
-    errorSpy.mockRestore();
-    await new Promise((resolve) => {
-      compiler.close(resolve);
-    });
+      await new Promise((resolve) => {
+        blocker.close(resolve);
+      });
+    }
   });
 
   describe("plugin in webpack config", () => {
@@ -643,6 +647,27 @@ describe("API (plugin)", () => {
       await new Promise((resolve) => {
         compiler.close(resolve);
       });
+    });
+
+    it("should propagate listen errors via the watch callback", async () => {
+      const blocker = await occupyPort(port);
+      const compiler = webpack(multiCompilerConfig);
+      const server = new Server({ host: "127.0.0.1", port });
+
+      server.apply(compiler);
+
+      try {
+        const error = await watchError(compiler);
+
+        expect(error.code).toBe("EADDRINUSE");
+      } finally {
+        await new Promise((resolve) => {
+          compiler.close(resolve);
+        });
+        await new Promise((resolve) => {
+          blocker.close(resolve);
+        });
+      }
     });
 
     it("should stop the server only once when all child compilers shut down", async () => {
