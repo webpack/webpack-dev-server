@@ -6,7 +6,7 @@ import { expect } from "expect";
 import fs from "graceful-fs";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
-import reloadConfig from "../fixtures/reload-config/webpack.config.js";
+import reloadConfig from "../fixtures/reload-config-4/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
 import waitFor from "../helpers/wait-for.js";
 import portsMap from "../ports-map.js";
@@ -19,7 +19,7 @@ const [port, rejectPort] = portsMap["event-source"];
 
 const cssFilePath = path.resolve(
   __dirname,
-  "../fixtures/reload-config/main.css",
+  "../fixtures/reload-config-4/main.css",
 );
 
 /**
