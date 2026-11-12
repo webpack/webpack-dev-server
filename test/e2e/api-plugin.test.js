@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import http from "node:http";
+import net from "node:net";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
@@ -132,6 +133,59 @@ describe("API (plugin)", () => {
 
     expect(stopSpy).toHaveBeenCalledTimes(1);
     stopSpy.mockRestore();
+  });
+
+  it("should close a built-in WebSocket endpoint of its own port via compiler.close()", async () => {
+    const compiler = webpack(config);
+    const server = new Server({
+      port: portA,
+      webSocketServer: { type: "ws", options: { port: portB } },
+    });
+
+    server.apply(compiler);
+
+    await compile(compiler, portA);
+
+    const client = new WebSocket(`ws://127.0.0.1:${portB}/ws`, {
+      headers: {
+        host: `127.0.0.1:${portA}`,
+        origin: `http://127.0.0.1:${portA}`,
+      },
+    });
+    const clientClosed = new Promise((resolve) => {
+      client.once("close", () => resolve(true));
+    });
+
+    await new Promise((resolve, reject) => {
+      client.once("open", resolve);
+      client.once("error", reject);
+    });
+
+    await new Promise((resolve) => {
+      compiler.close(resolve);
+    });
+
+    const closed = await Promise.race([
+      clientClosed,
+      new Promise((resolve) => {
+        setTimeout(() => resolve(false), 2000);
+      }),
+    ]);
+
+    client.terminate();
+    expect(closed).toBe(true);
+
+    const refused = await new Promise((resolve) => {
+      const socket = net.connect({ host: "127.0.0.1", port: portB });
+
+      socket.once("connect", () => {
+        socket.destroy();
+        resolve(false);
+      });
+      socket.once("error", (error) => resolve(error.code === "ECONNREFUSED"));
+    });
+
+    expect(refused).toBe(true);
   });
 
   it("should tear down without error when the compiler is closed", async () => {
