@@ -1150,6 +1150,90 @@ describe("watchFiles option", () => {
     });
   });
 
+  describe("should watch a matching file recreated after a quick removal", () => {
+    const newFile = path.join(watchDir, "assets/created-and-removed.txt");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let ready;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: `${watchDir}/**/*.txt`,
+          port,
+        },
+        compiler,
+      );
+
+      ready = onceReady(server);
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.rmSync(newFile, { force: true });
+    });
+
+    it("should reload when the recreated file is changed", async () => {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      await ready;
+
+      const [watcher] = server.staticWatchers;
+      const added = new Promise((resolve) => {
+        const onAdd = (item) => {
+          if (item !== newFile) {
+            return;
+          }
+
+          watcher.off("add", onAdd);
+          // Removed before the server re-checks the new path against the
+          // globs, which then no longer match it.
+          fs.rmSync(newFile, { force: true });
+          resolve();
+        };
+
+        watcher.on("add", onAdd);
+      });
+
+      fs.writeFileSync(newFile, "", "utf8");
+      await added;
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
+
+      fs.writeFileSync(newFile, "", "utf8");
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
+
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(watcher);
+
+      fs.writeFileSync(newFile, "Kurosaki Ichigo", "utf8");
+
+      const changedPath = await Promise.race([
+        Promise.all([change, navigation]).then(([item]) => item),
+        new Promise((resolve) => {
+          setTimeout(() => resolve("timeout"), 5000);
+        }),
+      ]);
+
+      expect(changedPath).toBe(newFile);
+    });
+  });
+
   describe("should watch a matching file created during the initial scan", () => {
     const newFile = path.join(watchDir, "assets/created-during-scan.txt");
     let compiler;
