@@ -27,6 +27,16 @@ const onceChange = (watcher) =>
     watcher.once("change", resolve);
   });
 
+// Resolves once the watcher has finished its initial scan.
+const onceReady = (watcher) =>
+  new Promise((resolve) => {
+    if (watcher._readyEmitted) {
+      resolve();
+    } else {
+      watcher.once("ready", resolve);
+    }
+  });
+
 // Resolves with the paths of the next `count` changes the watcher reports.
 const collectChanges = (watcher, count) =>
   new Promise((resolve) => {
@@ -1071,5 +1081,128 @@ describe("watchFiles option", () => {
         });
       });
     }
+  });
+
+  describe("should watch files created after startup that match a glob", () => {
+    const newFile = path.join(watchDir, "assets/created-later.txt");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          watchFiles: `${watchDir}/**/*.txt`,
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.rmSync(newFile, { force: true });
+    });
+
+    it("should reload when a newly created matching file is changed", async () => {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      await onceReady(server.staticWatchers[0]);
+
+      fs.writeFileSync(newFile, "", "utf8");
+
+      // Give the watcher time to pick the new file up.
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
+
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
+      fs.writeFileSync(newFile, "Kurosaki Ichigo", "utf8");
+
+      const changedPath = await Promise.race([
+        Promise.all([change, navigation]).then(([item]) => item),
+        new Promise((resolve) => {
+          setTimeout(() => resolve("timeout"), 5000);
+        }),
+      ]);
+
+      expect(changedPath).toBe(newFile);
+    });
+  });
+
+  describe("should match ignored globs against files created after startup", () => {
+    const newIgnoredFile = path.join(watchDir, "assets/created-later.js");
+    const ignored = `${watchDir}/**/*.js`;
+    let watchOptions;
+    let compiler;
+    let server;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+      watchOptions = { ignored };
+
+      server = new Server(
+        {
+          watchFiles: {
+            paths: watchDir,
+            options: watchOptions,
+          },
+          port,
+        },
+        compiler,
+      );
+
+      await server.start();
+    });
+
+    afterEach(async () => {
+      await server.stop();
+      fs.rmSync(newIgnoredFile, { force: true });
+    });
+
+    it("should not mutate the passed options", async () => {
+      const options = { ignored };
+
+      await server.watchFiles(watchDir, options);
+
+      expect(options).toEqual({ ignored });
+      expect(server.options.watchFiles[0].options.ignored).toBe(ignored);
+    });
+
+    it("should not report changes of a newly created ignored file", async () => {
+      await onceReady(server.staticWatchers[0]);
+
+      fs.writeFileSync(newIgnoredFile, "", "utf8");
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
+
+      let changed = false;
+
+      server.staticWatchers[0].on("change", () => {
+        changed = true;
+      });
+
+      fs.writeFileSync(newIgnoredFile, "// changed", "utf8");
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+
+      expect(changed).toBe(false);
+    });
   });
 });
