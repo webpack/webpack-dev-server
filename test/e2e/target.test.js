@@ -1,6 +1,7 @@
 import path from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
+import { expect } from "expect";
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
 import config from "../fixtures/client-config/webpack.config.js";
@@ -210,5 +211,122 @@ describe("target", () => {
       await browser.close();
       await server.stop();
     }
+  });
+});
+
+describe("non-web target warning", () => {
+  /**
+   * Build a compiler for `targets` whose infrastructure warnings land in
+   * `warnings`.
+   * @param {(string | false)[]} targets one target per compiler
+   * @param {string[]} warnings where the warnings are collected
+   * @returns {import("webpack").Compiler | import("webpack").MultiCompiler} compiler
+   */
+  const compile = (targets, warnings) => {
+    const configs = targets.map((target, index) => ({
+      ...config,
+      ...(targets.length > 1 ? { name: `${target}-${index}` } : {}),
+      target,
+      output: {
+        path: "/",
+        filename: `${index}-[name].js`,
+      },
+      infrastructureLogging: {
+        level: "warn",
+        colors: false,
+        stream: {
+          write: (message) => {
+            warnings.push(message);
+          },
+        },
+      },
+    }));
+
+    return webpack(configs.length === 1 ? configs[0] : configs);
+  };
+
+  /**
+   * @param {string[]} warnings collected warnings
+   * @returns {string[]} the ones about a non-web target
+   */
+  const nonWebTargetWarnings = (warnings) =>
+    warnings.filter((message) => message.includes("non-web target"));
+
+  /**
+   * @param {import("webpack").Compiler | import("webpack").MultiCompiler} compiler compiler
+   * @param {Record<string, unknown>=} options dev server options
+   * @returns {Promise<void>} resolved once the server started and stopped
+   */
+  const startAndStop = async (compiler, options = {}) => {
+    const server = new Server({ port, ...options }, compiler);
+
+    await server.start();
+    await server.stop();
+  };
+
+  it("should warn once for a `node` target", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["node"], warnings));
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([
+      "<w> [webpack-dev-server] The compiler has a non-web target (\"node\"), so no client is injected into it and 'hot' and 'liveReload' will not reach a page built from it.\n",
+    ]);
+  });
+
+  it("should warn about `liveReload` alone when `hot` is disabled", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["node"], warnings), { hot: false });
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([
+      "<w> [webpack-dev-server] The compiler has a non-web target (\"node\"), so no client is injected into it and 'liveReload' will not reach a page built from it.\n",
+    ]);
+  });
+
+  it("should not warn when `hot` and `liveReload` are disabled", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["node"], warnings), {
+      hot: false,
+      liveReload: false,
+    });
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([]);
+  });
+
+  it("should not warn when `client` is disabled", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["node"], warnings), { client: false });
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([]);
+  });
+
+  it("should not warn for a `web` target", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["web"], warnings));
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([]);
+  });
+
+  it("should not warn for the `node` compiler of a `web` and `node` multi compiler", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["web", "node"], warnings));
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([]);
+  });
+
+  it("should warn once per compiler when no compiler has a web target", async () => {
+    const warnings = [];
+
+    await startAndStop(compile(["node", "async-node"], warnings));
+
+    expect(nonWebTargetWarnings(warnings)).toEqual([
+      "<w> [webpack-dev-server] Compiler \"node-0\" has a non-web target (\"node\"), so no client is injected into it and 'hot' and 'liveReload' will not reach a page built from it.\n",
+      "<w> [webpack-dev-server] Compiler \"async-node-1\" has a non-web target (\"async-node\"), so no client is injected into it and 'hot' and 'liveReload' will not reach a page built from it.\n",
+    ]);
   });
 });
