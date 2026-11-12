@@ -27,14 +27,20 @@ const onceChange = (watcher) =>
     watcher.once("change", resolve);
   });
 
-// Resolves once the watcher has finished its initial scan.
-const onceReady = (watcher) =>
+// Resolves once the first watcher the server creates has finished its initial
+// scan. Call it before `server.start()`, so the `ready` listener is attached as
+// soon as the watcher exists.
+const onceReady = (server) =>
   new Promise((resolve) => {
-    if (watcher._readyEmitted) {
-      resolve();
-    } else {
+    const { staticWatchers } = server;
+    const push = staticWatchers.push.bind(staticWatchers);
+
+    staticWatchers.push = (watcher, ...rest) => {
+      staticWatchers.push = push;
       watcher.once("ready", resolve);
-    }
+
+      return push(watcher, ...rest);
+    };
   });
 
 // Resolves with the paths of the next `count` changes the watcher reports.
@@ -1089,6 +1095,7 @@ describe("watchFiles option", () => {
     let server;
     let page;
     let browser;
+    let ready;
 
     beforeEach(async () => {
       compiler = webpack(config);
@@ -1101,6 +1108,7 @@ describe("watchFiles option", () => {
         compiler,
       );
 
+      ready = onceReady(server);
       await server.start();
 
       ({ page, browser } = await runBrowser());
@@ -1117,11 +1125,88 @@ describe("watchFiles option", () => {
         waitUntil: "networkidle0",
       });
 
-      await onceReady(server.staticWatchers[0]);
+      await ready;
 
       fs.writeFileSync(newFile, "", "utf8");
 
       // Give the watcher time to pick the new file up.
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
+
+      const navigation = page.waitForNavigation({ waitUntil: "networkidle0" });
+      const change = onceChange(server.staticWatchers[0]);
+
+      fs.writeFileSync(newFile, "Kurosaki Ichigo", "utf8");
+
+      const changedPath = await Promise.race([
+        Promise.all([change, navigation]).then(([item]) => item),
+        new Promise((resolve) => {
+          setTimeout(() => resolve("timeout"), 5000);
+        }),
+      ]);
+
+      expect(changedPath).toBe(newFile);
+    });
+  });
+
+  describe("should watch a matching file created during the initial scan", () => {
+    const newFile = path.join(watchDir, "assets/created-during-scan.txt");
+    let compiler;
+    let server;
+    let page;
+    let browser;
+    let ready;
+
+    beforeEach(async () => {
+      compiler = webpack(config);
+
+      server = new Server(
+        {
+          // With `ignoreInitial: false`, chokidar reports the files of its
+          // initial scan as `add` events before `ready`.
+          watchFiles: {
+            paths: `${watchDir}/**/*.txt`,
+            options: { ignoreInitial: false },
+          },
+          port,
+        },
+        compiler,
+      );
+
+      const { staticWatchers } = server;
+      const push = staticWatchers.push.bind(staticWatchers);
+
+      // The globs are expanded before the watcher is created, so a file
+      // written now is unknown to them but seen by chokidar's initial scan.
+      staticWatchers.push = (watcher, ...rest) => {
+        staticWatchers.push = push;
+        fs.writeFileSync(newFile, "", "utf8");
+        ready = new Promise((resolve) => {
+          watcher.once("ready", resolve);
+        });
+
+        return push(watcher, ...rest);
+      };
+
+      await server.start();
+
+      ({ page, browser } = await runBrowser());
+    });
+
+    afterEach(async () => {
+      await browser.close();
+      await server.stop();
+      fs.rmSync(newFile, { force: true });
+    });
+
+    it("should reload when the file is changed", async () => {
+      await page.goto(`http://localhost:${port}/`, {
+        waitUntil: "networkidle0",
+      });
+
+      await ready;
+
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
       });
@@ -1148,6 +1233,7 @@ describe("watchFiles option", () => {
     let watchOptions;
     let compiler;
     let server;
+    let ready;
 
     beforeEach(async () => {
       compiler = webpack(config);
@@ -1164,6 +1250,7 @@ describe("watchFiles option", () => {
         compiler,
       );
 
+      ready = onceReady(server);
       await server.start();
     });
 
@@ -1182,7 +1269,7 @@ describe("watchFiles option", () => {
     });
 
     it("should not report changes of a newly created ignored file", async () => {
-      await onceReady(server.staticWatchers[0]);
+      await ready;
 
       fs.writeFileSync(newIgnoredFile, "", "utf8");
 
