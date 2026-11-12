@@ -1,5 +1,23 @@
 # Changelog
 
+## 6.2.0
+
+### Minor Changes
+
+- Add `allowedOrigins` to say which pages may use the server — its HTTP endpoints, hot module replacement and proxied WebSockets — independently of `allowedHosts`, which goes back to checking `Host`. Nothing changes until it is set: the default, `"auto"`, keeps the rules derived from `allowedHosts`. A list allows the listed origins plus the page's own hostname (any port, loopback names counted as one, as before), answering them with CORS headers and allowing a plain `<script>` they load by its `Referer`; `"all"` allows every origin without turning off the `Host` check. Under `"auto"`, `allowedHosts: "all"` and an `Access-Control-Allow-Origin: *` entry in `headers` still open the server to every origin, and are deprecated for doing so. (by [@bjohansebas](https://github.com/bjohansebas) in [#5770](https://github.com/webpack/webpack-dev-server/pull/5770))
+  
+  Once `allowedOrigins` is set, the injected hot client is also handed a per-run token, and a client carrying it may connect from an origin the server does not otherwise know, such as a proxy's; the `Host` check still applies. webpack-dev-middleware is now required at `^8.5.0`, the first release that hands over a token without requiring it.
+  
+  Add `static.deny`: `true` refuses `.env`, `.env.*`, keys and certificates, `.npmrc`, `.yarnrc.yml` and `.git` in a static directory with `403` and leaves them out of directory listings, or give patterns of your own. Off by default for now.
+
+### Patch Changes
+
+- In plugin mode, `compiler.close()` now also closes the built-in hot transport, so a WebSocket endpoint on a port of its own no longer outlives the compiler and keeps the process running. Requires webpack-dev-middleware `^8.6.1`. (by [@alexander-akait](https://github.com/alexander-akait) in [#5798](https://github.com/webpack/webpack-dev-server/pull/5798))
+
+- In plugin mode, a failure to start the server (e.g. `EADDRINUSE` when the port is taken) is now passed to the `watch()` callback, for a `MultiCompiler` too, instead of only being logged while the watch build keeps running. (by [@alexander-akait](https://github.com/alexander-akait) in [#5787](https://github.com/webpack/webpack-dev-server/pull/5787))
+
+- Watch files created after startup that match a `watchFiles` glob, match ignored globs against them too, and stop mutating the passed watch options. (by [@alexander-akait](https://github.com/alexander-akait) in [#5800](https://github.com/webpack/webpack-dev-server/pull/5800))
+
 ## 6.1.0
 
 ### Minor Changes
