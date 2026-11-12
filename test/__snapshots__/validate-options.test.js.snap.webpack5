@@ -508,6 +508,65 @@ exports[`options > validate > should throw an error on the \"static\" option wit
 ]
 `;
 
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"atomic\":\"true\"}}' value 1`] = `
+[
+  "options.static",
+  "options.static.watch.atomic",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"awaitWriteFinish\":\"true\"}}' value 1`] = `
+[
+  "options.static",
+  "options.static.watch.awaitWriteFinish",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"awaitWriteFinish\":{\"stabilityThreshold\":\"2000\"}}}' value 1`] = `
+[
+  "options.static.watch.awaitWriteFinish.stabilityThreshold",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"ignored\":123}}' value 1`] = `
+[
+  "options.static",
+  "options.static.watch.ignored",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"ignored\":[\"**/node_modules\",123]}}' value 1`] = `
+[
+  "options.static",
+  "options.static.watch.ignored[1]",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"ignored\":{\"recursive\":true}}}' value 1`] = `
+[
+  "options.static.watch.ignored",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"interval\":\"100\"}}' value 1`] = `
+[
+  "options.static.watch.interval",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"poll\":\"500\"}}' value 1`] = `
+[
+  "options.static",
+  "options.static.watch.poll",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"static\" option with '{\"watch\":{\"usePolling\":\"true\"}}' value 1`] = `
+[
+  "options.static.watch.usePolling",
+]
+`;
+
 exports[`options > validate > should throw an error on the \"watchFiles\" option with '123' value 1`] = `
 [
   "options.watchFiles",
@@ -523,6 +582,31 @@ exports[`options > validate > should throw an error on the \"watchFiles\" option
 exports[`options > validate > should throw an error on the \"watchFiles\" option with '{\"options\":false}' value 1`] = `
 [
   "options.watchFiles.options",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"watchFiles\" option with '{\"options\":{\"cwd\":false}}' value 1`] = `
+[
+  "options.watchFiles.options.cwd",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"watchFiles\" option with '{\"options\":{\"depth\":\"1\"}}' value 1`] = `
+[
+  "options.watchFiles.options.depth",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"watchFiles\" option with '{\"options\":{\"followSymlinks\":\"false\"}}' value 1`] = `
+[
+  "options.watchFiles.options.followSymlinks",
+]
+`;
+
+exports[`options > validate > should throw an error on the \"watchFiles\" option with '{\"options\":{\"ignored\":false}}' value 1`] = `
+[
+  "options.watchFiles",
+  "options.watchFiles.options.ignored",
 ]
 `;
 

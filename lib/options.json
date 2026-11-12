@@ -840,9 +840,7 @@
               }
             },
             {
-              "type": "object",
-              "description": "Options for watch.",
-              "link": "https://github.com/paulmillr/chokidar#api"
+              "$ref": "#/definitions/WatchOptionsChokidar"
             }
           ],
           "description": "Watches for files in static content directory.",
@@ -922,10 +920,7 @@
           "description": "Path(s) of globs/directories/files to watch for file changes."
         },
         "options": {
-          "type": "object",
-          "description": "Configure advanced options for watching. See the chokidar documentation for the possible options.",
-          "link": "https://github.com/paulmillr/chokidar#api",
-          "additionalProperties": true
+          "$ref": "#/definitions/WatchOptionsChokidar"
         }
       },
       "additionalProperties": false
@@ -933,6 +928,141 @@
     "WatchFilesString": {
       "type": "string",
       "minLength": 1
+    },
+    "WatchOptionsChokidar": {
+      "cli": {
+        "exclude": true
+      },
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "persistent": {
+          "type": "boolean",
+          "description": "Keeps the process running while files are watched."
+        },
+        "ignored": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WatchOptionsChokidarMatcher"
+              }
+            },
+            {
+              "$ref": "#/definitions/WatchOptionsChokidarMatcher"
+            }
+          ],
+          "description": "Paths to ignore: a glob or path, a regular expression, a function, an object with 'path' (and optional 'recursive'), or an array of them."
+        },
+        "ignoreInitial": {
+          "type": "boolean",
+          "description": "Does not emit events for files found while the watcher starts."
+        },
+        "followSymlinks": {
+          "type": "boolean",
+          "description": "Follows symbolic links."
+        },
+        "cwd": {
+          "type": "string",
+          "description": "Base directory that emitted paths are relative to."
+        },
+        "usePolling": {
+          "type": "boolean",
+          "description": "Uses polling (fs.watchFile) instead of fs.watch."
+        },
+        "interval": {
+          "type": "number",
+          "description": "Polling interval in milliseconds."
+        },
+        "binaryInterval": {
+          "type": "number",
+          "description": "Polling interval in milliseconds for binary files."
+        },
+        "alwaysStat": {
+          "type": "boolean",
+          "description": "Always passes fs.Stats with add, addDir and change events."
+        },
+        "depth": {
+          "type": "number",
+          "description": "Limits how many levels of subdirectories are traversed."
+        },
+        "awaitWriteFinish": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "stabilityThreshold": {
+                  "type": "number",
+                  "description": "Milliseconds a file size must stay constant before an event is emitted."
+                },
+                "pollInterval": {
+                  "type": "number",
+                  "description": "File size polling interval in milliseconds."
+                }
+              }
+            }
+          ],
+          "description": "Waits for a file to stop being written to before emitting an event."
+        },
+        "ignorePermissionErrors": {
+          "type": "boolean",
+          "description": "Watches files that do not have read permissions where possible."
+        },
+        "atomic": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "Filters out artifacts of editors that write atomically; a number sets the delay in milliseconds."
+        },
+        "poll": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "webpack-style alias: 'true' enables polling, a number enables polling with that interval in milliseconds. 'usePolling' and 'interval' take precedence."
+        }
+      },
+      "description": "Configure advanced options for watching. See the chokidar documentation for the possible options.",
+      "link": "https://github.com/paulmillr/chokidar#api"
+    },
+    "WatchOptionsChokidarMatcher": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "RegExp"
+        },
+        {
+          "instanceof": "Function"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "recursive": {
+              "type": "boolean"
+            }
+          },
+          "required": ["path"]
+        }
+      ]
     },
     "WebSocketServer": {
       "anyOf": [

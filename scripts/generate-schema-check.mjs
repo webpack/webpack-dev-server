@@ -34,6 +34,7 @@ const BANNER = `// This file was automatically generated.
 const CONSTRUCTORS = {
   Buffer: _`Buffer`,
   Function: _`Function`,
+  RegExp: _`RegExp`,
 };
 
 /** @typedef {Record<string, unknown>} SchemaNode */

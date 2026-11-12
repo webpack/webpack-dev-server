@@ -37,6 +37,27 @@ describe("precompiled options validator", () => {
       "watchFiles",
       { watchFiles: { paths: "src/**", options: { usePolling: true } } },
     ],
+    [
+      "watch options with every kind of ignored matcher",
+      {
+        static: {
+          watch: {
+            ignored: [
+              "**/node_modules",
+              /\.git/,
+              (file) => file.endsWith(".log"),
+              { path: "/tmp", recursive: true },
+            ],
+            awaitWriteFinish: { stabilityThreshold: 100 },
+            poll: 200,
+          },
+        },
+      },
+    ],
+    [
+      "watch options with an option chokidar does not know",
+      { watchFiles: { paths: "src/**", options: { unknownOption: true } } },
+    ],
     ["allowedHosts as an array", { allowedHosts: ["example.com"] }],
     [
       "allowedOrigins as an array",
@@ -70,6 +91,11 @@ describe("precompiled options validator", () => {
       { allowedOrigins: ["https://user@example.com"] },
     ],
     ["an origin with a path", { allowedOrigins: ["https://example.com/path"] }],
+    [
+      "a wrongly typed watch option",
+      { static: { watch: { usePolling: "no" } } },
+    ],
+    ["a non-matcher in ignored", { watchFiles: { options: { ignored: [1] } } }],
   ];
 
   for (const [name, options] of invalid) {

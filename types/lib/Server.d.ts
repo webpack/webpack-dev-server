@@ -1294,13 +1294,11 @@ declare class Server<
                   cli: {
                     negatedDescription: string;
                   };
-                  description?: undefined;
-                  link?: undefined;
+                  $ref?: undefined;
                 }
               | {
-                  type: string;
-                  description: string;
-                  link: string;
+                  $ref: string;
+                  type?: undefined;
                   cli?: undefined;
                 }
             )[];
@@ -1380,10 +1378,7 @@ declare class Server<
             description: string;
           };
           options: {
-            type: string;
-            description: string;
-            link: string;
-            additionalProperties: boolean;
+            $ref: string;
           };
         };
         additionalProperties: boolean;
@@ -1391,6 +1386,142 @@ declare class Server<
       WatchFilesString: {
         type: string;
         minLength: number;
+      };
+      WatchOptionsChokidar: {
+        cli: {
+          exclude: boolean;
+        };
+        type: string;
+        additionalProperties: boolean;
+        properties: {
+          persistent: {
+            type: string;
+            description: string;
+          };
+          ignored: {
+            anyOf: (
+              | {
+                  type: string;
+                  items: {
+                    $ref: string;
+                  };
+                  $ref?: undefined;
+                }
+              | {
+                  $ref: string;
+                  type?: undefined;
+                  items?: undefined;
+                }
+            )[];
+            description: string;
+          };
+          ignoreInitial: {
+            type: string;
+            description: string;
+          };
+          followSymlinks: {
+            type: string;
+            description: string;
+          };
+          cwd: {
+            type: string;
+            description: string;
+          };
+          usePolling: {
+            type: string;
+            description: string;
+          };
+          interval: {
+            type: string;
+            description: string;
+          };
+          binaryInterval: {
+            type: string;
+            description: string;
+          };
+          alwaysStat: {
+            type: string;
+            description: string;
+          };
+          depth: {
+            type: string;
+            description: string;
+          };
+          awaitWriteFinish: {
+            anyOf: (
+              | {
+                  type: string;
+                  additionalProperties?: undefined;
+                  properties?: undefined;
+                }
+              | {
+                  type: string;
+                  additionalProperties: boolean;
+                  properties: {
+                    stabilityThreshold: {
+                      type: string;
+                      description: string;
+                    };
+                    pollInterval: {
+                      type: string;
+                      description: string;
+                    };
+                  };
+                }
+            )[];
+            description: string;
+          };
+          ignorePermissionErrors: {
+            type: string;
+            description: string;
+          };
+          atomic: {
+            anyOf: {
+              type: string;
+            }[];
+            description: string;
+          };
+          poll: {
+            anyOf: {
+              type: string;
+            }[];
+            description: string;
+          };
+        };
+        description: string;
+        link: string;
+      };
+      WatchOptionsChokidarMatcher: {
+        anyOf: (
+          | {
+              type: string;
+              instanceof?: undefined;
+              additionalProperties?: undefined;
+              properties?: undefined;
+              required?: undefined;
+            }
+          | {
+              instanceof: string;
+              type?: undefined;
+              additionalProperties?: undefined;
+              properties?: undefined;
+              required?: undefined;
+            }
+          | {
+              type: string;
+              additionalProperties: boolean;
+              properties: {
+                path: {
+                  type: string;
+                };
+                recursive: {
+                  type: string;
+                };
+              };
+              required: string[];
+              instanceof?: undefined;
+            }
+        )[];
       };
       WebSocketServer: {
         anyOf: {

@@ -493,6 +493,43 @@ const tests = {
         serveIndex: {},
         watch: {},
       },
+      {
+        watch: {
+          ignored: "**/node_modules",
+          usePolling: true,
+          interval: 100,
+          binaryInterval: 300,
+          persistent: true,
+          ignoreInitial: true,
+          followSymlinks: false,
+          cwd: "path",
+          alwaysStat: true,
+          depth: 2,
+          ignorePermissionErrors: true,
+          atomic: 100,
+          awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 100 },
+        },
+      },
+      {
+        watch: {
+          ignored: [
+            "**/node_modules",
+            /\.git/,
+            (file) => file.endsWith(".log"),
+            { path: "path/to/dir", recursive: true },
+          ],
+          awaitWriteFinish: true,
+          atomic: false,
+          poll: 500,
+        },
+      },
+      {
+        watch: {
+          ignored: /node_modules/,
+          poll: true,
+          unknownChokidarOption: true,
+        },
+      },
       [
         "path1",
         {
@@ -531,6 +568,33 @@ const tests = {
       },
       {
         watch: 10,
+      },
+      {
+        watch: { ignored: 123 },
+      },
+      {
+        watch: { ignored: ["**/node_modules", 123] },
+      },
+      {
+        watch: { ignored: { recursive: true } },
+      },
+      {
+        watch: { usePolling: "true" },
+      },
+      {
+        watch: { interval: "100" },
+      },
+      {
+        watch: { atomic: "true" },
+      },
+      {
+        watch: { awaitWriteFinish: "true" },
+      },
+      {
+        watch: { awaitWriteFinish: { stabilityThreshold: "2000" } },
+      },
+      {
+        watch: { poll: "500" },
       },
     ],
   },
@@ -579,6 +643,15 @@ const tests = {
       ["one-dir", "two-dir"],
       { paths: ["dir"] },
       { paths: ["dir"], options: { usePolling: true } },
+      {
+        paths: ["dir"],
+        options: {
+          ignored: ["**/node_modules", /\.git/],
+          awaitWriteFinish: { stabilityThreshold: 100 },
+          depth: 1,
+          poll: 200,
+        },
+      },
       [{ paths: ["one-dir"] }, "two-dir"],
     ],
     failure: [
@@ -589,6 +662,18 @@ const tests = {
       },
       {
         options: false,
+      },
+      {
+        options: { ignored: false },
+      },
+      {
+        options: { depth: "1" },
+      },
+      {
+        options: { cwd: false },
+      },
+      {
+        options: { followSymlinks: "false" },
       },
     ],
   },
