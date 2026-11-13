@@ -92,12 +92,17 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
    * @returns {Promise<void>} once rebuilt
    */
   async function rebuild(compiler, change) {
-    let changedAt = Infinity;
-    // The build that started after the change: the watcher may run one more
-    // for the files the test wrote before it started.
+    let changed = false;
+    let rebuilding = false;
+    // The build run after the change: the watcher may run one more for the files
+    // the test wrote before it started. `watchRun` is called again when a build
+    // is restarted, which keeps its `startTime`, so that is not compared.
+    compiler.hooks.watchRun.tap("test", () => {
+      rebuilding = changed;
+    });
     const done = new Promise((resolve) => {
-      compiler.hooks.done.tap("test", (stats) => {
-        if (stats.startTime >= changedAt) {
+      compiler.hooks.done.tap("test", () => {
+        if (rebuilding) {
           resolve();
         }
       });
@@ -108,7 +113,7 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
       setTimeout(resolve, 500);
     });
     change();
-    changedAt = Date.now();
+    changed = true;
 
     await done;
   }
