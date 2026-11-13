@@ -90,6 +90,7 @@ const listOfTests = {
   "allowed-origins": 2,
   "cli-allowed-origins": 1,
   "static-deny": 1,
+  "write-to-disk-clean": 2,
 };
 
 let startPort = 8089;
