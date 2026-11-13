@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { expect } from "expect";
+import { Volume, createFsFromVolume } from "memfs";
 import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import Server from "../../lib/Server.js";
@@ -132,6 +133,19 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
     fs.rmSync(path.join(directory, "public", "robots.txt"));
   }
 
+  /**
+   * @param {import("memfs").IFs} memory a file system in memory
+   * @returns {string[]} the files in `dist` on it, relative to it
+   */
+  function listMemory(memory) {
+    return /** @type {string[]} */ (
+      memory.readdirSync(dist, { recursive: true, encoding: "utf8" })
+    )
+      .filter((file) => memory.statSync(path.join(dist, file)).isFile())
+      .map((file) => file.replaceAll("\\", "/"))
+      .toSorted();
+  }
+
   const options = {
     hot: false,
     liveReload: false,
@@ -146,11 +160,12 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
       port: standalonePort,
       /**
        * @param {import("webpack").Compiler} compiler compiler
+       * @param {import("webpack-dev-middleware").Options=} devMiddleware options of the middleware
        * @returns {Promise<() => Promise<void>>} a way to stop it
        */
-      async start(compiler) {
+      async start(compiler, devMiddleware = options.devMiddleware) {
         const server = new Server(
-          { ...options, port: standalonePort },
+          { ...options, devMiddleware, port: standalonePort },
           compiler,
         );
 
@@ -167,10 +182,15 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
       port: pluginPort,
       /**
        * @param {import("webpack").Compiler} compiler compiler
+       * @param {import("webpack-dev-middleware").Options=} devMiddleware options of the middleware
        * @returns {Promise<() => Promise<void>>} a way to stop it
        */
-      async start(compiler) {
-        const server = new Server({ ...options, port: pluginPort });
+      async start(compiler, devMiddleware = options.devMiddleware) {
+        const server = new Server({
+          ...options,
+          devMiddleware,
+          port: pluginPort,
+        });
 
         server.apply(compiler);
 
@@ -222,6 +242,56 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
           }
         },
       );
+
+      for (const [where, setUp] of [
+        [
+          "in `devMiddleware.outputFileSystem`",
+          (compiler, memory) => ({
+            writeToDisk: true,
+            outputFileSystem: memory,
+          }),
+        ],
+        [
+          "on the compiler",
+          (compiler, memory) => {
+            compiler.outputFileSystem = memory;
+
+            return { writeToDisk: true };
+          },
+        ],
+      ]) {
+        it(
+          `writes to disk and to a file system of your own ${where}, and cleans both`,
+          { skip: !supportsDiskClean },
+          async () => {
+            const compiler = createCompiler();
+            const memory = createFsFromVolume(new Volume());
+            const stop = await mode.start(compiler, setUp(compiler, memory));
+            const all = ["images/logo.svg", bundle, "robots.txt"];
+
+            try {
+              expect(listDist()).toEqual(all);
+              expect(listMemory(memory)).toEqual(all);
+
+              const response = await fetch(
+                `http://127.0.0.1:${mode.port}/robots.txt`,
+              );
+
+              expect(await response.text()).toBe("v1");
+
+              const [, firstBundle] = listDist();
+
+              await rebuild(compiler, changeEntry);
+
+              expect(listDist()).toEqual(all);
+              expect(listDist()[1]).not.toBe(firstBundle);
+              expect(listMemory(memory)).toEqual(listDist());
+            } finally {
+              await stop();
+            }
+          },
+        );
+      }
 
       it(
         "writes to disk what the function takes without cleaning the disk with an earlier webpack-dev-middleware",
