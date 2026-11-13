@@ -138,12 +138,29 @@ describe("devMiddleware.writeToDisk with output.clean", () => {
    * @returns {string[]} the files in `dist` on it, relative to it
    */
   function listMemory(memory) {
-    return /** @type {string[]} */ (
-      memory.readdirSync(dist, { recursive: true, encoding: "utf8" })
-    )
-      .filter((file) => memory.statSync(path.join(dist, file)).isFile())
-      .map((file) => file.replaceAll("\\", "/"))
-      .toSorted();
+    /** @type {string[]} */
+    const files = [];
+    /**
+     * @param {string} directory a directory in `dist`, relative to it
+     */
+    const walk = (directory) => {
+      // One level at a time: memfs lists recursively with the full path on Windows.
+      for (const name of /** @type {string[]} */ (
+        memory.readdirSync(path.join(dist, directory), { encoding: "utf8" })
+      )) {
+        const file = directory ? `${directory}/${name}` : name;
+
+        if (memory.statSync(path.join(dist, file)).isDirectory()) {
+          walk(file);
+        } else {
+          files.push(file);
+        }
+      }
+    };
+
+    walk("");
+
+    return files.toSorted();
   }
 
   const options = {
