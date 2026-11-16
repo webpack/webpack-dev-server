@@ -202,3 +202,81 @@ describe("Open editor URL handling", () => {
     });
   }
 });
+
+describe("Open editor reached through a network address", () => {
+  const launchEditor = fn();
+  const host = `192.0.2.2:${port}`;
+  let launchEditorMock;
+
+  before(() => {
+    launchEditorMock = mock.module("launch-editor", {
+      defaultExport: launchEditor,
+    });
+  });
+
+  after(() => {
+    launchEditorMock.restore();
+  });
+
+  beforeEach(() => {
+    launchEditor.mockClear();
+  });
+
+  for (const allowedOrigins of ["auto", []]) {
+    describe(`with allowedOrigins ${JSON.stringify(allowedOrigins)}`, () => {
+      const server = new Server(
+        { allowedHosts: "all", allowedOrigins, port },
+        webpack(config),
+      );
+
+      before(async () => {
+        await server.start();
+      });
+
+      after(async () => {
+        await server.stop();
+      });
+
+      const open = () =>
+        request(server.app)
+          .get("/webpack-dev-server/open-editor")
+          .query({ fileName: "./src/index.js" })
+          .set("Host", host);
+
+      // An `http:` page that is not on `localhost` is not a secure context,
+      // so a browser sends it neither `Sec-Fetch-Site` nor, for an image,
+      // `Origin`.
+      it("refuses a request that shows no page, or another one", async () => {
+        await open().expect(403);
+        await open().set("Referer", "http://evil.example/").expect(403);
+        await open().set("Referer", `http://${host}.evil.example/`).expect(403);
+        expect(launchEditor).not.toHaveBeenCalled();
+      });
+
+      it("opens the editor for the server's own page, by its Referer", async () => {
+        await open().set("Referer", `http://${host}/app/`).expect(200);
+        expect(launchEditor).toHaveBeenCalledTimes(1);
+      });
+
+      it("opens the editor for a browser that sends Sec-Fetch-Site", async () => {
+        await open().set("Sec-Fetch-Site", "same-origin").expect(200);
+        await open().set("Sec-Fetch-Site", "cross-site").expect(403);
+        expect(launchEditor).toHaveBeenCalledTimes(1);
+      });
+
+      if (Array.isArray(allowedOrigins)) {
+        it("opens the editor for the hot token", async () => {
+          await request(server.app)
+            .get("/webpack-dev-server/open-editor")
+            .query({
+              fileName: "./src/index.js",
+              token: server.middleware.token,
+            })
+            .set("Host", host)
+            .expect(200);
+          expect(launchEditor).toHaveBeenCalledTimes(1);
+        });
+      }
+    });
+  }
+});

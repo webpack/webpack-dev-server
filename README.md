@@ -108,8 +108,8 @@ Options:
   --no-watch-options-stdin                            Negative 'watch-options-stdin' option.
   --allowed-hosts <value...>                          Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
   --allowed-hosts-reset                               Clear all items provided in 'allowedHosts' configuration. Allows to enumerate the hosts from which access to the dev server are allowed (useful when you are proxying dev server, by default is 'auto').
-  --allowed-origins <value...>                        Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows those plus the page's own hostname, on any port, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
-  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows those plus the page's own hostname, on any port, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
+  --allowed-origins <value...>                        Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows those plus the page's own origin, the host and port it reached the server by, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
+  --allowed-origins-reset                             Clear all items provided in 'allowedOrigins' configuration. Which origins may use the dev server: its HTTP endpoints, the hot module replacement connection and proxied WebSockets. 'auto' (the default) keeps the rules derived from 'allowedHosts'. A list of HTTP(S) origins allows those plus the page's own origin, the host and port it reached the server by, independently of 'allowedHosts'. 'all' allows every origin without turning off the 'Host' check.
   --bonjour                                           Allows to broadcasts dev server via ZeroConf networking on start.
   --no-bonjour                                        Disallows to broadcasts dev server via ZeroConf networking on start.
   --no-client                                         Disables client script.
@@ -287,12 +287,13 @@ Default: `"auto"`
   `"auto"`, `allowedHosts: "all"` and an `Access-Control-Allow-Origin: *` entry in
   `headers` still open the server to every origin — both are **deprecated** and
   will stop doing so in the next major release, so set `allowedOrigins` instead.
-- A list of HTTP(S) origins allows those, plus the page's own hostname — on any
-  port, with `localhost`, `127.0.0.1` and `[::1]` counted as one, as with `"auto"`
-  — and `file:` and browser-extension pages, whatever `allowedHosts` says. A
-  listed origin's scheme, hostname and port must match. An empty list allows only
-  the page's own hostname, so another page on `localhost`, on any port, can still
-  use a server on `localhost`.
+- A list of HTTP(S) origins allows those, plus the page's own origin — the host
+  and port it reached the server by, exactly — and `file:` and browser-extension
+  pages, whatever `allowedHosts` says. A listed origin's scheme, hostname and port
+  must match. An empty list allows only the page's own origin: a page another
+  server on `localhost` serves, on another port or through `127.0.0.1`, must be
+  listed. The injected client is handed a token, so its hot module replacement
+  connection gets in even when `client.webSocketURL` points it elsewhere.
 - `"all"` allows every origin. It does not turn off the `Host` check.
 
 ```js
