@@ -920,4 +920,29 @@ describe('"open" option', () => {
     getInfrastructureLoggerSpy.mockRestore();
     loggerWarnSpy.mockRestore();
   });
+
+  it("should await asynchronous completion of open() before openBrowser() resolves", async () => {
+    let completed = false;
+    open.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            completed = true;
+            resolve();
+          }, 50);
+        }),
+    );
+
+    const server = new Server(
+      {
+        port,
+        open: true,
+      },
+      compiler,
+    );
+
+    await server.start();
+    expect(completed).toBe(true);
+    await server.stop();
+  });
 });
