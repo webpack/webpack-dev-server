@@ -112,7 +112,7 @@ describe("lazy compilation", () => {
   it("should serve the lazy compilation backend from its own server", async (t) => {
     const compiler = webpack(config);
     /** @type {((options: { client: string, listen?: { port: number } }) => { client: string, server?: unknown, urlBase?: string }) | undefined} */
-    let backendOptions;
+    let transport;
     // The installed webpack may predate the hook, so a stand-in provides it.
     compiler.webpack = {
       ...webpack,
@@ -122,9 +122,9 @@ describe("lazy compilation", () => {
             t.assert.strictEqual(hookCompiler, compiler);
 
             return {
-              backendOptions: {
+              transport: {
                 tap: (name, fn) => {
-                  backendOptions = fn;
+                  transport = fn;
                 },
               },
             };
@@ -137,7 +137,7 @@ describe("lazy compilation", () => {
     await server.start();
 
     try {
-      const options = backendOptions({ client: "client.js" });
+      const options = transport({ client: "client.js" });
 
       t.assert.strictEqual(options.server, server.server);
       t.assert.strictEqual(options.urlBase, `http://localhost:${port}`);
@@ -146,8 +146,9 @@ describe("lazy compilation", () => {
       for (const own of [
         { client: "client.js", listen: { port: 1 } },
         { client: "client.js", listen: 0 },
+        () => {},
       ]) {
-        t.assert.strictEqual(backendOptions(own), own);
+        t.assert.strictEqual(transport(own), own);
       }
     } finally {
       await server.stop();
@@ -157,15 +158,15 @@ describe("lazy compilation", () => {
   it("should keep the lazy compilation backend's own server on port 0", async (t) => {
     const compiler = webpack(config);
     /** @type {((options: { client: string }) => { client: string, server?: unknown }) | undefined} */
-    let backendOptions;
+    let transport;
     compiler.webpack = {
       ...webpack,
       hmr: {
         LazyCompilationPlugin: {
           getCompilerHooks: () => ({
-            backendOptions: {
+            transport: {
               tap: (name, fn) => {
-                backendOptions = fn;
+                transport = fn;
               },
             },
           }),
@@ -179,7 +180,7 @@ describe("lazy compilation", () => {
     try {
       const options = { client: "client.js" };
 
-      t.assert.strictEqual(backendOptions(options), options);
+      t.assert.strictEqual(transport(options), options);
     } finally {
       await server.stop();
     }
