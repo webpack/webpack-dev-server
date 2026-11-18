@@ -116,21 +116,18 @@ describe("lazy compilation", () => {
     // The installed webpack may predate the hook, so a stand-in provides it.
     compiler.webpack = {
       ...webpack,
-      experiments: {
-        ...webpack.experiments,
-        hmr: {
-          LazyCompilationPlugin: {
-            getCompilerHooks: (hookCompiler) => {
-              t.assert.strictEqual(hookCompiler, compiler);
+      hmr: {
+        LazyCompilationPlugin: {
+          getCompilerHooks: (hookCompiler) => {
+            t.assert.strictEqual(hookCompiler, compiler);
 
-              return {
-                backendOptions: {
-                  tap: (name, fn) => {
-                    backendOptions = fn;
-                  },
+            return {
+              backendOptions: {
+                tap: (name, fn) => {
+                  backendOptions = fn;
                 },
-              };
-            },
+              },
+            };
           },
         },
       },
@@ -163,18 +160,15 @@ describe("lazy compilation", () => {
     let backendOptions;
     compiler.webpack = {
       ...webpack,
-      experiments: {
-        ...webpack.experiments,
-        hmr: {
-          LazyCompilationPlugin: {
-            getCompilerHooks: () => ({
-              backendOptions: {
-                tap: (name, fn) => {
-                  backendOptions = fn;
-                },
+      hmr: {
+        LazyCompilationPlugin: {
+          getCompilerHooks: () => ({
+            backendOptions: {
+              tap: (name, fn) => {
+                backendOptions = fn;
               },
-            }),
-          },
+            },
+          }),
         },
       },
     };
