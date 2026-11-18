@@ -155,6 +155,45 @@ describe("lazy compilation", () => {
     }
   });
 
+  it("should serve the lazy compilation backend from the server it restarts on", async (t) => {
+    const compiler = webpack(config);
+    /** @type {((options: { client: string }) => { client: string, server?: unknown }) | undefined} */
+    let transport;
+    let taps = 0;
+    compiler.webpack = {
+      ...webpack,
+      hmr: {
+        LazyCompilationPlugin: {
+          getCompilerHooks: () => ({
+            transport: {
+              tap: (name, fn) => {
+                taps++;
+                transport = fn;
+              },
+            },
+          }),
+        },
+      },
+    };
+    const server = new Server({ port }, compiler);
+
+    await server.start();
+    const first = server.server;
+    await server.stop();
+    await server.start();
+
+    try {
+      t.assert.strictEqual(taps, 1);
+      t.assert.notStrictEqual(server.server, first);
+      t.assert.strictEqual(
+        transport({ client: "client.js" }).server,
+        server.server,
+      );
+    } finally {
+      await server.stop();
+    }
+  });
+
   it("should keep the lazy compilation backend's own server on port 0", async (t) => {
     const compiler = webpack(config);
     /** @type {((options: { client: string }) => { client: string, server?: unknown }) | undefined} */
