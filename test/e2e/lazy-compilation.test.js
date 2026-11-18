@@ -146,9 +146,46 @@ describe("lazy compilation", () => {
       t.assert.strictEqual(options.urlBase, `http://localhost:${port}`);
       t.assert.strictEqual(options.client, "client.js");
 
-      const own = { client: "client.js", listen: { port: 1 } };
+      for (const own of [
+        { client: "client.js", listen: { port: 1 } },
+        { client: "client.js", listen: 0 },
+      ]) {
+        t.assert.strictEqual(backendOptions(own), own);
+      }
+    } finally {
+      await server.stop();
+    }
+  });
 
-      t.assert.strictEqual(backendOptions(own), own);
+  it("should keep the lazy compilation backend's own server on port 0", async (t) => {
+    const compiler = webpack(config);
+    /** @type {((options: { client: string }) => { client: string, server?: unknown }) | undefined} */
+    let backendOptions;
+    compiler.webpack = {
+      ...webpack,
+      experiments: {
+        ...webpack.experiments,
+        hmr: {
+          LazyCompilationPlugin: {
+            getCompilerHooks: () => ({
+              backendOptions: {
+                tap: (name, fn) => {
+                  backendOptions = fn;
+                },
+              },
+            }),
+          },
+        },
+      },
+    };
+    const server = new Server({ port: 0 }, compiler);
+
+    await server.start();
+
+    try {
+      const options = { client: "client.js" };
+
+      t.assert.strictEqual(backendOptions(options), options);
     } finally {
       await server.stop();
     }
