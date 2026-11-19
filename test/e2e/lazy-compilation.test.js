@@ -143,10 +143,17 @@ describe("lazy compilation", () => {
       t.assert.strictEqual(options.urlBase, `http://localhost:${port}`);
       t.assert.strictEqual(options.client, "client.js");
 
+      // A custom backend gets this server's options with it.
+      const backend = () => {};
+      const custom = transport({ client: "client.js", backend });
+
+      t.assert.strictEqual(custom.backend, backend);
+      t.assert.strictEqual(custom.server, server.server);
+      t.assert.strictEqual(custom.urlBase, `http://localhost:${port}`);
+
       for (const own of [
         { client: "client.js", listen: { port: 1 } },
         { client: "client.js", listen: 0 },
-        () => {},
       ]) {
         t.assert.strictEqual(transport(own), own);
       }
