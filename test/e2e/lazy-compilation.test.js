@@ -2,6 +2,7 @@ import { describe, it } from "node:test";
 
 import webpack from "webpack";
 import Server from "../../lib/Server.js";
+import config from "../fixtures/client-config/webpack.config.js";
 import lazyCompilationMultipleEntriesConfig from "../fixtures/lazy-compilation-multiple-entries/webpack.config.js";
 import lazyCompilationSingleEntryConfig from "../fixtures/lazy-compilation-single-entry/webpack.config.js";
 import runBrowser from "../helpers/run-browser.js";
@@ -104,6 +105,129 @@ describe("lazy compilation", () => {
       t.assert.snapshot(pageErrors);
     } finally {
       await browser.close();
+      await server.stop();
+    }
+  });
+
+  it("should serve the lazy compilation backend from its own server", async (t) => {
+    const compiler = webpack(config);
+    /** @type {((options: { client: string, listen?: { port: number } }) => { client: string, server?: unknown, urlBase?: string }) | undefined} */
+    let transport;
+    // The installed webpack may predate the hook, so a stand-in provides it.
+    compiler.webpack = {
+      ...webpack,
+      hmr: {
+        LazyCompilationPlugin: {
+          getCompilerHooks: (hookCompiler) => {
+            t.assert.strictEqual(hookCompiler, compiler);
+
+            return {
+              transport: {
+                tap: (name, fn) => {
+                  transport = fn;
+                },
+              },
+            };
+          },
+        },
+      },
+    };
+    const server = new Server({ port }, compiler);
+
+    await server.start();
+
+    try {
+      const options = transport({ client: "client.js" });
+
+      t.assert.strictEqual(options.server, server.server);
+      t.assert.strictEqual(options.urlBase, `http://localhost:${port}`);
+      t.assert.strictEqual(options.client, "client.js");
+
+      // A custom backend gets this server's options with it.
+      const backend = () => {};
+      const custom = transport({ client: "client.js", backend });
+
+      t.assert.strictEqual(custom.backend, backend);
+      t.assert.strictEqual(custom.server, server.server);
+      t.assert.strictEqual(custom.urlBase, `http://localhost:${port}`);
+
+      for (const own of [
+        { client: "client.js", listen: { port: 1 } },
+        { client: "client.js", listen: 0 },
+      ]) {
+        t.assert.strictEqual(transport(own), own);
+      }
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it("should serve the lazy compilation backend from the server it restarts on", async (t) => {
+    const compiler = webpack(config);
+    /** @type {((options: { client: string }) => { client: string, server?: unknown }) | undefined} */
+    let transport;
+    let taps = 0;
+    compiler.webpack = {
+      ...webpack,
+      hmr: {
+        LazyCompilationPlugin: {
+          getCompilerHooks: () => ({
+            transport: {
+              tap: (name, fn) => {
+                taps++;
+                transport = fn;
+              },
+            },
+          }),
+        },
+      },
+    };
+    const server = new Server({ port }, compiler);
+
+    await server.start();
+    const first = server.server;
+    await server.stop();
+    await server.start();
+
+    try {
+      t.assert.strictEqual(taps, 1);
+      t.assert.notStrictEqual(server.server, first);
+      t.assert.strictEqual(
+        transport({ client: "client.js" }).server,
+        server.server,
+      );
+    } finally {
+      await server.stop();
+    }
+  });
+
+  it("should keep the lazy compilation backend's own server on port 0", async (t) => {
+    const compiler = webpack(config);
+    /** @type {((options: { client: string }) => { client: string, server?: unknown }) | undefined} */
+    let transport;
+    compiler.webpack = {
+      ...webpack,
+      hmr: {
+        LazyCompilationPlugin: {
+          getCompilerHooks: () => ({
+            transport: {
+              tap: (name, fn) => {
+                transport = fn;
+              },
+            },
+          }),
+        },
+      },
+    };
+    const server = new Server({ port: 0 }, compiler);
+
+    await server.start();
+
+    try {
+      const options = { client: "client.js" };
+
+      t.assert.strictEqual(transport(options), options);
+    } finally {
       await server.stop();
     }
   });

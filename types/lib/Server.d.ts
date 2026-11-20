@@ -1770,6 +1770,13 @@ declare class Server<
   server: S | undefined;
   isTlsServer: boolean | undefined;
   /**
+   * Serves webpack's lazy compilation from this server, so it shares the host,
+   * port and protocol, where the compiler's webpack has the hook for it.
+   * @private
+   * @returns {Promise<void>}
+   */
+  private setupLazyCompilation;
+  /**
    * The hot options handed to webpack-dev-middleware.
    *
    * A `webSocketServer` naming an implementation of its own — a class, or a
