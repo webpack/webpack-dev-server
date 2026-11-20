@@ -1,7 +1,7 @@
 export function validate(
-  data: any,
+  l: any,
   {
-    instancePath,
+    instancePath: v,
     parentData,
     parentDataProperty,
     rootData,
@@ -9,12 +9,12 @@ export function validate(
     instancePath?: string | undefined;
     rootData?: any;
   },
-): boolean;
-export default validate10;
-declare function validate10(
-  data: any,
+): any;
+export default L;
+declare function L(
+  l: any,
   {
-    instancePath,
+    instancePath: v,
     parentData,
     parentDataProperty,
     rootData,
@@ -22,4 +22,4 @@ declare function validate10(
     instancePath?: string | undefined;
     rootData?: any;
   },
-): boolean;
+): any;
