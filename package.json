@@ -48,7 +48,7 @@
     "lint": "npm-run-all -l -p \"lint:**\"",
     "fix:code": "npm run lint:code -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
-    "fix": "npm-run-all -l fix:code fix:schema-check fix:prettier",
+    "fix": "npm-run-all -l fix:schema fix:code fix:prettier",
     "validate:changeset": "node .changeset/changeset-validate.mjs",
     "build:cjs": "rimraf -g ./dist/* && babel lib --out-dir dist --env-name cjs --copy-files --no-copy-ignored && node ./scripts/finalize-cjs-build.mjs",
     "build:client": "node ./scripts/build-client.mjs",
@@ -60,8 +60,8 @@
     "test": "npm run test:coverage",
     "pretest": "npm run lint",
     "prepare": "husky && npm run build",
-    "lint:schema-check": "node ./scripts/generate-schema-check.mjs --check",
-    "fix:schema-check": "node ./scripts/generate-schema-check.mjs"
+    "lint:schema": "schema-utils precompile --check --minify lib/options.json",
+    "fix:schema": "schema-utils precompile --minify lib/options.json"
   },
   "dependencies": {
     "@types/bonjour": "^3.5.13",
@@ -82,7 +82,7 @@
     "launch-editor": "^2.14.1",
     "open": "^11.0.0",
     "p-retry": "^8.0.0",
-    "schema-utils": "^4.3.3",
+    "schema-utils": "^4.8.5",
     "selfsigned": "^5.5.0",
     "serve-index": "^1.9.2",
     "tinyglobby": "^0.2.15",
@@ -103,7 +103,6 @@
     "@types/picomatch": "^4.0.2",
     "@types/trusted-types": "^2.0.7",
     "acorn": "^8.14.0",
-    "ajv": "^8.20.0",
     "babel-loader": "^10.0.0",
     "babel-plugin-transform-import-meta": "^3.0.0",
     "connect": "^3.7.0",
@@ -142,7 +141,7 @@
     "tcp-port-used": "^1.0.2",
     "typescript": "^5.7.2",
     "wait-for-expect": "^4.0.0",
-    "webpack": "^5.108.0",
+    "webpack": "^5.113.0",
     "webpack-cli": "^7.2.1",
     "webpack-merge": "^6.0.1"
   },
